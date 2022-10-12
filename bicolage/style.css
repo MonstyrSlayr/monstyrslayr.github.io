@@ -154,5 +154,22 @@ h2
 {
     text-align: center;
     max-width: 25vw;
-    margin: 0vh 4vw;
+    margin: 0vh 1vw;
+}
+
+@media only screen and (max-width: 750px)
+{
+    .author
+    {
+        text-align: center;
+        max-width: 45vw;
+        margin: 4vh 4vw;
+    }
+
+    #brigaders
+    {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 }
