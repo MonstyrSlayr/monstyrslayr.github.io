@@ -1,8 +1,9 @@
+let r = document.querySelector(':root');
 let symbolsDiv = document.getElementById("allSymbols");
-
 let demSymbols = symbols.slice(0);
-
 let cols = document.getElementsByClassName("column");
+let isDarkMode = false;
+let darkModeToggle = document.getElementById("darkModeToggle");
 
 function createDivs()
 {
@@ -194,5 +195,30 @@ for (var i = 0; i < cols.length; i++)
                 createDivs();
             }
         break;
+    }
+}
+
+darkModeToggle.onclick = function()
+{
+    isDarkMode = !isDarkMode;
+
+    changeDarkMode();
+}
+
+function changeDarkMode()
+{
+    if (isDarkMode)
+    {
+        r.style.setProperty('--light-bg-color', '#122950');
+        r.style.setProperty('--light-bg-select', '#36376a');
+
+        darkModeToggle.src = "./img/moon.png";
+    }
+    else
+    {
+        r.style.setProperty('--light-bg-color', '#ff8300');
+        r.style.setProperty('--light-bg-select', '#ffa320');
+
+        darkModeToggle.src = "./img/sun.png";
     }
 }

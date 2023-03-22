@@ -1,6 +1,7 @@
 :root
 {
     --light-bg-color: #ff8300;
+    --light-bg-select: #ffa320;
 }
 
 *
@@ -384,7 +385,7 @@ h3
 .emailToggle:hover
 {
     cursor: pointer;
-    background-color: #ffa320;
+    background-color: var(--light-bg-select);
 }
 
 .emailHeader

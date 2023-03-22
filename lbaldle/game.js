@@ -44,8 +44,8 @@ symbolSubmit.onclick = function()
         symbolInput.value = solution.name;
         daGuessedSymbol = solution;
         winDiv.style.display = "block";
-        gameOverFunc();
         addGuess();
+        gameOverFunc();
 
         var daEmail;
 
@@ -143,6 +143,14 @@ symbolSubmit.onclick = function()
     }
 }
 
+darkModeToggle.onclick = function()
+{
+    isDarkMode = !isDarkMode;
+
+    changeDarkMode();
+}
+
 playAgainButton.onclick = function () {newGame();};
 
+changeDarkMode();
 newGame();

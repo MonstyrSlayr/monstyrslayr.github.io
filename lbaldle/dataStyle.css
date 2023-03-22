@@ -2,6 +2,7 @@
 {
     cursor: pointer;
     color: cyan;
+    background-color: var(--light-bg-select);
 }
 
 .hint

@@ -1,5 +1,7 @@
 //initializing all the variables and functions here because thicc file
 //VARIABLES----------------------------------------------------------------------------
+let r = document.querySelector(':root');
+
 let solution = null;
 let solutionNum = null;
 
@@ -35,6 +37,8 @@ let emailsRevealed = false;
 let noEmailsDiv = document.getElementById("noEmails");
 
 let isStoryMode = false;
+let isDarkMode = false;
+let darkModeToggle = document.getElementById("darkModeToggle");
 
 let possibleEmails =
 {
@@ -399,4 +403,22 @@ function gameOverFunc()
 
     //console.log(finishEmojis);
     finishEmojisDiv.innerHTML = finishEmojis;
+}
+
+function changeDarkMode()
+{
+    if (isDarkMode)
+    {
+        r.style.setProperty('--light-bg-color', '#122950');
+        r.style.setProperty('--light-bg-select', '#36376a');
+
+        darkModeToggle.src = "./img/moon.png";
+    }
+    else
+    {
+        r.style.setProperty('--light-bg-color', '#ff8300');
+        r.style.setProperty('--light-bg-select', '#ffa320');
+
+        darkModeToggle.src = "./img/sun.png";
+    }
 }
