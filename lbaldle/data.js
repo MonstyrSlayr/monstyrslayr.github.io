@@ -1,9 +1,17 @@
+import {emailUpdates} from "./updates.js";
+import {getCookie, setCookie} from "./utils.js";
+
 let r = document.querySelector(':root');
 let symbolsDiv = document.getElementById("allSymbols");
 let demSymbols = symbols.slice(0);
 let cols = document.getElementsByClassName("column");
 let isDarkMode = false;
 let darkModeToggle = document.getElementById("darkModeToggle");
+
+if (getCookie("darkMode", false) == "")
+{
+    setCookie("darkMode", "light", 365, false);
+}
 
 function createDivs()
 {
@@ -202,8 +210,13 @@ darkModeToggle.onclick = function()
 {
     isDarkMode = !isDarkMode;
 
+    setCookie("darkMode", (isDarkMode ? "dark" : "light"), 365, false);
+
     changeDarkMode();
 }
+
+isDarkMode = (getCookie("darkMode", false) == "dark" ? true : false);
+changeDarkMode();
 
 function changeDarkMode()
 {

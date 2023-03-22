@@ -65,6 +65,8 @@
             </div>
         <br>
 
+        <p id="dupDetected">You got all checks, but the incorrect symbol. <a href="./duplicates.html">Check out the duplicate symbol log.</a></p>
+
         <form id="guessform" autocomplete="off" onsubmit="return false;">
             <div class="autocomplete">
                 <input class="guess_input" id="guess" type="text" name="guess" placeholder="Guess a symbol">
@@ -93,8 +95,10 @@
 
     <div id="notMain">
         <div id="emailToggleDiv">
-            <button id="emailToggle" class="emailToggle"><img id="emailCheck" class="emailCheck" src="./img/dud.png"></button>
-            <label id="emailToggleLabel">New Email</label>
+            <div id="emailToggleDivReal">
+                <button id="emailToggle" class="emailToggle"><img id="emailCheck" class="emailCheck" src="./img/dud.png"></button>
+                <label id="emailToggleLabel">New Email</label>
+            </div>
             <button id="emailToggle" class="emailToggle"><img id="darkModeToggle" class="emailCheck" src="./img/sun.png"></button>
         </div>
         <div id="emails">
@@ -103,8 +107,9 @@
     </div>
 
     <script src="symbols.js"></script>
+    <script src="updates.js" type="module"></script>
     <script src="init.js"></script>
-    <script src="game.js"></script>
+    <script src="game.js" type="module"></script>
     
     </body>
 </html>

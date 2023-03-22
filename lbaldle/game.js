@@ -1,7 +1,9 @@
+import {emailUpdates} from "./updates.js";
+import {getCookie, setCookie} from "./utils.js";
+
 emailToggle.onclick = function()
 {
     showEmails = !showEmails;
-    console.log(window.screen.width);
 
     if (showEmails)
     {
@@ -44,6 +46,7 @@ symbolSubmit.onclick = function()
         symbolInput.value = solution.name;
         daGuessedSymbol = solution;
         winDiv.style.display = "block";
+        dupDetected.style.display = "none";
         addGuess();
         gameOverFunc();
 
@@ -147,10 +150,19 @@ darkModeToggle.onclick = function()
 {
     isDarkMode = !isDarkMode;
 
+    setCookie("darkMode", (isDarkMode ? "dark" : "light"), 365, false);
+
     changeDarkMode();
 }
 
 playAgainButton.onclick = function () {newGame();};
 
+isDarkMode = (getCookie("darkMode", false) == "dark" ? true : false);
 changeDarkMode();
 newGame();
+
+for (var i = 0; i < emailUpdates.length; i++)
+{
+    var daEmail = new Email(emailUpdates[i].desc, "Monstyr_McMonstyrSlayr@bouncy.mail", emailUpdates[i].updateName);
+    emailsDiv.prepend(daEmail.div);
+}

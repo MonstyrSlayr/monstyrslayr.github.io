@@ -1,0 +1,52 @@
+#dupSymbols
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dupSymbIndiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+}
+
+.dupSymbIndiv p
+{
+    padding: 1%;
+    padding-left: 5%;
+}
+
+.symbol
+{
+    width: 10%;
+}
+
+.hint:hover
+{
+    cursor: pointer;
+    color: cyan;
+    background-color: var(--light-bg-select);
+}
+
+.hint
+{
+    border: 4px solid black;
+    background-color: var(--light-bg-color);
+}
+
+.notIncluded:hover
+{
+    cursor: pointer;
+    color: cyan;
+    background-color: red;
+}
+
+.notIncluded
+{
+    border: 4px dashed black;
+    background-color: red;
+}

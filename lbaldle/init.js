@@ -40,6 +40,8 @@ let isStoryMode = false;
 let isDarkMode = false;
 let darkModeToggle = document.getElementById("darkModeToggle");
 
+let dupDetected = document.getElementById("dupDetected");
+
 let possibleEmails =
 {
     firstGuess:
@@ -124,7 +126,7 @@ const EMOJ =
 
 class Email
 {
-    constructor (body = ["What's up?", "This is a test email.", "Sincerely,", "-The Gamemaster"], emailAddress = "Gamey_McGamer@bouncy.mail")
+    constructor (body = ["What's up?", "This is a test email.", "Sincerely,", "-The Gamemaster"], emailAddress = "Gamey_McGamer@bouncy.mail", title = "New Email")
     {
         this.div = document.createElement("div");
         this.div.classList = ["email"];
@@ -145,7 +147,7 @@ class Email
         this.div.append(notifDiv);
 
         var daNotif = document.createElement("h3");
-        daNotif.innerHTML = "New Email";
+        daNotif.innerHTML = title;
         notifDiv.append(daNotif);
 
         var bodyDiv = document.createElement("div");
@@ -236,6 +238,8 @@ function newGame()
     lostDiv.style.display = "none";
     resultsDiv.style.display = "none";
     finishEmojis = "";
+    dupDetected.style.display = "none";
+    symbolInput.value = "";
 
     var daEmail;
 
@@ -348,6 +352,12 @@ function addGuess()
     daNewRow = makeRowDiv(new LbaldleRow(daGuessedSymbol, elRarity, elCount, elSymbol, elApp, elItemApp));
     daNewRow.classList = ["row"];
     guessesDiv.append(daNewRow);
+
+    if (elRarity == EMOJ.CHECK && elCount == EMOJ.CHECK && elSymbol == EMOJ.CHECK && elApp == EMOJ.CHECK && elItemApp == EMOJ.CHECK && daGuessedSymbol != solution)
+    {
+        dupDetected.style.display = "block";
+    }
+
     daGuessedSymbol = null;
 
     if (guesses >= totalGuesses && !gameOver)
