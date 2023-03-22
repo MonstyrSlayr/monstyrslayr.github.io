@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta name="description" content="A Wordle-like where you need to guess the Luck Be a Landlord symbol.">
+        <meta name="keywords" content="Luck Be a Landlord, Wordle">
+        <meta name="author" content="MonstyrSlayr">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LBaLdle</title>
+    </head>
+    <body>
+        <h2>LBaLdle</h2>
+        <p>
+            A Wordle-like where you need to guess the Luck Be a Landlord symbol.
+        </p>
+
+        <div id="mainGame">
+            <div class="guesses">
+                <div class="row" id="hinttitles">
+                    <div class='column' id="symbolRow">
+                        <p class="hint">Symbol</p>
+                    </div>
+
+                    <div class='column' id="rarityRow">
+                        <p class="hint">Rarity</p>
+                    </div>
+
+                    <div class='column' id="coinRow">
+                        <p class="hint">Coin Payout</p>
+                    </div>
+
+                    <div class='column' id="countRow">
+                        <p class="hint">Symbol Count in Description</p>
+                    </div>
+
+                    <div class='column' id="appRow">
+                        <p class="hint">Appearences in Symbol Descriptions</p>
+                    </div>
+
+                    <div class='column' id="itemAppRow">
+                        <p class="hint">Appearences in Item Descriptions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="guesses" class="guesses">
+
+            </div>
+        <br>
+
+        <form id="guessform" autocomplete="off" onsubmit="return false;">
+            <div class="autocomplete">
+                <input class="guess_input" id="guess" type="text" name="guess" placeholder="Guess a symbol">
+            </div>
+
+            <input id="guess_submit" class="guess_input" type="submit" value="Submit"><br>
+
+            <!-- <a class="type-block hintbtn" id="toggleinfo" href="#" title="Show Symbol info in autocomplete entries">Symbol Data ON</a> -->
+
+            <p>Don't want to blindly guess? <a href="./symbols.html" target="_blank">Check out the symbol dictionary!</a></p>
+        </form>
+
+        <div id="results" style="display: none;">
+            <span id="won" style="display: none;">You won!</span>
+            <span id="lost" style="display: none;">You lost</span>
+            <span>The symbol was <span id="secretSymbol"></span></span><br>
+            <p id="finishEmojisDiv"></p>
+            <input type="submit" id="playAgainButton" class="guess_input" value="Play Again">
+        </div>
+    </div>
+
+    <div id="notMain">
+        <div id="emailToggleDiv">
+            <button id="emailToggle" class="emailToggle"><img id="emailCheck" class="emailCheck" src="./img/dud.png"></button>
+            <label id="emailToggleLabel">New Email</label>
+        </div>
+        <div id="emails">
+            <p id="noEmails">No emails to display.</p>
+        </div>
+    </div>
+
+    <script src="symbols.js"></script>
+    <script src="init.js"></script>
+    <script src="game.js"></script>
+    
+    </body>
+</html>

@@ -1,0 +1,33 @@
+.hint:hover
+{
+    cursor: pointer;
+    color: cyan;
+}
+
+.hint
+{
+    border: 4px solid black;
+    background-color: var(--light-bg-color);
+}
+
+#hinttitles
+{
+    width: 70%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#allSymbols
+{
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.symbolText
+{
+    position: relative;
+    margin-top: -40px;
+}
