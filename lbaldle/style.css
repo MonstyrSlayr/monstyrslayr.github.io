@@ -445,6 +445,12 @@ h3
     color: red;
 }
 
+#lilHooligan
+{
+    width: 1.75rem;
+    image-rendering: pixelated;
+}
+
 @media screen and (max-width: 450px) {
     body {
         font-size: 24px;

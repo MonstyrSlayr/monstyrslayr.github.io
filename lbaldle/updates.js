@@ -12,7 +12,8 @@ class Update
 let updates =
 [
     new Update("Game Release", ["The game has been released!"]),
-    new Update("Duplicate Symbol Log", ["Added a duplicate symbol log. Some symbols have exactly the same stats, hopefully the log will clarify that. A notification will show up when you submit a duplicate symbol.", "Also added update emails. These emails should disappear when you reload, but if they keep popping up, be sure to message me!"])
+    new Update("Duplicate Symbol Log", ["Added a duplicate symbol log. Some symbols have exactly the same stats, hopefully the log will clarify that. A notification will show up when you submit a duplicate symbol.", "Also added update emails. These emails should disappear when you reload, but if they keep popping up, be sure to message me!"]),
+    new Update("Saving Game Progress", ["In preparation for the Daily, your game will save when you reload the page now :) be sure to report any bugs"]),
 ]
 
 export let emailUpdates = [];
