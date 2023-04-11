@@ -271,15 +271,12 @@ function newGame()
     }
 
     emailsDiv.prepend(daEmail.div);
-
-    if (!emailsRevealed)
-    {
-        //reveal the emails
-        showEmails = false;
-        emailToggle.onclick();
-        emailsRevealed = true;
-    }
 }
+
+//reveal the emails
+showEmails = false;
+emailToggle.onclick();
+emailsRevealed = true;
 
 function makeRowDiv(row)
 {
