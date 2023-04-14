@@ -54,6 +54,7 @@ let achievementsLoaded = false;
 let symbolInfoDiv = document.getElementById("symbolInfo");
 let guessPreview = document.getElementById("guessPreview");
 let hasHovered = false;
+let win = false;
 
 let possibleEmails =
 {
@@ -245,6 +246,7 @@ class LbaldleRow
 
 function newGame()
 {
+    win = false;
     gameOver = false;
     guessesDiv.innerHTML = "";
     symbolInput.disabled = false;
@@ -474,7 +476,7 @@ function addGuess()
 
     daGuessedSymbol = null;
 
-    if (guesses >= totalGuesses && !gameOver)
+    if (guesses >= totalGuesses && !gameOver && !win)
     {
         gameOverFunc();
         lostDiv.style.display = "block";
@@ -672,6 +674,7 @@ symbolSubmit.onclick = function()
             daGuessedSymbolNum = solutionNum;
             winDiv.style.display = "block";
             dupDetected.style.display = "none";
+            win = true;
             saveGuess(solutionNum);
             addGuess();
             gameOverFunc();
@@ -806,60 +809,67 @@ changeDarkMode();
 
 function loadDaGame()
 {
-    if (daily)
-    {
-        if (getCookie("streak", true) == "")
-        {
-            setCookie("streak", "0", 365, true);
-            dailyStreak = 0;
-        }
-        else
-        {
-            dailyStreak = parseInt(getCookie("streak", true));
-        }
-
-        streakNum.innerHTML = dailyStreak.toString();
-    }
-
-    if (getCookie("solutionNum", daily) == "")
+    if (getCookie("guessNumArr", daily) == "")
     {
         newGame();
     }
     else
     {
-        var loadGame = !daily;
-
         if (daily)
         {
-            if (getLocalDateDay() == getCookie("date", true))
+            if (getCookie("streak", true) == "")
             {
-                loadGame = true;
+                setCookie("streak", "0", 365, true);
+                dailyStreak = 0;
             }
             else
             {
-                newGame();
+                dailyStreak = parseInt(getCookie("streak", true));
             }
+
+            streakNum.innerHTML = dailyStreak.toString();
         }
 
-        if (loadGame)
+        if (getCookie("solutionNum", daily) == "")
         {
+            newGame();
+        }
+        else
+        {
+            var loadGame = !daily;
+
             if (daily)
             {
-                dailyDone = getCookie("complete", true) == "true";
+                if (getLocalDateDay() == getCookie("date", true))
+                {
+                    loadGame = true;
+                }
+                else
+                {
+                    newGame();
+                }
             }
 
-            //yo we loading the save!!!
-            solutionNum = parseInt(getCookie("solutionNum", daily))
-            solution = symbols[solutionNum];
-
-            var daGuessNumArr = getCookie("guessNumArr", daily).split(",");
-
-            for (var i = 0; i < daGuessNumArr.length - 1; i++)
+            if (loadGame)
             {
-                var daNum = parseInt(daGuessNumArr[i]);
+                if (daily)
+                {
+                    dailyDone = getCookie("complete", true) == "true";
+                }
 
-                symbolInput.value = symbols[daNum].name;
-                symbolSubmit.onclick();
+                //yo we loading the save!!!
+                solutionNum = parseInt(getCookie("solutionNum", daily))
+                solution = symbols[solutionNum];
+
+                var daGuessNumArr = getCookie("guessNumArr", daily).split(",");
+
+                for (var i = 0; i < daGuessNumArr.length - 1; i++)
+                {
+                    var daNum = parseInt(daGuessNumArr[i]);
+
+                    symbolInput.value = symbols[daNum].name;
+                    symbolSubmit.onclick();
+                }
             }
         }
     }
