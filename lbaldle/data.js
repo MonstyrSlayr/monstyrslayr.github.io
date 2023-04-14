@@ -265,7 +265,8 @@ function changeDarkMode()
 $.ajax
 (
     {
-        url: "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=1404850&format=json",
+        //url: "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=1404850&format=json",
+        url: "./steamAchievements.json",
         type: "GET",
     }
 ).done(function(response) 
