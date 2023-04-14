@@ -23,11 +23,12 @@ function regenDivs()
         var daSymbol = symbols[i];
         daSymbol.lbalNum = 0;
 
-        daSymbol.lbalNum += (daSymbol.rarity * 100000000) * (cols[0].included ? 1 : 0);
-        daSymbol.lbalNum += (daSymbol.coin * 1000000) * (cols[1].included ? 1 : 0);
-        daSymbol.lbalNum += (daSymbol.symbolCount * 10000) * (cols[2].included ? 1 : 0);
-        daSymbol.lbalNum += (daSymbol.symbolApp * 100) * (cols[3].included ? 1 : 0);
-        daSymbol.lbalNum += (daSymbol.itemApp * 1) * (cols[4].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.rarity * 10000000000) * (cols[0].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.coin * 100000000) * (cols[1].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.symbolCount * 1000000) * (cols[2].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.symbolApp * 10000) * (cols[3].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.itemApp * 100) * (cols[4].included ? 1 : 0);
+        daSymbol.lbalNum += (daSymbol.achievePerc * 1) * (cols[5].included ? 1 : 0);
 
         var makeNewEntry = true;
 
@@ -68,7 +69,8 @@ function regenDivs()
             lbalCode.innerHTML += (cols[1].included ? daArr[0].coin : "X") + "|";
             lbalCode.innerHTML += (cols[2].included ? daArr[0].symbolCount : "X") + "|";
             lbalCode.innerHTML += (cols[3].included ? daArr[0].symbolApp : "X") + "|";
-            lbalCode.innerHTML += (cols[4].included ? daArr[0].itemApp : "X");
+            lbalCode.innerHTML += (cols[4].included ? daArr[0].itemApp : "X") + "|";
+            lbalCode.innerHTML += (cols[5].included ? daArr[0].achievePerc : "X");
             myDiv.append(lbalCode);
 
             for (var j = 0; j < daArr.length; j++)
@@ -107,7 +109,7 @@ for (var i = 0; i < cols.length; i++)
     }
 }
 
-regenDivs();
+//regenDivs();
 
 darkModeToggle.onclick = function()
 {
@@ -155,3 +157,47 @@ function rarityName(rarity)
             return "SPECIAL";
     }
 }
+
+$.ajax
+(
+    {
+        url: "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=1404850&format=json",
+        type: "GET",
+    }
+).done(function(response) 
+    {
+        //console.log(response);
+        var daList = response.achievementpercentages.achievements;
+
+        for (var i = 0; i < symbols.length; i++)
+        {
+            var found = false;
+
+            for (var j = 0; j < daList.length; j++)
+            {
+                if (symbols[i].achieveName == daList[j].name)
+                {
+                    symbols[i].achievePerc = Math.round(daList[j].percent * 100)/100;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                symbols[i].achievePerc = 0; //symbols without achievements have an achievement percentage of zero
+            }
+        }
+
+        regenDivs();
+    }
+).fail(function()
+    {
+        for (var i = 0; i < symbols.length; i++)
+        {
+            symbols[i].achieveDesc = "We were unable to get the Steam achievement percentages. Try reloading the page, or if the issue persists, contact MonstyrSlayr.";
+        }
+
+        regenDivs();
+    }
+);

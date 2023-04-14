@@ -9,7 +9,7 @@ let solutionNum = null;
 let symbolInput = document.getElementById("guess");
 let symbolSubmit = document.getElementById("guess_submit");
 
-let totalGuesses = 10;
+let totalGuesses = 8;
 let guesses = 0;
 let guessNumArr = [];
 
@@ -49,6 +49,11 @@ let isDarkMode = false;
 let darkModeToggle = document.getElementById("darkModeToggle");
 
 let dupDetected = document.getElementById("dupDetected");
+
+let achievementsLoaded = false;
+let symbolInfoDiv = document.getElementById("symbolInfo");
+let guessPreview = document.getElementById("guessPreview");
+let hasHovered = false;
 
 let possibleEmails =
 {
@@ -114,7 +119,7 @@ let possibleEmails =
 
     gameInit:
     [
-        ["Welcome to LBaLdle! I hope you enjoy the game. Guess the correct symbol based on the hints! Your solution is due in <span class='guessCount'>10 guesses</span>.",
+        ["Welcome to LBaLdle! I hope you enjoy the game. Guess the correct symbol based on the hints! Your solution is due in <span class='guessCount'>8 guesses</span>.",
             "Sincerely,",
                 "-The Gamemaster"],
     ],
@@ -127,7 +132,8 @@ const EMOJ =
     CHECK: "./img/confirm.png",
     DUD: "./img/dud.png",
     UP: "./img/golden_arrow2.png",
-    DOWN: "./img/bronze_arrow7.png"
+    DOWN: "./img/bronze_arrow7.png",
+    MISSING: "./img/missing.png"
 }
 
 //CLASSES-------------------------------------------------------------------------
@@ -221,7 +227,7 @@ class SymbolElement extends Image
 
 class LbaldleRow
 {
-    constructor (symbol, rarity, coin, symbolCount, symbolApp, itemApp)
+    constructor (symbol, rarity, coin, symbolCount, symbolApp, itemApp, perc)
     {
         this.symbol = symbol;
         this.rarity = rarity;
@@ -229,15 +235,16 @@ class LbaldleRow
         this.symbolCount = symbolCount;
         this.symbolApp = symbolApp;
         this.itemApp = itemApp;
+        this.perc = perc;
     }
 }
 
 //FUNCTIONS----------------------------------------------------------
 
+
+
 function newGame()
 {
-    solutionNum = Math.floor(symbols.length * Math.random());
-    solution = symbols[solutionNum];
     gameOver = false;
     guessesDiv.innerHTML = "";
     symbolInput.disabled = false;
@@ -250,14 +257,24 @@ function newGame()
     symbolInput.value = "";
     guessNumArr = [];
 
-    setCookie("solutionNum", solutionNum.toString(), 365, daily);
-    setCookie("guessNumArr", "", 365, daily)
-
     if (daily)
     {
         setCookie("date", getLocalDateDay(), 365, true);
         setCookie("complete", "false", 365, true);
+
+        //the daily is generated based on the date (hopefully it should be the same with all browsers)
+        Math.seedrandom(getLocalDateDay());
+        solutionNum = Math.floor(symbols.length * Math.random());
+        solution = symbols[solutionNum];
     }
+    else
+    {
+        solutionNum = Math.floor(symbols.length * Math.random());
+        solution = symbols[solutionNum];
+    }
+
+    setCookie("solutionNum", solutionNum.toString(), 365, daily);
+    setCookie("guessNumArr", "", 365, daily)
 
     var daEmail;
 
@@ -267,16 +284,68 @@ function newGame()
     }
     else
     {
-        daEmail = new Email(["Welcome to LBaLdle! Guess the correct symbol based on the clues. You have <span class='guessCount'>10 guesses</span> to get the correct symbol."] , "");
+        if (daily)
+        {
+            daEmail = new Email(["Welcome to LBaLdle Daily! Guess the correct symbol based on the clues. You have <span class='guessCount'>8 guesses</span> to get the correct symbol. You only have one game per day, so guess wisely and don't lose your streak!"] , "");
+        }
+        else
+        {
+            daEmail = new Email(["Welcome to LBaLdle! Guess the correct symbol based on the clues. You have <span class='guessCount'>8 guesses</span> to get the correct symbol."] , "");
+        }
     }
 
     emailsDiv.prepend(daEmail.div);
 }
 
-//reveal the emails
-showEmails = false;
-emailToggle.onclick();
-emailsRevealed = true;
+function setInfoDiv(number)
+{
+    symbolInfoDiv.innerHTML = "";
+    symbolInfoDiv.style.display = "block";
+    hasHovered = true;
+
+    var daInfoName = document.createElement("h3");
+    daInfoName.innerHTML = symbols[number].name;
+    symbolInfoDiv.append(daInfoName);
+
+    var daInfoRarity = document.createElement("h3");
+    daInfoRarity.innerHTML = symbols[number].rarity;
+    switch (symbols[number].rarity)
+    {
+        case RARITY.COMMON:
+            daInfoRarity.innerHTML = "COMMON";
+            daInfoRarity.style.color = "#ffffff"
+            break;
+        case RARITY.UNCOMMON:
+            daInfoRarity.innerHTML = "UNCOMMON";
+            daInfoRarity.style.color = "#61d3e3"
+            break;
+        case RARITY.RARE:
+            daInfoRarity.innerHTML = "RARE";
+            daInfoRarity.style.color = "#fbf236"
+            break;
+        case RARITY.VERYRARE:
+            daInfoRarity.innerHTML = "VERY RARE";
+            daInfoRarity.style.color = "#7234bf"
+            break;
+        case RARITY.SPECIAL:
+            daInfoRarity.innerHTML = "SPECIAL";
+            daInfoRarity.style.color = "#e14a68"
+            break;
+    }
+    symbolInfoDiv.append(daInfoRarity);
+
+    var daInfoPara = document.createElement("p");
+    //if (!daily)
+    {
+        daInfoPara.innerHTML += "Base Coin Payout: " + symbols[number].coin;
+        daInfoPara.innerHTML += "<br>Symbols In Description: " + symbols[number].symbolCount;
+        daInfoPara.innerHTML += "<br>Appearances in Symbol Descriptions: " + symbols[number].symbolApp;
+        daInfoPara.innerHTML += "<br>Appearances in Item Descriptions: " + symbols[number].itemApp;
+        daInfoPara.innerHTML += "<br>Achievement Percentage: " + ((symbols[number].achievePerc == -1) ? "unknown" : (symbols[number].achievePerc + "%"));
+    }
+    daInfoPara.innerHTML += "<br>Achievement: " + symbols[number].achieveDesc;
+    symbolInfoDiv.append(daInfoPara);
+}
 
 function makeRowDiv(row)
 {
@@ -284,7 +353,18 @@ function makeRowDiv(row)
 
     var daSymbol = new SymbolElement(row.symbol.image);
     daSymbol.daImg = row.symbol.image;
+    daSymbol.daNumber = daGuessedSymbolNum;
     daDiv.append(daSymbol);
+
+    daSymbol.onmouseenter = function()
+    {
+        setInfoDiv(daSymbol.daNumber);
+    }
+
+    daSymbol.onmouseleave = function()
+    {
+        symbolInfoDiv.style.display = "none";
+    }
 
     var daRarity = new SymbolElement(row.rarity);
     daRarity.daImg = row.rarity;
@@ -305,6 +385,10 @@ function makeRowDiv(row)
     var daItemApps = new SymbolElement(row.itemApp);
     daItemApps.daImg = row.itemApp;
     daDiv.append(daItemApps);
+
+    var daPercs = new SymbolElement(row.perc);
+    daPercs.daImg = row.perc;
+    daDiv.append(daPercs);
 
     return daDiv;
 }
@@ -364,11 +448,26 @@ function addGuess()
         elItemApp = EMOJ.UP;
     }
 
-    var daNewRow = makeRowDiv(new LbaldleRow(daGuessedSymbol, elRarity, elCount, elSymbol, elApp, elItemApp));
+    //check achievement percentage
+    var elPerc = EMOJ.CHECK;
+    if (daGuessedSymbol.achievePerc == -1)
+    {
+        elPerc = EMOJ.MISSING;
+    }
+    else if (daGuessedSymbol.achievePerc > solution.achievePerc)
+    {
+        elPerc = EMOJ.DOWN;
+    }
+    else if (daGuessedSymbol.achievePerc < solution.achievePerc)
+    {
+        elPerc = EMOJ.UP;
+    }
+
+    var daNewRow = makeRowDiv(new LbaldleRow(daGuessedSymbol, elRarity, elCount, elSymbol, elApp, elItemApp, elPerc));
     daNewRow.classList = ["row"];
     guessesDiv.append(daNewRow);
 
-    if (elRarity == EMOJ.CHECK && elCount == EMOJ.CHECK && elSymbol == EMOJ.CHECK && elApp == EMOJ.CHECK && elItemApp == EMOJ.CHECK && daGuessedSymbol != solution)
+    if (elRarity == EMOJ.CHECK && elCount == EMOJ.CHECK && elSymbol == EMOJ.CHECK && elApp == EMOJ.CHECK && elItemApp == EMOJ.CHECK && (elPerc == EMOJ.CHECK || elPerc == EMOJ.MISSING) && daGuessedSymbol != solution)
     {
         dupDetected.style.display = "block";
     }
@@ -425,17 +524,15 @@ function gameOverFunc()
     resultsDiv.style.display = "block";
 
     //generate a wordle finishing thing whatever it's called ugggg
-    //🟩🟨🔽🔼⬛🟥
+    //🟩🟨🔽🔼⬛🟥❓❔
 
     for (var i = 0; i < guessesDiv.childNodes.length; i++)
     {
         var daRow = guessesDiv.childNodes[i];
-        //console.log(daRow);
 
         for (var j = 1; j < daRow.childNodes.length; j++)
         {
             var daEmoj = daRow.childNodes[j];
-            //console.log (daEmoj.src);
 
             switch (daEmoj.daImg)
             {
@@ -450,6 +547,9 @@ function gameOverFunc()
                     break;
                 case EMOJ.DOWN:
                     finishEmojis += "🔽";
+                    break;
+                case EMOJ.MISSING:
+                    finishEmojis += "❔";
                     break;
                 default:
                     finishEmojis += "⬛";
@@ -488,6 +588,8 @@ function changeDarkMode()
     }
 }
 
+//GAME----------------------------------------------
+
 emailToggle.onclick = function()
 {
     showEmails = !showEmails;
@@ -498,6 +600,7 @@ emailToggle.onclick = function()
         {
             emailToggleDiv.style.marginLeft = "33%";
             mainGame.style.width = "66%";
+            emailsDiv.style.width = "";
         }
         else
         {
@@ -515,6 +618,7 @@ emailToggle.onclick = function()
         if (window.screen.width > 900)
         {
             mainGame.style.width = "100%";
+            emailsDiv.style.width = "0px";
         }
         else
         {
@@ -525,15 +629,47 @@ emailToggle.onclick = function()
     }
 }
 
+function simplifyString(str)
+{
+    return str.toLowerCase().replace(/\s/g, '').replace("ñ", "n");
+}
+
+symbolInput.oninput = function()
+{
+    guessPreview.src = "";
+    for (var i = 0; i < symbols.length; i++)
+    {
+        var daSymbol = symbols[i];
+        if (simplifyString(symbolInput.value) == simplifyString(daSymbol.name))
+        {
+            guessPreview.src = daSymbol.image;
+            guessPreview.symbolNum = i;
+            break;
+        }
+    }
+}
+
+guessPreview.onmouseenter = function()
+{
+    setInfoDiv(guessPreview.symbolNum);
+}
+
+guessPreview.onmouseleave = function()
+{
+    symbolInfoDiv.style.display = "none";
+}
+
 symbolSubmit.onclick = function()
 {
+    guessPreview.src = "";
     if (!gameOver)
     {
-        if (symbolInput.value.toLowerCase().replace(/\s/g, '').replace("ñ", "n") == solution.name.toLowerCase().replace(/\s/g, '').replace("ñ", "n"))
+        if (simplifyString(symbolInput.value) == simplifyString(solution.name))
         {
             //you correct
             symbolInput.value = solution.name;
             daGuessedSymbol = solution;
+            daGuessedSymbolNum = solutionNum;
             winDiv.style.display = "block";
             dupDetected.style.display = "none";
             saveGuess(solutionNum);
@@ -562,7 +698,14 @@ symbolSubmit.onclick = function()
             }
             else
             {
-                daEmail = new Email(["You win! You got the symbol in <span class='guessCount'>" + guesses + " guesses</span>."], "");
+                if (daily)
+                {
+                    daEmail = new Email(["You win! You got the Daily symbol in <span class='guessCount'>" + guesses + " guesses</span>."], "");
+                }
+                else
+                {
+                    daEmail = new Email(["You win! You got the symbol in <span class='guessCount'>" + guesses + " guesses</span>."], "");
+                }
             }
 
             emailsDiv.prepend(daEmail.div);
@@ -573,7 +716,7 @@ symbolSubmit.onclick = function()
             //is it a symbol though
             for (var i = 0; i < symbols.length; i++)
             {
-                if (symbolInput.value.toLowerCase().replace(/\s/g, '').replace("ñ", "n") == symbols[i].name.toLowerCase().replace(/\s/g, '').replace("ñ", "n"))
+                if (simplifyString(symbolInput.value) == simplifyString(symbols[i].name))
                 {
                     daGuessedSymbol = symbols[i];
                     daGuessedSymbolNum = i;
@@ -629,7 +772,7 @@ symbolSubmit.onclick = function()
                 }
                 else
                 {
-                    if (totalGuesses - guesses != 1) daEmail = new Email([(totalGuesses - guesses) + " guesses remaining."], "");
+                    if (totalGuesses - guesses != 1) daEmail = new Email([(totalGuesses - guesses) + " guesses remaining." + ((!hasHovered && guesses == 3) ? "<br>By the way, did you know that you can hover over symbols to see their data?" : "")], "");
                     else daEmail = new Email(["1 guess remaining."], "");
                 }
 
@@ -648,71 +791,136 @@ darkModeToggle.onclick = function()
     changeDarkMode();
 }
 
-playAgainButton.onclick = function () {newGame();};
+playAgainButton.onclick = function ()
+{
+    newGame();
+}
+
+//reveal the emails
+showEmails = false;
+emailToggle.onclick();
+emailsRevealed = true;
 
 isDarkMode = (getCookie("darkMode", false) == "dark" ? true : false);
 changeDarkMode();
 
-if (daily)
+function loadDaGame()
 {
-    if (getCookie("streak", true) == "")
-    {
-        setCookie("streak", "0", 365, true);
-        dailyStreak = 0;
-    }
-    else
-    {
-        dailyStreak = parseInt(getCookie("streak", true));
-    }
-
-    streakNum.innerHTML = dailyStreak.toString();
-}
-
-if (getCookie("solutionNum", daily) == "")
-{
-    newGame();
-}
-else
-{
-    var loadGame = !daily;
-
     if (daily)
     {
-        if (getLocalDateDay() == getCookie("date", true))
+        if (getCookie("streak", true) == "")
         {
-            loadGame = true;
+            setCookie("streak", "0", 365, true);
+            dailyStreak = 0;
         }
         else
         {
-            newGame();
+            dailyStreak = parseInt(getCookie("streak", true));
+        }
+
+        streakNum.innerHTML = dailyStreak.toString();
+    }
+
+    if (getCookie("solutionNum", daily) == "")
+    {
+        newGame();
+    }
+    else
+    {
+        var loadGame = !daily;
+
+        if (daily)
+        {
+            if (getLocalDateDay() == getCookie("date", true))
+            {
+                loadGame = true;
+            }
+            else
+            {
+                newGame();
+            }
+        }
+
+        if (loadGame)
+        {
+            if (daily)
+            {
+                dailyDone = getCookie("complete", true) == "true";
+            }
+
+            //yo we loading the save!!!
+            solutionNum = parseInt(getCookie("solutionNum", daily))
+            solution = symbols[solutionNum];
+
+            var daGuessNumArr = getCookie("guessNumArr", daily).split(",");
+
+            for (var i = 0; i < daGuessNumArr.length - 1; i++)
+            {
+                var daNum = parseInt(daGuessNumArr[i]);
+
+                symbolInput.value = symbols[daNum].name;
+                symbolSubmit.onclick();
+            }
         }
     }
 
-    if (loadGame)
+    for (var i = 0; i < emailUpdates.length; i++)
     {
-        if (daily)
-        {
-            dailyDone = getCookie("complete", true) == "true";
-        }
-
-        //yo we loading the save!!!
-        solutionNum = parseInt(getCookie("solutionNum", daily))
-        solution = symbols[solutionNum];
-
-        var daGuessNumArr = getCookie("guessNumArr", daily).split(",");
-
-        for (var i = 0; i < daGuessNumArr.length - 1; i++)
-        {
-            var daNum = parseInt(daGuessNumArr[i]);
-
-            symbolInput.value = symbols[daNum].name;
-            symbolSubmit.onclick();
-        }
+        var daEmail = new Email(emailUpdates[i].desc, "Monstyr_McMonstyrSlayr@bouncy.mail", emailUpdates[i].updateName);
+        emailsDiv.prepend(daEmail.div);
     }
 }
 
-for (var i = 0; i < emailUpdates.length; i++)
+$.ajax
+(
+    {
+        url: "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=1404850&format=json",
+        type: "GET",
+    }
+).done(function(response) 
+    {
+        achievementsLoaded = true;
+        //console.log(response);
+        var daList = response.achievementpercentages.achievements;
+
+        for (var i = 0; i < symbols.length; i++)
+        {
+            var found = false;
+
+            for (var j = 0; j < daList.length; j++)
+            {
+                if (symbols[i].achieveName == daList[j].name)
+                {
+                    symbols[i].achievePerc = Math.round(daList[j].percent * 100)/100;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                symbols[i].achievePerc = 0; //symbols without achievements have an achievement percentage of zero
+            }
+        }
+
+        loadDaGame();
+    }
+).fail(function()
+    {
+        for (var i = 0; i < symbols.length; i++)
+        {
+            symbols[i].achieveDesc = "We were unable to get the Steam achievement percentages. Try reloading the page, or if the issue persists, contact MonstyrSlayr.";
+        }
+
+        var daEmail = new Email(["We were unable to get the Steam achievement percentages. Try reloading the page, or if the issue persists, contact MonstyrSlayr."], "Monstyr_McMonstyrSlayr@bouncy.mail", "Achievement Column Load Error");
+        emailsDiv.prepend(daEmail.div);
+
+        loadDaGame();
+    }
+);
+
+document.onmousemove = function(e)
 {
-    var daEmail = new Email(emailUpdates[i].desc, "Monstyr_McMonstyrSlayr@bouncy.mail", emailUpdates[i].updateName);
-    emailsDiv.prepend(daEmail.div);
+    symbolInfoDiv.style.left = e.clientX + 4 + 'px';
+    symbolInfoDiv.style.top = e.clientY + window.scrollY + 4 + 'px';
 }

@@ -195,10 +195,11 @@ input[type=submit]:active
     width: 100%;
 }
 
+/* 
 .row.in {
     opacity: 1;
     transform: translateY(10px);
-}
+} */
 
 .column {
     display: flex;
@@ -449,6 +450,57 @@ h3
 {
     width: 1.75rem;
     image-rendering: pixelated;
+}
+
+@property --p
+{
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+}
+
+@property --p2
+{
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+}
+
+#symbolInfo
+{
+    animation: infoBG 2s linear;
+    display: none;
+    position: absolute;
+    background: linear-gradient(180deg, #4a0b2c var(--p), #961757 var(--p2));
+    border: 4px solid black;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+@keyframes infoBG
+{
+	0%
+    {
+		--p: 100%;
+        --p2: 0%;
+	}
+	50%
+    {
+		--p: 50%;
+        --p2: 50%;
+	}
+	100%
+    {
+		--p: 0%;
+        --p2: 0%;
+	}
+}
+
+#guessPreview
+{
+    padding: 8px;
+    width: 10vw;
 }
 
 @media screen and (max-width: 450px) {

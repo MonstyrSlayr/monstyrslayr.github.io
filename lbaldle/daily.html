@@ -11,26 +11,28 @@
         <meta name="author" content="MonstyrSlayr">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta property="og:url" content="https://monstyrslayr.github.io/lbaldle/"/>
+        <meta property="og:url" content="https://monstyrslayr.github.io/lbaldle/daily.html"/>
         <meta property="og:type" content="game"/>
         <meta property="og:title" content="LBaLdle"/>
         <meta property="og:description" content="A Wordle-like where you need to guess the Luck Be a Landlord symbol."/>
-        <meta property="og:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/LBALDLE.png"/>
+        <meta property="og:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/LBALDLEDAILY.png"/>
         <meta property="og:locale" content="en_US"/>
 
-        <meta property="twitter:url" content="https://monstyrslayr.github.io/lbaldle/">
+        <meta property="twitter:url" content="https://monstyrslayr.github.io/lbaldle/daily.html">
         <meta property="twitter:title" content="LBaLdle">
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:description" content="A Wordle-like where you need to guess the Luck Be a Landlord symbol."/>
-        <meta property="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/LBALDLE.png"/>
+        <meta property="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/LBALDLEDAILY.png"/>
 
-        <title>LBaLdle</title>
+        <title>LBaLdle - Daily</title>
     </head>
     <body>
-        <h2>LBaLdle</h2>
+        <h2>LBaLdle - Daily</h2>
         <p>
-            A Wordle-like where you need to guess the Luck Be a Landlord symbol.
+            Put your Luck Be a Landlord knowledge to the test. Guess the daily symbol and keep your streak going!
         </p>
+
+        <h3>Streak: <span id="streakNum"></span></h3>
 
         <div id="mainGame">
             <div class="guesses">
@@ -70,7 +72,7 @@
             </div>
         <br>
 
-        <p id="dupDetected">You got all checks, but the incorrect symbol. <a href="./duplicates.html" target="_blank">Check out the duplicate symbol log.</a></p>
+        <p id="dupDetected">You got all checks, but the incorrect symbol.</p>
 
         <form id="guessform" autocomplete="off" onsubmit="return false;">
             <div class="autocomplete">
@@ -81,8 +83,8 @@
             <img id="guessPreview" class="symbol" src=""><br>
 
             <!-- <a class="type-block hintbtn" id="toggleinfo" href="#" title="Show Symbol info in autocomplete entries">Symbol Data ON</a> -->
-            <p>Don't want to blindly guess? <a href="./symbols.html" target="_blank">Check out the symbol dictionary!</a></p>
-            <p>Up for a daily challenge? <a href="./daily.html" target="_blank">Try the Daily!</a></p>
+            <p>I encourage you not to use the Symbol Dictionary for the Daily <img id="lilHooligan" src="./img/hooligan.png"></p>
+            <p>Finished with the Daily? <a href="./" target="_blank">Go back to endless mode.</a></p>
         </form>
 
         <div id="results" style="display: none;">
@@ -90,7 +92,7 @@
             <span id="lost" style="display: none;">You lost</span>
             <span>The symbol was <span id="secretSymbol"></span></span><br>
             <p id="finishEmojisDiv"></p>
-            <input type="submit" id="playAgainButton" class="guess_input" value="Play Again">
+            <input type="submit" id="playAgainButton" class="guess_input" value="Play Again"  style="display:none;">
         </div>
 
         <div id="extra">
@@ -106,7 +108,7 @@
                 <button id="emailToggle" class="emailToggle"><img id="emailCheck" class="emailCheck" src="./img/dud.png"></button>
                 <label id="emailToggleLabel">New Email</label>
             </div>
-            <button id="emailToggle" class="emailToggle"><img id="darkModeToggle" class="emailCheck" src="./img/sun.png"></button>
+            <button id="emailToggle" class="emailToggle" style="display:none;"><img id="darkModeToggle" class="emailCheck" src="./img/sun.png"></button>
         </div>
         <div id="emails">
             <p id="noEmails">No emails to display.</p>

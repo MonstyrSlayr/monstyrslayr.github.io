@@ -79,10 +79,15 @@ function createDivs()
         daItemApp.classList = ["column"];
         daItemApp.innerHTML = daSymbol.itemApp;
         daRow.append(daItemApp);
+
+        var daPerc = document.createElement("p");
+        daPerc.classList = ["column"];
+        daPerc.innerHTML = daSymbol.achievePerc;
+        daRow.append(daPerc);
     }
 }
 
-createDivs();
+//createDivs();
 
 let repeatCase = 0;
 
@@ -203,6 +208,27 @@ for (var i = 0; i < cols.length; i++)
                 createDivs();
             }
         break;
+
+        case 6:
+            daCol.onclick = function ()
+            {
+                demSymbols = symbols.slice(0);
+                demSymbols.sort((a, b) =>   {
+                                                if (repeatCase == this.id)
+                                                {
+                                                    return b.achievePerc - a.achievePerc;
+                                                }
+                                                else
+                                                {
+                                                    return a.achievePerc - b.achievePerc;
+                                                }
+                                            }
+                                        );
+                symbolsDiv.innerHTML = "";
+                repeatCase = (repeatCase == this.id) ? -1 : this.id;
+                createDivs();
+            }
+        break;
     }
 }
 
@@ -235,3 +261,47 @@ function changeDarkMode()
         darkModeToggle.src = "./img/sun.png";
     }
 }
+
+$.ajax
+(
+    {
+        url: "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=1404850&format=json",
+        type: "GET",
+    }
+).done(function(response) 
+    {
+        //console.log(response);
+        var daList = response.achievementpercentages.achievements;
+
+        for (var i = 0; i < symbols.length; i++)
+        {
+            var found = false;
+
+            for (var j = 0; j < daList.length; j++)
+            {
+                if (symbols[i].achieveName == daList[j].name)
+                {
+                    symbols[i].achievePerc = Math.round(daList[j].percent * 100)/100;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                symbols[i].achievePerc = 0; //symbols without achievements have an achievement percentage of zero
+            }
+        }
+
+        createDivs();
+    }
+).fail(function()
+    {
+        for (var i = 0; i < symbols.length; i++)
+        {
+            symbols[i].achieveDesc = "We were unable to get the Steam achievement percentages. Try reloading the page, or if the issue persists, contact MonstyrSlayr.";
+        }
+
+        createDivs();
+    }
+);
