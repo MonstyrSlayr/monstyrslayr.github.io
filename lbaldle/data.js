@@ -82,7 +82,7 @@ function createDivs()
 
         var daPerc = document.createElement("p");
         daPerc.classList = ["column"];
-        daPerc.innerHTML = daSymbol.achievePerc;
+        daPerc.innerHTML = daSymbol.achievePerc + "%";
         daRow.append(daPerc);
     }
 }

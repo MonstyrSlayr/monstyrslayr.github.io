@@ -343,7 +343,7 @@ function setInfoDiv(number)
         daInfoPara.innerHTML += "<br>Symbols In Description: " + symbols[number].symbolCount;
         daInfoPara.innerHTML += "<br>Appearances in Symbol Descriptions: " + symbols[number].symbolApp;
         daInfoPara.innerHTML += "<br>Appearances in Item Descriptions: " + symbols[number].itemApp;
-        daInfoPara.innerHTML += "<br>Achievement Percentage: " + ((symbols[number].achievePerc == -1) ? "unknown" : (symbols[number].achievePerc + "%"));
+        daInfoPara.innerHTML += "<br>Steam Achievement Completion Percentage: " + ((symbols[number].achievePerc == -1) ? "unknown" : (symbols[number].achievePerc + "%"));
     }
     daInfoPara.innerHTML += "<br>Achievement: " + symbols[number].achieveDesc;
     symbolInfoDiv.append(daInfoPara);

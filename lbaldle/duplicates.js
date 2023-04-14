@@ -70,7 +70,7 @@ function regenDivs()
             lbalCode.innerHTML += (cols[2].included ? daArr[0].symbolCount : "X") + "|";
             lbalCode.innerHTML += (cols[3].included ? daArr[0].symbolApp : "X") + "|";
             lbalCode.innerHTML += (cols[4].included ? daArr[0].itemApp : "X") + "|";
-            lbalCode.innerHTML += (cols[5].included ? daArr[0].achievePerc : "X");
+            lbalCode.innerHTML += (cols[5].included ? daArr[0].achievePerc : "X") + "%";
             myDiv.append(lbalCode);
 
             for (var j = 0; j < daArr.length; j++)
