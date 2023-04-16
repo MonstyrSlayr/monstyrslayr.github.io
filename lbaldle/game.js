@@ -809,7 +809,7 @@ changeDarkMode();
 
 function loadDaGame()
 {
-    if (getCookie("guessNumArr", daily) == "")
+    if (getCookie("guessNumArr", daily) == "" && !daily)
     {
         newGame();
     }
