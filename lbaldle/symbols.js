@@ -140,7 +140,7 @@ symbols =
     new Symbol("Present", RARITY.COMMON, 0, 0, 2, 3, "present.png", "NEW_ACHIEVEMENT_3_1", "Have a Present be destroyed 1 spin before the holidays."),
     new Symbol("Pufferfish", RARITY.UNCOMMON, 2, 0, 2, 2, "pufferfish.png", "NEW_ACHIEVEMENT_5_16", "Have a Pufferfish adjacent to a Bubble that is destroyed during a spin."),
     new Symbol("Rabbit", RARITY.UNCOMMON, 1, 0, 2, 9, "rabbit.png", "NEW_ACHIEVEMENT_6_18", "Have Rabbits do 1,000 binkies across all games."),
-    new Symbol("Rabbit Flush", RARITY.UNCOMMON, 2, 0, 0, 6, "rabbit_fluff.png", "NEW_ACHIEVEMENT_7_20", "Shed 3 pounds (1.37kg) of Rabbit Fluff across all games."),
+    new Symbol("Rabbit Fluff", RARITY.UNCOMMON, 2, 0, 0, 6, "rabbit_fluff.png", "NEW_ACHIEVEMENT_7_20", "Shed 3 pounds (1.37kg) of Rabbit Fluff across all games."),
     new Symbol("Rain", RARITY.UNCOMMON, 2, 2, 0, 1, "rain.png", "NEW_ACHIEVEMENT_5_19", "Have a Rain adjacent to a Seed that grows into a Flower."),
     new Symbol("Removal Capsule", RARITY.UNCOMMON, 0, 0, 0, 1, "removal_capsule.png", "NEW_ACHIEVEMENT_5_21", "Have a Removal Capsule not be destroyed 3 or more spins after adding it."),
     new Symbol("Reroll Capsule", RARITY.UNCOMMON, 0, 0, 0, 1, "reroll_capsule.png", "NEW_ACHIEVEMENT_5_22", "Have a Reroll Capsule not be destroyed 3 or more spins after adding it."),
