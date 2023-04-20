@@ -39,7 +39,7 @@ let emailToDelete = null;
 let emailsRevealed = false;
 let noEmailsDiv = document.getElementById("noEmails");
 
-let daily = window.location.pathname.split("/").pop() == "daily.html";
+let daily = window.location.pathname.split("/").pop() == "daily.html" || "daily";
 let dailyDone = false;
 let dailyStreak = 0;
 let streakNum = document.getElementById("streakNum");
@@ -505,12 +505,12 @@ function gameOverFunc()
             if (winDiv.style.display != "block") //then you lost
             {
                 dailyStreak = 0;
-                setCookie("streak", "0", 365, true);
+                setCookie("streak", "0", 365, true, true);
             }
             else //you won
             {
                 dailyStreak += 1;
-                setCookie("streak", dailyStreak.toString(), 365, true);
+                setCookie("streak", dailyStreak.toString(), 365, true, true);
             }
         }
 
@@ -819,7 +819,7 @@ function loadDaGame()
         {
             if (getCookie("streak", true) == "")
             {
-                setCookie("streak", "0", 365, true);
+                setCookie("streak", "0", 365, true, true);
                 dailyStreak = 0;
             }
             else
