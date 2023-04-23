@@ -39,7 +39,7 @@ let emailToDelete = null;
 let emailsRevealed = false;
 let noEmailsDiv = document.getElementById("noEmails");
 
-let daily = window.location.pathname.split("/").pop() == "daily.html" || "daily";
+let daily = window.location.pathname.split("/").pop() == "daily.html" || window.location.pathname.split("/").pop() == "daily";
 let dailyDone = false;
 let dailyStreak = 0;
 let streakNum = document.getElementById("streakNum");
@@ -809,7 +809,7 @@ changeDarkMode();
 
 function loadDaGame()
 {
-    if (getCookie("guessNumArr", daily) == "" && !daily)
+    if (getCookie("guessNumArr", false) == "" && !daily)
     {
         newGame();
     }
