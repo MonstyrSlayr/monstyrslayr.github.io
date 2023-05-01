@@ -14,7 +14,9 @@ let updates =
     new Update("Game Release", ["The game has been released!"]),
     new Update("Duplicate Symbol Log", ["Added a duplicate symbol log. Some symbols have exactly the same stats, hopefully the log will clarify that. A notification will show up when you submit a duplicate symbol.", "Also added update emails. These emails should disappear when you reload, but if they keep popping up, be sure to message me!"]),
     new Update("Saving Game Progress", ["In preparation for the Daily, your game will save when you reload the page now :) be sure to report any bugs"]),
-    new Update("The Daily", ["The Daily is here, along with a myriad of quality of life changes.", "Only 8 guesses now: Since the game has gotten much easier, I've decided to reduce the amount of guesses from 10 to 8. Let me know your feedback.", "Achievement Percentage: A new column to reduce duplicate symbols. Gets the achievements from a local file.", "Symbol Info: Hover over or tap on a symbol to see its info!", "Symbol Preview: The symbol will show up under the input box as you type it. Use this to match the symbol's info to your other guesses.", "And as always, be sure to report any bugs."]),
+    new Update("The Daily (2)", ["Symbol Info: Hover over or tap on a symbol to see its info!", "Symbol Preview: The symbol will show up under the input box as you type it. Use this to match the symbol's info to your other guesses.", "And as always, be sure to report any bugs."]),
+    new Update("The Daily (1)", ["The Daily is here, along with a myriad of quality of life changes.", "Only 8 guesses now: Since the game has gotten much easier, I've decided to reduce the amount of guesses from 10 to 8. Let me know your feedback.", "Achievement Percentage: A new column to reduce duplicate symbols. Gets the achievements from a local file."]),
+    new Update("QOL + Source Code", ["Quality of Life changes: You can hover over the column headers and see what they signify.", "Source Code: At the bottom of the page, you can see the source code of the site!"]),
 ]
 
 export let emailUpdates = [];

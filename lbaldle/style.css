@@ -176,7 +176,7 @@ input[type=text]
 {
     width: 33%;
     opacity: 0;
-    transition: all 0.8s;
+    transition: all 0.3s;
     padding-bottom: 100vh;
     position: fixed;
     top: 0px;

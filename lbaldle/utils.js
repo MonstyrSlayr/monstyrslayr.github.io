@@ -1,3 +1,4 @@
+//these functions were taken straight from squirdle hehehe
 export function getLocalDateDay()
 {
     let date = new Date()
