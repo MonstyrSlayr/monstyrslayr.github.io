@@ -80,7 +80,7 @@
             </div>
 
             <input id="guess_submit" class="guess_input" type="submit" value="Submit"><br>
-            <img id="guessPreview" class="symbol" src=""><br>
+            <div id="guessPreview"></div><br>
 
             <!-- <a class="type-block hintbtn" id="toggleinfo" href="#" title="Show Symbol info in autocomplete entries">Symbol Data ON</a> -->
             <p>Don't want to blindly guess? <a href="./symbols.html" target="_blank">Check out the symbol dictionary!</a></p>
@@ -107,9 +107,21 @@
         <div id="emailToggleDiv">
             <div id="emailToggleDivReal">
                 <button id="emailToggle" class="emailToggle"><img id="emailCheck" class="emailCheck" src="./img/dud.png"></button>
-                <label id="emailToggleLabel">New Email</label>
+                <label class="buttonLabel">Show Emails</label>
+                <label id="emailToggleLabel">(New Email)</label>
             </div>
-            <button id="emailToggle" class="emailToggle"><img id="darkModeToggle" class="emailCheck" src="./img/sun.png"></button>
+            <div>
+                <button class="emailToggle"><img id="darkModeToggle" class="emailCheck" src="./img/sun.png"></button>
+                <label class="buttonLabel">Toggle Dark Mode</label>
+            </div>
+            <div>
+                <button class="emailToggle"><img id="infoCheck" class="emailCheck" src="./img/dud.png"></button>
+                <label class="buttonLabel">Show Symbol Info on Hover</label>
+            </div>
+            <div>
+                <button class="emailToggle"><img id="groupCheck" class="emailCheck" src="./img/dud.png"></button>
+                <label class="buttonLabel">Toggle Searching Symbol Groups</label>
+            </div>
         </div>
         <div id="emails">
             <p id="noEmails">No emails to display.</p>

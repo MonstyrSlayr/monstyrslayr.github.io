@@ -213,6 +213,8 @@ h3
     left: 8px;
     transition: all 0.8s;
     text-align: left;
+    width: 0;
+    white-space: nowrap;
 }
 
 #emailToggleDivReal
@@ -345,7 +347,13 @@ h3
 #guessPreview
 {
     padding: 8px;
-    width: 10vw;
+    margin: auto;
+    width: 40vw;
+}
+
+.buttonLabel
+{
+    opacity: 0.5;
 }
 
 @media screen and (max-width: 450px) {
@@ -378,6 +386,11 @@ h3
     .row
     {
         justify-content: space-around;
+    }
+
+    #guessPreview
+    {
+        width: 90vw;
     }
 }
 

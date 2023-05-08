@@ -43,7 +43,6 @@ let mainGame = document.getElementById("mainGame");
 let emailCheck = document.getElementById("emailCheck");
 let showEmails = false;
 let emailToDelete = null;
-let emailsRevealed = false;
 let noEmailsDiv = document.getElementById("noEmails");
 
 //variables for the daily
@@ -51,10 +50,6 @@ let daily = window.location.pathname.split("/").pop() == "daily.html" || window.
 let dailyDone = false;
 let dailyStreak = 0;
 let streakNum = document.getElementById("streakNum");
-
-//dark mode
-let isDarkMode = false;
-let darkModeToggle = document.getElementById("darkModeToggle");
 
 //when you detect a duplicate symbol (clubs/spades, diamonds/hearts, ruby/emerald)
 let dupDetected = document.getElementById("dupDetected");
@@ -77,6 +72,15 @@ let appRow = document.getElementById("appRow");
 let itemAppRow = document.getElementById("itemAppRow");
 let percRow = document.getElementById("percRow");
 
+//the button labels
+let buttonLabels = document.getElementsByClassName("buttonLabel");
+let isDarkMode = false;
+let darkModeToggle = document.getElementById("darkModeToggle");
+let showInfo = 0;
+let infoCheck = document.getElementById("infoCheck");
+let showGroups = true;
+let groupCheck = document.getElementById("groupCheck");
+let hasSearchedGroup = false;
 
 //ENUMS-------------------------------------------------------------------------------
 
@@ -248,61 +252,68 @@ function newGame()
 //resetting the info box
 function setInfoDiv(number, paragraph = "")
 {
-    symbolInfoDiv.innerHTML = "";
-    symbolInfoDiv.style.display = "block";
-
-    if (paragraph == "")
+    if (showInfo > 0)
     {
-        hasHovered = true;
+        symbolInfoDiv.innerHTML = "";
+        symbolInfoDiv.style.display = "block";
 
-        var daInfoName = document.createElement("h3");
-        daInfoName.innerHTML = symbols[number].name;
-        symbolInfoDiv.append(daInfoName);
-
-        var daInfoRarity = document.createElement("h3");
-        daInfoRarity.innerHTML = symbols[number].rarity;
-        switch (symbols[number].rarity)
+        if (paragraph == "")
         {
-            case RARITY.COMMON:
-                daInfoRarity.innerHTML = "COMMON";
-                daInfoRarity.style.color = "#ffffff";
-                break;
-            case RARITY.UNCOMMON:
-                daInfoRarity.innerHTML = "UNCOMMON";
-                daInfoRarity.style.color = "#61d3e3";
-                break;
-            case RARITY.RARE:
-                daInfoRarity.innerHTML = "RARE";
-                daInfoRarity.style.color = "#fbf236";
-                break;
-            case RARITY.VERYRARE:
-                daInfoRarity.innerHTML = "VERY RARE";
-                daInfoRarity.style.color = "#7234bf";
-                break;
-            case RARITY.SPECIAL:
-                daInfoRarity.innerHTML = "SPECIAL";
-                daInfoRarity.style.color = "#e14a68";
-                break;
-        }
-        symbolInfoDiv.append(daInfoRarity);
+            hasHovered = true;
 
-        var daInfoPara = document.createElement("p");
+            var daInfoName = document.createElement("h3");
+            daInfoName.innerHTML = symbols[number].name;
+            symbolInfoDiv.append(daInfoName);
+
+            var daInfoRarity = document.createElement("h3");
+            daInfoRarity.innerHTML = symbols[number].rarity;
+            switch (symbols[number].rarity)
+            {
+                case RARITY.COMMON:
+                    daInfoRarity.innerHTML = "COMMON";
+                    daInfoRarity.style.color = "#ffffff";
+                    break;
+                case RARITY.UNCOMMON:
+                    daInfoRarity.innerHTML = "UNCOMMON";
+                    daInfoRarity.style.color = "#61d3e3";
+                    break;
+                case RARITY.RARE:
+                    daInfoRarity.innerHTML = "RARE";
+                    daInfoRarity.style.color = "#fbf236";
+                    break;
+                case RARITY.VERYRARE:
+                    daInfoRarity.innerHTML = "VERY RARE";
+                    daInfoRarity.style.color = "#7234bf";
+                    break;
+                case RARITY.SPECIAL:
+                    daInfoRarity.innerHTML = "SPECIAL";
+                    daInfoRarity.style.color = "#e14a68";
+                    break;
+            }
+            symbolInfoDiv.append(daInfoRarity);
+
+            var daInfoPara = document.createElement("p");
+            
+            daInfoPara.innerHTML += "Base Coin Payout: " + symbols[number].coin;
+
+            if (showInfo == 2)
+            {
+                daInfoPara.innerHTML += "<br>Symbols In Description: " + symbols[number].symbolCount;
+                daInfoPara.innerHTML += "<br>Appearances in Symbol Descriptions: " + symbols[number].symbolApp;
+                daInfoPara.innerHTML += "<br>Appearances in Item Descriptions: " + symbols[number].itemApp;
+                daInfoPara.innerHTML += "<br>Steam Achievement Completion Percentage: " + ((symbols[number].achievePerc == -1) ? "unknown" : (symbols[number].achievePerc + "%"));
+            }
         
-        daInfoPara.innerHTML += "Base Coin Payout: " + symbols[number].coin;
-        daInfoPara.innerHTML += "<br>Symbols In Description: " + symbols[number].symbolCount;
-        daInfoPara.innerHTML += "<br>Appearances in Symbol Descriptions: " + symbols[number].symbolApp;
-        daInfoPara.innerHTML += "<br>Appearances in Item Descriptions: " + symbols[number].itemApp;
-        daInfoPara.innerHTML += "<br>Steam Achievement Completion Percentage: " + ((symbols[number].achievePerc == -1) ? "unknown" : (symbols[number].achievePerc + "%"));
-       
-        daInfoPara.innerHTML += "<br>Achievement: " + symbols[number].achieveDesc;
-    }
-    else
-    {
-        var daInfoPara = document.createElement("p");
-        daInfoPara.innerHTML = paragraph;
-    }
+            daInfoPara.innerHTML += "<br>Achievement: " + symbols[number].achieveDesc;
+        }
+        else
+        {
+            var daInfoPara = document.createElement("p");
+            daInfoPara.innerHTML = paragraph;
+        }
 
-    symbolInfoDiv.append(daInfoPara);
+        symbolInfoDiv.append(daInfoPara);
+    }
 }
 
 //creates the row using a lbaldle row
@@ -550,34 +561,32 @@ function changeDarkMode()
     }
 }
 
-//for easily recognizing words the player inputs into the input box
-function simplifyString(str)
+function changeShowInfo()
 {
-    return str.toLowerCase().replace(".", "").replace("_", " ").replace("-", " ").replace(/\s/g, '').replace("ñ", "n");
+    if (showInfo == 2)
+    {
+        infoCheck.src = "./img/coconut.png";
+    }
+    else if (showInfo == 1)
+    {
+        infoCheck.src = "./img/coconut_half.png";
+    }
+    else
+    {
+        infoCheck.src = "./img/dud.png";
+    }
 }
 
-//since some symbols can have multiple names, we use this to find them
-function findSymbol(str, returnNumber = true)
+function changeShowGroups()
 {
-    var daStr = simplifyString(str);
-
-    for (var i = 0; i < symbols.length; i++)
+    if (showGroups)
     {
-        if (daStr == simplifyString(symbols[i].name))
-        {
-            if (returnNumber) return i; else return symbols[i];
-        }
-
-        for (var j = 0; j < symbols[i].altNames.length; j++)
-        {
-            if (daStr == simplifyString(symbols[i].altNames[j]))
-            {
-                if (returnNumber) return i; else return symbols[i];
-            }
-        }
+        groupCheck.src = "./img/confirm.png";
     }
-    
-    return null;
+    else
+    {
+        groupCheck.src = "./img/dud.png";
+    }
 }
 
 //loading the game after reloading or leaving and exiting
@@ -662,13 +671,12 @@ function moveInfoDiv(e)
     clearTimeout(symbolInfoDiv.stopMe);
     symbolInfoDiv.moveMe = window.setInterval(function()
                                             {
-                                                symbolInfoDiv.style.left = cursor.x + 2 + 'px';
-                                                symbolInfoDiv.style.top = cursor.y + window.scrollY + 2 + 'px';
+                                                symbolInfoDiv.style.left = cursor.x + 4 + 'px';
+                                                symbolInfoDiv.style.top = cursor.y + window.scrollY + 4 + 'px';
                                             }, 20);  
     symbolInfoDiv.stopMe = window.setTimeout(function()
                                             {
                                                 clearInterval(symbolInfoDiv.moveMe);
-                                                console.log("the thing")
                                             }, 2000)                                
 }
 
@@ -703,7 +711,7 @@ emailToggle.onclick = function()
         else
         {
             emailsDiv.style.marginLeft = "";
-            emailToggleDiv.style.marginLeft = "88%";
+            emailToggleDiv.style.marginLeft = "86%";
         }
         emailsDiv.style.opacity = "1";
         emailCheck.src = EMOJ.CHECK;
@@ -731,29 +739,74 @@ emailToggle.onclick = function()
 //and show the image prematurely
 symbolInput.oninput = function()
 {
-    guessPreview.src = "";
-    for (var i = 0; i < symbols.length; i++)
+    var found = false;
+    guessPreview.innerHTML = "";
+
+    if (showGroups)
     {
-        var daSymbol = symbols[i];
-        if (findSymbol(symbolInput.value) == i)
+        for (var i = 0; i < symbols.length; i++)
         {
-            guessPreview.src = daSymbol.image;
-            guessPreview.symbolNum = i;
-            break;
+            var daDict = dictionaries[i]
+            if (findDictionary(symbolInput.value) == i)
+            {
+                hasSearchedGroup = true;
+                found = true;
+                var newPreview = [];
+                for (var j = 0; j < daDict.symbols.length; j++)
+                {
+                    var daSymbolNum = daDict.symbols[j];
+                    var daSymbol = symbols[daSymbolNum];
+
+                    newPreview[j] = new SymbolElement(daSymbol.image);
+                    newPreview[j].symbolNum = daSymbolNum;
+                    guessPreview.append(newPreview[j])
+
+                    //^^the image in question
+                    newPreview[j].onmouseenter = function(e)
+                    {
+                        moveInfoDiv(e);
+                        setInfoDiv(this.symbolNum);
+                    }
+
+                    newPreview[j].onmouseleave = function()
+                    {
+                        stopInfoDiv();
+                    }
+                }
+
+                break;
+            }
         }
     }
-}
 
-//^^the image in question
-guessPreview.onmouseenter = function(e)
-{
-    moveInfoDiv(e);
-    setInfoDiv(guessPreview.symbolNum);
-}
+    if (!found)
+    {
+        for (var i = 0; i < symbols.length; i++)
+        {
+            var daSymbol = symbols[i];
+            if (findSymbol(symbolInput.value) == i)
+            {
+                var newPreview = document.createElement("img");
+                newPreview.classList = ["symbol"];
+                newPreview.src = daSymbol.image;
+                newPreview.symbolNum = i;
+                guessPreview.append(newPreview)
 
-guessPreview.onmouseleave = function()
-{
-    stopInfoDiv();
+                //^^the image in question
+                newPreview.onmouseenter = function(e)
+                {
+                    moveInfoDiv(e);
+                    setInfoDiv(newPreview.symbolNum);
+                }
+
+                newPreview.onmouseleave = function()
+                {
+                    stopInfoDiv();
+                }
+                break;
+            }
+        }
+    }
 }
 
 //so when the mouse enters the info div, the div stays anyway
@@ -890,7 +943,7 @@ symbolSubmit.onclick = function()
 
                 var daEmail;
 
-                if (totalGuesses - guesses != 1) daEmail = new Email([(totalGuesses - guesses) + " guesses remaining." + ((!hasHovered && guesses == 3) ? "<br>By the way, did you know that you can hover over symbols to see their data?" : "")], "");
+                if (totalGuesses - guesses != 1) daEmail = new Email([(totalGuesses - guesses) + " guesses remaining." + ((!hasHovered && showInfo > 0 && guesses == 3) ? "<br>By the way, did you know that you can hover over symbols to see their data?" : "")  + ((!hasSearchedGroup && showGroups && guesses == 2) ? "<br>Did you know that you can search for specific symbol groups?<br>Try typing \"fruit\", \"human\", or even \"rare\"!" : "")], "");
                 else daEmail = new Email(["1 guess remaining."], "");
 
                 emailsDiv.prepend(daEmail.div);
@@ -908,9 +961,43 @@ darkModeToggle.onclick = function()
     changeDarkMode();
 }
 
+infoCheck.onclick = function()
+{
+    showInfo = showInfo + 1;
+    if (showInfo > 2) showInfo = 0;
+
+    setCookie("showInfo", (showInfo == 2 ? "true" : (showInfo == 1 ? "limited" : 0)), 365, daily);
+
+    changeShowInfo();
+}
+
+groupCheck.onclick = function()
+{
+    showGroups = !showGroups;
+
+    setCookie("showGroups", (showGroups ? "true" : "false"), 365, daily);
+
+    changeShowGroups();
+}
+
 playAgainButton.onclick = function ()
 {
     newGame();
+}
+
+document.body.onscroll = function()
+{
+    if (window.screen.width < 450)
+    {
+        if (window.scrollY > 30 && !showEmails)
+        {
+            emailToggleDiv.style.display = "none";
+        }
+        else
+        {
+            emailToggleDiv.style.display = "";
+        }
+    }
 }
 
 //ON SITE LOAD--------------------------------------------------------
@@ -918,10 +1005,15 @@ playAgainButton.onclick = function ()
 //reveal the emails
 showEmails = false;
 emailToggle.onclick();
-emailsRevealed = true;
 
 isDarkMode = (getCookie("darkMode", false) == "dark" ? true : false);
 changeDarkMode();
+
+showInfo = (getCookie("showInfo", daily) == "true" ? 2 : getCookie("showInfo", daily) == "limited" ? 1 : 0);
+changeShowInfo();
+
+showGroups = (getCookie("showGroups", daily) == "true" ? true : false);
+changeShowGroups();
 
 //originally, the game would get the achievements straight from steam
 //but due to complications on steam's side i scrapped it

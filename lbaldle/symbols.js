@@ -84,7 +84,7 @@ symbols =
     new Symbol("Frozen Fossil", RARITY.RARE, 0, 10, 0, 1, "frozen_fossil.png", "NEW_ACHIEVEMENT_3_25", "Remove a symbol to make a Frozen Fossil be destroyed faster.", ["fossil"]),
     new Symbol("Gambler", RARITY.COMMON, 1, 2, 2, 5, "gambler.png", "NEW_ACHIEVEMENT_3_26", "Have a Gambler give 200 or more coins when destroyed before rent payment #12 is due."),
     new Symbol("General Zaroff", RARITY.RARE, 1, 26, 2, 3, "general_zaroff.png", "NEW_ACHIEVEMENT_2_15", "Have General Zaroff destroy 1924 humans across all games.", ["zaroff"]),
-    new Symbol("Geologist", RARITY.RARE, 2, 5, 2, 3, "archaeologist.png", "NEW_ACHIEVEMENT_5_29", "Have a Geologist destroy 20 or more symbols before rent payment #12 is due."),
+    new Symbol("Geologist", RARITY.RARE, 2, 5, 2, 3, "archaeologist.png", "NEW_ACHIEVEMENT_5_29", "Have a Geologist destroy 20 or more symbols before rent payment #12 is due.", ["archaeologist"]),
     new Symbol("Golden Arrow", RARITY.VERYRARE, 0, 1, 1, 1, "golden_arrow.png", "NEW_ACHIEVEMENT_3_28", "Have 3 or more Golden Arrows point to 0 symbols during a spin.", ["gold", "golden"]),
     new Symbol("Golden Egg", RARITY.RARE, 4, 0, 5, 3, "golden_egg.png", "NEW_ACHIEVEMENT_3_29", "Have a Golden Egg adjacent to an Egg.", ["gold egg"]),
     new Symbol("Goldfish", RARITY.COMMON, 1, 2, 2, 4, "goldfish.png", "NEW_ACHIEVEMENT_3_30", "Have a Goldfish and Toddler share a Bubble."),
@@ -180,4 +180,353 @@ symbols =
     new Symbol("Wolf", RARITY.UNCOMMON, 2, 0, 2, 4, "wolf.png", "NEW_ACHIEVEMENT_3_18", "Have 3 or more Wolves adjacent to the same Moon."),
 ]
 
-//console.log(symbols);
+class Dictionary
+{
+    constructor(names = [], symbols = [])
+    {
+        this.names = names;
+        this.symbols = symbols;
+    }
+}
+
+dictionaries =
+[
+    new Dictionary
+    (
+        ["Hex", "Hexes"],
+        [
+            findSymbol("Hex of Destruction"),
+            findSymbol("Hex of Draining"),
+            findSymbol("Hex of Emptiness"),
+            findSymbol("Hex of Hoarding"),
+            findSymbol("Hex of Midas"),
+            findSymbol("Hex of Tedium"),
+            findSymbol("Hex of Thievery"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Animal", "Animals"],
+        [
+            findSymbol("magpie"),
+            findSymbol("void creature"),
+            findSymbol("turtle"),
+            findSymbol("snail"),
+            findSymbol("sloth"),
+            findSymbol("oyster"),
+            findSymbol("owl"),
+            findSymbol("mouse"),
+            findSymbol("monkey"),
+            findSymbol("rabbit"),
+            findSymbol("goose"),
+            findSymbol("goldfish"),
+            findSymbol("dog"),
+            findSymbol("crab"),
+            findSymbol("chick"),
+            findSymbol("cat"),
+            findSymbol("bee"),
+            findSymbol("sand dollar"),
+            findSymbol("wolf"),
+            findSymbol("pufferfish"),
+            findSymbol("jellyfish"),
+            findSymbol("dove"),
+            findSymbol("crow"),
+            findSymbol("chicken"),
+            findSymbol("bear"),
+            findSymbol("cow"),
+            findSymbol("eldritch creature")
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Arrow", "Arrows"],
+        [
+            findSymbol("Bronze Arrow"),
+            findSymbol("Silver Arrow"),
+            findSymbol("Golden Arrow"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Bird", "Birds"],
+        [
+            findSymbol("magpie"),
+            findSymbol("chick"),
+            findSymbol("goose"),
+            findSymbol("owl"),
+            findSymbol("chicken"),
+            findSymbol("crow"),
+            findSymbol("dove"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Capsule", "Capsules"],
+        [
+            findSymbol("hustling capsule"),
+            findSymbol("buffing capsule"),
+            findSymbol("essence capsule"),
+            findSymbol("item capsule"),
+            findSymbol("wealthy capsule"),
+            findSymbol("lucky capsule"),
+            findSymbol("removal capsule"),
+            findSymbol("reroll capsule"),
+            findSymbol("tedium capsule"),
+            findSymbol("time capsule"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Suit", "Suits"],
+        [
+            findSymbol("Clubs"),
+            findSymbol("Hearts"),
+            findSymbol("Spades"),
+            findSymbol("Diamonds"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["Human", "Humans", "Face", "Faces", "Person", "People"],
+        [
+            findSymbol("robin hood"),
+            findSymbol("theif"),
+            findSymbol("billionaire"),
+            findSymbol("cultist"),
+            findSymbol("toddler"),
+            findSymbol("bounty hunter"),
+            findSymbol("miner"),
+            findSymbol("dwarf"),
+            findSymbol("king midas"),
+            findSymbol("gambler"),
+            findSymbol("general zaroff"),
+            findSymbol("witch"),
+            findSymbol("pirate"),
+            findSymbol("ninja"),
+            findSymbol("mrs fruit"),
+            findSymbol("hooligan"),
+            findSymbol("farmer"),
+            findSymbol("diver"),
+            findSymbol("dame"),
+            findSymbol("chef"),
+            findSymbol("card shark"),
+            findSymbol("beastmaster"),
+            findSymbol("geologist"),
+            findSymbol("joker"),
+            findSymbol("comedian"),
+            findSymbol("bartender")
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["organism", "organisms", "living"],
+        [
+            findSymbol("robin hood"),
+            findSymbol("theif"),
+            findSymbol("billionaire"),
+            findSymbol("cultist"),
+            findSymbol("toddler"),
+            findSymbol("bounty hunter"),
+            findSymbol("miner"),
+            findSymbol("dwarf"),
+            findSymbol("king midas"),
+            findSymbol("gambler"),
+            findSymbol("general zaroff"),
+            findSymbol("witch"),
+            findSymbol("pirate"),
+            findSymbol("ninja"),
+            findSymbol("mrs fruit"),
+            findSymbol("hooligan"),
+            findSymbol("farmer"),
+            findSymbol("diver"),
+            findSymbol("dame"),
+            findSymbol("chef"),
+            findSymbol("card shark"),
+            findSymbol("beastmaster"),
+            findSymbol("geologist"),
+            findSymbol("joker"),
+            findSymbol("comedian"),
+            findSymbol("bartender"),
+            findSymbol("magpie"),
+            findSymbol("void creature"),
+            findSymbol("turtle"),
+            findSymbol("snail"),
+            findSymbol("sloth"),
+            findSymbol("oyster"),
+            findSymbol("owl"),
+            findSymbol("mouse"),
+            findSymbol("monkey"),
+            findSymbol("rabbit"),
+            findSymbol("goose"),
+            findSymbol("goldfish"),
+            findSymbol("dog"),
+            findSymbol("crab"),
+            findSymbol("chick"),
+            findSymbol("cat"),
+            findSymbol("bee"),
+            findSymbol("sand dollar"),
+            findSymbol("wolf"),
+            findSymbol("pufferfish"),
+            findSymbol("jellyfish"),
+            findSymbol("dove"),
+            findSymbol("crow"),
+            findSymbol("chicken"),
+            findSymbol("bear"),
+            findSymbol("cow"),
+            findSymbol("eldritch creature")
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["void", "voids"],
+        [
+            findSymbol("void creature"),
+            findSymbol("void fruit"),
+            findSymbol("void stone"),
+            findSymbol("empty"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["fruit", "fruits"],
+        [
+            findSymbol("void fruit"),
+            findSymbol("banana"),
+            findSymbol("cherry"),
+            findSymbol("coconut"),
+            findSymbol("pear"),
+            findSymbol("coconut half"),
+            findSymbol("orange"),
+            findSymbol("peach"),
+            findSymbol("apple"),
+            findSymbol("strawberry"),
+            findSymbol("watermelon"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["gem", "gems"],
+        [
+            findSymbol("void stone"),
+            findSymbol("amethyst"),
+            findSymbol("pearl"),
+            findSymbol("shiny pebble"),
+            findSymbol("sapphire"),
+            findSymbol("emerald"),
+            findSymbol("ruby"),
+            findSymbol("diamond")
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["hooligans", "hooligan sweep"],
+        [
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+            findSymbol("hooligan"),
+        ].sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["common", "commons"],
+        returnRarity(RARITY.COMMON).sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["uncommon", "uncommons"],
+        returnRarity(RARITY.UNCOMMON).sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["rare", "rares"],
+        returnRarity(RARITY.RARE).sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["very rare", "very rares"],
+        returnRarity(RARITY.VERYRARE).sort((a, b) => a - b)
+    ),
+    new Dictionary
+    (
+        ["special", "specials"],
+        returnRarity(RARITY.SPECIAL).sort((a, b) => a - b)
+    ),
+]
+
+//for easily recognizing words the player inputs into the input box
+function simplifyString(str)
+{
+    return str.toLowerCase().replace(".", "").replace("_", " ").replace("-", " ").replace(/\s/g, '').replace("ñ", "n");
+}
+
+//since some symbols can have multiple names, we use this to find them
+function findSymbol(str, returnNumber = true)
+{
+    var daStr = simplifyString(str);
+
+    for (var i = 0; i < symbols.length; i++)
+    {
+        if (daStr == simplifyString(symbols[i].name))
+        {
+            if (returnNumber) return i; else return symbols[i];
+        }
+
+        for (var j = 0; j < symbols[i].altNames.length; j++)
+        {
+            if (daStr == simplifyString(symbols[i].altNames[j]))
+            {
+                if (returnNumber) return i; else return symbols[i];
+            }
+        }
+    }
+    
+    return null;
+}
+
+//same for dictionaries
+function findDictionary(str, returnNumber = true)
+{
+    var daStr = simplifyString(str);
+
+    for (var i = 0; i < dictionaries.length; i++)
+    {
+        for (var j = 0; j < dictionaries[i].names.length; j++)
+        {
+            if (daStr == simplifyString(dictionaries[i].names[j]))
+            {
+                if (returnNumber) return i; else return dictionaries[i];
+            }
+        }
+    }
+    
+    return null;
+}
+
+//just for dictionaries
+function returnRarity(rarity)
+{
+    var newArr = []
+    for (var i = 0; i < symbols.length; i++)
+    {
+        if (symbols[i].rarity == rarity)
+        {
+            newArr.push(i);
+        }
+    }
+    return newArr;
+}

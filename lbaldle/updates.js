@@ -17,6 +17,7 @@ let updates =
     new Update("The Daily (2)", ["Symbol Info: Hover over or tap on a symbol to see its info!", "Symbol Preview: The symbol will show up under the input box as you type it. Use this to match the symbol's info to your other guesses.", "And as always, be sure to report any bugs."]),
     new Update("The Daily (1)", ["The Daily is here, along with a myriad of quality of life changes.", "Only 8 guesses now: Since the game has gotten much easier, I've decided to reduce the amount of guesses from 10 to 8. Let me know your feedback.", "Achievement Percentage: A new column to reduce duplicate symbols. Gets the achievements from a local file."]),
     new Update("QOL + Source Code", ["Quality of Life changes: You can hover over the column headers and see what they signify.", "Source Code: At the bottom of the page, you can see the source code of the site!"]),
+    new Update("Symbol Groups", ["Symbol Groups: With the option enabled, you can search for specific groups of symbols.", "New Options: There are now options to toggle symbol information and searching symbol groups, if you want more of a challenge."]),
 ]
 
 export let emailUpdates = [];
