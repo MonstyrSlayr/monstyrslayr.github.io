@@ -10,6 +10,7 @@
 p
 {
     font-size: large;
+    margin-top: 0;
 }
 
 body
@@ -47,6 +48,12 @@ h2
 {
     text-align: center;
     margin: 4vh;
+}
+
+h3
+{
+    text-align: center;
+    margin: 1vh;
 }
 
 footer

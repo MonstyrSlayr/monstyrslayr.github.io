@@ -290,7 +290,7 @@ dictionaries =
         ["Human", "Humans", "Face", "Faces", "Person", "People"],
         [
             findSymbol("robin hood"),
-            findSymbol("theif"),
+            findSymbol("thief"),
             findSymbol("billionaire"),
             findSymbol("cultist"),
             findSymbol("toddler"),
@@ -322,7 +322,7 @@ dictionaries =
         ["organism", "organisms", "living"],
         [
             findSymbol("robin hood"),
-            findSymbol("theif"),
+            findSymbol("thief"),
             findSymbol("billionaire"),
             findSymbol("cultist"),
             findSymbol("toddler"),
