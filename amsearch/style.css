@@ -32,6 +32,16 @@ body
     background-color: var(--bgColor);
 }
 
+#intro img
+{
+    width: 100%;
+}
+
+.examples
+{
+    margin: auto 4vw;
+}
+
 header
 {
     z-index: 10;
@@ -54,6 +64,36 @@ h3
 {
     text-align: center;
     margin: 1vh;
+}
+
+.inline
+{
+    float: left;
+    width: 15vw;
+}
+
+.infoDiv
+{
+    margin: auto 10vw;
+}
+
+.infoDivBody
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoDivBody p
+{
+    margin: 2%;
+}
+
+.bibliography
+{
+    margin: auto 10%;
+    list-style-type: none;
+    text-indent: -4em;
 }
 
 footer
