@@ -2,7 +2,6 @@ import {emailUpdates} from "./updates.js";
 import {getCookie, setCookie, getLocalDateDay} from "./utils.js";
 
 //VARIABLES--------------------------------------------------------
-
 let r = document.querySelector(':root');
 let cursor = {x: 0, y: 0}
 
@@ -693,6 +692,18 @@ window.onmousemove = function(e)
 {
     cursor.x = e.clientX;
     cursor.y = e.clientY;
+}
+
+//automatically closes the emails tab if you click it and there are no emails
+emailsDiv.onclick = function()
+{
+    if (showEmails)
+    {
+        if (emailsDiv.childElementCount <= 1)
+        {
+            emailToggle.onclick();
+        }
+    }
 }
 
 //opens and closes the emails tab

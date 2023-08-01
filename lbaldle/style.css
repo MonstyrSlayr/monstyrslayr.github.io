@@ -181,7 +181,7 @@ input[type=text]
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: #38383855;
+    background-color: #c7158577;
 }
 
 #mainGame
@@ -277,7 +277,7 @@ h3
 
 #noEmails
 {
-    display: none;
+    display: block;
 }
 
 #extra
