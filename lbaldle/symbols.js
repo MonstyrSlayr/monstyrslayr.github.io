@@ -47,7 +47,7 @@ symbols =
     new Symbol("Bubble", RARITY.COMMON, 2, 0, 5, 0, "bubble.png", "NEW_ACHIEVEMENT_2_19", "Have 3 or more Bubbles be destroyed during a spin."),
     new Symbol("Buffing Capsule", RARITY.UNCOMMON, 0, 0, 0, 1, "buffing_powder.png", "NEW_ACHIEVEMENT_5_13", "Have a Buffing Capsule adjacent to 2 or more Amethysts or Pears during a spin."),
     new Symbol("Candy", RARITY.COMMON, 1, 0, 4, 2, "candy.png", "NEW_ACHIEVEMENT_4_18", "Have 8 or more Candy."),
-    new Symbol("Card Shark", RARITY.RARE, 2, 5, 2, 3, "card_shark.png", "NEW_ACHIEVEMENT_2_22", "Have a Card Shark make 5 or more symbols Wildcards during a spin."),
+    new Symbol("Card Shark", RARITY.RARE, 3, 5, 2, 3, "card_shark.png", "NEW_ACHIEVEMENT_2_22", "Have a Card Shark make 5 or more symbols Wildcards during a spin."),
     new Symbol("Cat", RARITY.COMMON, 1, 2, 2, 15, "cat.png", "NEW_ACHIEVEMENT_4_26", "Have a Cat give 999,999,999 coins or more."),
     new Symbol("Cheese", RARITY.COMMON, 1, 0, 7, 2, "cheese.png", "NEW_ACHIEVEMENT_2_24", "Have a Cheese adjacent to Milk, Omelette, and Egg during a spin."),
     new Symbol("Chef", RARITY.RARE, 2, 21, 2, 3, "chef.png", "NEW_ACHIEVEMENT_7_6", "Have a Chef increase the value of 5 or more symbols during a spin."),
@@ -64,7 +64,7 @@ symbols =
     new Symbol("Cow", RARITY.RARE, 3, 1, 2, 3, "cow.png", "NEW_ACHIEVEMENT_3_4", "Have a Cow add a Milk that is destroyed by a Cat during the same spin."),
     new Symbol("Crab", RARITY.COMMON, 1, 1, 3, 2, "crab.png", "NEW_ACHIEVEMENT_4_8", "Have 5 Crabs in a row."),
     new Symbol("Crow", RARITY.COMMON, 2, 0, 2, 3, "crow.png", "NEW_ACHIEVEMENT_3_7", "Remove a Crow 1 spin before it would give -3 coins."),
-    new Symbol("Cultist", RARITY.COMMON, 0, 2, 7, 3, "cultist.png", "NEW_ACHIEVEMENT_3_8", "Have 6 or more Cultists."),
+    new Symbol("Cultist", RARITY.COMMON, 0, 2, 7, 4, "cultist.png", "NEW_ACHIEVEMENT_3_8", "Have 6 or more Cultists."),
     new Symbol("Dame", RARITY.RARE, 2, 10, 2, 3, "dame.png", "NEW_ACHIEVEMENT_3_11", "Have a Dame destroy a Martini while adjacent to a Diamond."),
     new Symbol("Diamond", RARITY.VERYRARE, 5, 1, 6, 1, "diamond.png", "NEW_ACHIEVEMENT_3_12", "Have 5 or more Diamonds."),
     new Symbol("Diamonds", RARITY.UNCOMMON, 1, 6, 8, 4, "diamonds.png", "NEW_ACHIEVEMENT_3_13", "Have 5 or more Diamonds (not the gem)."),
@@ -176,7 +176,7 @@ symbols =
     new Symbol("Wealthy Capsule", RARITY.UNCOMMON, 0, 0, 0, 3, "lucky_capsule.png", "NEW_ACHIEVEMENT_4_22", "Have a Wealthy Capsule not be destroyed 3 or more spins after adding it."),
     new Symbol("Wildcard", RARITY.VERYRARE, 0, 0, 1, 1, "wildcard.png", "NEW_ACHIEVEMENT_7_19", "Have 3 Wildcards each give 1,000,000 coins or more."),
     new Symbol("Wine", RARITY.UNCOMMON, 2, 0, 4, 3, "wine.png", "NEW_ACHIEVEMENT_6_19", "Have 50 gallons (189.3 litres) of Beer and Wine be consumed."),
-    new Symbol("Witch", RARITY.RARE, 2, 13, 5, 3, "witch.png", "NEW_ACHIEVEMENT_6_20", "Have an Eldritch Creature destroy a Witch."),
+    new Symbol("Witch", RARITY.RARE, 2, 13, 5, 4, "witch.png", "NEW_ACHIEVEMENT_6_20", "Have an Eldritch Creature destroy a Witch."),
     new Symbol("Wolf", RARITY.UNCOMMON, 2, 0, 2, 4, "wolf.png", "NEW_ACHIEVEMENT_3_18", "Have 3 or more Wolves adjacent to the same Moon."),
 ]
 
