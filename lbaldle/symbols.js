@@ -405,7 +405,7 @@ dictionaries =
     ),
     new Dictionary
     (
-        ["gem", "gems"],
+        ["gem", "gems", "stones", "rocks"],
         [
             findSymbol("void stone"),
             findSymbol("amethyst"),
