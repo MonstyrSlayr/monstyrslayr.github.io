@@ -1,0 +1,194 @@
+@property --bulb-main
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(255, 170, 0);
+}
+@property --bulb-outside
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(88, 55, 0);
+}
+@property --bulb-highlight
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(255, 201, 91);
+}
+
+@property --hostess-main
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(39, 255, 209);
+}
+@property --hostess-outside
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(28, 137, 129);
+}
+@property --hostess-highlight
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(129, 227, 231);
+}
+
+@property --clay-main
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(227, 64, 64);
+}
+@property --clay-outside
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(107, 30, 30);
+}
+@property --clay-highlight
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(230, 82, 104);
+}
+
+@property --signal-main
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(0, 255, 56);
+}
+@property --signal-outside
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(11, 129, 33);
+}
+@property --signal-highlight
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(122, 213, 139);
+}
+
+@property --trash-main
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(137, 137, 130);
+}
+@property --trash-outside
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(39, 39, 0);
+}
+@property --trash-highlight
+{
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(229, 222, 19);
+}
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin: 16px;
+    background-color: #303030;
+}
+
+.container
+{
+    display: flex;
+    flex-wrap: wrap;
+    width:75%;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.box
+{
+    width: 20%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 16px;
+    border-color: lightgray;
+    background-color: #444444;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.monsterEmoji
+{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 16px;
+    background-color: #fcfcfc45;
+}
+
+.monsterLabel
+{
+    margin-top: 8px;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    text-align: center;
+}
+
+.miniElementList
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.miniElement
+{
+    height: 48px;
+    margin-left: -30px;
+}
+
+.miniElementList img:nth-child(even)
+{
+    margin-bottom: -24px;
+}
+
+.container
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.soloMonster
+{
+    width: 50%;
+    justify-content: normal;
+}
+
+#monsterTitle
+{
+    color: white;
+}
