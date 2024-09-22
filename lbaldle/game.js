@@ -540,23 +540,33 @@ function changeDarkMode()
 {
     if (isDarkMode)
     {
-        r.style.setProperty('--light-bg-color', '#122950');
-        r.style.setProperty('--light-bg-select', '#36376a');
+        if (!daily)
+        {
+            r.style.setProperty('--light-bg-color', '#122950');
+            r.style.setProperty('--light-bg-select', '#36376a');
+        }
+        else
+        {
+            r.style.setProperty('--light-bg-color', '#111111');
+            r.style.setProperty('--light-bg-select', '#333333');
+        }
 
         darkModeToggle.src = "./img/moon.png";
     }
     else
     {
-        r.style.setProperty('--light-bg-color', '#ff8300');
-        r.style.setProperty('--light-bg-select', '#ffa320');
+        if (!daily)
+        {
+            r.style.setProperty('--light-bg-color', '#ff8300');
+            r.style.setProperty('--light-bg-select', '#ffa320');
+        }
+        else
+        {
+            r.style.setProperty('--light-bg-color', '#777777');
+            r.style.setProperty('--light-bg-select', '#999999');
+        }
 
         darkModeToggle.src = "./img/sun.png";
-    }
-
-    if (daily)
-    {
-        r.style.setProperty('--light-bg-color', '#333333');
-        r.style.setProperty('--light-bg-select', '#666666');
     }
 }
 
