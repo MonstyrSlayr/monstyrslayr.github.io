@@ -119,7 +119,6 @@ class Conditional
 }
 
 let monsters = [];
-
 fetch('monsterImgs.txt')
     .then(response => response.text())
     .then(text =>
@@ -288,7 +287,8 @@ fetch('monsterImgs.txt')
 
 			const rarityCheckAll = document.createElement("button");
 			rarityConditionalsDiv.append(rarityCheckAll);
-			rarityCheckAll.innerHTML = "Check / Uncheck All";
+			rarityCheckAll.className = "toggleButton";
+			rarityCheckAll.innerHTML = "Toggle All";
 
 			const rarityConditionals =
 			[
@@ -317,7 +317,8 @@ fetch('monsterImgs.txt')
 
 			const classCheckAll = document.createElement("button");
 			classConditionalsDiv.append(classCheckAll);
-			classCheckAll.innerHTML = "Check / Uncheck All";
+			classCheckAll.className = "toggleButton";
+			classCheckAll.innerHTML = "Toggle All";
 
 			const classConditionals =
 			[
@@ -354,6 +355,7 @@ fetch('monsterImgs.txt')
 
 			const elementCheckAll = document.createElement("button");
 			elementConditionalsDiv.append(elementCheckAll);
+			elementCheckAll.className = "toggleButton";
 			elementCheckAll.innerHTML = "Toggle All";
 
 			const elementConditionals =
@@ -425,7 +427,8 @@ fetch('monsterImgs.txt')
 
 			const elementCountCheckAll = document.createElement("button");
 			elementCountConditionalsDiv.append(elementCountCheckAll);
-			elementCountCheckAll.innerHTML = "Check / Uncheck All";
+			elementCountCheckAll.className = "toggleButton";
+			elementCountCheckAll.innerHTML = "Toggle All";
 
 			let elementCountConditionals = [];
 			for (let i = 1; i < 6; i++)
@@ -485,9 +488,21 @@ fetch('monsterImgs.txt')
 				monstersGenerated.innerHTML = monstersToShow.length + "/" + filteredMonstersLength + " monsters generated";
 				for (const monster of monstersToShow)
 				{
+					const monsterDiv = document.createElement("div");
+					monsterDiv.className = "monsterDiv";
+					generatedDiv.append(monsterDiv);
+
 					const monsterImg = document.createElement("img");
 					monsterImg.src = monster.source;
-					generatedDiv.append(monsterImg);
+					monsterImg.className = "monsterImg";
+					monsterDiv.append(monsterImg);
+
+					/*
+					const monsterName = document.createElement("p");
+					monsterName.innerHTML = monster.id;
+					monsterName.className = "monsterName";
+					monsterDiv.append(monsterName);
+					*/
 				}
 			}
         })

@@ -4,6 +4,7 @@
     color: white;
     background-color: #222222;
     font-size: 24;
+    transition: all 0.15s;
 }
 
 body
@@ -77,4 +78,55 @@ footer
 {
     font-size: 10;
     margin: 16px;
+}
+
+#generateButton
+{
+    font-size: 40;
+    border-color: white;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+#generateButton:hover
+{
+    cursor: pointer;
+    scale: 105%;
+}
+
+.toggleButton
+{
+    border-color: white;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.toggleButton:hover
+{
+    cursor: pointer;
+    scale: 105%;
+}
+
+.monsterDiv
+{
+    background-color: #ffffff11;
+    border-radius: 16px;
+    margin: 16px;
+}
+
+.monsterDiv:hover
+{
+    scale: 105%;
+    background-color: #ffffff33;
+}
+
+.monsterImg
+{
+    background-color: transparent;
+}
+
+.monsterName
+{
+    background-color: transparent;
+    text-align: center;
 }
