@@ -3,6 +3,7 @@
     font-family: Helvetica, Helvetica, Arial, sans-serif;
     color: white;
     background-color: #222222;
+    font-size: 24;
 }
 
 body
@@ -16,6 +17,7 @@ h1
 {
     margin: 16px;
     text-align: center;
+    font-size: 48;
 }
 
 #conditionals
