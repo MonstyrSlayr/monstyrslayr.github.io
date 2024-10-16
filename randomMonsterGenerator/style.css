@@ -14,10 +14,14 @@ body
     padding: 0;
 }
 
+header
+{
+    text-align: center;
+}
+
 h1
 {
     margin: 16px;
-    text-align: center;
     font-size: 48;
 }
 
