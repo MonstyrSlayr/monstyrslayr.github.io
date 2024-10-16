@@ -1,0 +1,78 @@
+*
+{
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: #222222;
+}
+
+body
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1
+{
+    margin: 16px;
+    text-align: center;
+}
+
+#conditionals
+{
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    width: 90%;
+    justify-content: space-evenly;
+    margin: 16px;
+}
+
+#rarityConditionals & #classConditionals & #elementConditionals & #elementCountConditionals
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.checkboxDiv
+{
+    display: flex;
+    flex-direction: row;
+    text-wrap: nowrap;
+}
+
+@media only screen and (max-width: 600px)
+{
+    #conditionals
+    {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+#generatedMonsters
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#monsterNumber
+{
+    text-align: center;
+    margin: 16px;
+}
+
+#monsterGenerate
+{
+    text-align: center;
+    margin: 16px;
+}
+
+footer
+{
+    font-size: 10;
+    margin: 16px;
+}
