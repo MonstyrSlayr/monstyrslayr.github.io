@@ -1,0 +1,88 @@
+*
+{
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: #2f3136;
+    font-size: 24;
+    transition: all 0.15s;
+}
+
+body
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1
+{
+    margin: 32px;
+    text-align: center;
+    font-size: 48;
+}
+
+.artImg
+{
+    width: 25%;
+    border-radius: 32px;
+    margin: 32px;
+}
+
+.artImg:hover
+{
+    scale: 105%;
+}
+
+.showcase
+{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border-color: white;
+    border-width: 4px;
+    border-style: solid;
+}
+
+p
+{
+    margin: 32px;
+}
+
+h2
+{
+    margin: 32px;
+    font-size: 40;
+}
+
+h3
+{
+    margin: 32px;
+    font-size: 32;
+}
+
+footer
+{
+    margin: 0;
+    padding: 16px;
+}
+
+footer p
+{
+    background-color: inherit;
+    font-size: 16;
+}
+
+a
+{
+    font-size: inherit;
+    background-color: inherit;
+    color: blue;
+    text-decoration: underline;
+}
+
+a:visited
+{
+    font-size: inherit;
+    color: purple;
+    text-decoration: underline;
+}
