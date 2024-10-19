@@ -23,7 +23,7 @@ h1
 
 .artImg
 {
-    width: 25%;
+    width: min(75%, 500px);
     border-radius: 32px;
     margin: 32px;
 }
@@ -32,6 +32,15 @@ h1
 {
     scale: 105%;
 }
+
+@media only screen and (max-width: 600px)
+{
+    .artImg
+    {
+        width: 75%;
+    }
+}
+
 
 .showcase
 {
@@ -85,4 +94,14 @@ a:visited
     font-size: inherit;
     color: purple;
     text-decoration: underline;
+}
+
+ul
+{
+    margin: 32px;
+}
+
+ol
+{
+    margin: 32px;
 }
