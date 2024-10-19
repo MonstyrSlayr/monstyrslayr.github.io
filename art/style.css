@@ -84,14 +84,14 @@ a
 {
     font-size: inherit;
     background-color: inherit;
-    color: blue;
+    color: cyan;
     text-decoration: underline;
 }
 
 a:visited
 {
     font-size: inherit;
-    color: purple;
+    color: fuchsia;
     text-decoration: underline;
 }
 
