@@ -20,7 +20,13 @@
     <meta property="twitter:description" content="Generate a set of random monsters from My Singing Monsters."/>
     <meta property="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/MSMRMG.png"/>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script type="application/javascript" src="monsters.js"></script>
 
     <title>MSM Random Monster Generator</title>
 </head>
@@ -32,16 +38,34 @@
 
     <div id="conditionals">
         <div id="rarityConditionals">
-            <h2>Rarity</h2>
+            <a data-toggle="collapse" data-target="#rarityConditionalsCheckboxes">
+                <h2>Rarity (Collapsible)</h2>
+            </a>
+            <div id="rarityConditionalsCheckboxes" class="collapse"></div>
         </div>
         <div id="classConditionals">
-            <h2>Class</h2>
+            <a data-toggle="collapse" data-target="#classConditionalsCheckboxes">
+                <h2>Class (Collapsible)</h2>
+            </a>
+            <div id="classConditionalsCheckboxes" class="collapse"></div>
         </div>
         <div id="elementConditionals">
-            <h2>Elements</h2>
+            <a data-toggle="collapse" data-target="#elementConditionalsCheckboxes">
+                <h2>Element (Collapsible)</h2>
+            </a>
+            <div id="elementConditionalsCheckboxes" class="collapse"></div>
         </div>
         <div id="elementCountConditionals">
-            <h2>Element Count</h2>
+            <a data-toggle="collapse" data-target="#elementCountConditionalsCheckboxes">
+                <h2>Element Count (Collapsible)</h2>
+            </a>
+            <div id="elementCountConditionalsCheckboxes" class="collapse"></div>
+        </div>
+        <div id="islandConditionals">
+            <a data-toggle="collapse" data-target="#islandConditionalsCheckboxes">
+                <h2>Island (Collapsible)</h2>
+            </a>
+            <div id="islandConditionalsCheckboxes" class="collapse"></div>
         </div>
     </div>
 
@@ -63,15 +87,12 @@
         <p>Welcome to my random monster generator for MSM fans</p>
         <p>Things to add:</p>
         <ul>
-            <li>Monster names</li>
             <li>More organized monster showing</li>
-            <li>Put checkboxes in dropdown lists</li>
             <li>Better web design</li>
-            <li>Island conditionals</li>
         </ul>
         <p>Report any issues and feedback to <a href="https://discord.com/channels/@me/434840883637125121" target="_blank">@MonstyrSlayr on Discord</a></p>
     </footer>
     
-    <script type="application/javascript" src="monsters.js"></script>
+    <script type="application/javascript" src="filters.js"></script>
 </body>
 </html>

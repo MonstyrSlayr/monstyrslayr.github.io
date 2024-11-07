@@ -12,6 +12,7 @@ body
     width: 100%;
     margin: 0;
     padding: 0;
+    background-color: #222222;
 }
 
 header
@@ -33,9 +34,11 @@ h1
     width: 90%;
     justify-content: space-evenly;
     margin: 16px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#rarityConditionals & #classConditionals & #elementConditionals & #elementCountConditionals
+#rarityConditionals & #classConditionals & #elementConditionals & #elementCountConditionals & #islandConditionals
 {
     display: flex;
     flex-direction: column;
@@ -48,7 +51,19 @@ h1
     text-wrap: nowrap;
 }
 
-@media only screen and (max-width: 600px)
+.checkboxDiv input
+{
+    scale: 200%;
+    margin: 16px;
+}
+
+.checkboxDiv input:hover
+{
+    cursor: pointer;
+    scale: 220%;
+}
+
+@media only screen and (max-width: 900px)
 {
     #conditionals
     {
@@ -132,5 +147,24 @@ footer
 .monsterName
 {
     background-color: transparent;
+    text-align: center;
+    padding: 16px;
+}
+
+a
+{
+    color: white;
+    text-decoration: underline;
+}
+
+a:hover
+{
+    color: white;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+h2
+{
     text-align: center;
 }
