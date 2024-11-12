@@ -7,30 +7,60 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDPRyLJvZ8Bbdlvty50kp87-jg1OpA4zX8",
-  authDomain: "wordsender-150ea.firebaseapp.com",
-  databaseURL: "https://wordsender-150ea-default-rtdb.firebaseio.com/",
-  projectId: "wordsender-150ea",
-  storageBucket: "wordsender-150ea.firebasestorage.app",
-  messagingSenderId: "1064096463566",
-  appId: "1:1064096463566:web:e2a1d5ecb61689e041ae9f",
-  measurementId: "G-81K8K26S09"
+const firebaseConfig =
+{
+	apiKey: "AIzaSyDPRyLJvZ8Bbdlvty50kp87-jg1OpA4zX8",
+	authDomain: "wordsender-150ea.firebaseapp.com",
+	databaseURL: "https://wordsender-150ea-default-rtdb.firebaseio.com/",
+	projectId: "wordsender-150ea",
+	storageBucket: "wordsender-150ea.firebasestorage.app",
+	messagingSenderId: "1064096463566",
+	appId: "1:1064096463566:web:e2a1d5ecb61689e041ae9f",
+	measurementId: "G-81K8K26S09"
 };
+
+if (getCookie("ip") == null)
+{
+	$.getJSON('https://api.db-ip.com/v2/free/self', function(data)
+	{
+		console.log(JSON.stringify(data, null, 2));
+		setCookie("ip", data.ipAddress, 0.5);
+	})
+	.fail( function()
+	{
+		console.log("error getting ip");
+		setCookie("ip", "none", 0.1);
+	});
+}
+const ip = getCookie("ip");
   
-  // Initialize Firebase
-  initializeApp(firebaseConfig);
-  const daDatabase = getDatabase();
-  
-  // Handle form submission
-  document.getElementById("wordForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const daWord = document.getElementById("wordInput").value;
-    
-    // Save the word to Firebase
-    set(ref(daDatabase, "words"), {word: daWord});
-    
-    // Clear input field
-    document.getElementById("wordInput").value = '';
-  });
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const daDatabase = getDatabase();
+
+const isSilentCheckbox = document.getElementById("isSilent");
+
+// Handle form submission
+document.getElementById("wordForm").addEventListener("submit", function(e)
+{
+	e.preventDefault();
+	const daWord = document.getElementById("wordInput").value;
+
+	const now = new Date();
+	const timeString = now.toLocaleTimeString(); 
+
+	const isSilent = isSilentCheckbox.checked;
+
+	// Save the word to Firebase
+	set(ref(daDatabase, "words"),
+	{
+		word: daWord,
+		ip: ip,
+		silent: isSilent,
+		time: timeString,
+	});
+
+	// Clear input field
+	document.getElementById("wordInput").value = '';
+});
   

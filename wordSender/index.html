@@ -7,11 +7,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Enter a Word:</h1>
-  <form id="wordForm">
-    <input type="text" id="wordInput" required>
-    <button type="submit">Send</button>
-  </form>
-  <script src="script.js" type="module"></script>
+	<h1>Enter a Word:</h1>
+
+	<form id="wordForm">
+		<input type="text" id="wordInput" required>
+		<button type="submit">Send</button>
+	</form>
+
+	<form id="parameters">
+		<div id="paramCheckbox">
+			<input type="checkbox" id="isSilent">
+			<label for="isSilent">is silent</label>
+		</div>
+	</form>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="cookies.js"></script>
+	<script src="script.js" type="module"></script>
 </body>
 </html>
