@@ -18,21 +18,6 @@ const firebaseConfig =
 	appId: "1:1064096463566:web:e2a1d5ecb61689e041ae9f",
 	measurementId: "G-81K8K26S09"
 };
-
-if (getCookie("ip") == null)
-{
-	$.getJSON('https://api.db-ip.com/v2/free/self', function(data)
-	{
-		console.log(JSON.stringify(data, null, 2));
-		setCookie("ip", data.ipAddress, 0.5);
-	})
-	.fail( function()
-	{
-		console.log("error getting ip");
-		setCookie("ip", "none", 0.1);
-	});
-}
-const ip = getCookie("ip");
   
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -55,7 +40,6 @@ document.getElementById("wordForm").addEventListener("submit", function(e)
 	set(ref(daDatabase, "words"),
 	{
 		word: daWord,
-		ip: ip,
 		silent: isSilent,
 		time: timeString,
 	});
