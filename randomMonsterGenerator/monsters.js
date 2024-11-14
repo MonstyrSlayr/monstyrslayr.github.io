@@ -92,7 +92,6 @@ async function getMonsters()
 		if (monster.id == "ad") //special quibble case
 		{
 			monster.source = "./img/monster_portrait_square_ad_copy.avif";
-			//console.log("quibble");
 		}
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
 
@@ -241,7 +240,7 @@ async function getMonsters()
 		let monsterLine = results.data.find((line) => 
 			(monster.id.startsWith("f_epic") && line.codename == "f_epic")
 			|| line.codename == monster.id)
-		//console.log(monsterLine)
+
 		if (monsterLine)
 		{
 			monster.name = monsterLine.name;

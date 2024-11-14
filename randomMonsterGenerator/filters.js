@@ -221,7 +221,7 @@ async function createFilters()
     islandCheckAll.innerHTML = "Toggle All";
 
     const islandConditionals = [...islands].map(island =>
-        new Conditional("be on " + island, islandConditionalsDiv, function(monster = Monster) { return monster.islands.has(island)}, true),
+        new Conditional("be on " + island, islandConditionalsDiv, function(monster = Monster) { return monster.islands.has(island) }, true),
     )
 
     islandCheckAll.onclick = function ()
