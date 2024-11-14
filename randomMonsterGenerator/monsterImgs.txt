@@ -446,3 +446,11 @@ monster_portrait_square_z05.avif
 monster_portrait_square_z06.avif
 monster_portrait_square_z07.avif
 monster_portrait_square_z08.avif
+monster_portrait_square_acn_epic.avif
+monster_portrait_square_bcden_rare.avif
+monster_portrait_square_cnv_rare.avif
+monster_portrait_square_enw_rare.avif
+monster_portrait_square_eny_rare.avif
+monster_portrait_square_jk_epic.avif
+monster_portrait_square_p10_rare.avif
+monster_portrait_square_vy_rare.avif
