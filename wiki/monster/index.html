@@ -8,11 +8,38 @@
 </head>
 
 <body>
+    <header>
+        <h1 id="monsterTitle"></h1>
+    </header>
+
     <div class="container soloContainer">
         <div class="box soloMonster">
             <img id="monsterImg">
         </div>
-        <h1 id="monsterTitle"></h1>
+
+        <div id="monsterInfo">
+            <h2>Monster Info:</h2>
+
+            <div class="infoSection">
+                <h3>Name:</h3>
+                    <p id="monsterName"></p>
+            </div>
+
+            <div class="infoSection">
+                <h2>Elements:</h2>
+                    <div id="elementImages" class="miniElementList"></div>
+            </div>
+
+            <div class="infoSection">
+                <h2>Bio:</h2>
+                    <p id="monsterBio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="infoSection">
+                <h2>Sound:</h2>
+                    <p id="monsterSound">Sample Sound</p>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>

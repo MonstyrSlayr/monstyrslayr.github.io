@@ -3,7 +3,9 @@ const Rarity = Object.freeze({
     RARE: 1,
     EPIC: 2,
     CHILD: 3, //celestials only
-    ADULT: 4 //celestials only
+    ADULT: 4, //celestials only
+	MAJOR: 5, //paironormal only
+	MINOR: 6 //paironormal only
 });
 
 const Class = Object.freeze({
@@ -19,7 +21,8 @@ const Class = Object.freeze({
 	CELESTIAL: 9,
 	DIPSTER: 10,
 	TITANSOUL: 11,
-	DREAMYTHICAL: 12
+	DREAMYTHICAL: 12,
+	PAIRONORMAL: 13
 });
 
 class Monster
@@ -59,6 +62,8 @@ class Monster
 	hasCelestial = false;
 	hasDipster = false;
 	hasTitansoul = false;
+
+	hasControl = false;
 }
 
 async function getMonsters()
@@ -99,6 +104,8 @@ async function getMonsters()
 		if (monster.id.endsWith("_rare")) monster.rarity = Rarity.RARE;
 		else if (monster.id.includes("_epic")) monster.rarity = Rarity.EPIC; //includes for epic wubboxes
 		else if (monster.id.endsWith("_adult")) monster.rarity = Rarity.ADULT;
+		else if (monster.id.endsWith("_maj")) monster.rarity = Rarity.MAJOR;
+		else if (monster.id.endsWith("_min")) monster.rarity = Rarity.MINOR;
 		else monster.rarity = Rarity.COMMON;
 
 		//classes & element count
@@ -115,6 +122,13 @@ async function getMonsters()
 			monster.identifier = parseInt(monster.elementString.replace("x", ""));
 			monster.elements = 1;
 			monster.hasTitansoul = true;
+		}
+		else if (monster.elementString.startsWith("i"))
+		{
+			monster.class = Class.PAIRONORMAL;
+			monster.identifier = monster.elementString.replace("i", "");
+			monster.elements = 1;
+			monster.hasControl = true;
 		}
 		else if (monster.elementString.startsWith("VOC"))
 		{
@@ -239,12 +253,14 @@ async function getMonsters()
 
 		let monsterLine = results.data.find((line) => 
 			(monster.id.startsWith("f_epic") && line.codename == "f_epic")
+			|| (line.codename.startsWith("i") && line.codename == monster.id.substring(0, 3))
 			|| line.codename == monster.id)
 
 		if (monsterLine)
 		{
 			monster.name = monsterLine.name;
 			monster.islands = new Set(monsterLine.islands.split("&").slice(0, -1));
+
 			//epic wubbox clause
 			if (monster.elementString.startsWith("f"))
 			{
@@ -258,6 +274,12 @@ async function getMonsters()
 					}
 				}
 			}
+			//paironormal clause
+			if (monster.elementString.startsWith("i"))
+			{
+				monster.rarity = monster.elementString.endsWith("min") ? Rarity.MINOR : Rarity.MAJOR;
+			}
+
 			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // there is still stuff to do here, seperating it by island
 			monster.bio = monsterLine.bio;
 			monster.link = monsterLine.link;

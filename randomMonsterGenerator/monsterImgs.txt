@@ -9,6 +9,7 @@ monster_portrait_square_abcd_epic.avif
 monster_portrait_square_abcd_rare.avif
 monster_portrait_square_abce.avif
 monster_portrait_square_abcen.avif
+monster_portrait_square_abcen_rare.avif
 monster_portrait_square_abce_epic.avif
 monster_portrait_square_abce_rare.avif
 monster_portrait_square_abcn.avif
@@ -193,6 +194,7 @@ monster_portrait_square_eny.avif
 monster_portrait_square_en_epic.avif
 monster_portrait_square_en_rare.avif
 monster_portrait_square_ew.avif
+monster_portrait_square_ew_rare.avif
 monster_portrait_square_ey.avif
 monster_portrait_square_e_epic.avif
 monster_portrait_square_e_rare.avif
@@ -203,6 +205,8 @@ monster_portrait_square_f_epic_earth.avif
 monster_portrait_square_f_epic_gold.avif
 monster_portrait_square_f_epic_plant.avif
 monster_portrait_square_f_epic_water.avif
+monster_portrait_square_f_epic_firehaven.avif
+monster_portrait_square_f_epic_fireoasis.avif
 monster_portrait_square_f_rare.avif
 monster_portrait_square_g.avif
 monster_portrait_square_gj.avif
@@ -280,6 +284,7 @@ monster_portrait_square_p02.avif
 monster_portrait_square_p02_epic.avif
 monster_portrait_square_p02_rare.avif
 monster_portrait_square_p03.avif
+monster_portrait_square_p03_epic.avif
 monster_portrait_square_p03_rare.avif
 monster_portrait_square_p04.avif
 monster_portrait_square_p04_rare.avif
@@ -288,16 +293,19 @@ monster_portrait_square_p05_rare.avif
 monster_portrait_square_p06.avif
 monster_portrait_square_p06_rare.avif
 monster_portrait_square_p07.avif
+monster_portrait_square_p07_epic.avif
 monster_portrait_square_p07_rare.avif
 monster_portrait_square_p08.avif
 monster_portrait_square_p08_rare.avif
 monster_portrait_square_p09.avif
 monster_portrait_square_p10.avif
 monster_portrait_square_p11.avif
+monster_portrait_square_p11_rare.avif
 monster_portrait_square_p12.avif
 monster_portrait_square_p13.avif
 monster_portrait_square_p14.avif
 monster_portrait_square_p15.avif
+monster_portrait_square_p15_rare.avif
 monster_portrait_square_q01.avif
 monster_portrait_square_q02.avif
 monster_portrait_square_q03.avif
@@ -454,3 +462,5 @@ monster_portrait_square_eny_rare.avif
 monster_portrait_square_jk_epic.avif
 monster_portrait_square_p10_rare.avif
 monster_portrait_square_vy_rare.avif
+monster_portrait_square_i01_maj.avif
+monster_portrait_square_i01_min.avif

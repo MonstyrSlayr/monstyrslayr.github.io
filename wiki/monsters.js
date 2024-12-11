@@ -1,3 +1,5 @@
+export const IMG = "//monstyrslayr.github.io/wiki/img/"
+
 class MonsterClass
 {
     constructor (name)
@@ -5,6 +7,11 @@ class MonsterClass
         this.name = name;
     }
 }
+let daMonsterClasses =
+[
+    new MonsterClass("None"),
+    new MonsterClass("Ameliorate"),
+];
 
 class MonsterElement
 {
@@ -14,6 +21,14 @@ class MonsterElement
         this.images = images;
     }
 }
+let daAmeliorateElements =
+[
+    new MonsterElement("Bulb"),
+    new MonsterElement("Hostess"),
+    new MonsterElement("Clay"),
+    new MonsterElement("Signal"),
+    new MonsterElement("Trash"),
+];
 
 class Monster
 {
@@ -27,7 +42,7 @@ class Monster
 
 class Ameliorate extends Monster
 {
-    constructor (id, hasBulb, hasHostess, hasClay, hasSignal, hasTrash, affiliation, attributes, realName)
+    constructor (id = String, hasBulb = Boolean, hasHostess = Boolean, hasClay = Boolean, hasSignal = Boolean, hasTrash = Boolean, affiliation = String, attributes = Object, realName = String)
     {
         super();
 
@@ -51,27 +66,13 @@ class Ameliorate extends Monster
 
         let basicImage = id + "-" + this.elementString;
         
-        this.images.default = "./img/" + basicImage + ".png";
-        this.images.lineless = "./img/" + basicImage + "-Lineless.png";
-        this.images.shadowless = "./img/" + basicImage + "-Shadowless.png";
-        this.images.linelessShadowless = "./img/" + basicImage + "-Lineless-Shadowless.png";
-        this.images.emoji = "./img/emoji/" + basicImage + ".png";
+        this.images.default = IMG + basicImage + ".png";
+        this.images.lineless = IMG + basicImage + "-Lineless.png";
+        this.images.shadowless = IMG + basicImage + "-Shadowless.png";
+        this.images.linelessShadowless = IMG + basicImage + "-Lineless-Shadowless.png";
+        this.images.emoji = IMG + "emoji/" + basicImage + ".png";
     }
 }
-
-let daMonsterClasses =
-[
-    new MonsterClass("Ameliorate")
-];
-
-let daAmeliorateElements =
-[
-    new MonsterElement("Bulb"),
-    new MonsterElement("Hostess"),
-    new MonsterElement("Clay"),
-    new MonsterElement("Signal"),
-    new MonsterElement("Trash"),
-];
 
 let daAmeliorates =
 [
@@ -138,6 +139,27 @@ let daAmeliorates =
                         {age: 37}, "Re-Fabrić"),
     new Ameliorate("Trumpoff",      false,  true,  true,  true,  true,   "C",
                         {age: 54}),
+]
+
+class Island
+{
+    constructor (name, monsterClass)
+    {
+        this.name = name;
+        this.monsterClass = monsterClass;
+
+        this.isATN = name.endsWith("All Together Now!");
+    }
+}
+let daAmeliorateIslands =
+[
+    new Island("Signal Stadium", "Ameliorate"),
+    new Island("Clay Kiln", "Ameliorate"),
+    new Island("Trash Skylands", "Ameliorate"),
+    new Island("Bulbi Gardens", "Ameliorate"),
+    
+    new Island("Signal Stadium: All Together Now!", "Ameliorate"),
+    new Island("Clay Kiln: All Together Now!", "Ameliorate"),
 ]
 
 export function getAmeliorates()

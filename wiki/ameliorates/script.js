@@ -1,8 +1,8 @@
-import { getAmeliorates } from "./monsters.js";
+import { IMG, getAmeliorates } from "../monsters.js";
 
 // Initial rankings
 let rankings = getAmeliorates();
-const container = document.getElementById("imageContainer");
+const monsterContainer = document.getElementById("monsterContainer");
 const root = document.documentElement;
 
 const SORTING = ["Elemental", "Alphabetical", "Age"];
@@ -14,9 +14,9 @@ function createAmeliorates()
 	let daStuff = getComputedStyle(root);
 	for (let i = 0; i < rankings.length; i++)
 	{
-		let mon = rankings[i];
+		const mon = rankings[i];
 
-		let ameDiv = document.createElement("div");
+		const ameDiv = document.createElement("div");
 		ameDiv.classList = ["box"];
 		switch (mon.affiliation)
 		{
@@ -39,45 +39,45 @@ function createAmeliorates()
 		ameDiv.id = mon.id;
 		ameDiv.addEventListener("click", function()
 		{
-			window.location.href = "monster/index.html?id=" + encodeURIComponent(ameDiv.id);
+			window.location.href = "../monster/index.html?id=" + encodeURIComponent(ameDiv.id);
 		});
 
-		let ameImg = document.createElement("img");
+		const ameImg = document.createElement("img");
 		ameImg.src = mon.images.emoji;
 		ameImg.classList = ["monsterEmoji"];
 		ameDiv.append(ameImg);
 
-		let daLabel = document.createElement("div");
+		const daLabel = document.createElement("div");
 		daLabel.classList = ["monsterLabel"];
 		ameDiv.append(daLabel);
 
-		let daElementList = document.createElement("div");
+		const daElementList = document.createElement("div");
 		daElementList.classList = ["miniElementList"];
 		daLabel.append(daElementList);
 
-		let daElements = [mon.B, mon.H, mon.C, mon.S, mon.T];
+		const daElements = [mon.B, mon.H, mon.C, mon.S, mon.T];
 
 		for (let j = 0; j < daElements.length; j++)
 		{
 			if (daElements[j])
 			{
-				let daSigil = document.createElement("img");
+				const daSigil = document.createElement("img");
 				switch (j)
 				{
 					case 0: default:
-						daSigil.src = "img/ElementBulb.png";
+						daSigil.src = IMG + "ElementBulb.png";
 						break;
 					case 1:
-						daSigil.src = "img/ElementHostess.png";
+						daSigil.src = IMG + "ElementHostess.png";
 						break;
 					case 2:
-						daSigil.src = "img/ElementClay.png";
+						daSigil.src = IMG + "ElementClay.png";
 						break;
 					case 3:
-						daSigil.src = "img/ElementSignal.png";
+						daSigil.src = IMG + "ElementSignal.png";
 						break;
 					case 4:
-						daSigil.src = "img/ElementTrash.png";
+						daSigil.src = IMG + "ElementTrash.png";
 						break;
 				}
 
@@ -86,11 +86,11 @@ function createAmeliorates()
 			}
 		}
 
-		let ameName = document.createElement("label");
+		const ameName = document.createElement("label");
 		ameName.innerHTML = mon.realName;
 		daLabel.append(ameName);
 
-		container.append(ameDiv);
+		monsterContainer.append(ameDiv);
 	}
 }
 
@@ -143,12 +143,12 @@ function updatePositions()
 	}
 
     // Get container and its children
-    const images = Array.from(container.children);
+    const images = Array.from(monsterContainer.children);
 
     // Reorder the images in the DOM based on sorted rankings
     rankings.forEach((item, index) => {
       const image = document.getElementById(item.id);
-      container.appendChild(image);
+      monsterContainer.appendChild(image);
     });
 
     // Animate images to their new positions using GSAP

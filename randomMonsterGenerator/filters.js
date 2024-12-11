@@ -87,6 +87,8 @@ async function createFilters()
         new Conditional("Epics", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.EPIC} ),
         new Conditional("Young (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.CHILD} ),
         new Conditional("Adult (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.ADULT} ),
+        new Conditional("Major (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.MAJOR} ),
+        new Conditional("Minor (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.MINOR} ),
     ];
 
     rarityCheckAll.onclick = function ()
@@ -125,6 +127,7 @@ async function createFilters()
         new Conditional("Dipsters", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.DIPSTER} ),
         new Conditional("Celestials", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.CELESTIAL} ),
         new Conditional("Titansouls", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.TITANSOUL} ),
+        new Conditional("Paironormal", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.PAIRONORMAL} ),
     ];
 
     classCheckAll.onclick = function ()
@@ -176,6 +179,8 @@ async function createFilters()
         new Conditional("have Dipster", elementConditionalsDiv, function(monster = Monster) { return monster.hasDipster}, true),
         new Conditional("have Celestial", elementConditionalsDiv, function(monster = Monster) { return monster.hasCelestial}, true),
         new Conditional("have Titansoul", elementConditionalsDiv, function(monster = Monster) { return monster.hasTitansoul}, true),
+
+        new Conditional("have Control", elementConditionalsDiv, function(monster = Monster) { return monster.hasControl}, true),
     ];
 
     elementCheckAll.onclick = function ()
