@@ -1,41 +1,22 @@
-import { IMG, getAmeliorates } from "../monsters.js";
+import { IMG, getElements, getAmeliorates, getIslands } from "../data.js";
 
-// Initial rankings
-let rankings = getAmeliorates();
+// Initial monsters
+let monsters = getAmeliorates();
 const monsterContainer = document.getElementById("monsterContainer");
 const root = document.documentElement;
+const daCSS = getComputedStyle(root);
 
 const SORTING = ["Elemental", "Alphabetical", "Age"];
 
 let sorting = 0;
 
-function createAmeliorates()
+function createAmelioratesDiv()
 {
-	let daStuff = getComputedStyle(root);
-	for (let i = 0; i < rankings.length; i++)
+	for (const mon of monsters)
 	{
-		const mon = rankings[i];
-
 		const ameDiv = document.createElement("div");
 		ameDiv.classList = ["box"];
-		switch (mon.affiliation)
-		{
-			case "B": default:
-				ameDiv.style.backgroundColor = daStuff.getPropertyValue('--bulb-outside');
-				break;
-			case "H":
-				ameDiv.style.backgroundColor = daStuff.getPropertyValue('--hostess-outside');
-				break;
-			case "C":
-				ameDiv.style.backgroundColor = daStuff.getPropertyValue('--clay-outside');
-				break;
-			case "S":
-				ameDiv.style.backgroundColor = daStuff.getPropertyValue('--signal-outside');
-				break;
-			case "T":
-				ameDiv.style.backgroundColor = daStuff.getPropertyValue('--trash-outside');
-				break;
-		}
+		ameDiv.style.backgroundColor = mon.affiliation.outside;
 		ameDiv.id = mon.id;
 		ameDiv.addEventListener("click", function()
 		{
@@ -55,35 +36,12 @@ function createAmeliorates()
 		daElementList.classList = ["miniElementList"];
 		daLabel.append(daElementList);
 
-		const daElements = [mon.B, mon.H, mon.C, mon.S, mon.T];
-
-		for (let j = 0; j < daElements.length; j++)
+		for (const element of mon.elements)
 		{
-			if (daElements[j])
-			{
-				const daSigil = document.createElement("img");
-				switch (j)
-				{
-					case 0: default:
-						daSigil.src = IMG + "ElementBulb.png";
-						break;
-					case 1:
-						daSigil.src = IMG + "ElementHostess.png";
-						break;
-					case 2:
-						daSigil.src = IMG + "ElementClay.png";
-						break;
-					case 3:
-						daSigil.src = IMG + "ElementSignal.png";
-						break;
-					case 4:
-						daSigil.src = IMG + "ElementTrash.png";
-						break;
-				}
-
-				daSigil.classList = ["miniElement"];
-				daElementList.append(daSigil);
-			}
+			const daSigil = document.createElement("img");
+			daSigil.src = element.sigil;
+			daSigil.classList = ["miniElement"];
+			daElementList.append(daSigil);
 		}
 
 		const ameName = document.createElement("label");
@@ -93,8 +51,7 @@ function createAmeliorates()
 		monsterContainer.append(ameDiv);
 	}
 }
-
-createAmeliorates();
+createAmelioratesDiv();
 
 const sortButton = document.getElementById("sortButton");
 const sortType = document.getElementById("daSort");
@@ -106,7 +63,7 @@ function updatePositions()
     switch (SORTING[sorting])
 	{
 		case "Alphabetical": default:
-			rankings.sort((a, b) =>
+			monsters.sort((a, b) =>
 			{
 				if (a.id.toLowerCase() < b.id.toLowerCase()) return -1;
 				if (a.id.toLowerCase() > b.id.toLowerCase()) return 1;
@@ -115,7 +72,7 @@ function updatePositions()
 		break;
 		
 		case "Elemental":
-			rankings.sort((a, b) =>
+			monsters.sort((a, b) =>
 			{
 				if (a.elementString.length < b.elementString.length) return -1;
 				if (a.elementString.length > b.elementString.length) return 1;
@@ -131,8 +88,8 @@ function updatePositions()
 		break;
 
 		case "Age":
-			expiAge = 55 * Math.random();
-			rankings.sort((a, b) =>
+			let expiAge = 55 * Math.random();
+			monsters.sort((a, b) =>
 			{
 				let aage = (a.id == "ExpiFour") ? expiAge : a.attr.age;
 				let bage = (b.id == "ExpiFour") ? expiAge :  b.attr.age;
@@ -145,8 +102,8 @@ function updatePositions()
     // Get container and its children
     const images = Array.from(monsterContainer.children);
 
-    // Reorder the images in the DOM based on sorted rankings
-    rankings.forEach((item, index) => {
+    // Reorder the images in the DOM based on sorted monsters
+    monsters.forEach((item, index) => {
       const image = document.getElementById(item.id);
       monsterContainer.appendChild(image);
     });
@@ -164,3 +121,51 @@ sortButton.addEventListener("click", function ()
 	if (sorting >= SORTING.length) sorting = 0;
 	updatePositions();
 });
+
+const islands = getIslands();
+const islandContainer = document.getElementById("islandContainer");
+function createIslandsDiv()
+{
+	for (const island of islands)
+	{
+		const islandDiv = document.createElement("div");
+		islandDiv.classList = ["layer"];
+		islandDiv.style.backgroundColor = island.affiliation.outside;
+		islandDiv.id = island.id;
+		islandDiv.addEventListener("click", function()
+		{
+			window.location.href = "../island/index.html?id=" + encodeURIComponent(islandDiv.id);
+		});
+
+		const islandName = document.createElement("label");
+		islandName.innerHTML = island.name;
+		islandDiv.append(islandName);
+
+		islandContainer.append(islandDiv);
+	}
+}
+createIslandsDiv();
+
+const elements = getElements();
+const elementsContainer = document.getElementById("elementsContainer");
+function createElementsDiv()
+{
+	for (const element of elements)
+	{
+		const elementDiv = document.createElement("div");
+		elementDiv.classList = ["layer"];
+		elementDiv.style.backgroundColor = element.outside;
+		elementDiv.id = element.id;
+		elementDiv.addEventListener("click", function()
+		{
+			window.location.href = "../element/index.html?id=" + encodeURIComponent(elementDiv.id);
+		});
+
+		const elementName = document.createElement("label");
+		elementName.innerHTML = element.name;
+		elementDiv.append(elementName);
+
+		elementsContainer.append(elementDiv);
+	}
+}
+createElementsDiv();

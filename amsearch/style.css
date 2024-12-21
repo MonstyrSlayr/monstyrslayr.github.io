@@ -1,0 +1,102 @@
+*
+{
+    font-family: Arial, Helvetica, sans-serif;
+    /* margin: 0%;
+    padding: 0%; */
+    --bgColor: #f1dcaa;
+    --bgSupport: #e0cc9e;
+}
+
+p
+{
+    font-size: large;
+    margin-top: 0;
+}
+
+body
+{
+    background-color: var(--bgColor);
+}
+
+#introSurround
+{
+    background-color: var(--bgSupport);
+}
+
+#intro
+{
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    padding: 8px;
+    background-color: var(--bgColor);
+}
+
+#intro img
+{
+    width: 100%;
+}
+
+.examples
+{
+    margin: auto 4vw;
+}
+
+header
+{
+    z-index: 10;
+    background-color: #acb3c466;
+}
+
+header h1
+{
+    padding: 1vh 1vw;
+    text-align: center;
+}
+
+h2
+{
+    text-align: center;
+    margin: 4vh;
+}
+
+h3
+{
+    text-align: center;
+    margin: 1vh;
+}
+
+.inline
+{
+    float: left;
+    width: 15vw;
+}
+
+.infoDiv
+{
+    margin: auto 10vw;
+}
+
+.infoDivBody
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoDivBody p
+{
+    margin: 2%;
+}
+
+.bibliography
+{
+    margin: auto 10%;
+    list-style-type: none;
+    text-indent: -4em;
+}
+
+footer
+{
+    font-size: 0.75em;
+}

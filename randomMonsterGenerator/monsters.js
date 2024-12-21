@@ -278,6 +278,7 @@ async function getMonsters()
 			if (monster.elementString.startsWith("i"))
 			{
 				monster.rarity = monster.elementString.endsWith("min") ? Rarity.MINOR : Rarity.MAJOR;
+				monster.name = (monster.rarity == Rarity.MINOR ? "Minor" : "Major") + " " + monsterLine.name;
 			}
 
 			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // there is still stuff to do here, seperating it by island

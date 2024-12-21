@@ -1,101 +1,7 @@
-@property --bulb-main
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(255, 170, 0);
-}
-@property --bulb-outside
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(88, 55, 0);
-}
-@property --bulb-highlight
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(255, 201, 91);
-}
-
-@property --hostess-main
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(39, 255, 209);
-}
-@property --hostess-outside
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(28, 137, 129);
-}
-@property --hostess-highlight
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(129, 227, 231);
-}
-
-@property --clay-main
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(227, 64, 64);
-}
-@property --clay-outside
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(107, 30, 30);
-}
-@property --clay-highlight
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(230, 82, 104);
-}
-
-@property --signal-main
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(0, 255, 56);
-}
-@property --signal-outside
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(11, 129, 33);
-}
-@property --signal-highlight
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(122, 213, 139);
-}
-
-@property --trash-main
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(137, 137, 130);
-}
-@property --trash-outside
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(39, 39, 0);
-}
-@property --trash-highlight
-{
-    syntax: "<color>";
-    inherits: false;
-    initial-value: rgb(229, 222, 19);
-}
-
 *
 {
     transition: all 0.15s;
+    color: white;
 }
 
 body
@@ -112,24 +18,43 @@ header
     color: white;
 }
 
-header button
+button
 {
     color: black;
     font-size: 24px;
     border-radius: 8px;
+    margin: auto auto;
+    display: block;
 }
 
-header button:hover
+button span
+{
+    color: black;
+}
+
+button:hover
 {
     scale: 105%;
 }
 
-.container
+h2
+{
+    color: white;
+    text-align: left;
+}
+
+label
+{
+    font-size: 24px;
+}
+
+.contentContainer
 {
     display: flex;
     flex-wrap: wrap;
-    width: 75%;
+    flex-direction: row;
     gap: 10px;
+    width: 75%;
     justify-content: center;
     align-items: center;
     margin: 16px auto;
@@ -153,7 +78,25 @@ header button:hover
     text-wrap: nowrap;
 }
 
-.box:hover
+.layer
+{
+    width: 100%;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 16px;
+    border-color: lightgray;
+    background-color: #444444;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.box:hover, .layer:hover
 {
     scale: 105%;
     cursor: pointer;
@@ -203,10 +146,23 @@ header button:hover
 
 .soloMonster
 {
-    margin-right: 0;
-    margin-left: auto;
-    width: 50%;
-    float: right;
+    width: 100%;
+    height: 512px;
+    overflow: hidden;
+    float: top;
+    background-color: #00ff0033;
+}
+
+.soloGap
+{
+    height: 64px;
+}
+
+.soloMonster img
+{
+    margin: 0 auto;
+    display: block;
+    height: 100%;
 }
 
 #monsterTitle
@@ -218,6 +174,7 @@ header button:hover
 {
     font-size: 200%;
     display: block;
+    
 }
 
 #monsterInfo
@@ -235,7 +192,12 @@ header button:hover
     margin: 16px 32px;
 }
 
-.infoSection *
+.underlined
+{
+    border-bottom: 1px solid white;
+}
+
+.infoInline *
 {
     display: inline;
 }
