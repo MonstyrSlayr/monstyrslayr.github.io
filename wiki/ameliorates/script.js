@@ -1,10 +1,8 @@
-import { IMG, getElements, getAmeliorates, getIslands } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
 const monsterContainer = document.getElementById("monsterContainer");
-const root = document.documentElement;
-const daCSS = getComputedStyle(root);
 
 const SORTING = ["Elemental", "Alphabetical", "Age"];
 
@@ -14,39 +12,7 @@ function createAmelioratesDiv()
 {
 	for (const mon of monsters)
 	{
-		const ameDiv = document.createElement("div");
-		ameDiv.classList = ["box"];
-		ameDiv.style.backgroundColor = mon.affiliation.outside;
-		ameDiv.id = mon.id;
-		ameDiv.addEventListener("click", function()
-		{
-			window.location.href = "../monster/index.html?id=" + encodeURIComponent(ameDiv.id);
-		});
-
-		const ameImg = document.createElement("img");
-		ameImg.src = mon.images.emoji;
-		ameImg.classList = ["monsterEmoji"];
-		ameDiv.append(ameImg);
-
-		const daLabel = document.createElement("div");
-		daLabel.classList = ["monsterLabel"];
-		ameDiv.append(daLabel);
-
-		const daElementList = document.createElement("div");
-		daElementList.classList = ["miniElementList"];
-		daLabel.append(daElementList);
-
-		for (const element of mon.elements)
-		{
-			const daSigil = document.createElement("img");
-			daSigil.src = element.sigil;
-			daSigil.classList = ["miniElement"];
-			daElementList.append(daSigil);
-		}
-
-		const ameName = document.createElement("label");
-		ameName.innerHTML = mon.realName;
-		daLabel.append(ameName);
+		const ameDiv = makeAmeliorateDiv(mon);
 
 		monsterContainer.append(ameDiv);
 	}
@@ -128,18 +94,7 @@ function createIslandsDiv()
 {
 	for (const island of islands)
 	{
-		const islandDiv = document.createElement("div");
-		islandDiv.classList = ["layer"];
-		islandDiv.style.backgroundColor = island.affiliation.outside;
-		islandDiv.id = island.id;
-		islandDiv.addEventListener("click", function()
-		{
-			window.location.href = "../island/index.html?id=" + encodeURIComponent(islandDiv.id);
-		});
-
-		const islandName = document.createElement("label");
-		islandName.innerHTML = island.name;
-		islandDiv.append(islandName);
+		const islandDiv = makeIslandDiv(island);
 
 		islandContainer.append(islandDiv);
 	}
@@ -152,20 +107,45 @@ function createElementsDiv()
 {
 	for (const element of elements)
 	{
-		const elementDiv = document.createElement("div");
-		elementDiv.classList = ["layer"];
-		elementDiv.style.backgroundColor = element.outside;
-		elementDiv.id = element.id;
-		elementDiv.addEventListener("click", function()
-		{
-			window.location.href = "../element/index.html?id=" + encodeURIComponent(elementDiv.id);
-		});
-
-		const elementName = document.createElement("label");
-		elementName.innerHTML = element.name;
-		elementDiv.append(elementName);
-
+		const elementDiv =  makeElementDiv(element);
+		
 		elementsContainer.append(elementDiv);
 	}
 }
 createElementsDiv();
+
+function resizeWindow()
+{
+	const width = window.innerWidth;
+    
+    // Select elements you want to update
+    const elements = document.querySelectorAll('.ameliorateDiv');
+
+    elements.forEach(element => {
+        if (width < 600)
+		{
+            element.classList.add('layer');
+            element.classList.remove('box');
+            element.classList.remove('long');
+        }
+        else if (width < 1100)
+		{
+            element.classList.add('long');
+            element.classList.remove('box');
+            element.classList.remove('layer');
+        }
+		else
+		{
+            element.classList.add('box');
+            element.classList.remove('layer');
+            element.classList.remove('long');
+        }
+    });
+}
+
+window.addEventListener('resize', () =>
+{
+    resizeWindow();
+});
+
+resizeWindow();

@@ -75,7 +75,7 @@ async function getMonsters()
 	{
 		throw new Error('Network response was not ok');
 	}
-	csvText = await csvResponse.text();
+	let csvText = await csvResponse.text();
 	let results = await Papa.parse(csvText, { header: true });
 
 	const response = await fetch('monsterImgs.txt');

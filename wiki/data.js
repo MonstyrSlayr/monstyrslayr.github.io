@@ -1,4 +1,4 @@
-export const IMG = "../img/"
+export const IMG = "https://monstyrslayr.github.io/wiki/img/";
 
 function rgb(r, g, b)
 {
@@ -193,6 +193,21 @@ const daAmeliorates =
                         {age: 54}),
 ];
 
+export async function getMonsterData(id)
+{
+    const csvResponse = await fetch("../../monsterData.csv");
+	if (!csvResponse.ok)
+	{
+		throw new Error('Network response was not ok');
+	}
+	let csvText = await csvResponse.text();
+	let results = await Papa.parse(csvText, { header: true });
+
+    let monsterLine = results.data.find((line) => line.monster.toLowerCase() == id.toLowerCase());
+
+    return monsterLine;
+}
+
 export function getAmeliorates()
 {
     return daAmeliorates;
@@ -200,33 +215,79 @@ export function getAmeliorates()
 
 export function getAmeliorateById(id)
 {
-    return daAmeliorates.find(monster => monster.id == id);
+    return daAmeliorates.find(monster => monster.id.toLowerCase() == id.toLowerCase());
+}
+
+export function makeAmeliorateDiv(monster, className = "box")
+{
+    const ameDiv = document.createElement("div");
+    ameDiv.classList = [className + " ameliorateDiv"];
+    ameDiv.style.backgroundColor = monster.affiliation.outside;
+    ameDiv.id = monster.id;
+    ameDiv.addEventListener("click", function()
+    {
+        window.location.href = "https://monstyrslayr.github.io/wiki/monster/" + ameDiv.id.toLowerCase() + "/";
+    });
+
+    const ameImg = document.createElement("img");
+    ameImg.src = monster.images.emoji;
+    ameImg.classList = ["monsterEmoji"];
+    ameDiv.append(ameImg);
+
+    const daLabel = document.createElement("div");
+    daLabel.classList = ["monsterLabel"];
+    ameDiv.append(daLabel);
+
+    const daElementList = document.createElement("div");
+    daElementList.classList = ["miniElementList"];
+    daLabel.append(daElementList);
+
+    for (const element of monster.elements)
+    {
+        const daSigil = document.createElement("img");
+        daSigil.src = element.sigil;
+        daSigil.classList = ["miniElement"];
+        daElementList.append(daSigil);
+    }
+
+    const ameName = document.createElement("label");
+    ameName.innerHTML = monster.realName;
+    daLabel.append(ameName);
+
+    return ameDiv;
 }
 //#endregion
 
 //#region islands
 class Island
 {
-    constructor (name, monsterClass, elements, affiliation)
+    constructor (name, monsterClass, elements, affiliation, monsters)
     {
         this.name = name;
         this.monsterClass = monsterClass;
         this.elements = elements;
         this.affiliation = affiliation;
         this.id = getCapitalLetters(name);
+        this.monsters = monsters;
 
         this.isATN = name.endsWith("All Together Now!");
     }
 }
 const daAmeliorateIslands =
 [
-    new Island("Signal Stadium", "Ameliorate", getAmeliorateById("Spotscast").elements, signalElement),
-    new Island("Clay Kiln", "Ameliorate", getAmeliorateById("Trumpoff").elements, clayElement),
-    new Island("Trash Skylands", "Ameliorate", getAmeliorateById("ReFabric").elements, trashElement),
-    new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement),
+    new Island("Signal Stadium", "Ameliorate", getAmeliorateById("Spotscast").elements, signalElement,
+        getAmeliorates().filter(monster => !monster.elements.includes(trashElement))),
+    new Island("Clay Kiln", "Ameliorate", getAmeliorateById("Trumpoff").elements, clayElement,
+    getAmeliorates().filter(monster => !monster.elements.includes(bulbElement))),
+    new Island("Trash Skylands", "Ameliorate", getAmeliorateById("ReFabric").elements, trashElement,
+    getAmeliorates().filter(monster => !monster.elements.includes(hostessElement))),
+    new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement,
+    getAmeliorates().filter(monster => !monster.elements.includes(clayElement))),
     
-    new Island("Signal Stadium: All Together Now!", "Ameliorate", daAmeliorateElements, signalElement),
-    new Island("Clay Kiln: All Together Now!", "Ameliorate", daAmeliorateElements, clayElement),
+    new Island("Signal Stadium: All Together Now!", "Ameliorate", daAmeliorateElements, signalElement,
+        getAmeliorates().filter(monster => !monster.elements.includes(trashElement) || monster.elements.includes(signalElement))),
+    new Island("Clay Kiln: All Together Now!", "Ameliorate", daAmeliorateElements, clayElement,
+        getAmeliorates().filter(monster => !monster.elements.includes(bulbElement) || monster.elements.includes(clayElement))),
 ]
 
 export function getIslands()
@@ -236,6 +297,42 @@ export function getIslands()
 
 export function getIslandById(id)
 {
-    return daAmeliorateIslands.find(island => island.id == id);;
+    return daAmeliorateIslands.find(island => island.id.toLowerCase() == id.toLowerCase());
+}
+
+export function makeIslandDiv(island)
+{
+    const islandDiv = document.createElement("div");
+    islandDiv.classList = ["layer"];
+    islandDiv.style.backgroundColor = island.affiliation.outside;
+    islandDiv.id = island.id;
+    islandDiv.addEventListener("click", function()
+    {
+        window.location.href = "https://monstyrslayr.github.io/island/" + islandDiv.id.toLowerCase() + "/";
+    });
+
+    const islandName = document.createElement("label");
+    islandName.innerHTML = island.name;
+    islandDiv.append(islandName);
+
+    return islandDiv;
+}
+
+export function makeElementDiv(element)
+{
+    const elementDiv = document.createElement("div");
+    elementDiv.classList = ["layer"];
+    elementDiv.style.backgroundColor = element.outside;
+    elementDiv.id = element.id;
+    elementDiv.addEventListener("click", function()
+    {
+        window.location.href = "https://monstyrslayr.github.io/element/" + elementDiv.id.toLowerCase() + "/";
+    });
+
+    const elementName = document.createElement("label");
+    elementName.innerHTML = element.name;
+    elementDiv.append(elementName);
+
+    return elementDiv;
 }
 //#endregion
