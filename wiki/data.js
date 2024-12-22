@@ -85,6 +85,24 @@ export function getElementById(id)
 {
     return daAmeliorateElements.find(element => element.id == id);
 }
+
+export function makeElementDiv(element)
+{
+    const elementDiv = document.createElement("div");
+    elementDiv.classList = ["layer"];
+    elementDiv.style.backgroundColor = element.outside;
+    elementDiv.id = element.id;
+    elementDiv.addEventListener("click", function()
+    {
+        window.location.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
+    });
+
+    const elementName = document.createElement("label");
+    elementName.innerHTML = element.name;
+    elementDiv.append(elementName);
+
+    return elementDiv;
+}
 //#endregion
 
 //#region monsters
@@ -195,7 +213,7 @@ const daAmeliorates =
 
 export async function getMonsterData(id)
 {
-    const csvResponse = await fetch("../../monsterData.csv");
+    const csvResponse = await fetch("https://monstyrslayr.github.io/wiki/monsterData.csv");
 	if (!csvResponse.ok)
 	{
 		throw new Error('Network response was not ok');
@@ -308,7 +326,7 @@ export function makeIslandDiv(island)
     islandDiv.id = island.id;
     islandDiv.addEventListener("click", function()
     {
-        window.location.href = "https://monstyrslayr.github.io/island/" + islandDiv.id.toLowerCase() + "/";
+        window.location.href = "https://monstyrslayr.github.io/wiki/island/" + islandDiv.id.toLowerCase() + "/";
     });
 
     const islandName = document.createElement("label");
@@ -316,23 +334,5 @@ export function makeIslandDiv(island)
     islandDiv.append(islandName);
 
     return islandDiv;
-}
-
-export function makeElementDiv(element)
-{
-    const elementDiv = document.createElement("div");
-    elementDiv.classList = ["layer"];
-    elementDiv.style.backgroundColor = element.outside;
-    elementDiv.id = element.id;
-    elementDiv.addEventListener("click", function()
-    {
-        window.location.href = "https://monstyrslayr.github.io/element/" + elementDiv.id.toLowerCase() + "/";
-    });
-
-    const elementName = document.createElement("label");
-    elementName.innerHTML = element.name;
-    elementDiv.append(elementName);
-
-    return elementDiv;
 }
 //#endregion
