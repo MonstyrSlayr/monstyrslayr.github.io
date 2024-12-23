@@ -16,7 +16,7 @@ header
     text-align: center;
     margin: 32px;
     color: white;
-    width: 100%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,7 +88,7 @@ label
     gap: 10px;
     width: 75%;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     margin: 16px auto;
 }
 
@@ -102,7 +102,7 @@ label
     background-color: #444444;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     padding: 10px;
     text-align: center;
@@ -199,9 +199,34 @@ label
     margin-left: -30px;
 }
 
-.miniElementList img:nth-child(even)
+.miniElement:hover
+{
+    scale: 110%;
+    cursor: pointer;
+    -webkit-filter: drop-shadow(2px 2px 0 white)
+                    drop-shadow(-2px 2px 0 white)
+                    drop-shadow(2px -2px 0 white)
+                    drop-shadow(-2px -2px 0 white);
+
+    filter: drop-shadow(2px 2px 0 white)
+            drop-shadow(-2px 2px 0 white)
+            drop-shadow(2px -2px 0 white)
+            drop-shadow(-2px -2px 0 white);
+}
+
+.miniElementList a:nth-child(odd)
+{
+    margin-bottom: 24px;
+}
+
+.miniElementList a:nth-child(even)
 {
     margin-bottom: -24px;
+}
+
+.miniElementList a:only-child
+{
+    margin-bottom: 0px;
 }
 
 .soloMonster
@@ -260,4 +285,9 @@ label
 .infoInline *
 {
     display: inline;
+}
+
+#quadMonster
+{
+    width: 100%;
 }

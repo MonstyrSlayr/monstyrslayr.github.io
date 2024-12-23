@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, makeIslandDiv } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, makeIslandDiv, makeMiniElement } from "../data.js";
 
 function getLastFolder(url, num)
 {
@@ -75,9 +75,7 @@ mainContainer.classList = ["container soloContainer"];
 
             for (const element of daMonster.elements)
             {
-                const daSigil = document.createElement("img");
-                daSigil.src = element.sigil;
-                daSigil.classList = ["miniElement"];
+                const daSigil = makeMiniElement(element);
                 elementImages.append(daSigil);
             
                 elementNames.innerHTML += element.name + ", ";

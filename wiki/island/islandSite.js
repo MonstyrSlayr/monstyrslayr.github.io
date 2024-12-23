@@ -1,4 +1,4 @@
-import { getIslandById, makeAmeliorateDiv } from "../data.js";
+import { getIslandById, getIslandData, makeAmeliorateDiv, makeMiniElement } from "../data.js";
 
 function getLastFolder(url, num)
 {
@@ -8,12 +8,12 @@ function getLastFolder(url, num)
     return parts[parts.length - num]; // Return the last part
 }
 
-// every monster functionally has the same site
+// every island functionally has the same site
 // so instead of putting all of the code in each html file
 // we can put it in this general javascript file
 
 const daId = getLastFolder(window.location.href, 1);
-const daMonster = getIslandById(daId);
+const daIsland = getIslandById(daId);
 
 const header = document.createElement("header");
     const homeButtonLink = document.createElement("a");
@@ -24,28 +24,28 @@ const header = document.createElement("header");
         homeButtonLink.appendChild(homeButton);
     header.appendChild(homeButtonLink);
 
-    const monsterTitle = document.createElement("h1");
-    monsterTitle.id = "monsterTitle";
-    monsterTitle.innerHTML = daMonster.name;
-    header.appendChild(monsterTitle);
+    const islandTitle = document.createElement("h1");
+    islandTitle.id = "monsterTitle";
+    islandTitle.innerHTML = daIsland.name;
+    header.appendChild(islandTitle);
 document.body.appendChild(header);
 
-const soloMonster = document.createElement("div");
-soloMonster.classList = ["soloMonster"];
+const soloIsland = document.createElement("div");
+soloIsland.classList = ["soloMonster"];
     const soloGap = document.createElement("div");
     soloGap.classList = ["soloGap"];
-    soloMonster.appendChild(soloGap);
+    soloIsland.appendChild(soloGap);
 
     // const monsterImg = document.createElement("img");
     // monsterImg.id = "monsterImg";
-    // monsterImg.src = daMonster.images.default;
-    // soloMonster.appendChild(monsterImg);
-document.body.appendChild(soloMonster);
+    // monsterImg.src = daIsland.images.default;
+    // soloIsland.appendChild(monsterImg);
+document.body.appendChild(soloIsland);
 
 const mainContainer = document.createElement("div");
 mainContainer.classList = ["container soloContainer"];
-    const monsterInfo = document.createElement("div");
-    monsterInfo.id = "monsterInfo";
+    const islandInfo = document.createElement("div");
+    islandInfo.id = "monsterInfo";
         const nameContainer = document.createElement("div");
         nameContainer.classList = ["infoSection infoInline"];
             const monsterNameHeader = document.createElement("h2");
@@ -54,9 +54,9 @@ mainContainer.classList = ["container soloContainer"];
 
             const monsterName = document.createElement("p");
             monsterName.id = "monsterName";
-            monsterName.innerHTML = daMonster.name;
+            monsterName.innerHTML = daIsland.name;
             nameContainer.appendChild(monsterName);
-        monsterInfo.appendChild(nameContainer);
+        islandInfo.appendChild(nameContainer);
 
         const elementContainer = document.createElement("div");
         elementContainer.classList = ["infoSection infoInline"];
@@ -73,17 +73,27 @@ mainContainer.classList = ["container soloContainer"];
             elementNames.id = "elementNamesList";
             elementContainer.appendChild(elementNames);
 
-            for (const element of daMonster.elements)
+            for (const element of daIsland.elements)
             {
-                const daSigil = document.createElement("img");
-                daSigil.src = element.sigil;
-                daSigil.classList = ["miniElement"];
+                const daSigil = makeMiniElement(element);
                 elementImages.append(daSigil);
             
                 elementNames.innerHTML += element.name + ", ";
             }
             elementNames.innerHTML = " " + elementNames.innerHTML.substring(0, elementNames.innerHTML.length - 2);
-        monsterInfo.appendChild(elementContainer);
+        islandInfo.appendChild(elementContainer);
+
+        const infoSectionQuad = document.createElement("div");
+        infoSectionQuad.classList = ["infoSection"];
+            const quadHeader = document.createElement("h2");
+            quadHeader.innerHTML = "Quad:";
+            quadHeader.classList = ["underlined"];
+            infoSectionQuad.appendChild(quadHeader);
+
+            const quadMonster = makeAmeliorateDiv(daIsland.quad, "box");
+            quadMonster.id = "quadMonster";
+            infoSectionQuad.appendChild(quadMonster);
+        islandInfo.appendChild(infoSectionQuad);
 
         const infoSectionDesc = document.createElement("div");
         infoSectionDesc.classList = ["infoSection"];
@@ -95,7 +105,7 @@ mainContainer.classList = ["container soloContainer"];
             const monsterDesc = document.createElement("p");
             monsterDesc.id = "monsterDesc";
             infoSectionDesc.appendChild(monsterDesc);
-        monsterInfo.appendChild(infoSectionDesc);
+        islandInfo.appendChild(infoSectionDesc);
 
         const infoSectionBio = document.createElement("div");
         infoSectionBio.classList = ["infoSection"];
@@ -107,7 +117,7 @@ mainContainer.classList = ["container soloContainer"];
             const monsterBio = document.createElement("p");
             monsterBio.id = "monsterBio";
             infoSectionBio.appendChild(monsterBio);
-        monsterInfo.appendChild(infoSectionBio);
+        islandInfo.appendChild(infoSectionBio);
 
         const infoSectionMon = document.createElement("div");
         infoSectionMon.classList = ["infoSection"];
@@ -118,7 +128,7 @@ mainContainer.classList = ["container soloContainer"];
 
             const islandMonDiv = document.createElement("div");
             islandMonDiv.classList = "contentContainer";
-                const daMonsters = daMonster.monsters;
+                const daMonsters = daIsland.monsters;
 
                 for (const monster of daMonsters)
                 {
@@ -126,9 +136,16 @@ mainContainer.classList = ["container soloContainer"];
                     islandMonDiv.appendChild(daMonsterDiv);
                 }
             infoSectionMon.appendChild(islandMonDiv);
-        monsterInfo.appendChild(infoSectionMon);
-    mainContainer.appendChild(monsterInfo);
+        islandInfo.appendChild(infoSectionMon);
+    mainContainer.appendChild(islandInfo);
 document.body.appendChild(mainContainer);
+
+getIslandData(daId).then((islandData) =>
+{
+    monsterDesc.innerHTML = islandData.desc;
+
+    monsterBio.innerHTML = islandData.bio;
+})
 
 function resizeWindow()
 {
