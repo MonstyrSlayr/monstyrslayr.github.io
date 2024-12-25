@@ -31,6 +31,20 @@ function getFirstLetters(str)
     return acronym;
 }
 
+async function fileExists(url)
+{
+    try
+    {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok; 
+    }
+    catch (err)
+    {
+        console.error('An error occurred:', err);
+        return false;
+    }
+  }
+
 //#region classes
 class MonsterClass
 {
@@ -95,25 +109,6 @@ export function getElementById(id)
     return daAmeliorateElements.find(element => element.id.toLowerCase() == id.toLowerCase());
 }
 
-export function makeElementDiv(element)
-{
-    const elementDiv = document.createElement("a");
-    elementDiv.classList = ["layer"];
-    elementDiv.style.backgroundColor = element.outside;
-    elementDiv.id = element.id;
-    elementDiv.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
-    // elementDiv.addEventListener("click", function()
-    // {
-    //     window.location.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
-    // });
-
-    const elementName = document.createElement("label");
-    elementName.innerHTML = element.name;
-    elementDiv.append(elementName);
-
-    return elementDiv;
-}
-
 export function makeMiniElement(element)
 {
     const aTag = document.createElement("a");
@@ -131,6 +126,28 @@ export function makeMiniElement(element)
     // });
     
     return aTag;
+}
+
+export function makeElementDiv(element)
+{
+    const elementDiv = document.createElement("a");
+    elementDiv.classList = ["layer"];
+    elementDiv.style.backgroundColor = element.outside;
+    elementDiv.id = element.id;
+    elementDiv.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
+    // elementDiv.addEventListener("click", function()
+    // {
+    //     window.location.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
+    // });
+
+    const elementImage = makeMiniElement(element);
+    elementDiv.append(elementImage);
+
+    const elementName = document.createElement("label");
+    elementName.innerHTML = element.name;
+    elementDiv.append(elementName);
+
+    return elementDiv;
 }
 
 export async function getElementData(id)

@@ -93,6 +93,7 @@ async function getMonsters()
 
 		monster.file = line.trim();
 		monster.source = ("./img/" + line).trim();
+		monster.blackSource = monster.source.replace(".avif", "_black.avif");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".avif", "").trim();
 		if (monster.id == "ad") //special quibble case
 		{
@@ -285,6 +286,9 @@ async function getMonsters()
 			monster.bio = monsterLine.bio;
 			monster.link = monsterLine.link;
 		}
+
+		new Image().src = monster.source;
+		new Image().src = monster.blackSource;
 	});
 
 	return monsters;

@@ -295,8 +295,14 @@ async function createFilters()
     const monsterCountInput = document.getElementById("monsterCount");
     const monstersGenerated = document.getElementById("monstersGenerated");
 
+    const flashingDuration = 1000;
+    const flashingSingle = 100;
+    const flashingSpacing = 400;
+
     generateButton.onclick = function()
     {
+        if (generateButton.classList.contains("disabled")) return;
+        generateButton.classList.add("disabled");
         const filteredMonsters = monsters.filter((monster) => {
             return rarityConditionals.some((conditional) => conditional.condition(monster) && conditional.checkbox.checked)
                 && classConditionals.some((conditional) => conditional.condition(monster) && conditional.checkbox.checked)
@@ -315,6 +321,8 @@ async function createFilters()
                                 );
             });
         
+        const allFilteredMonsters = [...filteredMonsters];
+        
         let filteredMonstersLength = filteredMonsters.length;
 
         let monsterCount = monsterCountInput.value;
@@ -326,34 +334,80 @@ async function createFilters()
 
         while (filteredMonsters.length > 0 && monsterIterator > 0)
         {
-            let index = Math.floor(Math.random() * filteredMonsters.length)
+            let index = Math.floor(Math.random() * filteredMonsters.length);
             monstersToShow.push(filteredMonsters[index]);
             filteredMonsters.splice(index, 1);
             monsterIterator--;
         }
 
         monstersGenerated.innerHTML = monstersToShow.length + "/" + filteredMonstersLength + " monsters generated";
+        let i = 0;
+        let maxI = 0;
+
         for (const monster of monstersToShow)
         {
             const monsterA = document.createElement("a");
             monsterA.href = monster.link;
             monsterA.target = "_blank";
+            monsterA.className = "monsterA";
             generatedDiv.append(monsterA);
 
             const monsterDiv = document.createElement("div");
             monsterDiv.className = "monsterDiv";
+            monsterDiv.shownMonster = allFilteredMonsters[Math.floor(Math.random() * allFilteredMonsters.length)]
+            monsterDiv.finalMonster = monster;
+            monsterDiv.timeoutRan = false;
+            monsterDiv.i = i;
+            i++;
             monsterA.append(monsterDiv);
 
             const monsterImg = document.createElement("img");
-            monsterImg.src = monster.source;
-            monsterImg.className = "monsterImg";
+            monsterImg.src = monsterDiv.shownMonster.blackSource;
+            monsterImg.classList.add("monsterImg");
+            monsterImg.classList.add("flashing");
             monsterDiv.append(monsterImg);
 
             const monsterName = document.createElement("p");
-            monsterName.innerHTML = monster.name;
+            monsterName.innerHTML = monsterDiv.shownMonster.name;
             monsterName.className = "monsterName";
             monsterDiv.append(monsterName);
+
+            // Function to cycle through images
+            const intervalId = setInterval(() =>
+            {
+                monsterDiv.shownMonster = allFilteredMonsters[Math.floor(Math.random() * allFilteredMonsters.length)];
+                monsterImg.src = monsterDiv.shownMonster.blackSource;
+                monsterName.innerHTML = monsterDiv.shownMonster.name;
+
+                // Show the final random image after flashing
+                setTimeout(() =>
+                {
+                    if (monsterDiv.timeoutRan) return;
+
+                    monsterDiv.timeoutRan = true;
+                    clearInterval(intervalId);
+
+                    monsterImg.src = monsterDiv.finalMonster.source;
+                    monsterImg.classList.remove("flashing");
+                    monsterName.innerHTML = monsterDiv.finalMonster.name;
+                    monsterDiv.classList.add("monsterReveal");
+
+                    allFilteredMonsters.splice(allFilteredMonsters.indexOf(monsterDiv.finalMonster), 1);
+
+                    setTimeout(() =>
+                    {
+                        monsterDiv.classList.remove("monsterReveal");
+
+                        if (monsterDiv.i == maxI)
+                        {
+                            generateButton.classList.remove("disabled");
+                        }
+                    }, flashingSingle);
+                }, flashingDuration + (flashingSpacing * monsterDiv.i));
+            }, flashingSingle);
         }
+
+        maxI = i - 1;
     }
 }
 
