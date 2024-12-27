@@ -83,9 +83,17 @@ mainContainer.classList = ["container soloContainer"];
             elementNames.innerHTML = " " + elementNames.innerHTML.substring(0, elementNames.innerHTML.length - 2);
         islandInfo.appendChild(elementContainer);
 
+        const infoSectionNotables = document.createElement("div");
+        infoSectionNotables.classList = ["infoSection"];
+            const notablesHeader = document.createElement("h2");
+            notablesHeader.innerHTML = "Notable Monsters:";
+            notablesHeader.classList = ["underlined"];
+            infoSectionNotables.appendChild(notablesHeader);
+        islandInfo.appendChild(infoSectionNotables);
+
         const infoSectionQuad = document.createElement("div");
-        infoSectionQuad.classList = ["infoSection"];
-            const quadHeader = document.createElement("h2");
+        infoSectionQuad.classList = ["infoSection miniSection"];
+            const quadHeader = document.createElement("h3");
             quadHeader.innerHTML = "Quad:";
             quadHeader.classList = ["underlined"];
             infoSectionQuad.appendChild(quadHeader);

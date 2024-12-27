@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, makeIslandDiv, makeMiniElement } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, makeIslandDiv, makeMiniElement, makeFormDiv } from "../data.js";
 
 function getLastFolder(url, num)
 {
@@ -32,6 +32,7 @@ document.body.appendChild(header);
 
 const soloMonster = document.createElement("div");
 soloMonster.classList = ["soloMonster"];
+soloMonster.style.backgroundColor = daMonster.affiliation.outside;
     const soloGap = document.createElement("div");
     soloGap.classList = ["soloGap"];
     soloMonster.appendChild(soloGap);
@@ -95,20 +96,9 @@ mainContainer.classList = ["container soloContainer"];
             infoSectionAna.appendChild(monsterAna);
         monsterInfo.appendChild(infoSectionAna);
 
-        const infoSectionDesc = document.createElement("div");
-        infoSectionDesc.classList = ["infoSection"];
-            const monsterDescHeader = document.createElement("h2");
-            monsterDescHeader.classList = ["underlined"];
-            monsterDescHeader.innerHTML = "Description:";
-            infoSectionDesc.appendChild(monsterDescHeader);
-
-            const monsterDesc = document.createElement("p");
-            monsterDesc.id = "monsterDesc";
-            infoSectionDesc.appendChild(monsterDesc);
-        monsterInfo.appendChild(infoSectionDesc);
-
         const infoSectionBio = document.createElement("div");
         infoSectionBio.classList = ["infoSection"];
+        infoSectionBio.id = "infoSectionBio";
             const monsterBioHeader = document.createElement("h2");
             monsterBioHeader.classList = ["underlined"];
             monsterBioHeader.innerHTML = "Biography:";
@@ -137,14 +127,38 @@ mainContainer.classList = ["container soloContainer"];
                 }
             infoSectionIslands.appendChild(monIslandDiv);
         monsterInfo.appendChild(infoSectionIslands);
+
+        const infoSectionForms = document.createElement("div");
+        infoSectionForms.classList = ["infoSection"];
+            const monsterFormsHeader = document.createElement("h2");
+            monsterFormsHeader.classList = ["underlined"];
+            monsterFormsHeader.innerHTML = "Forms:";
+            infoSectionForms.appendChild(monsterFormsHeader);
+
+            const formsDiv = document.createElement("div");
+            formsDiv.classList = ["contentContainer"];
+            infoSectionForms.appendChild(formsDiv);
+
+            const formsWait = document.createElement("p");
+            formsWait.innerHTML = "Loading forms...";
+            formsDiv.appendChild(formsWait);
+
+            setTimeout(() =>
+            {
+                formsWait.remove();
+                for (const form of daMonster.forms)
+                {
+                    const formDiv = makeFormDiv(daMonster, form, "layer");
+                    formsDiv.appendChild(formDiv);
+                }
+            }, 1000);
+        monsterInfo.appendChild(infoSectionForms);
     mainContainer.appendChild(monsterInfo);
 document.body.appendChild(mainContainer);
 
 getMonsterData(daId).then((monsterData) =>
 {
     monsterAna.innerHTML = monsterData.ana;
-
-    monsterDesc.innerHTML = monsterData.desc;
 
     monsterBio.innerHTML = monsterData.bio;
 })

@@ -11,6 +11,43 @@ function rgb(r, g, b)
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+  
+function rgbToHex(r, g, b) {
+return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function mixHexColors(colors)
+{
+    // Convert hex colors to RGB
+    const rgbColors = colors.map(hexToRgb);
+  
+    // Calculate average RGB values
+    let totalRed = 0;
+    let totalGreen = 0;
+    let totalBlue = 0;
+  
+    for (const rgb of rgbColors) {
+      totalRed += rgb.r;
+      totalGreen += rgb.g;
+      totalBlue += rgb.b;
+    }
+  
+    const avgRed = Math.round(totalRed / colors.length);
+    const avgGreen = Math.round(totalGreen / colors.length);
+    const avgBlue = Math.round(totalBlue / colors.length);
+  
+    // Convert back to hex
+    return rgbToHex(avgRed, avgGreen, avgBlue);
+}
+
 function getCapitalLetters(str)
 {
     let capitals = "";
@@ -40,10 +77,15 @@ async function fileExists(url)
     }
     catch (err)
     {
-        console.error('An error occurred:', err);
+        // console.error('An error occurred:', err);
         return false;
     }
-  }
+}
+
+function getShadowless(image)
+{
+    return image.replace(".png", "-Shadowless.png");
+}
 
 //#region classes
 class MonsterClass
@@ -150,6 +192,16 @@ export function makeElementDiv(element)
     return elementDiv;
 }
 
+function makeElementString(elements)
+{
+    let elementString = "";
+    for (const element of elements)
+    {
+        elementString += element.name.substring(0, 1);
+    }
+    return elementString;
+}
+
 export async function getElementData(id)
 {
     const csvResponse = await fetch("https://monstyrslayr.github.io/wiki/elementData.csv");
@@ -165,6 +217,53 @@ export async function getElementData(id)
     return monsterLine;
 }
 //#endregion
+
+//#region forms
+class Form
+{
+    constructor (name, monsterElements, formElements, image)
+    {
+        this.name = name;
+        this.monsterElements = monsterElements;
+        this.elements = formElements;
+        this.image = image;
+    }
+}
+
+function sortFormsByElements(forms)
+{
+    return forms.sort((a, b) =>
+    {
+        let elementStringA = makeElementString(a.monsterElements);
+        let elementStringB = makeElementString(b.monsterElements);
+        let formStringA = makeElementString(a.elements);
+        let formStringB = makeElementString(b.elements);
+        if (elementStringA.length < elementStringB.length) return 1;
+        if (elementStringA.length > elementStringB.length) return -1;
+
+        if (elementStringA.length == elementStringB.length)
+        {
+            if (elementStringA == elementStringB)
+            {
+                if (formStringA.length < formStringB.length) return -1;
+                if (formStringA.length > formStringB.length) return 1;
+                if (formStringA.length == formStringB.length)
+                {
+                    if (formStringA < formStringB) return -1;
+                    if (formStringA > formStringB) return 1;
+                    return 0;
+                }
+            }
+
+            let daA = a.elementString.replace("B", "A").replace("H", "B").replace("S", "D").replace("T", "E");
+            let daB = b.elementString.replace("B", "A").replace("H", "B").replace("S", "D").replace("T", "E");
+            if (daA < daB) return -1;
+            if (daA > daB) return 1;
+            return 0;
+        }
+    });
+}
+//endregion
 
 //#region monsters
 class Monster
@@ -190,19 +289,65 @@ class Ameliorate extends Monster
         this.realName = realName;
         this.attr = attributes;
 
-        this.elementString = "";
-        for (const element of this.elements)
-        {
-            this.elementString += element.name.substring(0, 1);
-        }
+        this.elementString = makeElementString(elements);
 
-        let basicImage = id + "-" + this.elementString;
+        const basicImage = id + "-" + this.elementString;
         
         this.images.default = IMG + basicImage + ".png";
-        this.images.lineless = IMG + basicImage + "-Lineless.png";
-        this.images.shadowless = IMG + basicImage + "-Shadowless.png";
-        this.images.linelessShadowless = IMG + basicImage + "-Lineless-Shadowless.png";
         this.images.emoji = IMG + "emoji/" + basicImage + ".png";
+
+        this.forms = [];
+
+        this.forms.push(new Form("Base", this.elements, [], this.images.default));
+
+        fileExists(IMG + basicImage + "-B.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("Bulb", this.elements, [bulbElement], IMG + basicImage + "-B.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
+        fileExists(IMG + basicImage + "-H.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("Hostess", this.elements, [hostessElement], IMG + basicImage + "-H.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
+        fileExists(IMG + basicImage + "-HH.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("High Hostess", this.elements, [hostessElement, hostessElement], IMG + basicImage + "-HH.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
+        fileExists(IMG + basicImage + "-C.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("Clay", this.elements, [clayElement], IMG + basicImage + "-C.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
+        fileExists(IMG + basicImage + "-S.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("Signal", this.elements, [signalElement], IMG + basicImage + "-S.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
+        fileExists(IMG + basicImage + "-T.png").then(exists =>
+        {
+            if (exists)
+            {
+                this.forms.push(new Form("Trash", this.elements, [trashElement], IMG + basicImage + "-T.png"));
+                sortFormsByElements(this.forms);
+            }
+        });
     }
 }
 const daAmeliorates =
@@ -345,6 +490,53 @@ export function makeAmeliorateDiv(monster, className = "box")
 
     return ameDiv;
 }
+
+export function makeFormDiv(monster, form, className = "box")
+{
+    const ameDiv = document.createElement("div");
+    ameDiv.classList = [className + " ameliorateDiv"];
+    ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.highlight)]);
+
+    const ameImg = document.createElement("img");
+    ameImg.src = getShadowless(form.image);
+    ameImg.classList = ["monsterForm"];
+    ameDiv.append(ameImg);
+
+    const daLabelWrapper = document.createElement("div");
+    daLabelWrapper.classList = ["monsterLabelWrapper"];
+    ameDiv.append(daLabelWrapper);
+
+    const daLabel = document.createElement("div");
+    daLabel.classList = ["monsterLabel"];
+    daLabelWrapper.append(daLabel);
+
+    const daElementList = document.createElement("div");
+    daElementList.classList = ["miniElementList"];
+    daLabel.append(daElementList);
+
+    for (const element of form.monsterElements)
+    {
+        const daSigil = makeMiniElement(element);
+        daElementList.append(daSigil);
+    }
+
+    const daFormElementList = document.createElement("div");
+    daFormElementList.classList = ["miniElementList"];
+    daLabel.append(daFormElementList);
+
+    for (const element of form.elements)
+    {
+        const daSigil = makeMiniElement(element);
+        daFormElementList.append(daSigil);
+    }
+
+    const ameName = document.createElement("label");
+    ameName.innerHTML = form.name + " " + monster.realName;
+    daLabelWrapper.append(ameName);
+
+    return ameDiv;
+}
+
 //#endregion
 
 //#region islands

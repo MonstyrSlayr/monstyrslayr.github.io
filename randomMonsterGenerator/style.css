@@ -149,13 +149,14 @@ footer
 .monsterReveal
 {
     bottom: 24px;
+    background-color: #ffffff22;
 }
 
 .monsterImg
 {
     transition: all 0.15s ease-out;
     background-color: transparent;
-    margin: auto;
+    margin: 16px auto;
     display: block;
     object-fit: cover;
     max-width: 100%;

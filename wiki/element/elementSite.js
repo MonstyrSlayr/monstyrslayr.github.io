@@ -46,21 +46,6 @@ const mainContainer = document.createElement("div");
 mainContainer.classList = ["container soloContainer"];
     const monsterInfo = document.createElement("div");
     monsterInfo.id = "monsterInfo";
-        if (daElement.quad)
-        {
-            const infoSectionQuad = document.createElement("div");
-            infoSectionQuad.classList = ["infoSection"];
-                const quadHeader = document.createElement("h2");
-                quadHeader.innerHTML = "Quad:";
-                quadHeader.classList = ["underlined"];
-                infoSectionQuad.appendChild(quadHeader);
-
-                const quadMonster = makeAmeliorateDiv(daElement.quad, "box");
-                quadMonster.id = "quadMonster";
-                infoSectionQuad.appendChild(quadMonster);
-            monsterInfo.appendChild(infoSectionQuad);
-        }
-
         const infoSectionDesc = document.createElement("div");
         infoSectionDesc.classList = ["infoSection"];
             const monsterDescHeader = document.createElement("h2");
@@ -72,6 +57,44 @@ mainContainer.classList = ["container soloContainer"];
             monsterDesc.id = "monsterDesc";
             infoSectionDesc.appendChild(monsterDesc);
         monsterInfo.appendChild(infoSectionDesc);
+
+        const infoSectionNotables = document.createElement("div");
+        infoSectionNotables.classList = ["infoSection"];
+            const notablesHeader = document.createElement("h2");
+            notablesHeader.classList = ["underlined"];
+            notablesHeader.innerHTML = "Notable Monsters:";
+            infoSectionNotables.appendChild(notablesHeader);
+        monsterInfo.appendChild(infoSectionNotables);
+
+        if (daElement.single)
+        {
+            const infoSectionSingle = document.createElement("div");
+            infoSectionSingle.classList = ["infoSection miniSection"];
+                const singleHeader = document.createElement("h3");
+                singleHeader.innerHTML = "Single:";
+                singleHeader.classList = ["underlined"];
+                infoSectionSingle.appendChild(singleHeader);
+
+                const singleMonster = makeAmeliorateDiv(daElement.single, "box");
+                singleMonster.id = "singleMonster";
+                infoSectionSingle.appendChild(singleMonster);
+            monsterInfo.appendChild(infoSectionSingle);
+        }
+        
+        if (daElement.quad)
+        {
+            const infoSectionQuad = document.createElement("div");
+            infoSectionQuad.classList = ["infoSection miniSection"];
+                const quadHeader = document.createElement("h3");
+                quadHeader.innerHTML = "Quad:";
+                quadHeader.classList = ["underlined"];
+                infoSectionQuad.appendChild(quadHeader);
+
+                const quadMonster = makeAmeliorateDiv(daElement.quad, "box");
+                quadMonster.id = "quadMonster";
+                infoSectionQuad.appendChild(quadMonster);
+            monsterInfo.appendChild(infoSectionQuad);
+        }
 
         const infoSectionMon = document.createElement("div");
         infoSectionMon.classList = ["infoSection"];

@@ -281,10 +281,10 @@ async function getMonsters()
 				monster.rarity = monster.elementString.endsWith("min") ? Rarity.MINOR : Rarity.MAJOR;
 				monster.name = (monster.rarity == Rarity.MINOR ? "Minor" : "Major") + " " + monsterLine.name;
 			}
-
-			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // there is still stuff to do here, seperating it by island
+			
+			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // TODO: there is still stuff to do here, seperating it by island
 			monster.bio = monsterLine.bio;
-			monster.link = monsterLine.link;
+			monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 		}
 
 		new Image().src = monster.source;
