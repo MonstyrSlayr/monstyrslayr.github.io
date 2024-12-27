@@ -378,3 +378,8 @@ label
     display: block;
     max-width: 100%;
 }
+
+.formDiv
+{
+    justify-content: space-evenly;
+}

@@ -497,7 +497,7 @@ export function makeAmeliorateDiv(monster, className = "box")
 export function makeFormDiv(monster, form, className = "box")
 {
     const ameDiv = document.createElement("div");
-    ameDiv.classList = [className + " ameliorateDiv"];
+    ameDiv.classList = [className + " ameliorateDiv formDiv"];
     ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.highlight)]);
 
     const ameImg = document.createElement("img");

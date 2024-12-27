@@ -4,8 +4,9 @@ fetch("./qna.json")
 .then(response => response.json())
 .then(data => {
     const messages = data.messages;
-    const nonMonstyrMessages = messages.filter(message => message.author.id !== "434840883637125121");
-    const expiMessages = nonMonstyrMessages.filter(message => message.content.toLowerCase().includes("expi"));
+    const blacklist = ["1262459391030853682", "434840883637125121", "688867253948776562"]
+    const whitelistedMessages = messages.filter(message => !blacklist.includes(message.author.id));
+    const expiMessages = whitelistedMessages.filter(message => message.content.toLowerCase().includes("expi"));
 
     const showThisMessage = expiMessages[Math.floor(Math.random() * expiMessages.length)];
 
