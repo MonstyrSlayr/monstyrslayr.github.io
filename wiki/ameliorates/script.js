@@ -1,4 +1,4 @@
-import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
@@ -100,6 +100,19 @@ function createIslandsDiv()
 	}
 }
 createIslandsDiv();
+
+const songs = getSongs();
+const songContainer = document.getElementById("songsContainer");
+function createSongsDiv()
+{
+	for (const song of songs)
+	{
+		const songDiv = makeIslandDiv(song, true);
+
+		songContainer.append(songDiv);
+	}
+}
+createSongsDiv();
 
 const elements = getElements();
 const elementsContainer = document.getElementById("elementsContainer");

@@ -50,7 +50,7 @@ mainContainer.classList = ["container soloContainer"];
         infoSectionDesc.classList = ["infoSection"];
             const monsterDescHeader = document.createElement("h2");
             monsterDescHeader.classList = ["underlined"];
-            monsterDescHeader.innerHTML = "Description:";
+            monsterDescHeader.innerHTML = "Description";
             infoSectionDesc.appendChild(monsterDescHeader);
 
             const monsterDesc = document.createElement("p");
@@ -62,7 +62,7 @@ mainContainer.classList = ["container soloContainer"];
         infoSectionNotables.classList = ["infoSection"];
             const notablesHeader = document.createElement("h2");
             notablesHeader.classList = ["underlined"];
-            notablesHeader.innerHTML = "Notable Monsters:";
+            notablesHeader.innerHTML = "Notable Monsters";
             infoSectionNotables.appendChild(notablesHeader);
         monsterInfo.appendChild(infoSectionNotables);
 
@@ -71,7 +71,7 @@ mainContainer.classList = ["container soloContainer"];
             const infoSectionSingle = document.createElement("div");
             infoSectionSingle.classList = ["infoSection miniSection"];
                 const singleHeader = document.createElement("h3");
-                singleHeader.innerHTML = "Single:";
+                singleHeader.innerHTML = "Single";
                 singleHeader.classList = ["underlined"];
                 infoSectionSingle.appendChild(singleHeader);
 
@@ -86,7 +86,7 @@ mainContainer.classList = ["container soloContainer"];
             const infoSectionQuad = document.createElement("div");
             infoSectionQuad.classList = ["infoSection miniSection"];
                 const quadHeader = document.createElement("h3");
-                quadHeader.innerHTML = "Quad:";
+                quadHeader.innerHTML = "Quad";
                 quadHeader.classList = ["underlined"];
                 infoSectionQuad.appendChild(quadHeader);
 
@@ -100,7 +100,7 @@ mainContainer.classList = ["container soloContainer"];
         infoSectionMon.classList = ["infoSection"];
             const islandMonHeader = document.createElement("h2");
             islandMonHeader.classList = ["underlined"];
-            islandMonHeader.innerHTML = "Monsters:";
+            islandMonHeader.innerHTML = "Monsters";
             infoSectionMon.appendChild(islandMonHeader);
 
             const islandMonDiv = document.createElement("div");

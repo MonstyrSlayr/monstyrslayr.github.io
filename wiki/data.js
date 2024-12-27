@@ -132,13 +132,16 @@ const signalElement = new MonsterElement("Signal", IMG + "ElementSignal.png",
 const trashElement = new MonsterElement("Trash", IMG + "ElementTrash.png",
     rgb(137, 137, 130), rgb(39, 39, 0), rgb(229, 222, 19)
 );
+const rubyElement = new MonsterElement("Ruby", IMG + "ElementClay.png",
+    rgb(227, 64, 64), rgb(107, 30, 30), rgb(230, 82, 104) //TODO: get actual colors
+);
 const daAmeliorateElements =
 [
     bulbElement,
     hostessElement,
     clayElement,
     signalElement,
-    trashElement,
+    trashElement
 ];
 
 export function getElements()
@@ -542,7 +545,7 @@ export function makeFormDiv(monster, form, className = "box")
 //#region islands
 class Island
 {
-    constructor (name, monsterClass, elements, affiliation, monsters)
+    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters)
     {
         this.name = name;
         this.monsterClass = monsterClass;
@@ -550,6 +553,7 @@ class Island
         this.affiliation = affiliation;
         this.id = getCapitalLetters(name);
         this.monsters = monsters;
+        this.youtubeId = youtubeId;
         this.quad = null;
 
         this.isATN = name.endsWith("All Together Now!");
@@ -559,18 +563,18 @@ class Island
 let signalStadium, clayKiln, trashSkylands, bulbiGardens, signalStadiumATN, clayKilnATN;
 const daAmeliorateIslands =
 [
-    signalStadium = new Island("Signal Stadium", "Ameliorate", getAmeliorateById("Spotscast").elements, signalElement,
+    signalStadium = new Island("Signal Stadium", "Ameliorate", getAmeliorateById("Spotscast").elements, signalElement, "x03o46Deeyo",
         getAmeliorates().filter(monster => !monster.elements.includes(trashElement))),
-    clayKiln = new Island("Clay Kiln", "Ameliorate", getAmeliorateById("Trumpoff").elements, clayElement,
+    clayKiln = new Island("Clay Kiln", "Ameliorate", getAmeliorateById("Trumpoff").elements, clayElement, "OjgUosMViA4",
     getAmeliorates().filter(monster => !monster.elements.includes(bulbElement))),
-    trashSkylands = new Island("Trash Skylands", "Ameliorate", getAmeliorateById("ReFabric").elements, trashElement,
+    trashSkylands = new Island("Trash Skylands", "Ameliorate", getAmeliorateById("ReFabric").elements, trashElement, "lgbHc2OERr8",
     getAmeliorates().filter(monster => !monster.elements.includes(hostessElement))),
-    bulbiGardens = new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement,
+    bulbiGardens = new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement, "f5rtJqeIuYs",
     getAmeliorates().filter(monster => !monster.elements.includes(clayElement))),
     
-    signalStadiumATN = new Island("Signal Stadium: All Together Now!", "Ameliorate", daAmeliorateElements, signalElement,
+    signalStadiumATN = new Island("Signal Stadium: All Together Now!", "Ameliorate", daAmeliorateElements, signalElement, "Ab6PF_njR44",
         getAmeliorates().filter(monster => !monster.elements.includes(trashElement) || monster.elements.includes(signalElement))),
-    clayKilnATN = new Island("Clay Kiln: All Together Now!", "Ameliorate", daAmeliorateElements, clayElement,
+    clayKilnATN = new Island("Clay Kiln: All Together Now!", "Ameliorate", daAmeliorateElements, clayElement, "4RTheyxr2hk",
         getAmeliorates().filter(monster => !monster.elements.includes(bulbElement) || monster.elements.includes(clayElement))),
 ];
 
@@ -578,8 +582,48 @@ signalStadium.quad = getAmeliorateById("Spotscast");
 clayKiln.quad = getAmeliorateById("Trumpoff");
 trashSkylands.quad = getAmeliorateById("ReFabric");
 bulbiGardens.quad = getAmeliorateById("Monkdom");
+signalStadiumATN.single = getAmeliorateById("Meeka");
 signalStadiumATN.quad = getAmeliorateById("Spotscast");
+clayKilnATN.single = getAmeliorateById("Arpeggidough");
 clayKilnATN.quad = getAmeliorateById("Trumpoff");
+
+let trashReveal, trashInterlude;
+const daAmeliorateSongs =
+[
+    trashReveal = new Island("Trash Reveal", "Ameliorate", daAmeliorateElements, rubyElement, "w4HiDmp00Ms",
+        [
+            getAmeliorateById("Reese"),
+            getAmeliorateById("Guira"),
+            getAmeliorateById("Arpeggidough"),
+            getAmeliorateById("Meeka"),
+            getAmeliorateById("Etikan"),
+            getAmeliorateById("Esckickis"),
+            getAmeliorateById("nillaCorn"),
+            getAmeliorateById("TrashCymbal"),
+            getAmeliorateById("Organe")
+        ]),
+    trashInterlude = new Island("Trash Interlude", "Ameliorate", daAmeliorateElements, trashElement, "hY7ooDf9HGY",
+        [
+            getAmeliorateById("Guira"),
+            getAmeliorateById("nillaCorn"),
+            getAmeliorateById("TrashCymbal"),
+            getAmeliorateById("Rallentando"),
+            getAmeliorateById("Deltah"),
+            getAmeliorateById("ReFabric"),
+        ]),
+]
+
+trashReveal.notables =
+[
+    getAmeliorateById("Etikan")
+]
+
+trashInterlude.notables =
+[
+    getAmeliorateById("Guira"),
+    getAmeliorateById("Deltah"),
+    getAmeliorateById("ReFabric")
+]
 
 export function getIslands()
 {
@@ -591,13 +635,23 @@ export function getIslandById(id)
     return daAmeliorateIslands.find(island => island.id.toLowerCase() == id.toLowerCase());
 }
 
-export function makeIslandDiv(island)
+export function getSongs()
+{
+    return daAmeliorateSongs;
+}
+
+export function getSongById(id)
+{
+    return daAmeliorateSongs.find(island => island.id.toLowerCase() == id.toLowerCase());
+}
+
+export function makeIslandDiv(island, isSong = false)
 {
     const islandDiv = document.createElement("a");
     islandDiv.classList = ["layer"];
     islandDiv.style.backgroundColor = island.affiliation.outside;
     islandDiv.id = island.id;
-    islandDiv.href = "https://monstyrslayr.github.io/wiki/island/" + islandDiv.id.toLowerCase() + "/";
+    islandDiv.href = "https://monstyrslayr.github.io/wiki/island/" + (isSong ? "song/" : "") + islandDiv.id.toLowerCase() + "/";
     // islandDiv.addEventListener("click", function()
     // {
     //     window.location.href = "https://monstyrslayr.github.io/wiki/island/" + islandDiv.id.toLowerCase() + "/";
@@ -620,7 +674,7 @@ export async function getIslandData(id)
 	let csvText = await csvResponse.text();
 	let results = await Papa.parse(csvText, { header: true });
 
-    let monsterLine = results.data.find((line) => line.island.toLowerCase().getFirstLetters() == id.toLowerCase());
+    let monsterLine = getFirstLetters(results.data.find((line) => line.island.toLowerCase())).toLowerCase() == id.toLowerCase();
 
     return monsterLine;
 }

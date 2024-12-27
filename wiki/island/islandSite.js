@@ -1,4 +1,4 @@
-import { getIslandById, getIslandData, makeAmeliorateDiv, makeMiniElement } from "../data.js";
+import { getIslandById, getSongById, getIslandData, makeAmeliorateDiv, makeMiniElement } from "../data.js";
 
 function getLastFolder(url, num)
 {
@@ -13,7 +13,9 @@ function getLastFolder(url, num)
 // we can put it in this general javascript file
 
 const daId = getLastFolder(window.location.href, 1);
-const daIsland = getIslandById(daId);
+let daIsland;
+if (getLastFolder(window.location.href, 2) !== "island") daIsland = getSongById(daId);
+else daIsland = getIslandById(daId);
 
 const header = document.createElement("header");
     const homeButtonLink = document.createElement("a");
@@ -36,10 +38,15 @@ soloIsland.classList = ["soloMonster"];
     soloGap.classList = ["soloGap"];
     soloIsland.appendChild(soloGap);
 
-    // const monsterImg = document.createElement("img");
-    // monsterImg.id = "monsterImg";
-    // monsterImg.src = daIsland.images.default;
-    // soloIsland.appendChild(monsterImg);
+    const youtubeVideo = document.createElement("iframe");
+    youtubeVideo.src = "https://www.youtube.com/embed/" + daIsland.youtubeId;
+    youtubeVideo.width = "640";
+    youtubeVideo.height = "360";
+    youtubeVideo.frameborder = "0";
+    youtubeVideo.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    youtubeVideo.allowfullscreen = true;
+    youtubeVideo.classList = ["youtubeVideo"];
+    soloIsland.appendChild(youtubeVideo);
 document.body.appendChild(soloIsland);
 
 const mainContainer = document.createElement("div");
@@ -86,28 +93,43 @@ mainContainer.classList = ["container soloContainer"];
         const infoSectionNotables = document.createElement("div");
         infoSectionNotables.classList = ["infoSection"];
             const notablesHeader = document.createElement("h2");
-            notablesHeader.innerHTML = "Notable Monsters:";
+            notablesHeader.innerHTML = "Notable Monsters";
             notablesHeader.classList = ["underlined"];
             infoSectionNotables.appendChild(notablesHeader);
+
+            if (daIsland.notables != null)
+            {
+                const notablesDiv = document.createElement("div");
+                notablesDiv.classList = "contentContainer";
+                for (const notable of daIsland.notables)
+                {
+                    const daNotable = makeAmeliorateDiv(notable, "box");
+                    notablesDiv.appendChild(daNotable);
+                }
+                infoSectionNotables.appendChild(notablesDiv);
+            }
+
+            if (daIsland.quad !== null)
+            {
+                const infoSectionQuad = document.createElement("div");
+                infoSectionQuad.classList = ["infoSection miniSection"];
+                    const quadHeader = document.createElement("h3");
+                    quadHeader.innerHTML = "Quad";
+                    quadHeader.classList = ["underlined"];
+                    infoSectionQuad.appendChild(quadHeader);
+        
+                    const quadMonster = makeAmeliorateDiv(daIsland.quad, "box");
+                    quadMonster.id = "quadMonster";
+                    infoSectionQuad.appendChild(quadMonster);
+                infoSectionNotables.appendChild(infoSectionQuad);
+            }
         islandInfo.appendChild(infoSectionNotables);
-
-        const infoSectionQuad = document.createElement("div");
-        infoSectionQuad.classList = ["infoSection miniSection"];
-            const quadHeader = document.createElement("h3");
-            quadHeader.innerHTML = "Quad:";
-            quadHeader.classList = ["underlined"];
-            infoSectionQuad.appendChild(quadHeader);
-
-            const quadMonster = makeAmeliorateDiv(daIsland.quad, "box");
-            quadMonster.id = "quadMonster";
-            infoSectionQuad.appendChild(quadMonster);
-        islandInfo.appendChild(infoSectionQuad);
 
         const infoSectionDesc = document.createElement("div");
         infoSectionDesc.classList = ["infoSection"];
             const monsterDescHeader = document.createElement("h2");
             monsterDescHeader.classList = ["underlined"];
-            monsterDescHeader.innerHTML = "Description:";
+            monsterDescHeader.innerHTML = "Description";
             infoSectionDesc.appendChild(monsterDescHeader);
 
             const monsterDesc = document.createElement("p");
@@ -119,7 +141,7 @@ mainContainer.classList = ["container soloContainer"];
         infoSectionBio.classList = ["infoSection"];
             const monsterBioHeader = document.createElement("h2");
             monsterBioHeader.classList = ["underlined"];
-            monsterBioHeader.innerHTML = "Biography:";
+            monsterBioHeader.innerHTML = "Biography";
             infoSectionBio.appendChild(monsterBioHeader);
 
             const monsterBio = document.createElement("p");
@@ -131,7 +153,7 @@ mainContainer.classList = ["container soloContainer"];
         infoSectionMon.classList = ["infoSection"];
             const islandMonHeader = document.createElement("h2");
             islandMonHeader.classList = ["underlined"];
-            islandMonHeader.innerHTML = "Monsters:";
+            islandMonHeader.innerHTML = "Monsters";
             infoSectionMon.appendChild(islandMonHeader);
 
             const islandMonDiv = document.createElement("div");

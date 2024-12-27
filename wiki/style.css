@@ -14,9 +14,9 @@ body
 header
 {
     text-align: center;
-    margin: 32px;
+    margin: 64px 0;
     color: white;
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,7 +94,7 @@ label
     flex-wrap: wrap;
     flex-direction: row;
     gap: 10px;
-    width: 75%;
+    width: 100%;
     justify-content: center;
     align-items: stretch;
     margin: 16px auto;
@@ -128,7 +128,7 @@ label
     background-color: #444444;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     padding: 10px;
     text-align: center;
@@ -294,7 +294,7 @@ label
 
 .miniSection
 {
-    margin: 32px 32px 32px 128px;
+    margin: 32px 32px 32px 10%;
 }
 
 .underlined
@@ -328,9 +328,9 @@ label
 
 .profilePic
 {
-    width: 128px;
-    height: 128px;
-    border-radius: 64px;
+    width: 96px;
+    height: 96px;
+    border-radius: 48px;
     background-color: #fcfcfc45;
     position: relative;
     display: inline-block;
@@ -345,10 +345,36 @@ label
 
 .authorName
 {
-    font-size: 40px;
+    font-size: 32px;
+    margin-right: 16px;
+    margin-bottom: 0px;
+}
+
+.messageDate
+{
+    font-size: 24px;
+    color: gray;
 }
 
 .messageContent
 {
-    font-size: 40px;
+    font-size: 32px;
+    word-break: break-word;
+}
+
+.messageHeader
+{
+    display: flex;
+    align-items: center;
+}
+
+.youtubeVideo
+{
+    margin: auto;
+    overflow: hidden;
+    float: top;
+    border: 0;
+    border-radius: 16px;
+    display: block;
+    max-width: 100%;
 }
