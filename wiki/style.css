@@ -383,3 +383,9 @@ label
 {
     justify-content: space-evenly;
 }
+
+.formDiv:hover
+{
+    scale: 100%;
+    cursor: default;
+}

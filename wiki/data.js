@@ -606,6 +606,7 @@ const daAmeliorateSongs =
         [
             getAmeliorateById("Guira"),
             getAmeliorateById("nillaCorn"),
+            getAmeliorateById("Octosquish"),
             getAmeliorateById("TrashCymbal"),
             getAmeliorateById("Rallentando"),
             getAmeliorateById("Deltah"),

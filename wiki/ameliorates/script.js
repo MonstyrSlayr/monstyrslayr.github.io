@@ -120,7 +120,9 @@ function createElementsDiv()
 {
 	for (const element of elements)
 	{
-		const elementDiv =  makeElementDiv(element);
+		const elementDiv = makeElementDiv(element);
+		const daSigil = elementDiv.querySelector("img");
+		daSigil.style.marginLeft = "0";
 		
 		elementsContainer.append(elementDiv);
 	}
