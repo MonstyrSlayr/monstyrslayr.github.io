@@ -502,7 +502,8 @@ export function makeFormDiv(monster, form, className = "box")
 {
     const ameDiv = document.createElement("div");
     ameDiv.classList = [className + " ameliorateDiv formDiv"];
-    ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.highlight)]);
+    ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.main)]);
+    if (form.monsterElements.length > 0) ameDiv.style.borderColor = mixHexColors([...form.elements.map(element => element.highlight)]);
 
     const ameImg = document.createElement("img");
     ameImg.src = getShadowless(form.image);

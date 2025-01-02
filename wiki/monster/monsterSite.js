@@ -84,6 +84,33 @@ mainContainer.classList = ["container soloContainer"];
             elementNames.innerHTML = " " + elementNames.innerHTML.substring(0, elementNames.innerHTML.length - 2);
         monsterInfo.appendChild(elementContainer);
 
+        const miniInfoContainer = document.createElement("div");
+        miniInfoContainer.classList = ["infoSection infoInline"];
+            const infoSectionGender = document.createElement("div");
+            infoSectionGender.classList = ["infoSection"];
+                const monsterGenderHeader = document.createElement("h3");
+                monsterGenderHeader.classList = ["underlined"];
+                monsterGenderHeader.innerHTML = "Gender";
+                infoSectionGender.appendChild(monsterGenderHeader);
+
+                const monsterGender = document.createElement("p");
+                monsterGender.id = "monsterGender";
+                infoSectionGender.appendChild(monsterGender);
+            miniInfoContainer.appendChild(infoSectionGender);
+
+            const infoSectionInst = document.createElement("div");
+            infoSectionInst.classList = ["infoSection"];
+                const monsterInstHeader = document.createElement("h3");
+                monsterInstHeader.classList = ["underlined"];
+                monsterInstHeader.innerHTML = "Instruments";
+                infoSectionInst.appendChild(monsterInstHeader);
+
+                const monsterInst = document.createElement("ul");
+                monsterInst.id = "monsterInst";
+                infoSectionInst.appendChild(monsterInst);
+            miniInfoContainer.appendChild(infoSectionInst);
+        monsterInfo.appendChild(miniInfoContainer);
+
         const infoSectionAna = document.createElement("div");
         infoSectionAna.classList = ["infoSection"];
             const monsterAnaHeader = document.createElement("h2");
@@ -284,6 +311,16 @@ function expiFourShenanigans()
 
 getMonsterData(daId).then((monsterData) =>
 {
+    monsterGender.innerHTML = monsterData.gender;
+
+    const monsterInstArray = monsterData.instruments.split("|");
+    for (const inst of monsterInstArray)
+    {
+        const instItem = document.createElement("li");
+        instItem.innerHTML = inst;
+        monsterInst.appendChild(instItem);
+    }
+
     monsterAna.innerHTML = monsterData.ana;
 
     monsterBio.innerHTML = monsterData.bio;
