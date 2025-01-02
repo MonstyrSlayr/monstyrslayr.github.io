@@ -114,6 +114,7 @@ class MonsterElement
         this.name = name;
         this.id = name;
         this.sigil = sigil;
+        this.active = sigil.replace(".png", "Active.png");
         this.main = main;
         this.outside = outside;
         this.highlight = highlight;
@@ -158,12 +159,13 @@ export function getElementById(id)
     return [...daAmeliorateElements, rubyElement].find(element => element.id.toLowerCase() == id.toLowerCase());
 }
 
-export function makeMiniElement(element)
+export function makeMiniElement(element, isActive = false)
 {
     const aTag = document.createElement("a");
 
     const daSigil = document.createElement("img");
     daSigil.src = element.sigil;
+    if (isActive) daSigil.src = element.active;
     daSigil.id = element.name;
     daSigil.classList = ["miniElement"];
     aTag.append(daSigil);
@@ -534,7 +536,7 @@ export function makeFormDiv(monster, form, className = "box")
 
     for (const element of form.elements)
     {
-        const daSigil = makeMiniElement(element);
+        const daSigil = makeMiniElement(element, true);
         daFormElementList.append(daSigil);
     }
 
