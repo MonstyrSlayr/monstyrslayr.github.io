@@ -98,7 +98,6 @@ mainContainer.classList = ["container soloContainer"];
 
         const infoSectionBio = document.createElement("div");
         infoSectionBio.classList = ["infoSection"];
-        infoSectionBio.id = "infoSectionBio";
             const monsterBioHeader = document.createElement("h2");
             monsterBioHeader.classList = ["underlined"];
             monsterBioHeader.innerHTML = "Biography";
@@ -189,9 +188,108 @@ mainContainer.classList = ["container soloContainer"];
     mainContainer.appendChild(monsterInfo);
 document.body.appendChild(mainContainer);
 
+function expiFourShenanigans()
+{
+    function randomizeCapitalization(str, chance)
+    {
+        let result = "";
+    
+        for (let i = 0; i < str.length; i++)
+        {
+            const char = str[i];
+            if (Math.random() < chance)
+            {
+                // 10% chance to change capitalization
+                result += char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase();
+            }
+            else
+            {
+                result += char;
+            }
+        }
+    
+        return result;
+    }
+
+    const idiotAnaChance = Math.random() < 0.2;
+    const idiotBioChance = Math.random() < 0.2;
+    const showMessageChance = Math.random() < 0.1;
+    
+    if (idiotAnaChance)
+    {
+        monsterAna.textContent = randomizeCapitalization(monsterAna.textContent, 0.1);
+    }
+    if (idiotBioChance)
+    {
+        monsterBio.textContent = randomizeCapitalization(monsterBio.textContent, 0.1);
+    }
+
+    if (showMessageChance)
+    {
+        fetch("https://monstyrslayr.github.io/wiki/monster/expifour/qna.json")
+        .then(response => response.json())
+        .then(data =>
+        {
+            const messages = data.messages;
+            const blacklist = ["1262459391030853682", "434840883637125121", "688867253948776562"]
+            const whitelistedMessages = messages.filter(message => !blacklist.includes(message.author.id));
+            const expiMessages = whitelistedMessages.filter(message => message.content.toLowerCase().includes("expi"));
+
+            const showThisMessage = expiMessages[Math.floor(Math.random() * expiMessages.length)];
+
+            monsterBio.innerHTML = "";
+
+            const daMessage = document.createElement("div");
+            daMessage.classList.add("daMessage");
+            infoSectionBio.append(daMessage);
+
+            const profilePic = document.createElement("img");
+            profilePic.src = showThisMessage.author.avatarUrl;
+            profilePic.classList.add("profilePic");
+            daMessage.append(profilePic);
+
+            const messageThings = document.createElement("div");
+            messageThings.classList.add("messageThings");
+            daMessage.append(messageThings);
+
+            const messageHeader = document.createElement("div");
+            messageHeader.classList.add("messageHeader");
+            messageThings.append(messageHeader);
+
+            const authorName = document.createElement("p");
+            authorName.textContent = showThisMessage.author.nickname;
+            authorName.style.color = showThisMessage.author.color;
+            authorName.classList.add("authorName");
+            messageHeader.append(authorName);
+
+            const messageDate = document.createElement("time");
+            messageDate.dateTime = showThisMessage.timestamp;
+            messageDate.textContent = new Date(showThisMessage.timestamp).toLocaleString("en-US", {
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric"
+            }).replace(",", "");
+            messageDate.classList.add("messageDate");
+            messageHeader.append(messageDate);
+
+            const messageContent = document.createElement("p");
+            messageContent.textContent = showThisMessage.content;
+            messageContent.classList.add("messageContent");
+            messageThings.append(messageContent);
+        });
+    }
+}
+
 getMonsterData(daId).then((monsterData) =>
 {
     monsterAna.innerHTML = monsterData.ana;
 
     monsterBio.innerHTML = monsterData.bio;
-})
+    
+    if (daId === "expifour")
+    {
+        expiFourShenanigans();
+    }
+});

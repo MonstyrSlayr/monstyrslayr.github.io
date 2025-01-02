@@ -11,17 +11,20 @@ function rgb(r, g, b)
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-function hexToRgb(hex) {
+function hexToRgb(hex)
+{
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
+    return result ?
+    {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
     } : null;
   }
   
-function rgbToHex(r, g, b) {
-return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+function rgbToHex(r, g, b)
+{
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
 function mixHexColors(colors)
@@ -34,10 +37,11 @@ function mixHexColors(colors)
     let totalGreen = 0;
     let totalBlue = 0;
   
-    for (const rgb of rgbColors) {
-      totalRed += rgb.r;
-      totalGreen += rgb.g;
-      totalBlue += rgb.b;
+    for (const rgb of rgbColors)
+    {
+        totalRed += rgb.r;
+        totalGreen += rgb.g;
+        totalBlue += rgb.b;
     }
   
     const avgRed = Math.round(totalRed / colors.length);

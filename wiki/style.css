@@ -389,3 +389,18 @@ label
     scale: 100%;
     cursor: default;
 }
+
+.soloMonster:has(> #onyxImg)
+{
+    overflow: visible;
+}
+
+#onyxGap
+{
+    height: 45.2px;
+}
+
+#onyxImg
+{
+    max-width: 100%;
+}
