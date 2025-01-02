@@ -137,7 +137,7 @@ function resizeWindow()
     const elements = document.querySelectorAll('.ameliorateDiv');
 
     elements.forEach(element => {
-        if (width < 600)
+        if (width < 740)
 		{
             element.classList.add('layer');
             element.classList.remove('box');

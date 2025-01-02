@@ -32,6 +32,7 @@ document.body.appendChild(header);
 
 const soloMonster = document.createElement("div");
 soloMonster.classList = ["soloMonster"];
+soloMonster.style.backgroundColor = daElement.outside;
     const soloGap = document.createElement("div");
     soloGap.classList = ["soloGap"];
     soloMonster.appendChild(soloGap);

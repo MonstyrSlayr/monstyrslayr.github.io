@@ -34,6 +34,7 @@ document.body.appendChild(header);
 
 const soloIsland = document.createElement("div");
 soloIsland.classList = ["soloMonster"];
+soloIsland.style.backgroundColor = daIsland.affiliation.outside;
     const soloGap = document.createElement("div");
     soloGap.classList = ["soloGap"];
     soloIsland.appendChild(soloGap);
@@ -125,29 +126,29 @@ mainContainer.classList = ["container soloContainer"];
             }
         islandInfo.appendChild(infoSectionNotables);
 
-        const infoSectionDesc = document.createElement("div");
-        infoSectionDesc.classList = ["infoSection"];
-            const monsterDescHeader = document.createElement("h2");
-            monsterDescHeader.classList = ["underlined"];
-            monsterDescHeader.innerHTML = "Description";
-            infoSectionDesc.appendChild(monsterDescHeader);
+        // const infoSectionDesc = document.createElement("div");
+        // infoSectionDesc.classList = ["infoSection"];
+        //     const monsterDescHeader = document.createElement("h2");
+        //     monsterDescHeader.classList = ["underlined"];
+        //     monsterDescHeader.innerHTML = "Description";
+        //     infoSectionDesc.appendChild(monsterDescHeader);
 
-            const monsterDesc = document.createElement("p");
-            monsterDesc.id = "monsterDesc";
-            infoSectionDesc.appendChild(monsterDesc);
-        islandInfo.appendChild(infoSectionDesc);
+        //     const monsterDesc = document.createElement("p");
+        //     monsterDesc.id = "monsterDesc";
+        //     infoSectionDesc.appendChild(monsterDesc);
+        // islandInfo.appendChild(infoSectionDesc);
 
-        const infoSectionBio = document.createElement("div");
-        infoSectionBio.classList = ["infoSection"];
-            const monsterBioHeader = document.createElement("h2");
-            monsterBioHeader.classList = ["underlined"];
-            monsterBioHeader.innerHTML = "Biography";
-            infoSectionBio.appendChild(monsterBioHeader);
+        // const infoSectionBio = document.createElement("div");
+        // infoSectionBio.classList = ["infoSection"];
+        //     const monsterBioHeader = document.createElement("h2");
+        //     monsterBioHeader.classList = ["underlined"];
+        //     monsterBioHeader.innerHTML = "Biography";
+        //     infoSectionBio.appendChild(monsterBioHeader);
 
-            const monsterBio = document.createElement("p");
-            monsterBio.id = "monsterBio";
-            infoSectionBio.appendChild(monsterBio);
-        islandInfo.appendChild(infoSectionBio);
+        //     const monsterBio = document.createElement("p");
+        //     monsterBio.id = "monsterBio";
+        //     infoSectionBio.appendChild(monsterBio);
+        // islandInfo.appendChild(infoSectionBio);
 
         const infoSectionMon = document.createElement("div");
         infoSectionMon.classList = ["infoSection"];
@@ -170,12 +171,12 @@ mainContainer.classList = ["container soloContainer"];
     mainContainer.appendChild(islandInfo);
 document.body.appendChild(mainContainer);
 
-getIslandData(daId).then((islandData) =>
-{
-    monsterDesc.innerHTML = islandData.desc;
+// getIslandData(daId).then((islandData) =>
+// {
+//     // monsterDesc.innerHTML = islandData.desc;
 
-    monsterBio.innerHTML = islandData.bio;
-})
+//     // monsterBio.innerHTML = islandData.bio;
+// })
 
 function resizeWindow()
 {

@@ -85,7 +85,7 @@ mainContainer.classList = ["container soloContainer"];
         monsterInfo.appendChild(elementContainer);
 
         const miniInfoContainer = document.createElement("div");
-        miniInfoContainer.classList = ["infoSection infoInline"];
+        miniInfoContainer.classList = ["infoSection miniInfoContainer"];
             const infoSectionGender = document.createElement("div");
             infoSectionGender.classList = ["infoSection"];
                 const monsterGenderHeader = document.createElement("h3");
@@ -104,10 +104,6 @@ mainContainer.classList = ["container soloContainer"];
                 monsterInstHeader.classList = ["underlined"];
                 monsterInstHeader.innerHTML = "Instruments";
                 infoSectionInst.appendChild(monsterInstHeader);
-
-                const monsterInst = document.createElement("ul");
-                monsterInst.id = "monsterInst";
-                infoSectionInst.appendChild(monsterInst);
             miniInfoContainer.appendChild(infoSectionInst);
         monsterInfo.appendChild(miniInfoContainer);
 
@@ -313,12 +309,12 @@ getMonsterData(daId).then((monsterData) =>
 {
     monsterGender.innerHTML = monsterData.gender;
 
-    const monsterInstArray = monsterData.instruments.split("|");
+    const monsterInstArray = monsterData.sound.split("|");
     for (const inst of monsterInstArray)
     {
-        const instItem = document.createElement("li");
+        const instItem = document.createElement("p");
         instItem.innerHTML = inst;
-        monsterInst.appendChild(instItem);
+        infoSectionInst.appendChild(instItem);
     }
 
     monsterAna.innerHTML = monsterData.ana;

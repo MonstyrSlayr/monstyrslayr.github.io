@@ -136,8 +136,8 @@ const signalElement = new MonsterElement("Signal", IMG + "ElementSignal.png",
 const trashElement = new MonsterElement("Trash", IMG + "ElementTrash.png",
     rgb(137, 137, 130), rgb(39, 39, 0), rgb(229, 222, 19)
 );
-const rubyElement = new MonsterElement("Ruby", IMG + "ElementClay.png",
-    rgb(227, 64, 64), rgb(107, 30, 30), rgb(230, 82, 104) //TODO: get actual colors
+const rubyElement = new MonsterElement("Ruby", IMG + "ElementRuby.png",
+    rgb(182, 47, 61), rgb(134, 44, 58), rgb(219, 42, 87)
 );
 const daAmeliorateElements =
 [
@@ -155,7 +155,7 @@ export function getElements()
 
 export function getElementById(id)
 {
-    return daAmeliorateElements.find(element => element.id.toLowerCase() == id.toLowerCase());
+    return [...daAmeliorateElements, rubyElement].find(element => element.id.toLowerCase() == id.toLowerCase());
 }
 
 export function makeMiniElement(element)
