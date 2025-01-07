@@ -1,4 +1,5 @@
 import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv } from "../data.js";
+import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
 {
@@ -15,19 +16,7 @@ function getLastFolder(url, num)
 const daId = getLastFolder(window.location.href, 1);
 const daMonster = getAmeliorateById(daId);
 
-const header = document.createElement("header");
-    const homeButtonLink = document.createElement("a");
-    homeButtonLink.href = "https://monstyrslayr.github.io/wiki/ameliorates";
-    homeButtonLink.id = "homeButton";
-        const homeButton = document.createElement("button");
-        homeButton.innerHTML = "< Home";
-        homeButtonLink.appendChild(homeButton);
-    header.appendChild(homeButtonLink);
-
-    const monsterTitle = document.createElement("h1");
-    monsterTitle.id = "monsterTitle";
-    monsterTitle.innerHTML = daMonster.realName;
-    header.appendChild(monsterTitle);
+const header = createInfoSiteHeader(daMonster.realName);
 document.body.appendChild(header);
 
 const soloMonster = document.createElement("div");
@@ -43,28 +32,17 @@ soloMonster.style.backgroundColor = daMonster.affiliation.outside;
     soloMonster.appendChild(monsterImg);
 document.body.appendChild(soloMonster);
 
-const mainContainer = document.createElement("div");
-mainContainer.classList = ["container soloContainer"];
+const mainContainer = createContainer();
     const monsterInfo = document.createElement("div");
     monsterInfo.id = "monsterInfo";
-        const nameContainer = document.createElement("div");
-        nameContainer.classList = ["infoSection infoInline"];
-            const monsterNameHeader = document.createElement("h2");
-            monsterNameHeader.innerHTML = "Name: ";
-            nameContainer.appendChild(monsterNameHeader);
-
+        const nameContainer = createInfoSection("Name: ", true);
             const monsterName = document.createElement("p");
             monsterName.id = "monsterName";
             monsterName.innerHTML = daMonster.realName;
             nameContainer.appendChild(monsterName);
         monsterInfo.appendChild(nameContainer);
 
-        const elementContainer = document.createElement("div");
-        elementContainer.classList = ["infoSection infoInline"];
-            const elementHeader = document.createElement("h2");
-            elementHeader.innerHTML = "Elements: ";
-            elementContainer.appendChild(elementHeader);
-
+        const elementContainer = createInfoSection("Eleemnts: ", true);
             const elementImages = document.createElement("div");
             elementImages.id = "elementImages";
             elementImages.classList = ["miniElementList"];
@@ -86,71 +64,35 @@ mainContainer.classList = ["container soloContainer"];
 
         const miniInfoContainer = document.createElement("div");
         miniInfoContainer.classList = ["infoSection miniInfoContainer"];
-            const infoSectionGender = document.createElement("div");
-            infoSectionGender.classList = ["infoSection"];
-                const monsterGenderHeader = document.createElement("h3");
-                monsterGenderHeader.classList = ["underlined"];
-                monsterGenderHeader.innerHTML = "Gender";
-                infoSectionGender.appendChild(monsterGenderHeader);
-
+            const infoSectionGender = createInfoSection("Gender");
                 const monsterGender = document.createElement("p");
                 monsterGender.id = "monsterGender";
                 infoSectionGender.appendChild(monsterGender);
             miniInfoContainer.appendChild(infoSectionGender);
 
-            const infoSectionInst = document.createElement("div");
-            infoSectionInst.classList = ["infoSection"];
-                const monsterInstHeader = document.createElement("h3");
-                monsterInstHeader.classList = ["underlined"];
-                monsterInstHeader.innerHTML = "Instruments";
-                infoSectionInst.appendChild(monsterInstHeader);
+            const infoSectionInst = createInfoSection("Instruments");
             miniInfoContainer.appendChild(infoSectionInst);
         monsterInfo.appendChild(miniInfoContainer);
 
-        const infoSectionAna = document.createElement("div");
-        infoSectionAna.classList = ["infoSection"];
-            const monsterAnaHeader = document.createElement("h2");
-            monsterAnaHeader.classList = ["underlined"];
-            monsterAnaHeader.innerHTML = "Biology";
-            infoSectionAna.appendChild(monsterAnaHeader);
-
+        const infoSectionAna = createInfoSection("Biology");
             const monsterAna = document.createElement("p");
             monsterAna.id = "monsterAna";
             infoSectionAna.appendChild(monsterAna);
         monsterInfo.appendChild(infoSectionAna);
 
-        const infoSectionBio = document.createElement("div");
-        infoSectionBio.classList = ["infoSection"];
-            const monsterBioHeader = document.createElement("h2");
-            monsterBioHeader.classList = ["underlined"];
-            monsterBioHeader.innerHTML = "Biography";
-            infoSectionBio.appendChild(monsterBioHeader);
-
+        const infoSectionBio = createInfoSection("Biography");
             const monsterBio = document.createElement("p");
             monsterBio.id = "monsterBio";
             infoSectionBio.appendChild(monsterBio);
         monsterInfo.appendChild(infoSectionBio);
 
-        const infoSectionSongs = document.createElement("div");
-        infoSectionSongs.classList = ["infoSection"];
-            const monsterSongsHeader = document.createElement("h2");
-            monsterSongsHeader.classList = ["underlined"];
-            monsterSongsHeader.innerHTML = "Songs";
-            infoSectionSongs.appendChild(monsterSongsHeader);
-
+        const infoSectionSongs = createInfoSection("Songs");
             const daIslands = getIslands().filter(island => island.monsters.includes(daMonster));
 
             if (daIslands.length > 0)
             {
-                const infoSectionIslands = document.createElement("div");
-                infoSectionIslands.classList = ["infoSection miniSection"];
-                    const monsterIslandsHeader = document.createElement("h3");
-                    monsterIslandsHeader.classList = ["underlined"];
-                    monsterIslandsHeader.innerHTML = "Islands";
-                    infoSectionIslands.appendChild(monsterIslandsHeader);
-
-                    const monIslandDiv = document.createElement("div");
-                    monIslandDiv.classList = "contentContainer";
+                const infoSectionIslands = createMiniSection("Islands");
+                    const monIslandDiv = createContentContainer();
                         for (const island of daIslands)
                         {
                             const daIslandDiv = makeIslandDiv(island);
@@ -164,15 +106,8 @@ mainContainer.classList = ["container soloContainer"];
 
             if (daSongs.length > 0)
             {
-                const infoSectionOtherSongs = document.createElement("div");
-                infoSectionOtherSongs.classList = ["infoSection miniSection"];
-                    const monsterOtherSongsHeader = document.createElement("h3");
-                    monsterOtherSongsHeader.classList = ["underlined"];
-                    monsterOtherSongsHeader.innerHTML = "Other Songs";
-                    infoSectionOtherSongs.appendChild(monsterOtherSongsHeader);
-
-                    const monOtherDiv = document.createElement("div");
-                    monOtherDiv.classList = "contentContainer";
+                const infoSectionOtherSongs = createMiniSection("Other Songs");
+                    const monOtherDiv = createContentContainer();
                         for (const song of daSongs)
                         {
                             const daSongDiv = makeIslandDiv(song);
@@ -183,15 +118,8 @@ mainContainer.classList = ["container soloContainer"];
             }
         monsterInfo.appendChild(infoSectionSongs);
 
-        const infoSectionForms = document.createElement("div");
-        infoSectionForms.classList = ["infoSection"];
-            const monsterFormsHeader = document.createElement("h2");
-            monsterFormsHeader.classList = ["underlined"];
-            monsterFormsHeader.innerHTML = "Forms";
-            infoSectionForms.appendChild(monsterFormsHeader);
-
-            const formsDiv = document.createElement("div");
-            formsDiv.classList = ["contentContainer"];
+        const infoSectionForms = createInfoSection("Forms");
+            const formsDiv = createContentContainer();
             infoSectionForms.appendChild(formsDiv);
 
             const formsWait = document.createElement("p");

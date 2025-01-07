@@ -1,3 +1,8 @@
+import { Monster, getClasses, getRarities, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+
+const RARITY = getRarities();
+const CLASS = getClasses();
+
 const conditionalsDiv = document.getElementById("conditionals");
 class Conditional
 {
@@ -82,13 +87,13 @@ async function createFilters()
 
     const rarityConditionals =
     [
-        new Conditional("Commons", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.COMMON} ),
-        new Conditional("Rares", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.RARE} ),
-        new Conditional("Epics", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.EPIC} ),
-        new Conditional("Young (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.CHILD} ),
-        new Conditional("Adult (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.ADULT} ),
-        new Conditional("Major (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.MAJOR} ),
-        new Conditional("Minor (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == Rarity.MINOR} ),
+        new Conditional("Commons", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.COMMON} ),
+        new Conditional("Rares", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.RARE} ),
+        new Conditional("Epics", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.EPIC} ),
+        new Conditional("Young (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.CHILD} ),
+        new Conditional("Adult (Celestials Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.ADULT} ),
+        new Conditional("Major (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.MAJOR} ),
+        new Conditional("Minor (Paironormal Only)", rarityConditionalsDiv, function(monster = Monster) { return monster.rarity == RARITY.MINOR} ),
     ];
 
     rarityCheckAll.onclick = function ()
@@ -114,20 +119,20 @@ async function createFilters()
 
     const classConditionals =
     [
-        new Conditional("Naturals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.NATURAL} ),
-        new Conditional("Fire Monsters", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.FIRE} ),
-        new Conditional("Magicals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.MAGICAL} ),
-        new Conditional("Mythicals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.MYTHICAL} ),
-        new Conditional("Dreamythicals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.DREAMYTHICAL} ),
-        new Conditional("Ethereal", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.ETHEREAL} ),
-        new Conditional("Supernaturals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.SUPERNATURAL} ),
-        new Conditional("Seasonals", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.SEASONAL} ),
-        new Conditional("Shugafam", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.SHUGAFAM} ),
-        new Conditional("Werdos", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.WERDO} ),
-        new Conditional("Dipsters", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.DIPSTER} ),
-        new Conditional("Celestials", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.CELESTIAL} ),
-        new Conditional("Titansouls", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.TITANSOUL} ),
-        new Conditional("Paironormal", classConditionalsDiv, function(monster = Monster) { return monster.class == Class.PAIRONORMAL} ),
+        new Conditional("Naturals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.NATURAL} ),
+        new Conditional("Fire Monsters", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.FIRE} ),
+        new Conditional("Magicals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.MAGICAL} ),
+        new Conditional("Mythicals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.MYTHICAL} ),
+        new Conditional("Dreamythicals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.DREAMYTHICAL} ),
+        new Conditional("Ethereal", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.ETHEREAL} ),
+        new Conditional("Supernaturals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.SUPERNATURAL} ),
+        new Conditional("Seasonals", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.SEASONAL} ),
+        new Conditional("Shugafam", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.SHUGAFAM} ),
+        new Conditional("Werdos", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.WERDO} ),
+        new Conditional("Dipsters", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.DIPSTER} ),
+        new Conditional("Celestials", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.CELESTIAL} ),
+        new Conditional("Titansouls", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.TITANSOUL} ),
+        new Conditional("Paironormal", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.PAIRONORMAL} ),
     ];
 
     classCheckAll.onclick = function ()
