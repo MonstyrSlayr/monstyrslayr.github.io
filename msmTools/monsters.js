@@ -70,7 +70,7 @@ export async function getMonsters()
 {
 	let monsters = [];
 
-	const csvResponse = await fetch("monsterData.csv");
+	const csvResponse = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
 	if (!csvResponse.ok)
 	{
 		throw new Error('Network response was not ok');
