@@ -78,7 +78,7 @@ export async function getMonsters()
 	let csvText = await csvResponse.text();
 	let results = await Papa.parse(csvText, { header: true });
 
-	const response = await fetch('monsterImgs.txt');
+	const response = await fetch('https://monstyrslayr.github.io/msmTools/monsterImgs.txt');
 	if (!response.ok)
 	{
 		throw new Error('Network response was not ok');
@@ -94,11 +94,12 @@ export async function getMonsters()
 		monster.file = line.trim();
 		monster.square = ("https://monstyrslayr.github.io/msmTools/img/square/" + line).trim();
 		monster.portrait = ("https://monstyrslayr.github.io/msmTools/img/portrait/" + line).trim();
-		monster.portraitBlack = monster.source.replace(".avif", "_black.avif");
+		monster.portraitBlack = monster.portrait.replace(".avif", "_black.avif");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".avif", "").trim();
 		if (monster.id == "ad") //special quibble case
 		{
-			monster.source = "./img/monster_portrait_square_ad_copy.avif";
+			monster.square = "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_square_ad_copy.avif";
+			monster.portrait = "https://monstyrslayr.github.io/msmTools/img/portrait/monster_portrait_square_ad_copy.avif";
 		}
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
 
@@ -288,8 +289,9 @@ export async function getMonsters()
 			monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 		}
 
-		new Image().src = monster.source;
-		new Image().src = monster.blackSource;
+		new Image().src = monster.square;
+		new Image().src = monster.portrait;
+		new Image().src = monster.portraitBlack;
 	});
 
 	return monsters;

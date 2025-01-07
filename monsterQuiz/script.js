@@ -5,7 +5,7 @@ async function main()
     const RARITY = getRarities();
     const allowedRarities = [RARITY.COMMON, RARITY.ADULT, RARITY.MAJOR];
     const monsters = await getMonsters();
-    const commonMonsters = monsters.filter((monster = Monster) => allowedRarities.has(monster.rarity));
+    const commonMonsters = monsters.filter((monster = Monster) => allowedRarities.includes(monster.rarity));
 
     console.log(commonMonsters);
 }
