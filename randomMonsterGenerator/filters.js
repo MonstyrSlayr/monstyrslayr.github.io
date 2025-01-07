@@ -367,7 +367,7 @@ async function createFilters()
             monsterA.append(monsterDiv);
 
             const monsterImg = document.createElement("img");
-            monsterImg.src = monsterDiv.shownMonster.blackSource;
+            monsterImg.src = monsterDiv.shownMonster.portraitBlack;
             monsterImg.classList.add("monsterImg");
             monsterImg.classList.add("flashing");
             monsterDiv.append(monsterImg);
@@ -381,7 +381,7 @@ async function createFilters()
             const intervalId = setInterval(() =>
             {
                 monsterDiv.shownMonster = allFilteredMonsters[Math.floor(Math.random() * allFilteredMonsters.length)];
-                monsterImg.src = monsterDiv.shownMonster.blackSource;
+                monsterImg.src = monsterDiv.shownMonster.portraitBlack;
                 monsterName.innerHTML = monsterDiv.shownMonster.name;
 
                 // Show the final random image after flashing
@@ -392,7 +392,7 @@ async function createFilters()
                     monsterDiv.timeoutRan = true;
                     clearInterval(intervalId);
 
-                    monsterImg.src = monsterDiv.finalMonster.source;
+                    monsterImg.src = monsterDiv.finalMonster.portrait;
                     monsterImg.classList.remove("flashing");
                     monsterName.innerHTML = monsterDiv.finalMonster.name;
                     monsterDiv.classList.add("monsterReveal");

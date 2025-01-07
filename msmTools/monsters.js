@@ -92,8 +92,9 @@ export async function getMonsters()
 		let monster = new Monster;
 
 		monster.file = line.trim();
-		monster.source = ("./img/" + line).trim();
-		monster.blackSource = monster.source.replace(".avif", "_black.avif");
+		monster.square = ("https://monstyrslayr.github.io/msmTools/img/square/" + line).trim();
+		monster.portrait = ("https://monstyrslayr.github.io/msmTools/img/portrait/" + line).trim();
+		monster.portraitBlack = monster.source.replace(".avif", "_black.avif");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".avif", "").trim();
 		if (monster.id == "ad") //special quibble case
 		{
