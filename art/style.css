@@ -2,7 +2,6 @@
 {
     font-family: Helvetica, Helvetica, Arial, sans-serif;
     color: white;
-    background-color: #2f3136;
     font-size: 24;
     transition: all 0.15s;
 }
@@ -11,6 +10,7 @@ body
 {
     width: 100%;
     margin: 0;
+    background-color: black;
     padding: 0;
 }
 
