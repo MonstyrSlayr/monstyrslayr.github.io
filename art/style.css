@@ -14,11 +14,26 @@ body
     padding: 0;
 }
 
+header
+{
+    text-align: center;
+    margin: 32px;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 h1
 {
     margin: 32px;
     text-align: center;
     font-size: 48;
+    display: inline-block;
+    position: absolute;
+    left: 50%; /* Move the title halfway across the container */
+    transform: translateX(calc(-50% - 32px)); /* Offset it back by half its width to center it */
+    text-align: center;
 }
 
 .artImg
@@ -51,6 +66,25 @@ h1
     border-style: solid;
 }
 
+button, select
+{
+    background-color: black;
+    color: white;
+    display: inline;
+    margin: 0;
+    padding: 8px;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 8px;
+}
+
+button:hover, select:hover
+{
+    cursor: pointer;
+    scale: 105%;
+}
+
 p
 {
     margin: 32px;
@@ -60,6 +94,34 @@ h2
 {
     margin: 32px;
     font-size: 40;
+    display: inline-block;
+}
+
+button
+{
+    display: inline-block;
+}
+
+.options
+{
+    display: inline-flex;
+    margin: 8px;
+    text-wrap: nowrap;
+    width: 95%;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.options > div > input
+{
+    margin: 16px;
+    scale: 175%;
+}
+
+.options > div > label
+{
+    margin-left: 32px;
 }
 
 h3
@@ -103,4 +165,79 @@ ul
 ol
 {
     margin: 32px;
+}
+
+.artwork
+{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.pfp
+{
+    width: 256px;
+}
+
+.image
+{
+    width: 256px;
+    max-width: 100%;
+}
+
+.source
+{
+    width: 512px;
+    max-width: 100%;
+}
+
+.trophy
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    text-align: center;
+}
+
+.trophy:hover
+{
+    scale: 105%;
+}
+
+.trophy > img
+{
+    border-color: white;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.trophy:hover > img
+{
+    border-color: cyan;
+    scale: 100%;
+}
+
+.trophy:hover:visited > img
+{
+    border-color: fuchsia;
+}
+
+.trophy > label
+{
+   text-decoration: underline;
+}
+
+.trophy:hover > label
+{
+    color: cyan;
+}
+
+.trophy:hover:visited > label
+{
+    color: fuchsia;
 }

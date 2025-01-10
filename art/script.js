@@ -49,24 +49,96 @@ function waitForArray(array, targetLength, timeout, callback)
 const animationLinks =
 [
     "https://monstyrslayr.github.io/art/matchaWitchNicole.gif",
-    "https://monstyrslayr.github.io/art/mastermindAvery.gif"
+    "https://monstyrslayr.github.io/art/mastermindAvery.gif",
+    "https://monstyrslayr.github.io/art/umbrellaGirl.gif",
 ]
 
 document.addEventListener("DOMContentLoaded", () =>
 {
     const animations = [];
+    let sortedAnimations = [];
+    let animationsLoaded = false;
+
+    const displayAnimationOptions = document.getElementById("displayAnimationOptions");
+    
+    function createAnimations()
+    {
+        const animationsDiv = document.getElementById("animations");
+        animationsDiv.innerHTML = "";
+
+        for (const animation of sortedAnimations)
+        {
+            const pfpDiv = document.createElement("a");
+            pfpDiv.classList.add(displayAnimationOptions.value);
+            pfpDiv.classList.add("trophy");
+            pfpDiv.href = animation.site;
+            pfpDiv.target = "_blank";
+            animationsDiv.appendChild(pfpDiv);
+
+            const pfp = document.createElement("img");
+            pfp.classList.add("artImg");
+            pfp.src = animation[displayAnimationOptions.value];
+            pfpDiv.appendChild(pfp);
+
+            const name = document.createElement("label");
+            name.textContent = animation.name;
+            pfpDiv.appendChild(name);
+        }
+    }
+
+    displayAnimationOptions.addEventListener("change", () =>
+    {
+        if (animationsLoaded) createAnimations();
+    });
+
+    const sortAnimationOptions = document.getElementById("sortAnimationOptions");
+    const sortAnimationDescending = document.getElementById("sortAnimationCheckbox");
+
+    function sortAnimations()
+    {
+        const selectedOption = sortAnimationOptions.value; // Get selected value
+        const descend = sortAnimationDescending.checked;
+        sortedAnimations = [...animations];
+    
+        switch (selectedOption)
+        {
+            case "alphabetical":
+                sortedAnimations = [...animations].sort((a, b) => {
+                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+                    return 0;
+                });
+                break;
+            case "alphabetical":
+                sortedAnimations = [...animations].sort((a, b) => { return a.date - b.date; });
+                break;
+            default:
+                break;
+        }
+
+        if (descend) sortedAnimations.reverse();
+    }
 
     function onAnimationsLoad()
     {
-        const animationsDiv = document.getElementById("animations");
-
-        for (const animation of animations)
-        {
-            const pfp = document.createElement("img");
-            pfp.src = animation.pfp;
-            animationsDiv.appendChild(pfp);
-        }
+        animationsLoaded = true;
+        sortAnimationOptions.value = "chronological";
+        sortAnimationDescending.checked = true;
+        sortAnimations();
+        createAnimations();
     }
+
+    sortAnimationOptions.addEventListener("change", () =>
+    {
+        sortAnimations();
+        if (animationsLoaded) createAnimations();
+    });
+
+    sortAnimationDescending.addEventListener("change", () =>
+    {
+        sortAnimations();
+        if (animationsLoaded) createAnimations();
+    });
 
     for (const link of animationLinks)
     {

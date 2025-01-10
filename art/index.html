@@ -6,21 +6,37 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <p>Hello there, this site doesn't exist fully just yet.</p>
-    <p>This site is still a work in progress.</p>
-    <br>
-    <p>There are currently two pieces of art in the database:</p>
-    <p><a href="./matchaWitchNicole.gif/">Matcha Witch Nicole</a></p>
-    <p><a href="./mastermindAvery.gif/">Mastermind Avery</a></p>
-    <br>
-    <p>
-        In the future, the art will be shown on this page, and will
-        be sortable alphabetically, chronologically, and maybe others.
-    </p>
-    <p>When that happens, the art pages will have buttons pointing to this page.</p>
+    <p>Hello there, this site is an archive of my animations.</p>
+    <p>I will do my best to add all of my animations to this site one day.</p>
+    <p>When you share my artwork, please use the links provided below (ideally, they will automatically embed)</p>
 
     <h2>Animations</h2>
+    <div class="options">
+        <div>
+            <label for="sortAnimationOptions">Sort by:</label>
+            <select id="sortAnimationOptions">
+                <option hidden>Load Order</option>
+                <option value="alphabetical">Name</option>
+                <option value="chronological">Date</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="sortAnimationCheckbox">Descending</label>
+            <input id="sortAnimationCheckbox" type="checkbox">
+        </div>
+
+        <div>
+            <label for="displayAnimationOptions">Display:</label>
+            <select id="displayAnimationOptions">
+                <option value="pfp">Small Image</option>
+                <option value="image">Image</option>
+                <option value="source">Animation</option>
+            </select>
+        </div>
+    </div>
     <div id="animations" class="artwork">
+        <p>Loading animations, please wait...</p>
         <!-- animations go here -->
     </div>
 
