@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () =>
     {
         animationsLoaded = true;
         sortAnimationOptions.value = "chronological";
-        sortAnimationDescending.checked = false;
+        sortAnimationDescending.checked = true;
         sortAnimations();
         createAnimations();
     }
