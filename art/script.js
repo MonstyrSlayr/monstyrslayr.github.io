@@ -51,6 +51,7 @@ const animationLinks =
     "https://monstyrslayr.github.io/art/matchaWitchNicole.gif",
     "https://monstyrslayr.github.io/art/mastermindAvery.gif",
     "https://monstyrslayr.github.io/art/umbrellaGirl.gif",
+    "https://monstyrslayr.github.io/art/rickACard.gif"
 ]
 
 document.addEventListener("DOMContentLoaded", () =>
@@ -109,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () =>
                     return 0;
                 });
                 break;
-            case "alphabetical":
+            case "chronological":
                 sortedAnimations = [...animations].sort((a, b) => { return a.date - b.date; });
                 break;
             default:
@@ -154,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () =>
             animation.source = data.source;
             animation.image = data.image;
             animation.pfp = data.pfp;
+            console.log(animation);
 
             animations.push(animation);
         });
