@@ -51,7 +51,8 @@ const animationLinks =
     "https://monstyrslayr.github.io/art/matchaWitchNicole.gif",
     "https://monstyrslayr.github.io/art/mastermindAvery.gif",
     "https://monstyrslayr.github.io/art/umbrellaGirl.gif",
-    "https://monstyrslayr.github.io/art/rickACard.gif"
+    "https://monstyrslayr.github.io/art/rickACard.gif",
+    "https://monstyrslayr.github.io/art/worldRecordCat.gif",
 ]
 
 document.addEventListener("DOMContentLoaded", () =>
@@ -124,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () =>
     {
         animationsLoaded = true;
         sortAnimationOptions.value = "chronological";
-        sortAnimationDescending.checked = true;
+        sortAnimationDescending.checked = false;
         sortAnimations();
         createAnimations();
     }
