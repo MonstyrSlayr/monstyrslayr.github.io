@@ -184,14 +184,16 @@ ol
 
 .image
 {
-    width: 256px;
+    width: 512px;
     max-width: 100%;
+    flex-grow: 1;
 }
 
 .source
 {
     width: 512px;
     max-width: 100%;
+    flex-grow: 1;
 }
 
 .trophy
@@ -202,7 +204,6 @@ ol
     align-items: center;
     max-width: 100%;
     text-align: center;
-    flex-grow: 1;
 }
 
 .trophy:hover

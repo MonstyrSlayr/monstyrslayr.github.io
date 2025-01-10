@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () =>
                 });
                 break;
             case "chronological":
-                sortedAnimations = [...animations].sort((a, b) => { return a.date - b.date; });
+                sortedAnimations = [...animations].sort((a, b) => { return Date.parse(a.date) - Date.parse(b.date); });
                 break;
             default:
                 break;
