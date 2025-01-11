@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () =>
             pfpDiv.classList.add(displayAnimationOptions.value);
             pfpDiv.classList.add("trophy");
             pfpDiv.href = animation.site;
-            pfpDiv.target = "_blank";
             animationsDiv.appendChild(pfpDiv);
 
             const pfp = document.createElement("img");
