@@ -521,14 +521,17 @@ export async function makeFormDiv(monster, form, className = "box")
         ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.main)]);
         if (form.monsterElements.length > 0) ameDiv.style.borderColor = mixHexColors([...form.elements.map(element => element.highlight)]);
 
+        const topDiv = document.createElement("div");
+        ameDiv.appendChild(topDiv);
+
         const ameImg = document.createElement("img");
         ameImg.src = getShadowless(form.image);
         ameImg.classList = ["monsterForm"];
-        ameDiv.append(ameImg);
+        topDiv.append(ameImg);
 
         const daLabelWrapper = document.createElement("div");
         daLabelWrapper.classList = ["monsterLabelWrapper"];
-        ameDiv.append(daLabelWrapper);
+        topDiv.append(daLabelWrapper);
 
         const daLabel = document.createElement("div");
         daLabel.classList = ["monsterLabel"];
@@ -562,9 +565,12 @@ export async function makeFormDiv(monster, form, className = "box")
         const bioString = monsterData[formString.toLowerCase()];
         if (bioString != null)
         {
+            const bottomDiv = document.createElement("div");
+            ameDiv.appendChild(bottomDiv);
+
             const daBio = document.createElement("p");
             daBio.textContent = bioString;
-            ameDiv.append(daBio);
+            bottomDiv.append(daBio);
         }
     });
 

@@ -382,13 +382,22 @@ label, #monsterSelect, option
 
 .formDiv
 {
-    justify-content: space-evenly;
+    flex-direction: column;
 }
 
 .formDiv:hover
 {
     scale: 100%;
     cursor: default;
+}
+
+.formDiv > div
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    text-wrap: wrap;
 }
 
 .soloMonster:has(> #onyxImg)
