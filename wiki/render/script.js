@@ -47,17 +47,18 @@ function updateRenderedMonster()
     const mon = getAmeliorateById(monsterSelect.value);
 
     // Get selected tags
-    const bLevel = ["", "-B"][bScroll.value];
-    const hLevel = ["", "-H", "-HH"][hScroll.value];
-    const cLevel = ["", "-C"][cScroll.value];
+    const bLevel = ["", "B"][bScroll.value];
+    const hLevel = ["", "H", "HH"][hScroll.value];
+    const cLevel = ["", "C"][cScroll.value];
     const sLevel = [""][sScroll.value];
-    const tLevel = ["", "-T"][tScroll.value];
+    const tLevel = ["", "T"][tScroll.value];
 
     const lineless = linelessCheck.checked ? "-Lineless" : "";
     const shadowless = shadowlessCheck.checked ? "-Shadowless" : "";
 
     // Construct file name
-    const tags = bLevel + hLevel + cLevel + sLevel + tLevel + lineless + shadowless;
+    const eleTags = bLevel + hLevel + cLevel + sLevel + tLevel;
+    const tags = (eleTags.length > 0 ? "-" : "") + eleTags + lineless + shadowless;
     const filename = "https://monstyrslayr.github.io/wiki/img/" + mon.id + "-" + mon.elementString + tags + ".png";
 
     renderedMonster.src = filename;
