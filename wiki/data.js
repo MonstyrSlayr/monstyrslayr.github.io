@@ -72,7 +72,7 @@ function getFirstLetters(str)
     return acronym;
 }
 
-async function fileExists(url)
+export async function fileExists(url)
 {
     try
     {
@@ -309,54 +309,65 @@ class Ameliorate extends Monster
 
         this.forms.push(new Form("Base", this.elements, [], this.images.default));
 
-        fileExists(IMG + basicImage + "-B.png").then(exists =>
+        this.loadForms = function()
         {
-            if (exists)
+            fileExists(IMG + basicImage + "-B.png").then(exists =>
             {
-                this.forms.push(new Form("Bulb", this.elements, [bulbElement], IMG + basicImage + "-B.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
-        fileExists(IMG + basicImage + "-H.png").then(exists =>
-        {
-            if (exists)
+                if (exists)
+                {
+                    this.forms.push(new Form("Bulb", this.elements, [bulbElement], IMG + basicImage + "-B.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-H.png").then(exists =>
             {
-                this.forms.push(new Form("Hostess", this.elements, [hostessElement], IMG + basicImage + "-H.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
-        fileExists(IMG + basicImage + "-HH.png").then(exists =>
-        {
-            if (exists)
+                if (exists)
+                {
+                    this.forms.push(new Form("Hostess", this.elements, [hostessElement], IMG + basicImage + "-H.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-HH.png").then(exists =>
             {
-                this.forms.push(new Form("High Hostess", this.elements, [hostessElement, hostessElement], IMG + basicImage + "-HH.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
-        fileExists(IMG + basicImage + "-C.png").then(exists =>
-        {
-            if (exists)
+                if (exists)
+                {
+                    this.forms.push(new Form("High Hostess", this.elements, [hostessElement, hostessElement], IMG + basicImage + "-HH.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-C.png").then(exists =>
             {
-                this.forms.push(new Form("Clay", this.elements, [clayElement], IMG + basicImage + "-C.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
-        fileExists(IMG + basicImage + "-S.png").then(exists =>
-        {
-            if (exists)
+                if (exists)
+                {
+                    this.forms.push(new Form("Clay", this.elements, [clayElement], IMG + basicImage + "-C.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-S.png").then(exists =>
             {
-                this.forms.push(new Form("Signal", this.elements, [signalElement], IMG + basicImage + "-S.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
-        fileExists(IMG + basicImage + "-T.png").then(exists =>
-        {
-            if (exists)
+                if (exists)
+                {
+                    this.forms.push(new Form("Signal", this.elements, [signalElement], IMG + basicImage + "-S.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-T.png").then(exists =>
             {
-                this.forms.push(new Form("Trash", this.elements, [trashElement], IMG + basicImage + "-T.png"));
-                sortFormsByElements(this.forms);
-            }
-        });
+                if (exists)
+                {
+                    this.forms.push(new Form("Trash", this.elements, [trashElement], IMG + basicImage + "-T.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+            fileExists(IMG + basicImage + "-BH.png").then(exists =>
+            {
+                if (exists)
+                {
+                    this.forms.push(new Form("Bulb Hostess", this.elements, [bulbElement, hostessElement], IMG + basicImage + "-BH.png"));
+                    sortFormsByElements(this.forms);
+                }
+            });
+        }
     }
 }
 const daAmeliorates =
@@ -500,49 +511,62 @@ export function makeAmeliorateDiv(monster, className = "box")
     return ameDiv;
 }
 
-export function makeFormDiv(monster, form, className = "box")
+export async function makeFormDiv(monster, form, className = "box")
 {
     const ameDiv = document.createElement("div");
-    ameDiv.classList = [className + " ameliorateDiv formDiv"];
-    ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.main)]);
-    if (form.monsterElements.length > 0) ameDiv.style.borderColor = mixHexColors([...form.elements.map(element => element.highlight)]);
 
-    const ameImg = document.createElement("img");
-    ameImg.src = getShadowless(form.image);
-    ameImg.classList = ["monsterForm"];
-    ameDiv.append(ameImg);
-
-    const daLabelWrapper = document.createElement("div");
-    daLabelWrapper.classList = ["monsterLabelWrapper"];
-    ameDiv.append(daLabelWrapper);
-
-    const daLabel = document.createElement("div");
-    daLabel.classList = ["monsterLabel"];
-    daLabelWrapper.append(daLabel);
-
-    const daElementList = document.createElement("div");
-    daElementList.classList = ["miniElementList"];
-    daLabel.append(daElementList);
-
-    for (const element of form.monsterElements)
+    getMonsterData(monster.id).then((monsterData) =>
     {
-        const daSigil = makeMiniElement(element);
-        daElementList.append(daSigil);
-    }
+        ameDiv.classList = [className + " ameliorateDiv formDiv"];
+        ameDiv.style.backgroundColor = mixHexColors([...form.monsterElements.map(element => element.outside), ...form.elements.map(element => element.main)]);
+        if (form.monsterElements.length > 0) ameDiv.style.borderColor = mixHexColors([...form.elements.map(element => element.highlight)]);
 
-    const daFormElementList = document.createElement("div");
-    daFormElementList.classList = ["miniElementList"];
-    daLabel.append(daFormElementList);
+        const ameImg = document.createElement("img");
+        ameImg.src = getShadowless(form.image);
+        ameImg.classList = ["monsterForm"];
+        ameDiv.append(ameImg);
 
-    for (const element of form.elements)
-    {
-        const daSigil = makeMiniElement(element, true);
-        daFormElementList.append(daSigil);
-    }
+        const daLabelWrapper = document.createElement("div");
+        daLabelWrapper.classList = ["monsterLabelWrapper"];
+        ameDiv.append(daLabelWrapper);
 
-    const ameName = document.createElement("label");
-    ameName.innerHTML = form.name + " " + monster.realName;
-    daLabelWrapper.append(ameName);
+        const daLabel = document.createElement("div");
+        daLabel.classList = ["monsterLabel"];
+        daLabelWrapper.append(daLabel);
+
+        const daElementList = document.createElement("div");
+        daElementList.classList = ["miniElementList"];
+        daLabel.append(daElementList);
+
+        for (const element of form.monsterElements)
+        {
+            const daSigil = makeMiniElement(element);
+            daElementList.append(daSigil);
+        }
+
+        const daFormElementList = document.createElement("div");
+        daFormElementList.classList = ["miniElementList"];
+        daLabel.append(daFormElementList);
+
+        for (const element of form.elements)
+        {
+            const daSigil = makeMiniElement(element, true);
+            daFormElementList.append(daSigil);
+        }
+
+        const ameName = document.createElement("label");
+        ameName.innerHTML = form.name + " " + monster.realName;
+        daLabelWrapper.append(ameName);
+
+        const formString = makeElementString(form.elements);
+        const bioString = monsterData[formString.toLowerCase()];
+        if (bioString != null)
+        {
+            const daBio = document.createElement("p");
+            daBio.textContent = bioString;
+            ameDiv.append(daBio);
+        }
+    });
 
     return ameDiv;
 }

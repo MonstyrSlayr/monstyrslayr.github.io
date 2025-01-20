@@ -15,6 +15,7 @@ function getLastFolder(url, num)
 
 const daId = getLastFolder(window.location.href, 1);
 const daMonster = getAmeliorateById(daId);
+daMonster.loadForms();
 
 const header = createInfoSiteHeader(daMonster.realName);
 document.body.appendChild(header);
@@ -126,14 +127,21 @@ const mainContainer = createContainer();
             formsWait.innerHTML = "Loading forms...";
             formsDiv.appendChild(formsWait);
 
+            async function makeForms()
+            {
+                for (const form of daMonster.forms)
+                {
+                    makeFormDiv(daMonster, form, "layer")
+                    .then((formDiv) => {
+                        formsDiv.appendChild(formDiv)
+                    });
+                }
+            }
+
             setTimeout(() =>
             {
                 formsWait.remove();
-                for (const form of daMonster.forms)
-                {
-                    const formDiv = makeFormDiv(daMonster, form, "layer");
-                    formsDiv.appendChild(formDiv);
-                }
+                makeForms();
             }, 1000);
         monsterInfo.appendChild(infoSectionForms);
     mainContainer.appendChild(monsterInfo);

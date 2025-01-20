@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonstyrSlayr Wiki - Render Tool</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header>
+        <a href="https://monstyrslayr.github.io/wiki/ameliorates" id="homeButton"><button>< Home</button></a>
+        <h1>Monster Render Tool</h1>
+    </header>
+    
+    <div class="container">
+        <p>The Google Drive Fankit will soon be no more</p>
+    </div>
+
+    <div class="container" id="renderContainer">
+        <div id="renderLeft">
+            <div>
+                <!-- Monster Selection -->
+                <label for="monsterSelect">Monster:</label>
+                <select id="monsterSelect"></select>
+            </div>
+
+            <div class="scrollContainer">
+                <div class="scrollBar">
+                    <label for="bScroll">Bulb</label>
+                    <input type="range" orient="vertical" id="bScroll" min="0" max="2" value="0">
+                </div>
+
+                <div class="scrollBar">
+                    <label for="hScroll">Hostess</label>
+                    <input type="range" orient="vertical" id="hScroll" min="0" max="2" value="0">
+                </div>
+
+                <div class="scrollBar">
+                    <label for="cScroll">Clay</label>
+                    <input type="range" orient="vertical" id="cScroll" min="0" max="2" value="0">
+                </div>
+
+                <div class="scrollBar">
+                    <label for="sScroll">Signal</label>
+                    <input type="range" orient="vertical" id="sScroll" min="0" max="2" value="0">
+                </div>
+
+                <div class="scrollBar">
+                    <label for="tScroll">Trash</label>
+                    <input type="range" orient="vertical" id="tScroll" min="0" max="2" value="0">
+                </div>
+            </div>
+
+            <div>
+                <div class="checkDiv">
+                    <input type="checkbox" id="lineless" value="Lineless">
+                    <label for="lineless">Lineless</label>
+                </div>
+                <div class="checkDiv">
+                    <input type="checkbox" id="shadowless" value="Shadowless">
+                    <label for="shadowless">Shadowless</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="renderRight">
+            <!-- rendered monster -->
+            <img id="renderedMonster">
+        </div>
+    </div>
+
+    <!-- Render Button -->
+    <button id="renderButton">Render!</button>
+
+    <script type="module" src="./script.js"></script>
+</div>
