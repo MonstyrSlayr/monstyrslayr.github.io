@@ -81,11 +81,26 @@ img:hover
     margin: 0 auto;
 }
 
+.verticalBreak
+{
+    border-right: 1px solid black;
+    height: 127px;
+    width: 0;
+    margin: 0 auto;
+}
+
 .info
 {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    width: 90%;
+    margin: auto;
+}
+
+.info > div:not(.verticalBreak)
+{
+    margin: 16px 32px;
 }
 
 @media screen and (max-width: 875px)
@@ -102,10 +117,19 @@ img:hover
     }
 }
 
-@media screen and (max-width: 500px)
+@media screen and (max-width: 950px)
 {
     .info
     {
         flex-direction: column;
+    }
+
+    .verticalBreak
+    {
+        border-right: none;
+        border-bottom: 1px solid black;
+        width: 50%;
+        height: 0;
+        margin: 0 auto;
     }
 }
