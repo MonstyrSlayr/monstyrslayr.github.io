@@ -441,9 +441,9 @@ const daAmeliorates =
     new Ameliorate("ExpiFour",      [clayElement, signalElement],    signalElement,
                         {age: 0, height: 139},    "Expi Four"), // yeah namkwal go ahead and share this one
     new Ameliorate("Octosquish",    [clayElement, trashElement],    trashElement,
-                        {age: 21, height: 135}),
+                        {age: 21, height: 135, weight: 167}),
     new Ameliorate("TrashCymbal",   [signalElement, trashElement],    trashElement,
-                        {age: 27, height: 152},    "Trash Cymbal"),
+                        {age: 27, height: 152, weight: 189},    "Trash Cymbal"),
 
     new Ameliorate("Dormana",       [bulbElement, hostessElement, clayElement], hostessElement,
                         {age: 32, height: 198, weight: 258}),
