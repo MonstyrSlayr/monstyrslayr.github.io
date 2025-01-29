@@ -64,7 +64,31 @@ div:has(> select) > label
     font-size: 32px;
 }
 
-#homeButton
+button
+{
+    color: white;
+    font-size: 32px;
+    border: solid transparent 2px;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 8px;
+    text-decoration: none;
+    text-wrap: nowrap;
+}
+
+button:hover
+{
+    scale: 105%;
+    border: solid white 2px;
+}
+
+#renderButton
+{
+    margin: 0 auto;
+    display: block;
+}
+
+#homeButton /* not actually a button but an a element */
 {
     color: white;
     font-size: 32px;

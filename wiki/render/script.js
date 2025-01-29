@@ -22,6 +22,7 @@ monsters.forEach(monster =>
 });
 
 const renderedMonster = document.getElementById("renderedMonster");
+const renderedMonsterError = document.getElementById("renderedMonsterError");
 
 const bScroll = document.getElementById('bScroll');
 const hScroll = document.getElementById('hScroll');
@@ -61,7 +62,22 @@ function updateRenderedMonster()
     const tags = (eleTags.length > 0 ? "-" : "") + eleTags + lineless + shadowless;
     const filename = "https://monstyrslayr.github.io/wiki/img/" + mon.id + "-" + mon.elementString + tags + ".png";
 
-    renderedMonster.src = filename;
+    fileExists(filename).then(exists =>
+    {
+        if (exists)
+        {
+            renderedMonster.style.display = "";
+            renderedMonster.src = filename;
+
+            renderedMonsterError.style.display = "none";
+        }
+        else
+        {
+            renderedMonster.style.display = "none";
+
+            renderedMonsterError.style.display = "";
+        }
+    });
 }
 
 monsterSelect.addEventListener("input", function()
