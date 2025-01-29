@@ -254,6 +254,7 @@ daMonster.loadForms().then(() =>
         const rotateImageChance = 0.15;
         const invertImageChance = 0.05;
         const deleteImageChance = 0.03;
+        const multiplyImageChance = 0.1;
 
         if (Math.random() < changeBackgroundChance)
         {
@@ -323,6 +324,15 @@ daMonster.loadForms().then(() =>
             {
                 image.style.display = "";
             }
+
+            if (Math.random() < multiplyImageChance)
+            {
+                image.style.mixBlendMode = "multiply";
+            }
+            else
+            {
+                image.style.mixBlendMode = "";
+            }
         }
 
         if (Math.random() < showMessageChance && !hasPlayedTheseGamesBefore)
@@ -332,8 +342,9 @@ daMonster.loadForms().then(() =>
             .then(data =>
             {
                 const messages = data.messages;
-                const blacklist = ["1262459391030853682", "434840883637125121", "688867253948776562"]
-                const whitelistedMessages = messages.filter(message => !blacklist.includes(message.author.id));
+                const blacklist = ["1262459391030853682", "434840883637125121", "688867253948776562"];
+                const wordBlacklist = ["jesus"]; // fuck you in particular
+                const whitelistedMessages = messages.filter(message => !blacklist.includes(message.author.id) && !wordBlacklist.some(string => message.content.includes(string)));
                 const expiMessages = whitelistedMessages.filter(message => message.content.toLowerCase().includes("expi"));
 
                 const showThisMessage = expiMessages[Math.floor(Math.random() * expiMessages.length)];

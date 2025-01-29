@@ -344,6 +344,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Bulb", this.elements, [bulbElement], IMG + basicImage + "-B.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-H.png").then(exists =>
@@ -351,6 +352,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Hostess", this.elements, [hostessElement], IMG + basicImage + "-H.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-HH.png").then(exists =>
@@ -358,6 +360,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("High Hostess", this.elements, [hostessElement, hostessElement], IMG + basicImage + "-HH.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-C.png").then(exists =>
@@ -365,6 +368,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Clay", this.elements, [clayElement], IMG + basicImage + "-C.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-S.png").then(exists =>
@@ -372,6 +376,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Signal", this.elements, [signalElement], IMG + basicImage + "-S.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-T.png").then(exists =>
@@ -379,6 +384,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Trash", this.elements, [trashElement], IMG + basicImage + "-T.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-TT.png").then(exists =>
@@ -386,6 +392,7 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("True Trash", this.elements, [trashElement, trashElement], IMG + basicImage + "-TT.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
                 await fileExists(IMG + basicImage + "-BH.png").then(exists =>
@@ -393,10 +400,10 @@ class Ameliorate extends Monster
                     if (exists)
                     {
                         this.forms.push(new Form("Bulb Hostess", this.elements, [bulbElement, hostessElement], IMG + basicImage + "-BH.png"));
+                        sortFormsByElements(this.forms);
                     }
                 });
             }
-            sortFormsByElements(this.forms);
             return;
         }
     }
