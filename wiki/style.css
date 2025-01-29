@@ -8,43 +8,101 @@ body
 {
     /* height: 100vh; */
     margin: 16px;
-    background-color: #303030;
+    background-color: #1e1e1e;
 }
 
 header
 {
     text-align: center;
-    margin: 64px 0;
+    margin: 32px 0;
+    padding: 0;
     color: white;
     width: 100%;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
 }
 
-button
+header > span
 {
-    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+label, #monsterSelect, option
+{
     font-size: 24px;
+}
+
+select
+{
+    font-size: 32px;
+    border: solid transparent 2px;
     border-radius: 8px;
-    margin: auto auto;
     display: block;
+    background-color: transparent;
+    padding: 8px;
 }
 
-button span
+select:hover
 {
-    color: black;
+    border: solid white 2px;
 }
 
-button:hover
+div:has(> select)
 {
-    scale: 105%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+div:has(> select) > label
+{
+    font-size: 32px;
 }
 
 #homeButton
 {
-    margin-left: 0;
-    margin-right: auto;
+    color: white;
+    font-size: 32px;
+    border: solid transparent 2px;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 8px;
+    text-decoration: none;
+    text-wrap: nowrap;
+}
+
+#homeButton:hover
+{
+    scale: 105%;
+    border: solid white 2px;
+}
+
+#invisibleHomeButton
+{
+    font-size: 32px;
+    border: solid transparent 2px;
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 8px;
+    text-decoration: none;
+    color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-wrap: nowrap;
+}
+
+#invisibleHomeButton:hover
+{
+    cursor: default;
 }
 
 h1
@@ -53,10 +111,6 @@ h1
     text-align: center;
     font-size: 40px;
     font-weight: bold;
-    position: absolute;
-    left: 50%; /* Move the title halfway across the container */
-    transform: translateX(-50%); /* Offset it back by half its width to center it */
-    text-align: center;
 }
 
 h2
@@ -81,11 +135,6 @@ p
     text-align: left;
     font-size: 24px;
     font-weight: normal;
-}
-
-label, #monsterSelect, option
-{
-    font-size: 24px;
 }
 
 .contentContainer
@@ -421,13 +470,17 @@ label, #monsterSelect, option
     flex-direction: row;
     justify-content: center;
     align-items: top;
-    width: 100%;
-    margin: 0px;
+    margin: 0 16px;
+    flex-wrap: wrap;
 }
 
 .miniInfoContainer div
 {
-    width: 100%;
+    flex-grow: 1;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .scrollContainer

@@ -22,7 +22,16 @@
         </p>
 
         <h2 class="underlined">Monsters</h2>
-        <button id="sortButton">Sort: <span id="daSort"></span></button>
+        <div>
+            <label>Sort:</label>
+            <select id="sortSelect">
+                <option value="elemental">Elements</option>
+                <option value="alphabetical">Name</option>
+                <option value="age">Age</option>
+                <option value="height">Height</option>
+                <option value="weight">Weight</option>
+            </select>
+        </div>
         <div class="contentContainer" id="monsterContainer">
             <!-- monsters go here -->
         </div>

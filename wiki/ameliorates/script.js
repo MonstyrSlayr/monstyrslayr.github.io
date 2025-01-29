@@ -4,10 +4,6 @@ import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandD
 let monsters = getAmeliorates();
 const monsterContainer = document.getElementById("monsterContainer");
 
-const SORTING = ["Elemental", "Alphabetical", "Age"];
-
-let sorting = 0;
-
 function createAmelioratesDiv()
 {
 	for (const mon of monsters)
@@ -19,16 +15,14 @@ function createAmelioratesDiv()
 }
 createAmelioratesDiv();
 
-const sortButton = document.getElementById("sortButton");
-const sortType = document.getElementById("daSort");
+const sortSelect = document.getElementById("sortSelect");
 
 // Function to sort and animate images based on ranking
 function updatePositions()
 {
-	sortType.innerHTML = SORTING[sorting];
-    switch (SORTING[sorting])
+    switch (sortSelect.value)
 	{
-		case "Alphabetical": default:
+		case "alphabetical": default:
 			monsters.sort((a, b) =>
 			{
 				if (a.id.toLowerCase() < b.id.toLowerCase()) return -1;
@@ -37,7 +31,7 @@ function updatePositions()
 			});
 		break;
 		
-		case "Elemental":
+		case "elemental":
 			monsters.sort((a, b) =>
 			{
 				if (a.elementString.length < b.elementString.length) return -1;
@@ -53,14 +47,24 @@ function updatePositions()
 			});
 		break;
 
-		case "Age":
-			let expiAge = 55 * Math.random();
+		case "age":
 			monsters.sort((a, b) =>
 			{
-				let aage = (a.id == "ExpiFour") ? expiAge : a.attr.age;
-				let bage = (b.id == "ExpiFour") ? expiAge :  b.attr.age;
-				if (aage == 0 || bage == 0) return 0;
-				return aage - bage;
+				return a.age - b.age;
+			});
+		break;
+
+		case "height":
+			monsters.sort((a, b) =>
+			{
+				return a.height - b.height;
+			});
+		break;
+
+		case "weight":
+			monsters.sort((a, b) =>
+			{
+				return a.weight - b.weight;
 			});
 		break;
 	}
@@ -69,9 +73,10 @@ function updatePositions()
     const images = Array.from(monsterContainer.children);
 
     // Reorder the images in the DOM based on sorted monsters
-    monsters.forEach((item, index) => {
-      const image = document.getElementById(item.id);
-      monsterContainer.appendChild(image);
+    monsters.forEach((item, index) =>
+	{
+		const image = document.getElementById(item.id);
+		monsterContainer.appendChild(image);
     });
 
     // Animate images to their new positions using GSAP
@@ -81,10 +86,8 @@ function updatePositions()
 // Initial position update
 updatePositions();
 
-sortButton.addEventListener("click", function ()
+sortSelect.addEventListener("change", function ()
 {
-	sorting++;
-	if (sorting >= SORTING.length) sorting = 0;
 	updatePositions();
 });
 

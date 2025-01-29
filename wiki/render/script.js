@@ -51,7 +51,7 @@ function updateRenderedMonster()
     const hLevel = ["", "H", "HH"][hScroll.value];
     const cLevel = ["", "C"][cScroll.value];
     const sLevel = [""][sScroll.value];
-    const tLevel = ["", "T"][tScroll.value];
+    const tLevel = ["", "T", "TT"][tScroll.value];
 
     const lineless = linelessCheck.checked ? "-Lineless" : "";
     const shadowless = shadowlessCheck.checked ? "-Shadowless" : "";
@@ -100,7 +100,7 @@ sScroll.addEventListener("input", function ()
 
 tScroll.addEventListener("input", function ()
 {
-    if (tScroll.value > 1) tScroll.value = 1;
+    if (tScroll.value > 2) tScroll.value = 2;
     updateRenderedMonster();
 });
 

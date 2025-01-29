@@ -70,8 +70,7 @@ export function createHomeButton()
 {
     const homeButtonLink = createLink("https://monstyrslayr.github.io/wiki/ameliorates");
     homeButtonLink.id = "homeButton";
-        const homeButton = createButton("< Home");
-        homeButtonLink.appendChild(homeButton);
+    homeButtonLink.textContent = "< Home";
     return homeButtonLink;
 }
 
@@ -84,5 +83,11 @@ export function createInfoSiteHeader(heading)
         const islandTitle = createTitle(heading);
         islandTitle.id = "monsterTitle";
         header.appendChild(islandTitle);
+
+        const invisibleHomeButton = document.createElement("span");
+        invisibleHomeButton.textContent = homeButton.textContent;
+        invisibleHomeButton.id = "invisibleHomeButton";
+        invisibleHomeButton.onclick = function() {return false;};
+        header.appendChild(invisibleHomeButton);
     return header;
 }

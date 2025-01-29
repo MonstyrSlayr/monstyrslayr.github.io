@@ -10,3 +10,5 @@ randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_plant_black.avif
 randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_water.avif
 randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_water_black.avif
 wordSender/script.js
+wiki/image_to_height.py
+wiki/heights.txt
