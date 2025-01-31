@@ -262,6 +262,20 @@ p
     background-color: #fcfcfc45;
 }
 
+.miniElementListList
+{
+    margin-top: 8px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    gap: 4px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .monsterLabel
 {
     margin-top: 8px;
@@ -274,17 +288,8 @@ p
     gap: 4px;
     max-width: 100%;
     overflow-x: hidden;
-}
-
-.monsterLabel > label
-{
     text-align: center;
     font-size: 24px;
-}
-
-.monsterLabel > .miniElementList
-{
-    flex-shrink: 2;
 }
 
 .miniElementList

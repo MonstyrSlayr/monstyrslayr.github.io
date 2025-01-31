@@ -589,7 +589,7 @@ export function makeFormDiv(monster, form, className = "box")
         topDiv.append(daLabelWrapper);
 
         const daLabel = document.createElement("div");
-        daLabel.classList = ["monsterLabel"];
+        daLabel.classList = ["miniElementListList"];
         daLabelWrapper.append(daLabel);
 
         const daElementList = document.createElement("div");
