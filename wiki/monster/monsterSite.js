@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -18,7 +18,6 @@ const daMonster = getAmeliorateById(daId);
 
 daMonster.loadForms().then(() =>
 {
-
     const header = createInfoSiteHeader(daMonster.realName);
     document.body.appendChild(header);
 
@@ -237,13 +236,42 @@ daMonster.loadForms().then(() =>
             return result;
         }
 
-        const changeBackgroundChance = 0.1;
+        function toLeetSpeak(text)
+        {
+            const leetChars =
+            {
+                'a': '4',
+                'e': '3',
+                'i': '1',
+                'o': '0',
+                's': '5',
+                't': '7',
+            };
+          
+            let leetText = '';
+            for (let char of text.toLowerCase())
+            {
+                if (leetChars[char])
+                {
+                    leetText += leetChars[char];
+                }
+                else
+                {
+                    leetText += char;
+                }
+            }
+            return leetText;
+        }
+
+        const changeBackgroundChance = 0.15;
         const textIsBWChance = 0.5;
         let contrastColor = "white";
 
         const idiotChance = 0.2;
-        const idiotCapitalizeChance = 0.1;
-        const showMessageChance = 0.1;
+        const idiotCapitalizeChance = 0.5;
+        const textAlignChangeChance = 0.15;
+        const textAligns = ["left", "center", "right"];
+        const leetspeakChance = 0.07;
 
         let smileChance = 0.3;
         const smileChanceDecrease = 4;
@@ -255,11 +283,108 @@ daMonster.loadForms().then(() =>
         const invertImageChance = 0.05;
         const deleteImageChance = 0.03;
         const multiplyImageChance = 0.1;
+        const flipHorizontalChance = 0.15;
+        const flipVerticalChance = 0.15;
+
+        const halfWidthDivChance = 0.01;
+        const shrinkDivChance = 0.02;
+        const shrink = 0.75;
+        const flexDirectionChance = 0.12;
+        const flexDirections = ["row", "row-reverse", "column", "column-reverse"];
+        const flexJustificationChance = 0.15;
+        const flexJusts = ["space-around", "space-evenly", "space-between", "flex-start", "flex-end", "center"];
+
+        const alertUserChance = 0.1;
+        const alertDelay = 3000;
+
+        const changeSoloMonsterChance = 0.01;
+        const changeSigilChance = 0.01;
+        const showMessageChance = 0.1;
+
+        const wackyNumbersChance = 0.8;
+
+        if (Math.random() < changeSoloMonsterChance)
+        {
+            const ameliorates = getAmeliorates();
+            const ameli = ameliorates[Math.floor(Math.random() * ameliorates.length)];
+            monsterImg.src = ameli.images.default;
+            soloMonster.style.backgroundColor = ameli.affiliation.outside;
+        }
 
         if (Math.random() < changeBackgroundChance)
         {
             document.body.style.backgroundColor = getRandomHexColor();
             contrastColor = invertColor(rgbToHex(document.body.style.backgroundColor), Math.random() < textIsBWChance);
+        }
+
+        for (const div of document.body.getElementsByTagName("div"))
+        {
+            if (Math.random() < halfWidthDivChance)
+            {
+                div.style.width = "50%";
+                div.style.marginLeft = "auto";
+                div.style.marginRight = "auto";
+            }
+            else
+            {
+                div.style.width = "";
+                div.style.marginLeft = "";
+                div.style.marginRight = "";
+            }
+
+            if (Math.random() < shrinkDivChance)
+            {
+                div.style.scale = (shrink * 100) + "%";
+            }
+            else
+            {
+                div.style.scale = "";
+            }
+
+            if (Math.random() < flexDirectionChance)
+            {
+                div.style.flexDirection = flexDirections[Math.floor(Math.random() * flexDirections.length)];
+            }
+
+            if (Math.random() < flexJustificationChance)
+            {
+                div.style.justifyContent = flexJusts[Math.floor(Math.random() * flexJusts.length)];
+            }
+        }
+
+        for (const anchor of document.body.getElementsByTagName("a"))
+        {
+            if (Math.random() < halfWidthDivChance)
+            {
+                anchor.style.width = "50%";
+                anchor.style.marginLeft = "auto";
+                anchor.style.marginRight = "auto";
+            }
+            else
+            {
+                anchor.style.width = "";
+                anchor.style.marginLeft = "";
+                anchor.style.marginRight = "";
+            }
+
+            if (Math.random() < shrinkDivChance)
+            {
+                anchor.style.scale = (shrink * 100) + "%";
+            }
+            else
+            {
+                anchor.style.scale = "";
+            }
+
+            if (Math.random() < flexDirectionChance)
+            {
+                anchor.style.flexDirection = flexDirections[Math.floor(Math.random() * flexDirections.length)];
+            }
+
+            if (Math.random() < flexJustificationChance)
+            {
+                anchor.style.justifyContent = flexJusts[Math.floor(Math.random() * flexJusts.length)];
+            }
         }
         
         for (const paragraph of [...document.body.getElementsByTagName("p"), ...document.body.getElementsByTagName("label"),
@@ -270,6 +395,11 @@ daMonster.loadForms().then(() =>
             if (Math.random() < idiotChance)
             {
                 paragraph.textContent = randomizeCapitalization(paragraph.textContent, idiotCapitalizeChance);
+            }
+
+            if (Math.random() < leetspeakChance)
+            {
+                paragraph.textContent = toLeetSpeak(paragraph.textContent);
             }
 
             if (Math.random() < smileChance && !paragraph.textContent.trim().endsWith(":") && !paragraph.textContent.trim().endsWith(":)"))
@@ -285,6 +415,11 @@ daMonster.loadForms().then(() =>
             else
             {
                 paragraph.style.opacity = 1;
+            }
+
+            if (Math.random() < textAlignChangeChance)
+            {
+                paragraph.style.textAlign = textAligns[Math.floor(Math.random() * textAligns.length)];
             }
         }
 
@@ -332,6 +467,36 @@ daMonster.loadForms().then(() =>
             else
             {
                 image.style.mixBlendMode = "";
+            }
+
+            if (Math.random() < flipHorizontalChance)
+            {
+                image.classList.add("flipHorizontal");
+            }
+            else
+            {
+                image.classList.remove("flipHorizontal");
+            }
+
+            if (Math.random() < flipVerticalChance)
+            {
+                image.classList.add("flipVertical");
+            }
+            else
+            {
+                image.classList.remove("flipVertical");
+            }
+
+            if (image.classList.contains("miniElement"))
+            {
+                if (Math.random() < changeSigilChance)
+                {
+                    const elements = getElements();
+                    const daElement = elements[Math.floor(Math.random() * elements.length)];
+                    const isActive = image.src.endsWith("Active.png");
+                    if (isActive) image.src = daElement.active;
+                    else image.src = daElement.sigil;
+                }
             }
         }
 
@@ -398,7 +563,6 @@ daMonster.loadForms().then(() =>
             const changeNumberInterval = 1000;
             const approxChance = 0.4;
             const changeWeightDelay = 500;
-            const wackyNumbersChance = 0.5;
 
             if (Math.random() < wackyNumbersChance)
             {
@@ -423,6 +587,14 @@ daMonster.loadForms().then(() =>
                 }, changeWeightDelay);
             }
         }
+
+        if (Math.random() < alertUserChance)
+        {
+            setTimeout(function()
+            {
+                alert("expi four alert");
+            }, alertDelay);
+        }
     }
 
     getMonsterData(daId).then((monsterData) =>
@@ -443,8 +615,8 @@ daMonster.loadForms().then(() =>
         
         if (daId === "expifour")
         {
-            let loopExpiFourShenanigans = Math.random() < 0.1;
-            let loopTimer = 10000;
+            const loopExpiFourShenanigans = Math.random() < 0.1;
+            const loopTimer = 10000;
 
             expiFourShenanigans(false);
 

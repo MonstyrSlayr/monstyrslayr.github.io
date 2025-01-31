@@ -598,7 +598,7 @@ export function makeFormDiv(monster, form, className = "box")
 
         for (const element of form.monsterElements)
         {
-            const daSigil = makeMiniElement(element);
+            const daSigil = makeMiniElement(element, false, false);
             daElementList.append(daSigil);
         }
 
@@ -610,7 +610,7 @@ export function makeFormDiv(monster, form, className = "box")
 
             for (const element of form.elements)
             {
-                const daSigil = makeMiniElement(element, true);
+                const daSigil = makeMiniElement(element, true, false);
                 daFormElementList.append(daSigil);
             }
         }

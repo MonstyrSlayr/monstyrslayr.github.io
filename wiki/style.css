@@ -629,6 +629,16 @@ input[type=checkbox]
     align-items: center;
 }
 
+.flipHorizontal
+{
+    transform: rotateY(180deg);
+}
+  
+.flipVertical
+{
+    transform: rotateX(180deg);
+}
+
 @media screen and (max-width: 875px)
 {
     #renderContainer
