@@ -6,7 +6,6 @@
 
 body
 {
-    /* height: 100vh; */
     margin: 16px;
     background-color: #1e1e1e;
 }
@@ -234,6 +233,11 @@ p
     text-wrap: wrap;
 }
 
+.long > .monsterLabel, .layer > .monsterLabel
+{
+    align-items: flex-start;
+}
+
 .layer .monsterEmoji
 {
     width: 64px;
@@ -261,15 +265,26 @@ p
 .monsterLabel
 {
     margin-top: 8px;
-    font-size: 16px;
     color: white;
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
     padding: 8px;
-    gap: 8px;
+    gap: 4px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.monsterLabel > label
+{
     text-align: center;
+    font-size: 24px;
+}
+
+.monsterLabel > .miniElementList
+{
+    flex-shrink: 2;
 }
 
 .miniElementList
@@ -278,17 +293,17 @@ p
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: 30px;
+    margin-left: 32px;
     white-space: nowrap;
 }
 
 .miniElement
 {
     height: 48px;
-    margin-left: -30px;
+    margin-left: -32px;
 }
 
-.miniElement:hover
+a > .miniElement:hover
 {
     scale: 110%;
     cursor: pointer;
@@ -303,17 +318,17 @@ p
             drop-shadow(-2px -2px 0 white);
 }
 
-.miniElementList a:nth-child(odd)
+.miniElementList a:nth-child(odd), .miniElementList img:nth-child(odd)
 {
     margin-bottom: 24px;
 }
 
-.miniElementList a:nth-child(even)
+.miniElementList a:nth-child(even), .miniElementList img:nth-child(even)
 {
     margin-bottom: -24px;
 }
 
-.miniElementList a:only-child
+.miniElementList a:only-child, .miniElementList img:only-child
 {
     margin-bottom: 0px;
 }
@@ -472,6 +487,7 @@ p
     align-items: center;
     justify-content: space-evenly;
     text-wrap: wrap;
+    flex-wrap: wrap-reverse;
 }
 
 .soloMonster:has(> #onyxImg)

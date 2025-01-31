@@ -159,24 +159,22 @@ export function getElementById(id)
     return [...daAmeliorateElements, rubyElement].find(element => element.id.toLowerCase() == id.toLowerCase());
 }
 
-export function makeMiniElement(element, isActive = false)
+export function makeMiniElement(element, isActive = false, isClickable = true)
 {
-    const aTag = document.createElement("a");
-
     const daSigil = document.createElement("img");
     daSigil.src = element.sigil;
     if (isActive) daSigil.src = element.active;
     daSigil.id = element.name;
     daSigil.classList = ["miniElement"];
-    aTag.append(daSigil);
 
-    aTag.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
-    // daSigil.addEventListener("click", function()
-    // {
-    //     window.location.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
-    // });
-    
-    return aTag;
+    if (isClickable)
+    {
+        const aTag = document.createElement("a");
+        aTag.append(daSigil);
+        aTag.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
+        return aTag;
+    }
+    return daSigil;
 }
 
 export function makeElementDiv(element)
@@ -186,12 +184,8 @@ export function makeElementDiv(element)
     elementDiv.style.backgroundColor = element.outside;
     elementDiv.id = element.id;
     elementDiv.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
-    // elementDiv.addEventListener("click", function()
-    // {
-    //     window.location.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
-    // });
 
-    const elementImage = makeMiniElement(element);
+    const elementImage = makeMiniElement(element, false, false);
     elementDiv.append(elementImage);
 
     const elementName = document.createElement("label");
@@ -540,10 +534,6 @@ export function makeAmeliorateDiv(monster, className = "box")
     ameDiv.style.backgroundColor = monster.affiliation.outside;
     ameDiv.id = monster.id;
     ameDiv.href = "https://monstyrslayr.github.io/wiki/monster/" + ameDiv.id.toLowerCase() + "/";
-    // ameDiv.addEventListener("click", function()
-    // {
-    //     window.location.href = "https://monstyrslayr.github.io/wiki/monster/" + ameDiv.id.toLowerCase() + "/";
-    // });
 
     const ameImg = document.createElement("img");
     ameImg.src = monster.images.emoji;
@@ -565,7 +555,7 @@ export function makeAmeliorateDiv(monster, className = "box")
 
     for (const element of monster.elements)
     {
-        const daSigil = makeMiniElement(element);
+        const daSigil = makeMiniElement(element, false, false);
         daElementList.append(daSigil);
     }
 
@@ -612,14 +602,17 @@ export function makeFormDiv(monster, form, className = "box")
             daElementList.append(daSigil);
         }
 
-        const daFormElementList = document.createElement("div");
-        daFormElementList.classList = ["miniElementList"];
-        daLabel.append(daFormElementList);
-
-        for (const element of form.elements)
+        if (form.elements.length > 0)
         {
-            const daSigil = makeMiniElement(element, true);
-            daFormElementList.append(daSigil);
+            const daFormElementList = document.createElement("div");
+            daFormElementList.classList = ["miniElementList"];
+            daLabel.append(daFormElementList);
+
+            for (const element of form.elements)
+            {
+                const daSigil = makeMiniElement(element, true);
+                daFormElementList.append(daSigil);
+            }
         }
 
         const ameName = document.createElement("label");
