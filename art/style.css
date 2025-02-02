@@ -243,3 +243,8 @@ ol
 {
     color: fuchsia;
 }
+
+.graybg
+{
+    background-color: rgb(128, 128, 128);
+}

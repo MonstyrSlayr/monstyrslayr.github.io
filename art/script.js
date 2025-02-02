@@ -54,6 +54,7 @@ const animationLinks =
     "https://monstyrslayr.github.io/art/rickACard.gif",
     "https://monstyrslayr.github.io/art/worldRecordCat.gif",
     "https://monstyrslayr.github.io/art/sprigatitoFriend.gif",
+    "https://monstyrslayr.github.io/art/unintentionalBreak.gif",
 ]
 
 document.addEventListener("DOMContentLoaded", () =>
