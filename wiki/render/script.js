@@ -130,17 +130,16 @@ shadowlessCheck.addEventListener("input", function()
     updateRenderedMonster();
 });
 
-const renderButton = document.getElementById('renderButton');
+const renderButton = document.getElementById("renderButton");
 
 // Render button functionality
-renderButton.addEventListener('click', () =>
+renderButton.addEventListener("click", () =>
 {
     fileExists(renderedMonster.src)
     .then(exists =>
     {
         if (exists)
         {
-            // Simulate download (replace with server logic as needed)
             const link = document.createElement('a');
             link.href = renderedMonster.src;
             link.download = renderedMonster.src;
