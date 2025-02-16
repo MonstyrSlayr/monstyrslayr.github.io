@@ -7,21 +7,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1>Enter a Message:</h1>
+	<div id="everythingWrapper">
+		<h1>Enter a Message:</h1>
 
-	<form id="wordForm">
-		<input type="text" id="wordInput" required>
-		<button type="submit" id="wordSubmit" form="wordForm">Send</button>
-	</form>
+		<form id="wordForm">
+			<input type="text" id="wordInput" required>
+			<button type="submit" id="wordSubmit" form="wordForm">Send</button>
+		</form>
 
-	<form id="parameters">
-		<div id="paramCheckbox">
-			<input type="checkbox" id="isSilent">
-			<label for="isSilent">is silent</label>
-		</div>
-	</form>
+		<form id="parameters">
+			<div id="paramCheckbox">
+				<input type="checkbox" id="isSilent">
+				<label for="isSilent">is silent</label>
+			</div>
+		</form>
 
-	<p id="messageConfirm"></p>
+		<p id="messageConfirm"></p>
+	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="cookies.js"></script>

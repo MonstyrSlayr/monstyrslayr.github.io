@@ -1,11 +1,24 @@
 body
 {
     font-family: Arial, sans-serif;
+}
+
+header
+{
+    text-align: center;
+}
+
+#everythingWrapper
+{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 form
