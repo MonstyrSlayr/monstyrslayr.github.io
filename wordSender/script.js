@@ -18,18 +18,35 @@ const firebaseConfig =
 	appId: "1:1064096463566:web:e2a1d5ecb61689e041ae9f",
 	measurementId: "G-81K8K26S09"
 };
+
+const confirmMessages =
+[
+	"peep the big screen",
+	"look at the tv",
+	"ideally your message should appear right about now",
+	"look mom! i'm on tv!",
+	"are you having fun yet",
+	"alright, now do another one",
+	"yoooooooooooooo",
+	"now let's see paul allen's message",
+	"anyone else here play among us",
+	"try putting an image link"
+];
   
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const daDatabase = getDatabase();
 
+const wordForm = document.getElementById("wordForm");
 const isSilentCheckbox = document.getElementById("isSilent");
+const wordInput = document.getElementById("wordInput");
+const messageConfirm = document.getElementById("messageConfirm");
 
 // Handle form submission
-document.getElementById("wordForm").addEventListener("submit", function(e)
+wordForm.addEventListener("submit", function(e)
 {
 	e.preventDefault();
-	const daWord = document.getElementById("wordInput").value;
+	const daWord = wordInput.value;
 
 	const now = new Date();
 	const timeString = now.toLocaleTimeString();
@@ -45,6 +62,9 @@ document.getElementById("wordForm").addEventListener("submit", function(e)
 	});
 
 	// Clear input field
-	document.getElementById("wordInput").value = '';
+	wordInput.value = "";
+
+	messageConfirm.textContent = confirmMessages[Math.floor(Math.random() * confirmMessages.length)];
+	messageConfirm.style.display = "block";
 });
   
