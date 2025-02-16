@@ -18,20 +18,6 @@ const firebaseConfig =
 	appId: "1:1064096463566:web:e2a1d5ecb61689e041ae9f",
 	measurementId: "G-81K8K26S09"
 };
-
-const administrators = [1731525003400];
-let isAdmin = false;
-
-function writeUserData(userId)
-{
-	set(ref(daDatabase, 'users/' + userId),
-	{
-		username: "",
-		isMuted: false,
-		isBanned: false,
-		isAdmin: false
-  	});
-}
   
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -48,24 +34,6 @@ document.getElementById("wordForm").addEventListener("submit", function(e)
 	const now = new Date();
 	const timeString = now.toLocaleTimeString();
 
-	if (getCookie("userId") == null)
-	{
-		setCookie("userId", now.getTime(), 364);
-	}
-	const userId = getCookie("userId");
-
-	get(ref(daDatabase, 'users/' + userId)).then((snapshot) =>
-	{
-		if (!snapshot.exists())
-		{
-			writeUserData(userId);
-		}
-		else
-		{
-			
-		}
-	})
-
 	const isSilent = isSilentCheckbox.checked;
 
 	// Save the word to Firebase
@@ -74,7 +42,6 @@ document.getElementById("wordForm").addEventListener("submit", function(e)
 		word: daWord,
 		silent: isSilent,
 		time: timeString,
-		userId: userId,
 	});
 
 	// Clear input field
