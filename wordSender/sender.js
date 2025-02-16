@@ -31,6 +31,7 @@ const confirmMessages =
 	"now let's see paul allen's message",
 	"anyone else here play among us",
 	"try putting an image link",
+	"now try a youtube video link",
 	"LOCK IN",
 	"buy nathan another crush orange"
 ];
