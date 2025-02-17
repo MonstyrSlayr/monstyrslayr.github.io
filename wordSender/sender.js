@@ -124,9 +124,8 @@ document.addEventListener('DOMContentLoaded', function()
 	{
 		e.preventDefault();
 
-		const daWord = wordInput.value;
+		const daWord = wordInput.value.trim();
 		wordInput.value = "";
-		daWord = daWord.trim();
 
 		const now = new Date();
 		const timeString = now.toLocaleTimeString();
