@@ -179,6 +179,34 @@ function createAnimatedImage(src, animate = rightToLeft)
     requestAnimationFrame(animateReal);
 }
 
+function createAnimatedVideo(src, isSilent = true, animate = rightToLeft)
+{
+    // Create a new paragraph element
+    const video = document.createElement('video');
+    video.src = src;
+    video.autoplay = true;
+    video.controls = false;
+    video.volume = isSilent ? 0 : 100;
+    video.loop = true;
+    video.style.right = `-${video.offsetWidth}px`; // Start from the right edge of the screen
+    video.style.top = `${Math.random() * 80}vh`; // Random vertical position
+
+    // Append the paragraph to the container
+    container.appendChild(video);
+
+    // Animation logic
+    let startTime = null;
+    const duration = 10000;
+
+    function animateReal(currentTime)
+    {
+        animate(currentTime, video, startTime, duration);
+    }
+
+    // Start the animation
+    requestAnimationFrame(animateReal);
+}
+
 function createAnimatedYoutube(id, isSilent = true, animate = rightToLeft)
 {
     // Create a new paragraph element
@@ -229,6 +257,22 @@ function isImageSource(str)
     return urlPattern.test(str);
 }
 
+function isVideoSource(str)
+{
+    if (typeof str !== 'string') {
+      return false;
+    }
+  
+    str = str.trim();
+  
+    if (str.startsWith('data:video')) {
+        return true;
+    }
+  
+    const urlPattern = /^(https?:\/\/.*\.(?:mp4|mov)(?:\?.*)?)$/i;
+    return urlPattern.test(str);
+}
+
 function isYoutubeLink(link)
 {
     // Regular expression to match YouTube URLs
@@ -246,6 +290,10 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     {
         const videoId = extractVideoId(data.word);
         createAnimatedYoutube(videoId, data.silent);
+    }
+    else if (isVideoSource(data.word))
+    {
+        createAnimatedVideo(data.word, data.silent);
     }
     else if (isImageSource(data.word))
     {

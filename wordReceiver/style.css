@@ -15,7 +15,7 @@ header
     font-weight: bold;
 }
 
-p, img, iframe
+p, img, iframe, video
 {
     position: absolute;
     white-space: nowrap;
