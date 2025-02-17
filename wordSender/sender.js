@@ -33,7 +33,12 @@ const confirmMessages =
 	"try putting an image link",
 	"now try a youtube video link",
 	"LOCK IN",
-	"buy nathan another crush orange"
+	"buy nathan another crush orange",
+	"hoohoohee",
+	"hopefully that one wasn't a slur",
+	"hopefully that one wasn't porn",
+	"you know these are all saved to a backlog, right",
+	"that one might get you banned"
 ];
 
 const siteColors =
