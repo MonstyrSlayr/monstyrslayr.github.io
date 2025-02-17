@@ -108,7 +108,7 @@ function createAnimatedYoutube(id, animate = rightToLeft)
 {
     // Create a new paragraph element
     const youtubeVideo = document.createElement("iframe");
-    youtubeVideo.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+    youtubeVideo.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&mute=1";
     youtubeVideo.width = "640";
     youtubeVideo.height = "360";
     youtubeVideo.frameborder = "0";
