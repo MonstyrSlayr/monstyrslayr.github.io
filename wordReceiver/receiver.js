@@ -251,10 +251,15 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     {
         createAnimatedImage(data.word);
     }
-    else if (data.word in siteColors)
+    else if (data.word.toLowerCase() in siteColors)
     {
         document.body.style.backgroundColor = siteColors[data.word];
         document.body.style.color = invertColor(siteColors[data.word], true);
+        if (!data.silent)
+        {
+            const newUtter = new SpeechSynthesisUtterance(data.word);
+            window.speechSynthesis.speak(newUtter);
+        }
         createAnimatedText(data.word);
     }
     else
