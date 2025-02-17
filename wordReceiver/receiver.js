@@ -21,10 +21,27 @@ const daDatabase = getDatabase();
 
 const container = document.getElementById('messagesReceived');
 
-function extractVideoId(url)
-{
-    const urlParams = new URLSearchParams(new URL(url).search);
-    return urlParams.get('v');
+function extractVideoId(url) {
+    try {
+        const parsedUrl = new URL(url);
+
+        // Handle "youtu.be" links (shortened format)
+        if (parsedUrl.hostname === 'youtu.be') {
+            return parsedUrl.pathname.slice(1); // Remove the leading slash
+        }
+
+        // Handle "youtube.com" links (standard format)
+        if (parsedUrl.hostname.includes('youtube.com')) {
+            const urlParams = new URLSearchParams(parsedUrl.search);
+            return urlParams.get('v');
+        }
+
+        // If the URL doesn't match either format, return null
+        return null;
+    } catch (error) {
+        console.error('Invalid URL:', error);
+        return null;
+    }
 }
 
 function rightToLeft(currentTime, element, startTime, duration)
