@@ -121,11 +121,11 @@ function createAnimatedImage(src, animate = rightToLeft)
     requestAnimationFrame(animateReal);
 }
 
-function createAnimatedYoutube(id, animate = rightToLeft)
+function createAnimatedYoutube(id, isSilent = true, animate = rightToLeft)
 {
     // Create a new paragraph element
     const youtubeVideo = document.createElement("iframe");
-    youtubeVideo.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&mute=1";
+    youtubeVideo.src = "https://www.youtube.com/embed/" + id + "?autoplay=1" + (isSilent ? "&mute=1" : "");
     youtubeVideo.width = "640";
     youtubeVideo.height = "360";
     youtubeVideo.frameborder = "0";
@@ -187,7 +187,7 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     if (isYoutubeLink(data.word))
     {
         const videoId = extractVideoId(data.word);
-        createAnimatedYoutube(videoId);
+        createAnimatedYoutube(videoId, data.silent);
     }
     else if (isImageSource(data.word))
     {
@@ -195,6 +195,11 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     }
     else
     {
+        if (!data.silent)
+        {
+            const newUtter = new SpeechSynthesisUtterance(data.word);
+            window.speechSynthesis.speak(newUtter);
+        }
         createAnimatedText(data.word);
     }
 });
