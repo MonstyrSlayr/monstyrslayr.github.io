@@ -41,17 +41,24 @@ const confirmMessages =
 	"that one might get you banned"
 ];
 
-const siteColors =
-[
-	"#000000",
-	"#ff0000",
-	"#00ff00",
-	"#0000ff",
-	"#ffff00",
-	"#00ffff",
-	"#ff00ff",
-	"#ffffff"
-];
+let siteColors =
+[];
+
+fetch("https://raw.githubusercontent.com/bahamas10/css-color-names/refs/heads/master/css-color-names.json")
+.then((response) =>
+{
+	if (!response.ok)
+	{
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+	return response.json();
+}).then((data) =>
+{
+	for (const key in data)
+	{
+		siteColors.push(data[key]);
+	}
+});
 
 const changeSiteColorChance = 0.1;
 
