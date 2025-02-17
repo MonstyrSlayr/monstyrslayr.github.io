@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function()
 	// Handle form submission
 	wordForm.addEventListener("submit", (e) =>
 	{
-		console.log('Form submitted');
 		e.preventDefault();
 
 		const daWord = wordInput.value;
@@ -122,6 +121,13 @@ document.addEventListener('DOMContentLoaded', function()
 		const isSilent = isSilentCheckbox.checked;
 
 		set(ref(daDatabase, "words"),
+		{
+			word: daWord,
+			silent: isSilent,
+			time: timeString,
+		});
+
+		push(ref(daDatabase, "allWords"),
 		{
 			word: daWord,
 			silent: isSilent,
