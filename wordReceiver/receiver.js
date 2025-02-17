@@ -269,7 +269,7 @@ function isVideoSource(str)
         return true;
     }
   
-    const urlPattern = /^(https?:\/\/.*\.(?:mp4|mov)(?:\?.*)?)$/i;
+    const urlPattern = /^(https?:\/\/.*\.(?:mp4|mov|webm)(?:\?.*)?)$/i;
     return urlPattern.test(str);
 }
 
