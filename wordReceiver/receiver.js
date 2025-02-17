@@ -253,8 +253,8 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     }
     else if (data.word.toLowerCase() in siteColors)
     {
-        document.body.style.backgroundColor = siteColors[data.word];
-        document.body.style.color = invertColor(siteColors[data.word], true);
+        document.body.style.backgroundColor = siteColors[data.word.toLowerCase()];
+        document.body.style.color = invertColor(siteColors[data.word.toLowerCase()], true);
         if (!data.silent)
         {
             const newUtter = new SpeechSynthesisUtterance(data.word);
