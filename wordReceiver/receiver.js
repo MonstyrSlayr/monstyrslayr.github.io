@@ -254,7 +254,8 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     else if (data.word in siteColors)
     {
         document.body.style.backgroundColor = siteColors[data.word];
-        document.body.style.color = invertColor(siteColors[data.word], true)
+        document.body.style.color = invertColor(siteColors[data.word], true);
+        createAnimatedText(data.word);
     }
     else
     {
