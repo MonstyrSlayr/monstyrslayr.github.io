@@ -400,7 +400,7 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
         pollTimer.style.display = "block";
         pollTimer.innerHTML = "";
         pollFinished.style.display = "none";
-        pollQuestion.style.display = "none";
+        pollQuestion.style.display = "block";
         pollConsensus.style.display = "none";
 
 		if (timerInterval != null) clearInterval(timerInterval);
