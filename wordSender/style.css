@@ -37,3 +37,41 @@ input, button
 {
     display: none;
 }
+
+#pollQuestion
+{
+    display: none;
+}
+
+#pollAnswers
+{
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.pollOption
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 8px;
+}
+
+h1
+{
+    font-size: 40px;
+}
+
+input, label, h2, p
+{
+    font-size: 32px;
+}
+
+input[type='checkbox'], input[type='radio']
+{
+    width: 32px;
+    height: 32px;
+}

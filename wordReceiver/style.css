@@ -21,4 +21,43 @@ p, img, iframe, video
     white-space: nowrap;
     font-size: 48px;
     font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+h3
+{  
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#pollResults
+{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+#pollResults > *
+{
+    position: relative;
+}
+
+#pollConsensus
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.pollVote
+{
+    position: relative;
+}
+
+.pollVote > p
+{
+    position: relative;
 }

@@ -79,24 +79,30 @@ function invertColor(hex, bw)
 	return "#" + padZero(r) + padZero(g) + padZero(b);
 }
 
-function extractVideoId(url) {
-    try {
+function extractVideoId(url)
+{
+    try
+    {
         const parsedUrl = new URL(url);
 
         // Handle "youtu.be" links (shortened format)
-        if (parsedUrl.hostname === 'youtu.be') {
+        if (parsedUrl.hostname === 'youtu.be')
+        {
             return parsedUrl.pathname.slice(1); // Remove the leading slash
         }
 
         // Handle "youtube.com" links (standard format)
-        if (parsedUrl.hostname.includes('youtube.com')) {
+        if (parsedUrl.hostname.includes('youtube.com'))
+        {
             const urlParams = new URLSearchParams(parsedUrl.search);
             return urlParams.get('v');
         }
 
         // If the URL doesn't match either format, return null
         return null;
-    } catch (error) {
+    }
+    catch (error)
+    {
         console.error('Invalid URL:', error);
         return null;
     }
@@ -318,5 +324,109 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
             window.speechSynthesis.speak(newUtter);
         }
         createAnimatedText(data.word);
+    }
+});
+
+const pollOngoing = document.getElementById("pollOngoing");
+const pollFinished = document.getElementById("pollFinished");
+const pollQuestion = document.getElementById("pollQuestion");
+const pollConsensus = document.getElementById("pollConsensus");
+const pollTimer = document.getElementById("pollTimer");
+
+let timerInterval;
+let timerTimeout;
+
+let consensusDelay = 1500;
+onValue(ref(daDatabase, "poll"), (snapshot) =>
+{
+    const data = snapshot.val();
+
+    let endTime = new Date(data.time);
+    endTime.setSeconds(endTime.getSeconds() + data.duration, consensusDelay);
+    let currentTime = new Date();
+
+    function daFunction()
+    {
+        pollOngoing.style.display = "none";
+        pollTimer.style.display = "none";
+        pollFinished.style.display = "block";
+        pollQuestion.style.display = "block";
+        pollQuestion.innerHTML = "";
+        pollConsensus.style.display = "flex";
+        pollConsensus.innerHTML = "";
+
+		if (timerInterval != null) clearInterval(timerInterval);
+		if (timerTimeout != null) clearTimeout(timerTimeout);
+
+        const options = [];
+        for (const option of data.answers)
+        {
+            const daThing = new Object()
+            daThing.value = option;
+            daThing.votes = 0;
+            options.push(daThing);
+        }
+
+        for (const key in data.consensus)
+        {
+            const vote = data.consensus[key];
+            for (const option of options)
+            {
+                if (vote == option.value)
+                {
+                    option.votes++;
+                    break;
+                }
+            }
+        }
+
+        pollQuestion.innerHTML = data.question;
+
+        for (const option of options)
+        {
+            const daDiv = document.createElement("div");
+            daDiv.classList.add("pollVote")
+            pollConsensus.append(daDiv);
+
+            const thing = document.createElement("p");
+            thing.textContent = option.value + ": " + option.votes;
+            daDiv.append(thing);
+        }
+    }
+
+    if (currentTime < endTime)
+    {
+        pollOngoing.style.display = "block";
+        pollTimer.style.display = "block";
+        pollTimer.innerHTML = "";
+        pollFinished.style.display = "none";
+        pollQuestion.style.display = "none";
+        pollConsensus.style.display = "none";
+
+		if (timerInterval != null) clearInterval(timerInterval);
+		if (timerTimeout != null) clearTimeout(timerTimeout);
+
+        function updateTimer()
+        {
+            let currentTime = new Date();
+            pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
+        }
+        updateTimer();
+
+        timerInterval = setInterval(function()
+        {
+            updateTimer();
+        }, 100);
+
+        timerTimeout = setTimeout(function()
+        {
+            clearTimeout(timerInterval);
+            daFunction();
+        }, endTime - currentTime);
+    }
+
+    if (currentTime > endTime)
+    {
+        daFunction();
     }
 });

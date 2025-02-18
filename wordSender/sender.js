@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -158,6 +158,89 @@ document.addEventListener('DOMContentLoaded', function()
 		messageConfirm.style.display = "block";
 
 		return false;
+	});
+
+	const pollQuestion = document.getElementById("pollQuestion");
+	const pollAnswers = document.getElementById("pollAnswers");
+	const pollTimer = document.getElementById("pollTimer");
+	let timerInterval;
+	let timerTimeout;
+
+	function resetPoll()
+	{
+		pollQuestion.style.display = "none";
+		pollQuestion.innerHTML = "";
+		pollAnswers.style.display = "none";
+		pollAnswers.innerHTML = "";
+		pollTimer.style.display = "none";
+		pollTimer.innerHTML = "";
+		if (timerInterval != null) clearInterval(timerInterval);
+		if (timerTimeout != null) clearTimeout(timerTimeout);
+	}
+
+	onValue(ref(daDatabase, "poll"), (snapshot) =>
+	{
+		resetPoll();
+		const data = snapshot.val();
+
+		let endTime = new Date(data.time);
+		endTime.setSeconds(endTime.getSeconds() + data.duration);
+		let currentTime = new Date();
+
+		if (currentTime < endTime)
+		{
+			pollQuestion.textContent = data.question;
+			pollQuestion.style.display = "block";
+
+			for (const answer of data.answers)
+			{
+				const daDiv = document.createElement("div");
+				daDiv.classList.add("pollOption");
+				pollAnswers.appendChild(daDiv);
+
+				const option = document.createElement("input");
+				option.type = "radio";
+				option.name = "poll";
+				option.id = answer;
+				option.value = answer;
+				daDiv.appendChild(option);
+				
+				const label = document.createElement("label");
+				label.textContent = answer;
+				label.for = answer;
+				daDiv.appendChild(label);
+			}
+			pollAnswers.style.display = "flex";
+
+			function updateTimer()
+			{
+				let currentTime = new Date();
+				pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
+			}
+			updateTimer();
+
+			timerInterval = setInterval(function()
+			{
+				updateTimer();
+			}, 100);
+
+			timerTimeout = setTimeout(function()
+			{
+				const radios = document.getElementsByName("poll");
+
+				for (const radio of radios)
+				{
+					if (radio.checked)
+					{
+						push(ref(daDatabase, "poll/consensus"), radio.value);
+						break;
+					}
+				}
+
+				resetPoll();
+			}, endTime - currentTime);
+			pollTimer.style.display = "block";
+		}
 	});
 });
   
