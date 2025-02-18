@@ -406,6 +406,8 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
 		if (timerInterval != null) clearInterval(timerInterval);
 		if (timerTimeout != null) clearTimeout(timerTimeout);
 
+        pollQuestion.innerHTML = data.question;
+
         function updateTimer()
         {
             let currentTime = new Date();
