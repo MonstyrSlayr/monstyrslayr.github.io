@@ -327,6 +327,8 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     }
 });
 
+const siteTime = new Date();
+
 const pollOngoing = document.getElementById("pollOngoing");
 const pollFinished = document.getElementById("pollFinished");
 const pollQuestion = document.getElementById("pollQuestion");
@@ -358,39 +360,42 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
 		if (timerInterval != null) clearInterval(timerInterval);
 		if (timerTimeout != null) clearTimeout(timerTimeout);
 
-        const options = [];
-        for (const option of data.answers)
-        {
-            const daThing = new Object()
-            daThing.value = option;
-            daThing.votes = 0;
-            options.push(daThing);
-        }
-
-        for (const key in data.consensus)
-        {
-            const vote = data.consensus[key];
-            for (const option of options)
-            {
-                if (vote == option.value)
-                {
-                    option.votes++;
-                    break;
-                }
-            }
-        }
-
         pollQuestion.innerHTML = data.question;
 
-        for (const option of options)
+        if (data.answers)
         {
-            const daDiv = document.createElement("div");
-            daDiv.classList.add("pollVote")
-            pollConsensus.append(daDiv);
+            const options = [];
+            for (const option of data.answers)
+            {
+                const daThing = new Object()
+                daThing.value = option;
+                daThing.votes = 0;
+                options.push(daThing);
+            }
 
-            const thing = document.createElement("p");
-            thing.textContent = option.value + ": " + option.votes;
-            daDiv.append(thing);
+            for (const key in data.consensus)
+            {
+                const vote = data.consensus[key];
+                for (const option of options)
+                {
+                    if (vote == option.value)
+                    {
+                        option.votes++;
+                        break;
+                    }
+                }
+            }
+
+            for (const option of options)
+            {
+                const daDiv = document.createElement("div");
+                daDiv.classList.add("pollVote")
+                pollConsensus.append(daDiv);
+
+                const thing = document.createElement("p");
+                thing.textContent = option.value + ": " + option.votes;
+                daDiv.append(thing);
+            }
         }
     }
 
@@ -427,7 +432,7 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
         }, endTime - currentTime);
     }
 
-    if (currentTime > endTime)
+    if (currentTime > endTime && currentTime > siteTime)
     {
         daFunction();
     }
