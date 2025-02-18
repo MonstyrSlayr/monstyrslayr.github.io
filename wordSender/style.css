@@ -38,6 +38,24 @@ input, button
     display: none;
 }
 
+#parameters, #poll
+{
+    margin: 8px;
+}
+
+.verticalBar
+{
+    border: solid 1px black;
+    width: 200%;
+}
+
+#poll
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #pollQuestion
 {
     display: none;
@@ -58,6 +76,11 @@ input, button
     justify-content: flex-start;
     align-items: center;
     margin: 8px;
+}
+
+.pollOption > *
+{
+    margin: 2px;
 }
 
 h1

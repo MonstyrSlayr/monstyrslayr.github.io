@@ -109,6 +109,7 @@ function changeSiteColor()
 	const newColor = siteColors[Math.floor(Math.random() * siteColors.length)];
 	document.body.style.backgroundColor = newColor;
 	document.body.style.color = invertColor(newColor, true);
+	document.body.style.borderColor = invertColor(newColor, true);
 }
 
 document.addEventListener('DOMContentLoaded', function()
@@ -119,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function()
 	const wordInput = document.getElementById("wordInput");
 	const messageConfirm = document.getElementById("messageConfirm");
 
-	// Handle form submission
 	wordForm.addEventListener("submit", (e) =>
 	{
 		e.preventDefault();
@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function()
 		return false;
 	});
 
+	const pollDiv = document.getElementById("poll");
 	const pollQuestion = document.getElementById("pollQuestion");
 	const pollAnswers = document.getElementById("pollAnswers");
 	const pollTimer = document.getElementById("pollTimer");
@@ -168,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function()
 
 	function resetPoll()
 	{
+		pollDiv.style.display = "none";
 		pollQuestion.style.display = "none";
 		pollQuestion.innerHTML = "";
 		pollAnswers.style.display = "none";
@@ -189,6 +191,8 @@ document.addEventListener('DOMContentLoaded', function()
 
 		if (currentTime < endTime)
 		{
+			pollDiv.style.display = "flex";
+
 			pollQuestion.textContent = data.question;
 			pollQuestion.style.display = "block";
 
@@ -227,14 +231,21 @@ document.addEventListener('DOMContentLoaded', function()
 			timerTimeout = setTimeout(function()
 			{
 				const radios = document.getElementsByName("poll");
+				let pollChecked = false;
 
 				for (const radio of radios)
 				{
 					if (radio.checked)
 					{
 						push(ref(daDatabase, "poll/consensus"), radio.value);
+						pollChecked = true;
 						break;
 					}
+				}
+
+				if (!pollChecked)
+				{
+					push(ref(daDatabase, "poll/consensus"), "null");
 				}
 
 				resetPoll();

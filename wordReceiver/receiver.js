@@ -334,6 +334,7 @@ const pollFinished = document.getElementById("pollFinished");
 const pollQuestion = document.getElementById("pollQuestion");
 const pollConsensus = document.getElementById("pollConsensus");
 const pollTimer = document.getElementById("pollTimer");
+const pollAbstainees = document.getElementById("pollAbstainees");
 
 let timerInterval;
 let timerTimeout;
@@ -361,6 +362,7 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
 		if (timerTimeout != null) clearTimeout(timerTimeout);
 
         pollQuestion.innerHTML = data.question;
+        let abstainees = 0;
 
         if (data.answers)
         {
@@ -376,6 +378,13 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
             for (const key in data.consensus)
             {
                 const vote = data.consensus[key];
+
+                if (vote == "null")
+                {
+                    abstainees++;
+                    continue;
+                }
+
                 for (const option of options)
                 {
                     if (vote == option.value)
@@ -396,6 +405,12 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
                 thing.textContent = option.value + ": " + option.votes;
                 daDiv.append(thing);
             }
+
+            if (abstainees > 0)
+            {
+                pollAbstainees.style.display = "block";
+                pollAbstainees.textContent = "Abstained: " + abstainees;
+            }
         }
     }
 
@@ -407,6 +422,7 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
         pollFinished.style.display = "none";
         pollQuestion.style.display = "block";
         pollConsensus.style.display = "none";
+        pollAbstainees.style.display = "none";
 
 		if (timerInterval != null) clearInterval(timerInterval);
 		if (timerTimeout != null) clearTimeout(timerTimeout);
