@@ -231,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function()
 
 	onValue(ref(daDatabase, "poll"), (snapshot) =>
 	{
-		console.log("poll update");
 		const data = snapshot.val();
 		const startTime = new Date(data.time);
 
@@ -291,12 +290,13 @@ document.addEventListener('DOMContentLoaded', function()
 				{
 					const radios = document.getElementsByName("poll");
 					let pollChecked = false;
+					let pushThing = "";
 
 					for (const radio of radios)
 					{
 						if (radio.checked)
 						{
-							push(ref(daDatabase, "poll/consensus"), radio.value);
+							pushThing = radio.value;
 							pollChecked = true;
 							break;
 						}
@@ -304,8 +304,13 @@ document.addEventListener('DOMContentLoaded', function()
 
 					if (!pollChecked)
 					{
-						push(ref(daDatabase, "poll/consensus"), "null");
+						pushThing = "null";
 					}
+
+					setTimeout(function()
+					{
+						push(ref(daDatabase, "poll/consensus"), pushThing);
+					}, 3000);
 
 					resetPoll();
 				}, endTime - currentTime);
