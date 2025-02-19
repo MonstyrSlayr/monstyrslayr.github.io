@@ -98,3 +98,24 @@ input[type='checkbox'], input[type='radio']
     width: 24px;
     height: 24px;
 }
+
+#pollTimer
+{
+    position: absolute;
+    color: white;
+}
+
+#pollTimerChart
+{
+    max-width: 256px;
+    max-height: 256px;
+    mix-blend-mode: difference;
+    margin: auto;
+}
+
+#pollTimerDiv
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

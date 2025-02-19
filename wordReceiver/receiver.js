@@ -333,25 +333,72 @@ const pollOngoing = document.getElementById("pollOngoing");
 const pollFinished = document.getElementById("pollFinished");
 const pollQuestion = document.getElementById("pollQuestion");
 const pollConsensus = document.getElementById("pollConsensus");
+const pollTimerChart = document.getElementById("pollTimerChart");
 const pollTimer = document.getElementById("pollTimer");
 const pollAbstainees = document.getElementById("pollAbstainees");
 
 let timerInterval;
 let timerTimeout;
 
+const chartColors = ["black", "white"];
+let chartData = [0, 100];
+
+const pollChart = new Chart("pollTimerChart",
+{
+    type: "pie",
+    data:
+    {
+        datasets:
+        [{
+            backgroundColor: chartColors,
+            data: chartData
+        }]
+    },
+    options:
+    {
+        title:
+        {
+            display: false
+        },
+        plugins:
+        {
+            tooltip:
+            {
+                enabled: false
+            }
+        },
+        hover:
+        {
+            mode: null
+        },
+        events: []
+    }
+});
+
 let consensusDelay = 1500;
 onValue(ref(daDatabase, "poll"), (snapshot) =>
 {
     const data = snapshot.val();
 
-    let endTime = new Date(data.time);
+    const startTime = new Date(data.time);
+    const endTime = new Date(data.time);
     endTime.setSeconds(endTime.getSeconds() + data.duration, consensusDelay);
     let currentTime = new Date();
+
+    function updateTimer()
+    {
+        let currentTime = new Date();
+        pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
+        chartData = [currentTime - startTime, endTime - currentTime];
+        pollChart.data.datasets[0].data = chartData;
+        pollChart.update();
+    }
 
     function daFunction()
     {
         pollOngoing.style.display = "none";
         pollTimer.style.display = "none";
+        pollTimerChart.style.display = "none";
         pollFinished.style.display = "block";
         pollQuestion.style.display = "block";
         pollQuestion.innerHTML = "";
@@ -360,6 +407,8 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
 
 		if (timerInterval != null) clearInterval(timerInterval);
 		if (timerTimeout != null) clearTimeout(timerTimeout);
+        
+        updateTimer();
 
         pollQuestion.innerHTML = data.question;
         let abstainees = 0;
@@ -418,6 +467,7 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
     {
         pollOngoing.style.display = "block";
         pollTimer.style.display = "block";
+        pollTimerChart.style.display = "block";
         pollTimer.innerHTML = "";
         pollFinished.style.display = "none";
         pollQuestion.style.display = "block";
@@ -429,11 +479,6 @@ onValue(ref(daDatabase, "poll"), (snapshot) =>
 
         pollQuestion.innerHTML = data.question;
 
-        function updateTimer()
-        {
-            let currentTime = new Date();
-            pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
-        }
         updateTimer();
 
         timerInterval = setInterval(function()

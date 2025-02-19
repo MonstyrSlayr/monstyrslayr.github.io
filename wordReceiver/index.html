@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,10 @@
 		<p id="pollQuestion"></p>
 		<div id="pollConsensus"></div>
 		<h3 id="pollAbstainees"></h3>
-		<h3 id="pollTimer"></h3>
+		<div id="pollTimerDiv">
+			<h3 id="pollTimer"></h3>
+			<canvas id="pollTimerChart"></canvas>
+		</div>
 	</div>
 	
 	<div id="messagesReceived">
@@ -30,6 +34,7 @@
 	</footer>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 	<script src="../wordSender/cookies.js"></script>
 	<script src="receiver.js" type="module"></script>
 </body>

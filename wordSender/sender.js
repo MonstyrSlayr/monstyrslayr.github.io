@@ -32,6 +32,7 @@ const confirmMessages =
 	"anyone else here play among us",
 	"try putting an image link",
 	"now try a youtube video link",
+	"have you tried typing a color yet",
 	"LOCK IN",
 	"buy nathan another crush orange",
 	"hoohoohee",
@@ -42,7 +43,7 @@ const confirmMessages =
 ];
 
 let siteColors =
-[];
+{};
 
 fetch("https://raw.githubusercontent.com/bahamas10/css-color-names/refs/heads/master/css-color-names.json")
 .then((response) =>
@@ -54,10 +55,7 @@ fetch("https://raw.githubusercontent.com/bahamas10/css-color-names/refs/heads/ma
 	return response.json();
 }).then((data) =>
 {
-	for (const key in data)
-	{
-		siteColors.push(data[key]);
-	}
+	siteColors = data;
 });
 
 const changeSiteColorChance = 0.1;
@@ -104,12 +102,26 @@ function invertColor(hex, bw)
 	return "#" + padZero(r) + padZero(g) + padZero(b);
 }
 
+function getRandomKey(dict)
+{
+	const keys = Object.keys(dict);
+	if (keys.length === 0) {
+	  return undefined; // Return undefined if the dictionary is empty
+	}
+	const randomIndex = Math.floor(Math.random() * keys.length);
+	return keys[randomIndex];
+}
+
+const pollTimer = document.getElementById("pollTimer");
 function changeSiteColor()
 {
-	const newColor = siteColors[Math.floor(Math.random() * siteColors.length)];
+	const daKey = getRandomKey(siteColors);
+	const newColor = siteColors[daKey];
 	document.body.style.backgroundColor = newColor;
 	document.body.style.color = invertColor(newColor, true);
 	document.body.style.borderColor = invertColor(newColor, true);
+	pollTimer.style.color = "white";
+	return daKey;
 }
 
 document.addEventListener('DOMContentLoaded', function()
@@ -148,8 +160,7 @@ document.addEventListener('DOMContentLoaded', function()
 
 		if (Math.random() < changeSiteColorChance)
 		{
-			changeSiteColor();
-			messageConfirm.textContent = "oooo color change";
+			messageConfirm.textContent = "oooo color change to " + changeSiteColor();;
 		}
 		else
 		{
@@ -163,9 +174,44 @@ document.addEventListener('DOMContentLoaded', function()
 	const pollDiv = document.getElementById("poll");
 	const pollQuestion = document.getElementById("pollQuestion");
 	const pollAnswers = document.getElementById("pollAnswers");
-	const pollTimer = document.getElementById("pollTimer");
+	const pollTimerChart = document.getElementById("pollTimerChart");
 	let timerInterval;
 	let timerTimeout;
+
+	const chartColors = ["black", "white"];
+	let chartData = [0, 100];
+
+	const pollChart = new Chart("pollTimerChart",
+	{
+		type: "pie",
+		data:
+		{
+			datasets:
+			[{
+				backgroundColor: chartColors,
+				data: chartData
+			}]
+		},
+		options:
+		{
+			title:
+			{
+				display: false
+			},
+			plugins:
+			{
+				tooltip:
+				{
+					enabled: false
+				}
+			},
+			hover:
+			{
+				mode: null
+			},
+			events: []
+		}
+	});
 
 	function resetPoll()
 	{
@@ -176,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function()
 		pollAnswers.innerHTML = "";
 		pollTimer.style.display = "none";
 		pollTimer.innerHTML = "";
+		pollTimerChart.style.display = "none";
 		if (timerInterval != null) clearInterval(timerInterval);
 		if (timerTimeout != null) clearTimeout(timerTimeout);
 	}
@@ -185,7 +232,8 @@ document.addEventListener('DOMContentLoaded', function()
 		resetPoll();
 		const data = snapshot.val();
 
-		let endTime = new Date(data.time);
+		const startTime = new Date(data.time);
+		const endTime = new Date(data.time);
 		endTime.setSeconds(endTime.getSeconds() + data.duration);
 		let currentTime = new Date();
 
@@ -214,12 +262,17 @@ document.addEventListener('DOMContentLoaded', function()
 				label.for = answer;
 				daDiv.appendChild(label);
 			}
+
 			pollAnswers.style.display = "flex";
+			pollTimerChart.style.display = "block";
 
 			function updateTimer()
 			{
 				let currentTime = new Date();
 				pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
+				chartData = [currentTime - startTime, endTime - currentTime];
+				pollChart.data.datasets[0].data = chartData;
+				pollChart.update();
 			}
 			updateTimer();
 
