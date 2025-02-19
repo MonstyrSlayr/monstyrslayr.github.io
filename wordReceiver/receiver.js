@@ -320,6 +320,12 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     else if (data.word.toLowerCase() == "rainbow" || data.word.toLowerCase() == "gay")
     {
         document.body.classList.add("rainbow");
+        if (!data.silent)
+        {
+            const newUtter = new SpeechSynthesisUtterance(data.word);
+            window.speechSynthesis.speak(newUtter);
+        }
+        createAnimatedText(data.word);
     }
     else
     {
