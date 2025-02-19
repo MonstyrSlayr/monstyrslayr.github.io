@@ -18,7 +18,21 @@ body > *
 {
     background: linear-gradient(in hsl longer hue 45deg, red 0 0);
 }
-  
+
+.rainbow > header, .rainbow > #pollResults, .rainbow > #messagesReceived > p
+{
+    mix-blend-mode: difference;
+}
+
+.monochrome
+{
+    background: linear-gradient(45deg, #000, #fff);
+}
+
+.monochrome > header, .monochrome > #pollResults, .monochrome > #messagesReceived > p
+{
+    mix-blend-mode: difference;
+}
 
 header
 {
