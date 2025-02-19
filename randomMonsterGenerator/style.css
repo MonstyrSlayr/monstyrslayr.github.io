@@ -297,6 +297,14 @@ h2
     width: 20%;
 }
 
+@media only screen and (max-width: 1400px)
+{
+    .checkboxDiv
+    {
+        width: 40%;
+    }
+}
+
 @media only screen and (max-width: 1250px)
 {
     .monsterA
@@ -307,9 +315,9 @@ h2
 
 @media only screen and (max-width: 1000px)
 {
-    .checkboxDiv
+    .monsterA
     {
-        width: 40%;
+        width: 45%;
     }
 }
 
@@ -318,14 +326,6 @@ h2
     #conditionals
     {
         align-items: center;
-    }
-}
-
-@media only screen and (max-width: 800px)
-{
-    .monsterA
-    {
-        width: 45%;
     }
 }
 
