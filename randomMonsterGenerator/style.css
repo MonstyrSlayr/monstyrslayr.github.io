@@ -15,6 +15,11 @@ body
     background-color: #222222;
 }
 
+body *
+{
+    background-color: #00000000;
+}
+
 header
 {
     text-align: center;
@@ -29,19 +34,38 @@ h1
 #conditionals
 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: top;
     width: 90%;
     justify-content: space-evenly;
     margin: 16px;
     margin-left: auto;
     margin-right: auto;
+    flex-wrap: wrap;
 }
 
-#rarityConditionals & #classConditionals & #elementConditionals & #elementCountConditionals & #islandConditionals
+.conditionalsDiv
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.conditionalsDiv > div
+{
+    margin: 16px;
+}
+
+.conditionalsCheckboxDiv
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
 }
 
 .checkboxDiv
@@ -49,27 +73,68 @@ h1
     display: flex;
     flex-direction: row;
     text-wrap: nowrap;
+    align-items: center;
+    width: 28%;
+    margin: 16px;
+    border-radius: 16px;
+    padding: 8px;
+}
+
+.checkboxDiv label
+{
+    margin: 0;
+    white-space: wrap;
 }
 
 .checkboxDiv input
 {
-    scale: 200%;
-    margin: 16px;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    margin: 8px 8px;
+    display: none;
 }
 
-.checkboxDiv input:hover
+.checkboxDiv *
+{
+    /* user-drag: none;  */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.checkboxDiv:hover
 {
     cursor: pointer;
-    scale: 220%;
+    scale: 105%;
 }
 
-@media only screen and (max-width: 900px)
+.checkboxDiv label:hover
 {
-    #conditionals
-    {
-        flex-wrap: wrap;
-        align-items: center;
-    }
+    cursor: pointer;
+}
+
+.divNot
+{
+    background-color: #ff000088;
+}
+
+.divMay.canIndeterminate
+{
+    background-color: #00ff0088;
+}
+
+.divMust
+{
+    background-color: #00ff0088;
+}
+
+.divMust.canIndeterminate
+{
+    background-color: #00ffff88;
 }
 
 #generatedMonsters
@@ -102,7 +167,7 @@ footer
 #generateButton
 {
     font-size: 40;
-    border-color: white;
+    border: 2px solid white;
     border-radius: 16px;
     padding: 16px;
 }
@@ -115,9 +180,11 @@ footer
 
 .toggleButton
 {
-    border-color: white;
-    border-radius: 16px;
+    border: 2px solid white;
+    border-radius: 8px;
     padding: 16px;
+    margin: auto;
+    display: block;
 }
 
 .toggleButton:hover
@@ -188,7 +255,21 @@ a:hover
 {
     color: white;
     cursor: pointer;
-    text-decoration: underline;
+}
+
+a:has(> h2)
+{
+    white-space: nowrap;
+    width: calc-size(auto, size + 5%);
+    border-radius: 4px;
+    text-decoration: none;
+    border-bottom: 2px solid white;
+}
+
+a:has(> h2):hover
+{
+    text-decoration: none;
+    scale: 105%;
 }
 
 h2
@@ -219,11 +300,35 @@ h2
     }
 }
 
+@media only screen and (max-width: 1000px)
+{
+    .checkboxDiv
+    {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 900px)
+{
+    #conditionals
+    {
+        align-items: center;
+    }
+}
+
 @media only screen and (max-width: 800px)
 {
     .monsterA
     {
         width: 45%;
+    }
+}
+
+@media only screen and (max-width: 700px)
+{
+    .checkboxDiv
+    {
+        width: 90%;
     }
 }
 
