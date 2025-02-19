@@ -86,6 +86,11 @@ h1
     white-space: wrap;
 }
 
+.checkboxDiv > label > img
+{
+    max-height: 128px;
+}
+
 .checkboxDiv input
 {
     width: 24px;
