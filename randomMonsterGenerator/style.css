@@ -315,9 +315,9 @@ h2
 
 @media only screen and (max-width: 1000px)
 {
-    .monsterA
+    .checkboxDiv
     {
-        width: 45%;
+        width: 90%;
     }
 }
 
@@ -329,11 +329,11 @@ h2
     }
 }
 
-@media only screen and (max-width: 700px)
+@media only screen and (max-width: 800px)
 {
-    .checkboxDiv
+    .monsterA
     {
-        width: 90%;
+        width: 45%;
     }
 }
 
