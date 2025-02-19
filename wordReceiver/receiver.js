@@ -192,7 +192,7 @@ function createAnimatedVideo(src, isSilent = true, animate = rightToLeft)
     video.src = src;
     video.autoplay = true;
     video.controls = false;
-    video.volume = isSilent ? 0 : 100;
+    video.volume = isSilent ? 0 : 1;
     video.loop = true;
     video.style.right = `-${video.offsetWidth}px`; // Start from the right edge of the screen
     video.style.top = `${Math.random() * 80}vh`; // Random vertical position
