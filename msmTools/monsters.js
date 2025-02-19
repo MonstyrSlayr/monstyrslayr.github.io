@@ -1,4 +1,5 @@
-const RARITY = Object.freeze({
+const RARITY = Object.freeze
+({
     COMMON: 0,
     RARE: 1,
     EPIC: 2,
@@ -8,7 +9,8 @@ const RARITY = Object.freeze({
 	MINOR: 6 //paironormal only
 });
 
-const CLASS = Object.freeze({
+const CLASS = Object.freeze
+({
     NATURAL: 0,
     FIRE: 1,
     MAGICAL: 2,
@@ -22,7 +24,8 @@ const CLASS = Object.freeze({
 	DIPSTER: 10,
 	TITANSOUL: 11,
 	DREAMYTHICAL: 12,
-	PAIRONORMAL: 13
+	PAIRONORMAL: 13,
+	PRIMORDIAL: 14
 });
 
 export class Monster
@@ -53,17 +56,19 @@ export class Monster
 	hasCrystal = false;
 	hasPoison = false;
 
+	hasControl = false;
+
 	hasElectricity = false;
 	hasLegendary = false;
+	hasDipster = false;
 
 	hasMythical = false;
 	hasDream = false;
 
 	hasCelestial = false;
-	hasDipster = false;
 	hasTitansoul = false;
 
-	hasControl = false;
+	hasPrimordialPlant = false;
 }
 
 export async function getMonsters()
@@ -131,7 +136,7 @@ export async function getMonsters()
 			monster.class = CLASS.PAIRONORMAL;
 			monster.identifier = monster.elementString.replace("i", "");
 			monster.elements = 1;
-			monster.hasControl = true;
+			monster.hasControl = true; // change when new paironormals come out
 		}
 		else if (monster.elementString.startsWith("VOC"))
 		{
@@ -139,6 +144,13 @@ export async function getMonsters()
 			monster.identifier = parseInt(monster.id.replace("VOC_", ""));
 			monster.elements = 1;
 			monster.hasLegendary = true;
+		}
+		else if (monster.elementString.startsWith("prm"))
+		{
+			monster.class = CLASS.PRIMORDIAL;
+			monster.identifier = parseInt(monster.id.replace("prm_", ""));
+			monster.elements = 1;
+			monster.hasPrimordialPlant = true; // change when new primordials come out
 		}
 		else if (monster.elementString.startsWith("u")
 					|| monster.elementString.startsWith("f"))
@@ -277,6 +289,7 @@ export async function getMonsters()
 					}
 				}
 			}
+			
 			//paironormal clause
 			if (monster.elementString.startsWith("i"))
 			{

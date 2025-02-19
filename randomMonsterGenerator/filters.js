@@ -133,6 +133,7 @@ async function createFilters()
         new Conditional("Celestials", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.CELESTIAL} ),
         new Conditional("Titansouls", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.TITANSOUL} ),
         new Conditional("Paironormal", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.PAIRONORMAL} ),
+        new Conditional("Primordial", classConditionalsDiv, function(monster = Monster) { return monster.class == CLASS.PRIMORDIAL} ),
     ];
 
     classCheckAll.onclick = function ()
@@ -184,6 +185,8 @@ async function createFilters()
         new Conditional("have Dipster", elementConditionalsDiv, function(monster = Monster) { return monster.hasDipster}, true),
         new Conditional("have Celestial", elementConditionalsDiv, function(monster = Monster) { return monster.hasCelestial}, true),
         new Conditional("have Titansoul", elementConditionalsDiv, function(monster = Monster) { return monster.hasTitansoul}, true),
+
+        new Conditional("have Primordial Plant", elementConditionalsDiv, function(monster = Monster) { return monster.hasPrimordialPlant}, true),
 
         new Conditional("have Control", elementConditionalsDiv, function(monster = Monster) { return monster.hasControl}, true),
     ];
