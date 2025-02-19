@@ -227,83 +227,90 @@ document.addEventListener('DOMContentLoaded', function()
 		if (timerTimeout != null) clearTimeout(timerTimeout);
 	}
 
+	let previousTime = null;
+
 	onValue(ref(daDatabase, "poll"), (snapshot) =>
 	{
-		resetPoll();
+		console.log("poll update");
 		const data = snapshot.val();
-
 		const startTime = new Date(data.time);
-		const endTime = new Date(data.time);
-		endTime.setSeconds(endTime.getSeconds() + data.duration);
-		let currentTime = new Date();
 
-		if (currentTime < endTime)
+		if (startTime != previousTime)
 		{
-			pollDiv.style.display = "flex";
+			resetPoll();
+			previousTime = startTime;
+			const endTime = new Date(data.time);
+			endTime.setSeconds(endTime.getSeconds() + data.duration);
+			let currentTime = new Date();
 
-			pollQuestion.textContent = data.question;
-			pollQuestion.style.display = "block";
-
-			for (const answer of data.answers)
+			if (currentTime < endTime)
 			{
-				const daDiv = document.createElement("div");
-				daDiv.classList.add("pollOption");
-				pollAnswers.appendChild(daDiv);
+				pollDiv.style.display = "flex";
 
-				const option = document.createElement("input");
-				option.type = "radio";
-				option.name = "poll";
-				option.id = answer;
-				option.value = answer;
-				daDiv.appendChild(option);
-				
-				const label = document.createElement("label");
-				label.textContent = answer;
-				label.for = answer;
-				daDiv.appendChild(label);
-			}
+				pollQuestion.textContent = data.question;
+				pollQuestion.style.display = "block";
 
-			pollAnswers.style.display = "flex";
-			pollTimerChart.style.display = "block";
+				for (const answer of data.answers)
+				{
+					const daDiv = document.createElement("div");
+					daDiv.classList.add("pollOption");
+					pollAnswers.appendChild(daDiv);
 
-			function updateTimer()
-			{
-				let currentTime = new Date();
-				pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
-				chartData = [currentTime - startTime, endTime - currentTime];
-				pollChart.data.datasets[0].data = chartData;
-				pollChart.update();
-			}
-			updateTimer();
+					const option = document.createElement("input");
+					option.type = "radio";
+					option.name = "poll";
+					option.id = "poll" + answer;
+					option.value = answer;
+					daDiv.appendChild(option);
+					
+					const label = document.createElement("label");
+					label.textContent = answer;
+					label.htmlFor = "poll" + answer;
+					daDiv.appendChild(label);
+				}
 
-			timerInterval = setInterval(function()
-			{
+				pollAnswers.style.display = "flex";
+				pollTimerChart.style.display = "block";
+
+				function updateTimer()
+				{
+					let currentTime = new Date();
+					pollTimer.textContent = Math.floor((endTime - currentTime) / 1000);
+					chartData = [currentTime - startTime, endTime - currentTime];
+					pollChart.data.datasets[0].data = chartData;
+					pollChart.update();
+				}
 				updateTimer();
-			}, 100);
 
-			timerTimeout = setTimeout(function()
-			{
-				const radios = document.getElementsByName("poll");
-				let pollChecked = false;
-
-				for (const radio of radios)
+				timerInterval = setInterval(function()
 				{
-					if (radio.checked)
+					updateTimer();
+				}, 100);
+
+				timerTimeout = setTimeout(function()
+				{
+					const radios = document.getElementsByName("poll");
+					let pollChecked = false;
+
+					for (const radio of radios)
 					{
-						push(ref(daDatabase, "poll/consensus"), radio.value);
-						pollChecked = true;
-						break;
+						if (radio.checked)
+						{
+							push(ref(daDatabase, "poll/consensus"), radio.value);
+							pollChecked = true;
+							break;
+						}
 					}
-				}
 
-				if (!pollChecked)
-				{
-					push(ref(daDatabase, "poll/consensus"), "null");
-				}
+					if (!pollChecked)
+					{
+						push(ref(daDatabase, "poll/consensus"), "null");
+					}
 
-				resetPoll();
-			}, endTime - currentTime);
-			pollTimer.style.display = "block";
+					resetPoll();
+				}, endTime - currentTime);
+				pollTimer.style.display = "block";
+			}
 		}
 	});
 });

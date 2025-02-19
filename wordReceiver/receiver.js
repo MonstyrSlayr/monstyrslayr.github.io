@@ -403,7 +403,7 @@ const pollChart = new Chart("pollTimerChart",
     }
 });
 
-let consensusDelay = 1500;
+let consensusDelay = 5000;
 onValue(ref(daDatabase, "poll"), (snapshot) =>
 {
     const data = snapshot.val();
