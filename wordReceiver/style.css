@@ -19,7 +19,7 @@ body > *
     background: linear-gradient(in hsl longer hue 45deg, red 0 0);
 }
 
-.rainbow > header, .rainbow > #pollResults, .rainbow > #messagesReceived > p
+.rainbow > header, .rainbow > #pollResults, .rainbow > #messagesReceived > p, .rainbow > footer > p
 {
     mix-blend-mode: difference;
 }
@@ -29,7 +29,7 @@ body > *
     background: linear-gradient(45deg, #000, #fff);
 }
 
-.monochrome > header, .monochrome > #pollResults, .monochrome > #messagesReceived > p
+.monochrome > header, .monochrome > #pollResults, .monochrome > #messagesReceived > p, .monochrome > footer > p
 {
     mix-blend-mode: difference;
 }
