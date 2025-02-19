@@ -320,6 +320,8 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     else if (data.word.toLowerCase() == "rainbow" || data.word.toLowerCase() == "gay")
     {
         document.body.classList.add("rainbow");
+        document.body.style.backgroundColor = siteColors["black"];
+        document.body.style.color = invertColor(siteColors["black"], true);
         if (!data.silent)
         {
             const newUtter = new SpeechSynthesisUtterance(data.word);
