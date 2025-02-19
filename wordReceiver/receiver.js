@@ -307,6 +307,7 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
     }
     else if (data.word.toLowerCase() in siteColors)
     {
+        document.body.classList.remove("rainbow");
         document.body.style.backgroundColor = siteColors[data.word.toLowerCase()];
         document.body.style.color = invertColor(siteColors[data.word.toLowerCase()], true);
         if (!data.silent)
@@ -315,6 +316,10 @@ onValue(ref(daDatabase, "words"), (snapshot) =>
             window.speechSynthesis.speak(newUtter);
         }
         createAnimatedText(data.word);
+    }
+    else if (data.word.toLowerCase() == "rainbow" || data.word.toLowerCase() == "gay")
+    {
+        document.body.classList.add("rainbow");
     }
     else
     {

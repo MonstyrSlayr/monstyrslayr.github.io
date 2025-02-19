@@ -6,7 +6,19 @@ body
     width: 100%;
     overflow: hidden;
     transition: all 0.20s;
+    height: 100vh;
 }
+
+body > *
+{
+    background-color: none;
+}
+
+.rainbow
+{
+    background: linear-gradient(in hsl longer hue 45deg, red 0 0);
+}
+  
 
 header
 {
