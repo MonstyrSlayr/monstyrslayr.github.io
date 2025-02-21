@@ -18,17 +18,17 @@ class Conditional
 
 		this.lilDiv = document.createElement("div");
 		this.lilDiv.className = "checkboxDiv";
-        this.lilDiv.htmlFor = label;
+        // this.lilDiv.htmlFor = label;
         this.lilDiv.id = label + "div";
 		divToAppend.append(this.lilDiv);
 
         this.imageLabel = document.createElement("label");
-        this.imageLabel.htmlFor = label;
+        // this.imageLabel.htmlFor = label;
         this.lilDiv.append(this.imageLabel);
 
         this.image = document.createElement("img");
         this.image.src = imageSrc;
-        this.image.htmlFor = label;
+        // this.image.htmlFor = label;
         this.image.classList.add("checkboxImage");
         this.imageLabel.append(this.image);
 
@@ -68,7 +68,7 @@ class Conditional
         }
 
 		this.label = document.createElement("label");
-		this.label.htmlFor = label;
+		// this.label.htmlFor = label;
 		this.label.textContent = label;
 
 		if (mixed)
@@ -114,6 +114,7 @@ class Conditional
 
         updateImage();
 
+        this.lilDiv.onclick = function() { document.getElementById(id).click(); };
 		this.lilDiv.append(this.label);
 	}
 }
