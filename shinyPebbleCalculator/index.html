@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Shiny Pebble Calculator for Maze Mice</title>
+
+    <meta name="description" content="a tool to calculate the worth of maze mice shiny pebbles">
+    <meta name="keywords" content="maze mice, shiny pebble">
+    <meta name="author" content="MonstyrSlayr">
+
+    <meta name="og:title" content="Shiny Pebble Calculator">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/shinyPebbleCalculator/shinyPebbleMeme.png">
+    <meta name="og:url" content="https://monstyrslayr.github.io/shinyPebbleCalculator">
+    <meta name="og:image:width" content="680">
+    <meta name="og:image:height" content="510">
+
+    <meta name="twitter:title" content="Shiny Pebble Calculator">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="a tool to calculate the worth of maze mice shiny pebbles">
+    <meta name="twitter:url" content="https://monstyrslayr.github.io/shinyPebbleCalculator">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/shinyPebbleCalculator/shinyPebbleMeme.png"/>
+</head>
+<body>
+    <header>
+        <img src="./shinyPebble.png">
+        <h1>Shiny Pebble Calculator for Maze Mice</h1>
+        <img src="./shinyPebble.png">
+    </header>
+
+    <p>This tool can calculate the worth of taking a shiny pebble at any given player level</p>
+    <br>
+
+    <form autocomplete="off">
+        <label for="playerLevel">Current Player Level:</label>
+        <input id="playerLevel" type="text">
+        <p id="determinedPlayerLevel" class="parsed"></p>
+        <br>
+
+        <label for="pebbleLevels">Levels Shiny Pebble was Taken (comma seperated):</label>
+        <input id="pebbleLevels" type="text">
+        <p id="determinedPebbleLevels" class="parsed"></p>
+        <p id="determinedPebbleLevel" class="parsed"></p>
+        <br>
+    </form>
+
+    <p id="shinyPebbleXpSaved"></p>
+    <p id="shinyPebbleLevelWorth"></p>
+    <br>
+
+    <footer>
+        <p>Site by @MonstyrSlayr on Discord</p>
+        <p>Assets belong to TrampolineTales</p>
+        <p><a href="https://store.steampowered.com/app/3385370/Maze_Mice/" target="_blank">Play the Maze Mice Demo today!</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

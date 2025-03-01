@@ -1,0 +1,101 @@
+@font-face
+{
+    font-family: "Itim";
+    src: url("./Itim-Regular.ttf");
+}
+
+body
+{
+    font-family: "Itim";
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    text-shadow:    -3px -3px 0 #000000, -2px -3px 0 #000000, -1px -3px 0 #000000, 0px -3px 0 #000000, 1px -3px 0 #000000, 2px -3px 0 #000000, 3px -3px 0 #000000,
+                    -3px -2px 0 #000000, -2px -2px 0 #000000, -1px -2px 0 #000000, 0px -2px 0 #000000, 1px -2px 0 #000000, 2px -2px 0 #000000, 3px -2px 0 #000000,
+                    -3px -1px 0 #000000, -2px -1px 0 #000000, -1px -1px 0 #000000, 0px -1px 0 #000000, 1px -1px 0 #000000, 2px -1px 0 #000000, 3px -1px 0 #000000,
+                    -3px 0px 0 #000000, -2px 0px 0 #000000, -1px 0px 0 #000000, 0px 0px 0 #000000, 1px 0px 0 #000000, 2px 0px 0 #000000, 3px 0px 0 #000000,
+                    -3px 1px 0 #000000, -2px 1px 0 #000000, -1px 1px 0 #000000, 0px 1px 0 #000000, 1px 1px 0 #000000, 2px 1px 0 #000000, 3px 1px 0 #000000,
+                    -3px 2px 0 #000000, -2px 2px 0 #000000, -1px 2px 0 #000000, 0px 2px 0 #000000, 1px 2px 0 #000000, 2px 2px 0 #000000, 3px 2px 0 #000000,
+                    -3px 3px 0 #000000, -2px 3px 0 #000000, -1px 3px 0 #000000, 0px 3px 0 #000000, 1px 3px 0 #000000, 2px 3px 0 #000000, 3px 3px 0 #000000;
+    background-color: rgb(52, 47, 81);
+    background-image: linear-gradient(to bottom, rgb(60, 54, 96), rgb(35, 32, 51));
+}
+
+body > *
+{
+    background-color: transparent;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+header
+{
+    display: flex;
+    flex-direction: row;
+    margin: auto 0;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+header > *
+{
+    display: inline;
+}
+
+img
+{
+    width: 128px;
+    height: 128px;
+    image-rendering: pixelated;
+}
+
+input
+{
+    font-family: "Itim";
+    font-size: 30px;
+    text-shadow:    -3px -3px 0 #000000, -2px -3px 0 #000000, -1px -3px 0 #000000, 0px -3px 0 #000000, 1px -3px 0 #000000, 2px -3px 0 #000000, 3px -3px 0 #000000,
+                    -3px -2px 0 #000000, -2px -2px 0 #000000, -1px -2px 0 #000000, 0px -2px 0 #000000, 1px -2px 0 #000000, 2px -2px 0 #000000, 3px -2px 0 #000000,
+                    -3px -1px 0 #000000, -2px -1px 0 #000000, -1px -1px 0 #000000, 0px -1px 0 #000000, 1px -1px 0 #000000, 2px -1px 0 #000000, 3px -1px 0 #000000,
+                    -3px 0px 0 #000000, -2px 0px 0 #000000, -1px 0px 0 #000000, 0px 0px 0 #000000, 1px 0px 0 #000000, 2px 0px 0 #000000, 3px 0px 0 #000000,
+                    -3px 1px 0 #000000, -2px 1px 0 #000000, -1px 1px 0 #000000, 0px 1px 0 #000000, 1px 1px 0 #000000, 2px 1px 0 #000000, 3px 1px 0 #000000,
+                    -3px 2px 0 #000000, -2px 2px 0 #000000, -1px 2px 0 #000000, 0px 2px 0 #000000, 1px 2px 0 #000000, 2px 2px 0 #000000, 3px 2px 0 #000000,
+                    -3px 3px 0 #000000, -2px 3px 0 #000000, -1px 3px 0 #000000, 0px 3px 0 #000000, 1px 3px 0 #000000, 2px 3px 0 #000000, 3px 3px 0 #000000;
+    background-color: #00000045;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    color: white;
+    max-width: 100%;
+}
+
+.parsed
+{
+    color: rgb(160, 255, 255);
+}
+
+footer
+{
+    font-size: 16px;
+}
+
+a
+{
+    color: cyan;
+}
+
+a:visited
+{
+    color: purple;
+}
+
+@media screen and (max-width: 450px)
+{
+    body, input
+    {
+        font-size: 24px;
+    }
+}
