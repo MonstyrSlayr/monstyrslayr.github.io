@@ -1,7 +1,7 @@
 function getShinyPebblePercent(pebbleLevel = 1)
 {
     if (pebbleLevel < 1) return 0;
-    return 0.16 + 0.08 * (pebbleLevel - 1);
+    return Math.round((0.16 + 0.08 * (pebbleLevel - 1)) * 100) / 100;
 }
 
 function getXpForNextLevel(playerLevel = 1, pebbleLevel = 0)
