@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function()
                 pebbleLevelOutput.textContent = "Your shiny pebble will be level " + pebbleLevels.length;
             }
 
-            pebbleLevelOutput.textContent += " and gives +" + getShinyPebblePercent(pebbleLevels.length) + "% more xp";
+            pebbleLevelOutput.textContent += " and gives +" + Math.round(getShinyPebblePercent(pebbleLevels.length) * 100) + "% more xp";
         }
     }
 
