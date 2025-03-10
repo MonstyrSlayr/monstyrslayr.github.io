@@ -10,6 +10,11 @@ body
     background-color: #1e1e1e;
 }
 
+body > *
+{
+    margin: 0 auto;
+}
+
 header
 {
     text-align: center;
@@ -351,13 +356,30 @@ a > .miniElement:hover
 .soloGap
 {
     height: 64px;
+    display: block;
 }
 
-.soloMonster img
+#monsterImg
 {
-    margin: 0 auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     display: block;
     height: 100%;
+}
+
+.monsterVid
+{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    height: 100%;
+}
+
+.monsterVidDisabled
+{
+    display: none;
 }
 
 #monsterTitle

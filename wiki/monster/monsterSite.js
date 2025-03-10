@@ -9,12 +9,61 @@ function getLastFolder(url, num)
     return parts[parts.length - num]; // Return the last part
 }
 
+function getVisiblePercentage(el)
+{
+    if (!el) return 0;
+    
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Determine how much of the element is visible
+    const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+
+    // If the element is completely out of view, return 0
+    if (visibleHeight <= 0) return 0;
+
+    // Calculate the percentage of the element that is visible
+    return (visibleHeight / rect.height);
+}
+
+function setupOpaqueClickDetection(videoElement, callback)
+{
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    videoElement.addEventListener("click", (event) =>
+    {
+        const rect = videoElement.getBoundingClientRect();
+        const scaleX = videoElement.videoWidth / rect.width;
+        const scaleY = videoElement.videoHeight / rect.height;
+
+        // Get the clicked position relative to the video
+        const x = (event.clientX - rect.left) * scaleX;
+        const y = (event.clientY - rect.top) * scaleY;
+
+        // Draw the current video frame on the canvas
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+        // Get the pixel data
+        const pixel = ctx.getImageData(x, y, 1, 1).data;
+        const alpha = pixel[3]; // Alpha channel (0 = transparent, 255 = fully opaque)
+
+        if (alpha > 0)
+        {
+            callback(event); // Call the callback function if clicked on an opaque part
+        }
+    });
+}
+
 // every monster functionally has the same site
 // so instead of putting all of the code in each html file
 // we can put it in this general javascript file
 
 const daId = getLastFolder(window.location.href, 1);
 const daMonster = getAmeliorateById(daId);
+let daMonsterState = "none";
 
 daMonster.loadForms().then(() =>
 {
@@ -24,14 +73,143 @@ daMonster.loadForms().then(() =>
     const soloMonster = document.createElement("div");
     soloMonster.classList = ["soloMonster"];
     soloMonster.style.backgroundColor = daMonster.affiliation.outside;
-        const soloGap = document.createElement("div");
-        soloGap.classList = ["soloGap"];
-        soloMonster.appendChild(soloGap);
 
-        const monsterImg = document.createElement("img");
-        monsterImg.id = "monsterImg";
-        monsterImg.src = daMonster.images.default;
-        soloMonster.appendChild(monsterImg);
+        if ("idle" in daMonster.behavior == false)
+        {
+            const soloGap = document.createElement("div");
+            soloGap.classList = ["soloGap"];
+            soloMonster.appendChild(soloGap);
+
+            const monsterImg = document.createElement("img");
+            monsterImg.id = "monsterImg";
+            monsterImg.src = daMonster.images.default;
+            soloMonster.appendChild(monsterImg);
+        }
+        else
+        {
+            // cool animated monster logic
+            const scrollThreshold = 0.45;
+            let monsterVidEnded = function() {}
+
+            const noClick = ["scrollDown", "scrolled", "scrollUp"];
+
+            function changeMonsterState(state)
+            {
+                let curVid = null;
+
+                if (state in daMonster.behavior)
+                {
+                    daMonsterState = state;
+
+                    for (const vid of document.getElementsByClassName("monsterVid"))
+                    {
+                        vid.classList.add("monsterVidDisabled");
+                        vid.pause();
+                        vid.currentTime = 0;
+
+                        if (vid.id == "vid" + state)
+                        {
+                            vid.play();
+                            curVid = vid;
+                            vid.classList.remove("monsterVidDisabled");
+                        }
+                    }
+                }
+
+                return curVid;
+            }
+
+            for (const state in daMonster.behavior)
+            {
+                const monsterVid = document.createElement("video");
+                monsterVid.id = "vid" + state;
+                monsterVid.classList.add("monsterVid");
+                monsterVid.autoplay = false;
+                monsterVid.muted = true;
+                monsterVid.loop = true; // dependent for each behavior, define in switch
+                monsterVid.playsInline = true;
+                soloMonster.appendChild(monsterVid);
+
+                const monsterVidSource = document.createElement("source");
+                monsterVidSource.type = "video/webm";
+                monsterVidSource.src = "../../video/" + daMonster.behavior[state] + ".webm";
+                monsterVid.appendChild(monsterVidSource);
+                monsterVid.load();
+
+                monsterVid.addEventListener("ended", function () // only runs for non looping videos btw
+                {
+                    monsterVidEnded();
+                });
+
+                if (!noClick.includes(state))
+                {
+                    setupOpaqueClickDetection(monsterVid, function ()
+                    {
+                        const curVid = changeMonsterState("click");
+                        curVid.loop = false;
+                    });
+                }
+
+                if (state != "idle")
+                {
+                    monsterVid.classList.add("monsterVidDisabled");
+                }
+                else
+                {
+                    monsterVid.play();
+                }
+            }
+
+            changeMonsterState("idle");
+
+            // dynamic changing
+            const monsterVidInterval = setInterval
+            (
+                function ()
+                {
+                    switch (daMonsterState)
+                    {
+                        case "idle":
+                            if (getVisiblePercentage(soloMonster) < scrollThreshold)
+                            {
+                                const curVid = changeMonsterState("scrollDown");
+                                curVid.loop = false;
+                            }
+                        break;
+
+                        case "scrolled":
+                            if (getVisiblePercentage(soloMonster) > scrollThreshold)
+                            {
+                                const curVid = changeMonsterState("scrollUp");
+                                curVid.loop = false;
+                            }
+                        break;
+                    }
+                }, 50
+            );
+
+            // changing on video end
+            monsterVidEnded = function()
+            {
+                switch (daMonsterState)
+                {
+                    case "scrollDown":
+                        {
+                            const curVid = changeMonsterState("scrolled");
+                            curVid.loop = true;
+                        }
+                    break;
+
+                    case "scrollUp": case "click":
+                        {
+                            const curVid = changeMonsterState("idle");
+                            curVid.loop = true;
+                        }
+                    break;
+                }
+            }
+        }
+
     document.body.appendChild(soloMonster);
 
     const mainContainer = createContainer();

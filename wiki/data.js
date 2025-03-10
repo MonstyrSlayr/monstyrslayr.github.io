@@ -281,7 +281,7 @@ class Monster
 
 class Ameliorate extends Monster
 {
-    constructor (id, elements, affiliation, attributes, realName)
+    constructor (id, elements, affiliation, attributes, realName, behavior = {})
     {
         super();
 
@@ -400,6 +400,8 @@ class Ameliorate extends Monster
             }
             return;
         }
+
+        this.behavior = behavior;
     }
 }
 
@@ -408,7 +410,14 @@ class Ameliorate extends Monster
 const daAmeliorates =
 [
     new Ameliorate("Reese",         [bulbElement],   bulbElement,
-                        {age: 8, height: 130, weight: 116}),
+                        {age: 8, height: 130, weight: 116}, "Reese",
+                            {
+                                idle: "ReeseIdle",
+                                scrollDown: "ReeseScrollDown",
+                                scrolled: "ReeseScrolled",
+                                scrollUp: "ReeseScrollUp",
+                                click: "ReeseClick"
+                            }),
     new Ameliorate("Guira",         [hostessElement],   hostessElement,
                         {age: 16, height: 128, weight: 47}),
     new Ameliorate("Arpeggidough",  [clayElement],   clayElement,

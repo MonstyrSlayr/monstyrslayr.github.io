@@ -57,7 +57,7 @@ function getLevelShinyPebbleIsWorth(levelsPebbleUpgraded = [])
 
     let levelWorth = 1;
 
-    while (getTotalXpSaved(1, levelWorth, levelsPebbleUpgraded) < getTotalXpGainedSpecific(levelsPebbleUpgraded))
+    while (getTotalXpSaved(Math.min(...levelsPebbleUpgraded), levelWorth, levelsPebbleUpgraded) < getTotalXpGainedSpecific(levelsPebbleUpgraded))
     {
         levelWorth++;
     }
@@ -134,11 +134,11 @@ document.addEventListener('DOMContentLoaded', function()
             if (pebbleLevels.length == 1) pebbleLevelsOutput.textContent = "Shiny pebble taken at level " + pebbleLevels[0];
             else pebbleLevelsOutput.textContent = "Shiny pebble taken at levels " + pebbleLevels.join(", ");
 
-            if (Math.max(pebbleLevels) < playerLevel)
+            if (Math.max(...pebbleLevels) < playerLevel)
             {
                 pebbleLevelOutput.textContent = "Your shiny pebble is level " + pebbleLevels.length;
             }
-            else if (Math.max(pebbleLevels) == playerLevel)
+            else if (Math.max(...pebbleLevels) == playerLevel)
             {
                 pebbleLevelOutput.textContent = "Your shiny pebble is/will be level " + pebbleLevels.length;
             }
