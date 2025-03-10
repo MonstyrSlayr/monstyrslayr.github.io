@@ -74,7 +74,8 @@ daMonster.loadForms().then(() =>
     soloMonster.classList = ["soloMonster"];
     soloMonster.style.backgroundColor = daMonster.affiliation.outside;
 
-        if ("idle" in daMonster.behavior == false)
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if ("idle" in daMonster.behavior == false || isSafari)
         {
             const soloGap = document.createElement("div");
             soloGap.classList = ["soloGap"];
