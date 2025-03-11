@@ -670,8 +670,8 @@ input[type=checkbox]
     top: 50%;
     z-index: -100;
     width: 50%;
-    height: 100%;
-    transform: translate(200%, -50%);
+    height: 102%;
+    transform: translate(200%, -51%);
     transition: none;
     overflow: hidden;
 }
@@ -732,9 +732,9 @@ input[type=checkbox]
     {
         top: 0;
         right: 0;
-        width: 100%;
+        width: 102%;
         height: 50%;
-        transform: translate(0%, -200%);
+        transform: translate(-1%, -200%);
     }
 
     .characterT

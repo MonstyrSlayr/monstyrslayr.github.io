@@ -650,6 +650,12 @@ export function makeAmeliorateDiv(monster, className = "box")
         setTimeout(() =>
         {
             window.location.href = this.href;
+
+            // prevent blocking out the user if they press the back button
+            setTimeout(() =>
+            {
+                document.body.classList.remove("transitionActive");
+            }, 5000);
         }, transitionTime);
     });
 
