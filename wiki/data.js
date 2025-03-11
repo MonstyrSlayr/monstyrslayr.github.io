@@ -36,12 +36,15 @@ if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
 
     window.addEventListener("pageScriptRun", () =>
     {
-        document.body.classList.add("transitionFinal");
-
         setTimeout(() =>
         {
-            document.body.classList.remove("transitionActive");
-            document.body.classList.remove("transitionFinal");
+            document.body.classList.add("transitionFinal");
+
+            setTimeout(() =>
+            {
+                document.body.classList.remove("transitionActive");
+                document.body.classList.remove("transitionFinal");
+            }, transitionTime);
         }, transitionTime);
     });
 }
@@ -382,6 +385,7 @@ class Ameliorate extends Monster
                         this.forms.push(new Form(element.name, this.elements, [element], this.images.default));
                     }
                 }
+                return;
             }
             else
             {
