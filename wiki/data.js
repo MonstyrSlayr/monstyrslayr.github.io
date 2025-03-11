@@ -1,4 +1,50 @@
+import {getCookie, setCookie, deleteCookie} from "https://monstyrslayr.github.io/wiki/cookies.js";
+
 export const IMG = "https://monstyrslayr.github.io/wiki/img/";
+
+export const daCharTDiv = document.createElement("div");
+daCharTDiv.classList.add("characterT");
+document.body.appendChild(daCharTDiv);
+
+export const daCharT = document.createElement("img");
+daCharT.classList.add("centeredT");
+daCharTDiv.appendChild(daCharT);
+
+export const daSigilTDiv = document.createElement("div");
+daSigilTDiv.classList.add("sigilT");
+document.body.appendChild(daSigilTDiv);
+
+export const daSigilT = document.createElement("img");
+daSigilT.classList.add("centeredT");
+daSigilTDiv.appendChild(daSigilT);
+
+const transitionTime = 400;
+
+if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
+{
+    document.body.classList.add("transitionActive");
+
+    daCharT.src = getCookie("transitionCharacter");
+    daCharTDiv.style.backgroundColor = getCookie("transitionCharacterBackground");
+    daSigilT.src = getCookie("transitionSigil");
+    daSigilTDiv.style.backgroundColor = getCookie("transitionSigilBackground");
+
+    deleteCookie("transitionCharacter");
+    deleteCookie("transitionSigil");
+    deleteCookie("transitionCharacterBackground");
+    deleteCookie("transitionSigilBackground");
+
+    window.addEventListener("pageScriptRun", () =>
+    {
+        document.body.classList.add("transitionFinal");
+
+        setTimeout(() =>
+        {
+            document.body.classList.remove("transitionActive");
+            document.body.classList.remove("transitionFinal");
+        }, transitionTime);
+    });
+}
 
 function rgb(r, g, b)
 {
@@ -170,7 +216,7 @@ export function makeMiniElement(element, isActive = false, isClickable = true)
     if (isClickable)
     {
         const aTag = document.createElement("a");
-        aTag.append(daSigil);
+        aTag.appendChild(daSigil);
         aTag.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
         return aTag;
     }
@@ -186,11 +232,11 @@ export function makeElementDiv(element)
     elementDiv.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
 
     const elementImage = makeMiniElement(element, false, false);
-    elementDiv.append(elementImage);
+    elementDiv.appendChild(elementImage);
 
     const elementName = document.createElement("label");
     elementName.innerHTML = element.name;
-    elementDiv.append(elementName);
+    elementDiv.appendChild(elementName);
 
     return elementDiv;
 }
@@ -281,13 +327,14 @@ class Monster
 
 class Ameliorate extends Monster
 {
-    constructor (id, elements, affiliation, attributes, realName, behavior = {})
+    constructor (id, elements, affiliation, dominantColor, attributes, realName, behavior = {})
     {
         super();
 
         this.id = id;
         this.elements = elements;
         this.affiliation = affiliation;
+        this.dominantColor = dominantColor;
 
         if (realName == undefined) realName = id;
         this.realName = realName;
@@ -312,7 +359,12 @@ class Ameliorate extends Monster
         const basicImage = id + "-" + this.elementString;
         
         this.images.default = IMG + basicImage + ".png";
+        this.images.shadowless = IMG + basicImage + "-Shadowless.png";
         this.images.emoji = IMG + "emoji/" + basicImage + ".png";
+
+        // preload images for page transitions
+        new Image().src = this.images.default; //TODO: delete this when every monster is animated
+        new Image().src = this.images.shadowless;
 
         this.forms = [];
 
@@ -409,75 +461,76 @@ class Ameliorate extends Monster
 // you know who you are
 const daAmeliorates =
 [
-    new Ameliorate("Reese",         [bulbElement],   bulbElement,
+    new Ameliorate("Reese",         [bulbElement],   bulbElement, "#ffbb32",
                         {age: 8, height: 130, weight: 116}, "Reese",
                             {
+                                intro: "ReeseIntro",
                                 idle: "ReeseIdle",
                                 scrollDown: "ReeseScrollDown",
                                 scrolled: "ReeseScrolled",
                                 scrollUp: "ReeseScrollUp",
-                                click: "ReeseClick"
+                                click: "ReeseClick",
                             }),
-    new Ameliorate("Guira",         [hostessElement],   hostessElement,
+    new Ameliorate("Guira",         [hostessElement],   hostessElement, "#ff75ba",
                         {age: 16, height: 128, weight: 47}),
-    new Ameliorate("Arpeggidough",  [clayElement],   clayElement,
+    new Ameliorate("Arpeggidough",  [clayElement],   clayElement, "#de1c1c",
                         {age: 14, height: Math.round(115 * (6/7)), weight: 134}),
-    new Ameliorate("Meeka",         [signalElement],   signalElement,
+    new Ameliorate("Meeka",         [signalElement],   signalElement, "#34a14c",
                         {age: 15, height: 143, weight: 153}),
-    new Ameliorate("Etikan",        [trashElement],   trashElement,
+    new Ameliorate("Etikan",        [trashElement],   trashElement, "#4b4b42",
                         {age: 12, height: 139, weight: 178}),
 
-    new Ameliorate("Tabi",          [bulbElement, hostessElement],    hostessElement,
+    new Ameliorate("Tabi",          [bulbElement, hostessElement],    hostessElement, "#a65457",
                         {age: 34, height: 81, weight: 85}),
-    new Ameliorate("Yaun",          [bulbElement, clayElement],    clayElement,
+    new Ameliorate("Yaun",          [bulbElement, clayElement],    clayElement, "#495ed5",
                         {age: 6, height: 147, weight: 183}),
-    new Ameliorate("Esckickis",     [bulbElement, signalElement],    bulbElement,
+    new Ameliorate("Esckickis",     [bulbElement, signalElement],    bulbElement, "#addb2c",
                         {age: 20, height: 123, weight: 161}),
-    new Ameliorate("nillaCorn",     [bulbElement, trashElement],    bulbElement,
+    new Ameliorate("nillaCorn",     [bulbElement, trashElement],    bulbElement, "#903eb4",
                         {age: 17, height: 132, weight: 200}),
-    new Ameliorate("Jugashley",     [hostessElement, clayElement],    clayElement,
+    new Ameliorate("Jugashley",     [hostessElement, clayElement],    clayElement, "#e69184",
                         {age: 25, height: 170, weight: 189}),
-    new Ameliorate("Orgako",        [hostessElement, signalElement],    signalElement,
+    new Ameliorate("Orgako",        [hostessElement, signalElement],    signalElement, "#2a2660",
                         {age: 19, height: 113, weight: 97}),
-    new Ameliorate("Alliumaid",     [hostessElement, trashElement],    hostessElement,
+    new Ameliorate("Alliumaid",     [hostessElement, trashElement],    hostessElement, "#b5f8eb",
                         {age: 21, height: 136, weight: 4}),
-    new Ameliorate("ExpiFour",      [clayElement, signalElement],    signalElement,
-                        {age: 0, height: 139},    "Expi Four"), // yeah namkwal go ahead and share this one
-    new Ameliorate("Octosquish",    [clayElement, trashElement],    trashElement,
+    new Ameliorate("ExpiFour",      [clayElement, signalElement],    signalElement, "#84f1a1",
+                        {age: 0, height: 139},    "Expi Four"),
+    new Ameliorate("Octosquish",    [clayElement, trashElement],    trashElement, "#51cac1",
                         {age: 21, height: 135, weight: 167}),
-    new Ameliorate("TrashCymbal",   [signalElement, trashElement],    trashElement,
+    new Ameliorate("TrashCymbal",   [signalElement, trashElement],    trashElement, "#624c9a",
                         {age: 27, height: 152, weight: 189},    "Trash Cymbal"),
 
-    new Ameliorate("Dormana",       [bulbElement, hostessElement, clayElement], hostessElement,
+    new Ameliorate("Dormana",       [bulbElement, hostessElement, clayElement], hostessElement, "#102c34",
                         {age: 32, height: 198, weight: 258}),
-    new Ameliorate("Nnoygon",       [bulbElement, hostessElement, signalElement], bulbElement,
+    new Ameliorate("Nnoygon",       [bulbElement, hostessElement, signalElement], bulbElement, "#7094e8",
                         {age: 35, height: 137, weight: 217}),
-    new Ameliorate("Organe",        [bulbElement, hostessElement, trashElement], hostessElement,
+    new Ameliorate("Organe",        [bulbElement, hostessElement, trashElement], hostessElement, "#6bf198",
                        {age: 39, height: 178, heightIsApprox: true, weight: 192, weightIsApprox: true},       "Organe"),
-    new Ameliorate("Robby",         [bulbElement, clayElement, signalElement], signalElement,
+    new Ameliorate("Robby",         [bulbElement, clayElement, signalElement], signalElement, "#766a65",
                         {age: 29, height: 129, weight: 157}),
-    new Ameliorate("Vack",          [bulbElement, clayElement, trashElement], trashElement,
+    new Ameliorate("Vack",          [bulbElement, clayElement, trashElement], trashElement, "#ee324f",
                         {age: 46, height: 168, weight: 130}),
-    new Ameliorate("Rallentando",   [bulbElement, signalElement, trashElement], bulbElement,
+    new Ameliorate("Rallentando",   [bulbElement, signalElement, trashElement], bulbElement, "#3ce54a",
                         {age: 50, height: 143, weight: 233}),
-    new Ameliorate("SemOhSeaga",    [hostessElement, clayElement, signalElement], signalElement,
+    new Ameliorate("SemOhSeaga",    [hostessElement, clayElement, signalElement], signalElement, "#eeee3a",
                         {age: 27, height: 149, weight: 207},    "Sem oh Seaga"),
-    new Ameliorate("Athenerd",      [hostessElement, clayElement, trashElement], clayElement,
+    new Ameliorate("Athenerd",      [hostessElement, clayElement, trashElement], clayElement, "#f2e877",
                         {age: 26, height: 184, weight: 185}),
-    new Ameliorate("KassBick",      [hostessElement, signalElement, trashElement], trashElement,
+    new Ameliorate("KassBick",      [hostessElement, signalElement, trashElement], trashElement, "#006a36",
                         {age: 46, height: 114, weight: 177},    "Kass Bick"),
-    new Ameliorate("Deltah",        [clayElement, signalElement, trashElement], clayElement,
+    new Ameliorate("Deltah",        [clayElement, signalElement, trashElement], clayElement, "#3ca33c",
                         {age: 25, height: 191, heightIsApprox: true, weight: 108}),
 
-    new Ameliorate("Spotscast",     [bulbElement, hostessElement, clayElement, signalElement],   signalElement,
+    new Ameliorate("Spotscast",     [bulbElement, hostessElement, clayElement, signalElement],   signalElement, "#ea62ea",
                         {age: 34, height: 203, weight: 135}),
-    //new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement,
+    // new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement, "#dee",
     //                    {age: 49, weight: 6}),
-    new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement,
+    new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement, "#ea9436",
                         {age: 56, height: 173, weight: 212}),
-    new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement,
+    new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement, "#8f8e80",
                         {age: 37, height: 217, weight: 294}, "Re-Fabrić"),
-    new Ameliorate("Trumpoff",      [hostessElement, clayElement, signalElement, trashElement],   clayElement,
+    new Ameliorate("Trumpoff",      [hostessElement, clayElement, signalElement, trashElement],   clayElement, "#8d5935",
                         {age: 54, height: 117, weight: 114}),
 ];
 
@@ -532,6 +585,7 @@ signalElement.single = getAmeliorateById("Meeka");
 trashElement.single = getAmeliorateById("Etikan");
 
 bulbElement.quad = getAmeliorateById("Monkdom");
+// terrible !!!!!!!!!!
 clayElement.quad = getAmeliorateById("Trumpoff");
 signalElement.quad = getAmeliorateById("Spotscast");
 trashElement.quad = getAmeliorateById("ReFabric");
@@ -547,7 +601,7 @@ export function makeAmeliorateDiv(monster, className = "box")
     const ameImg = document.createElement("img");
     ameImg.src = monster.images.emoji;
     ameImg.classList = ["monsterEmoji"];
-    ameDiv.append(ameImg);
+    ameDiv.appendChild(ameImg);
     if (monster.id == "ExpiFour")
     {
         const rotation = Math.floor(Math.random() * 4) * 90;
@@ -556,21 +610,44 @@ export function makeAmeliorateDiv(monster, className = "box")
 
     const daLabel = document.createElement("div");
     daLabel.classList = ["monsterLabel"];
-    ameDiv.append(daLabel);
+    ameDiv.appendChild(daLabel);
 
     const daElementList = document.createElement("div");
     daElementList.classList = ["miniElementList"];
-    daLabel.append(daElementList);
+    daLabel.appendChild(daElementList);
 
     for (const element of monster.elements)
     {
         const daSigil = makeMiniElement(element, false, false);
-        daElementList.append(daSigil);
+        daElementList.appendChild(daSigil);
     }
 
     const ameName = document.createElement("label");
     ameName.innerHTML = monster.realName;
-    daLabel.append(ameName);
+    daLabel.appendChild(ameName);
+
+    ameDiv.addEventListener("click", function (e)
+    {
+        e.preventDefault();
+
+        const dominantElement = monster.elements[Math.floor(Math.random() * monster.elements.length)];
+
+        daCharT.src = monster.images.shadowless;
+        daCharTDiv.style.backgroundColor = monster.dominantColor;
+        daSigilT.src = dominantElement.sigil;
+        daSigilTDiv.style.backgroundColor = dominantElement.highlight;
+        setCookie("transitionCharacter", monster.images.shadowless, 1);
+        setCookie("transitionCharacterBackground", monster.dominantColor, 1);
+        setCookie("transitionSigil", dominantElement.sigil, 1);
+        setCookie("transitionSigilBackground", dominantElement.highlight, 1);
+
+        document.body.classList.add("transitionActive");
+
+        setTimeout(() =>
+        {
+            window.location.href = this.href;
+        }, transitionTime);
+    });
 
     return ameDiv;
 }
@@ -591,42 +668,42 @@ export function makeFormDiv(monster, form, className = "box")
         const ameImg = document.createElement("img");
         ameImg.src = getShadowless(form.image);
         ameImg.classList = ["monsterForm"];
-        topDiv.append(ameImg);
+        topDiv.appendChild(ameImg);
 
         const daLabelWrapper = document.createElement("div");
         daLabelWrapper.classList = ["monsterLabelWrapper"];
-        topDiv.append(daLabelWrapper);
+        topDiv.appendChild(daLabelWrapper);
 
         const daLabel = document.createElement("div");
         daLabel.classList = ["miniElementListList"];
-        daLabelWrapper.append(daLabel);
+        daLabelWrapper.appendChild(daLabel);
 
         const daElementList = document.createElement("div");
         daElementList.classList = ["miniElementList"];
-        daLabel.append(daElementList);
+        daLabel.appendChild(daElementList);
 
         for (const element of form.monsterElements)
         {
             const daSigil = makeMiniElement(element, false, false);
-            daElementList.append(daSigil);
+            daElementList.appendChild(daSigil);
         }
 
         if (form.elements.length > 0)
         {
             const daFormElementList = document.createElement("div");
             daFormElementList.classList = ["miniElementList"];
-            daLabel.append(daFormElementList);
+            daLabel.appendChild(daFormElementList);
 
             for (const element of form.elements)
             {
                 const daSigil = makeMiniElement(element, true, false);
-                daFormElementList.append(daSigil);
+                daFormElementList.appendChild(daSigil);
             }
         }
 
         const ameName = document.createElement("label");
         ameName.innerHTML = form.name + " " + monster.realName;
-        daLabelWrapper.append(ameName);
+        daLabelWrapper.appendChild(ameName);
 
         const formString = makeElementString(form.elements);
         const bioString = monsterData[formString.toLowerCase()];
@@ -637,7 +714,7 @@ export function makeFormDiv(monster, form, className = "box")
 
             const daBio = document.createElement("p");
             daBio.textContent = bioString;
-            bottomDiv.append(daBio);
+            bottomDiv.appendChild(daBio);
         }
     });
 
@@ -757,14 +834,10 @@ export function makeIslandDiv(island, isSong = false)
     islandDiv.style.backgroundColor = island.affiliation.outside;
     islandDiv.id = island.id;
     islandDiv.href = "https://monstyrslayr.github.io/wiki/island/" + (isSong ? "song/" : "") + islandDiv.id.toLowerCase() + "/";
-    // islandDiv.addEventListener("click", function()
-    // {
-    //     window.location.href = "https://monstyrslayr.github.io/wiki/island/" + islandDiv.id.toLowerCase() + "/";
-    // });
 
     const islandName = document.createElement("label");
     islandName.innerHTML = island.name;
-    islandDiv.append(islandName);
+    islandDiv.appendChild(islandName);
 
     return islandDiv;
 }

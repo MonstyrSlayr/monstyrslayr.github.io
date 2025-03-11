@@ -74,6 +74,7 @@ daMonster.loadForms().then(() =>
     soloMonster.classList = ["soloMonster"];
     soloMonster.style.backgroundColor = daMonster.affiliation.outside;
 
+        // safari doesn't support transparent webm files yet
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         if ("idle" in daMonster.behavior == false || isSafari)
         {
@@ -92,32 +93,83 @@ daMonster.loadForms().then(() =>
             const scrollThreshold = 0.45;
             let monsterVidEnded = function() {}
 
-            const noClick = ["scrollDown", "scrolled", "scrollUp"];
+            const noClick = ["scrollDown", "scrolled", "intro"];
+
+            function waitForArray(array, targetLength, timeout, callback)
+            {
+                if (array.length >= targetLength)
+                {
+                    callback(array);
+                    return;
+                }
+
+                let executed = false;
+
+                const timeoutId = setTimeout(() =>
+                {
+                    if (!executed)
+                    {
+                        executed = true;
+                        callback(array);
+                    }
+                }, timeout);
+
+                // Array observer
+                const intervalId = setInterval(() =>
+                {
+                    if (array.length >= targetLength && !executed)
+                    {
+                        executed = true;
+                        clearTimeout(timeoutId); // Stop the timeout
+                        clearInterval(intervalId); // Stop checking the array
+                        callback(array);
+                    }
+                }, 50); // Poll every 50ms (adjust as needed)
+            }
 
             function changeMonsterState(state)
             {
-                let curVid = null;
-
                 if (state in daMonster.behavior)
                 {
                     daMonsterState = state;
 
-                    for (const vid of document.getElementsByClassName("monsterVid"))
-                    {
-                        vid.classList.add("monsterVidDisabled");
-                        vid.pause();
-                        vid.currentTime = 0;
+                    // my name is
+                    const daVid = document.getElementById("vid" + state); // dad, i want some ice cream
 
-                        if (vid.id == "vid" + state)
+                    if (daVid) // that is my name
+                    {
+                        function playDaVid() // i want another
                         {
-                            vid.play();
-                            curVid = vid;
-                            vid.classList.remove("monsterVidDisabled");
+                            for (const vid of document.getElementsByClassName("monsterVid"))
+                            {
+                                if (vid !== daVid) // where is my ball ?
+                                {
+                                    vid.classList.add("monsterVidDisabled");
+                                    vid.pause();
+                                    vid.currentTime = 0;
+                                }
+                            }
+
+                            // i'm running out on the road
+                            // there is a car
+
+                            daVid.classList.remove("monsterVidDisabled");
+                            daVid.play();
+                            daVid.removeEventListener("canplaythrough", playDaVid);
                         }
+
+                        // and it is going to hit, me
+
+                        daVid.addEventListener("canplaythrough", playDaVid);
+                        daVid.load();
+
+                        // AAAAAAHH
+
+                        return daVid;
                     }
                 }
 
-                return curVid;
+                return null;
             }
 
             for (const state in daMonster.behavior)
@@ -133,9 +185,14 @@ daMonster.loadForms().then(() =>
 
                 const monsterVidSource = document.createElement("source");
                 monsterVidSource.type = "video/webm";
-                monsterVidSource.src = "../../video/" + daMonster.behavior[state] + ".webm";
+                monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
                 monsterVid.appendChild(monsterVidSource);
                 monsterVid.load();
+
+                monsterVid.addEventListener("contextmenu", function(event)
+                {
+                    event.preventDefault();
+                });
 
                 monsterVid.addEventListener("ended", function () // only runs for non looping videos btw
                 {
@@ -150,65 +207,60 @@ daMonster.loadForms().then(() =>
                         curVid.loop = false;
                     });
                 }
-
-                if (state != "idle")
-                {
-                    monsterVid.classList.add("monsterVidDisabled");
-                }
-                else
-                {
-                    monsterVid.play();
-                }
             }
 
-            changeMonsterState("idle");
+            waitForArray(document.getElementsByClassName("monsterVid"), Object.keys(daMonster.behavior).length, 50, function()
+            {
+                const curVid = changeMonsterState("intro");
+                curVid.loop = false;
 
-            // dynamic changing
-            const monsterVidInterval = setInterval
-            (
-                function ()
+                // dynamic changing
+                const monsterVidInterval = setInterval
+                (
+                    function ()
+                    {
+                        switch (daMonsterState)
+                        {
+                            case "idle":
+                                if (getVisiblePercentage(soloMonster) < scrollThreshold)
+                                {
+                                    const curVid = changeMonsterState("scrollDown");
+                                    curVid.loop = false;
+                                }
+                            break;
+
+                            case "scrolled":
+                                if (getVisiblePercentage(soloMonster) > scrollThreshold)
+                                {
+                                    const curVid = changeMonsterState("scrollUp");
+                                    curVid.loop = false;
+                                }
+                            break;
+                        }
+                    }, 50
+                );
+
+                // changing on video end
+                monsterVidEnded = function()
                 {
                     switch (daMonsterState)
                     {
-                        case "idle":
-                            if (getVisiblePercentage(soloMonster) < scrollThreshold)
+                        case "scrollDown":
                             {
-                                const curVid = changeMonsterState("scrollDown");
-                                curVid.loop = false;
+                                const curVid = changeMonsterState("scrolled");
+                                curVid.loop = true;
                             }
                         break;
 
-                        case "scrolled":
-                            if (getVisiblePercentage(soloMonster) > scrollThreshold)
+                        case "scrollUp": case "click": case "intro":
                             {
-                                const curVid = changeMonsterState("scrollUp");
-                                curVid.loop = false;
+                                const curVid = changeMonsterState("idle");
+                                curVid.loop = true;
                             }
                         break;
                     }
-                }, 50
-            );
-
-            // changing on video end
-            monsterVidEnded = function()
-            {
-                switch (daMonsterState)
-                {
-                    case "scrollDown":
-                        {
-                            const curVid = changeMonsterState("scrolled");
-                            curVid.loop = true;
-                        }
-                    break;
-
-                    case "scrollUp": case "click":
-                        {
-                            const curVid = changeMonsterState("idle");
-                            curVid.loop = true;
-                        }
-                    break;
                 }
-            }
+            })
         }
 
     document.body.appendChild(soloMonster);
@@ -808,4 +860,14 @@ daMonster.loadForms().then(() =>
             }
         }
     });
+})
+.then(() =>
+{
+    const daEvent = new CustomEvent("pageScriptRun",
+    {
+        detail: { message: "site built" },
+        bubbles: true,
+        cancelable: true
+    });
+    document.dispatchEvent(daEvent);
 });

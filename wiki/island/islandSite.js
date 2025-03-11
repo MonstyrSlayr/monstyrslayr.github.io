@@ -164,3 +164,12 @@ window.addEventListener('resize', () =>
 });
 
 resizeWindow();
+
+const daEvent = new CustomEvent("pageScriptRun",
+{
+    detail: { message: "site built" },
+    bubbles: true,
+    cancelable: true
+});
+document.dispatchEvent(daEvent);
+    

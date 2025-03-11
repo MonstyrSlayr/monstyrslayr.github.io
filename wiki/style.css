@@ -661,6 +661,115 @@ input[type=checkbox]
     transform: rotateX(180deg);
 }
 
+.characterT, .sigilT
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    z-index: -100;
+    width: 50%;
+    height: 100%;
+    transform: translate(200%, -50%);
+    transition: none;
+}
+
+.centeredT
+{
+    display: block;
+}
+
+.characterT
+{
+    right: 50%;
+}
+
+.sigilT
+{
+    right: 0;
+}
+
+.transitionActive, .transitionFinal
+{
+    overflow: hidden;
+}
+
+/* Moves them to the center */
+.transitionActive .characterT
+{
+    z-index: 100;
+    transform: translate(0, -50%);
+    transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1); /* ease out cubic */
+}
+
+.transitionActive .sigilT
+{
+    z-index: 100;
+    transform: translate(0, -50%);
+    transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1); /* ease out cubic */
+}
+
+/* up and down */
+.transitionFinal .characterT
+{
+    z-index: 100;
+    transform: translateY(-200%);
+    transition: transform 0.4s cubic-bezier(0.32, 0, 0.67, 0); /* ease in cubic */
+}
+
+.transitionFinal .sigilT
+{
+    z-index: 100;
+    transform: translateY(50%);
+    transition: transform 0.4s cubic-bezier(0.32, 0, 0.67, 0); /* ease in cubic */
+}
+
+@media screen and (max-width: 750px)
+{
+    .characterT, .sigilT
+    {
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 50%;
+        transform: translate(0%, -200%);
+    }
+
+    .characterT
+    {
+        top: 0;
+    }
+
+    .sigilT
+    {
+        top: 50%;
+    }
+
+    /* Moves them to the center */
+    .transitionActive .characterT
+    {
+        transform: translate(0, 0%);
+    }
+    
+    .transitionActive .sigilT
+    {
+        transform: translate(0, 0%);
+    }
+    
+    /* left and right */
+    .transitionFinal .characterT
+    {
+        transform: translateX(-200%);
+    }
+
+    .transitionFinal .sigilT
+    {
+        transform: translateX(50%);
+    }
+}
+
+
 @media screen and (max-width: 875px)
 {
     #renderContainer
