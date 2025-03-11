@@ -673,6 +673,7 @@ input[type=checkbox]
     height: 100%;
     transform: translate(200%, -50%);
     transition: none;
+    overflow: hidden;
 }
 
 .centeredT
