@@ -1,4 +1,4 @@
-import {getCookie, setCookie, deleteCookie} from "https://monstyrslayr.github.io/wiki/cookies.js";
+import { getCookie, setCookie, deleteCookie } from "https://monstyrslayr.github.io/wiki/cookies.js";
 
 export const IMG = "https://monstyrslayr.github.io/wiki/img/";
 
@@ -47,6 +47,31 @@ if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
             }, transitionTime);
         }, transitionTime);
     });
+}
+
+export function transitionToSite(href, charT, charTColor, sigilT, sigilTColor)
+{
+    daCharT.src = charT;
+    daCharTDiv.style.backgroundColor = charTColor;
+    daSigilT.src = sigilT;
+    daSigilTDiv.style.backgroundColor = sigilTColor;
+    setCookie("transitionCharacter", charT, 1);
+    setCookie("transitionCharacterBackground", charTColor, 1);
+    setCookie("transitionSigil", sigilT, 1);
+    setCookie("transitionSigilBackground", sigilTColor, 1);
+
+    document.body.classList.add("transitionActive");
+
+    setTimeout(() =>
+    {
+        window.location.href = href;
+
+        // prevent blocking out the user if they press the back button
+        setTimeout(() =>
+        {
+            document.body.classList.remove("transitionActive");
+        }, 2000);
+    }, transitionTime);
 }
 
 function rgb(r, g, b)
@@ -221,6 +246,17 @@ export function makeMiniElement(element, isActive = false, isClickable = true)
         const aTag = document.createElement("a");
         aTag.appendChild(daSigil);
         aTag.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
+
+        aTag.addEventListener("click", function (e)
+        {
+            e.preventDefault();
+
+            const curAmeliorates = getAmeliorates().filter(monster => monster.elements.includes(element));
+            const dominantMonster = curAmeliorates[Math.floor(Math.random() * curAmeliorates.length)];
+
+            transitionToSite(this.href, dominantMonster.images.shadowless, dominantMonster.dominantColor, element.sigil, element.highlight);
+        });
+
         return aTag;
     }
     return daSigil;
@@ -240,6 +276,16 @@ export function makeElementDiv(element)
     const elementName = document.createElement("label");
     elementName.innerHTML = element.name;
     elementDiv.appendChild(elementName);
+
+    elementDiv.addEventListener("click", function (e)
+    {
+        e.preventDefault();
+
+        const curAmeliorates = getAmeliorates().filter(monster => monster.elements.includes(element));
+        const dominantMonster = curAmeliorates[Math.floor(Math.random() * curAmeliorates.length)];
+
+        transitionToSite(this.href, dominantMonster.images.shadowless, dominantMonster.dominantColor, element.sigil, element.highlight);
+    });
 
     return elementDiv;
 }
@@ -636,27 +682,7 @@ export function makeAmeliorateDiv(monster, className = "box")
 
         const dominantElement = monster.elements[Math.floor(Math.random() * monster.elements.length)];
 
-        daCharT.src = monster.images.shadowless;
-        daCharTDiv.style.backgroundColor = monster.dominantColor;
-        daSigilT.src = dominantElement.sigil;
-        daSigilTDiv.style.backgroundColor = dominantElement.highlight;
-        setCookie("transitionCharacter", monster.images.shadowless, 1);
-        setCookie("transitionCharacterBackground", monster.dominantColor, 1);
-        setCookie("transitionSigil", dominantElement.sigil, 1);
-        setCookie("transitionSigilBackground", dominantElement.highlight, 1);
-
-        document.body.classList.add("transitionActive");
-
-        setTimeout(() =>
-        {
-            window.location.href = this.href;
-
-            // prevent blocking out the user if they press the back button
-            setTimeout(() =>
-            {
-                document.body.classList.remove("transitionActive");
-            }, 5000);
-        }, transitionTime);
+        transitionToSite(this.href, monster.images.shadowless, monster.dominantColor, dominantElement.sigil, dominantElement.highlight);
     });
 
     return ameDiv;
@@ -736,7 +762,7 @@ export function makeFormDiv(monster, form, className = "box")
 //#region islands
 class Island
 {
-    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters)
+    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters, transitionElement)
     {
         this.name = name;
         this.monsterClass = monsterClass;
@@ -746,6 +772,9 @@ class Island
         this.monsters = monsters;
         this.youtubeId = youtubeId;
         this.quad = null;
+
+        if (transitionElement == undefined) transitionElement = affiliation;
+        this.transitionElement = transitionElement;
 
         this.isATN = name.endsWith("All Together Now!");
     }
@@ -792,7 +821,7 @@ const daAmeliorateSongs =
             getAmeliorateById("nillaCorn"),
             getAmeliorateById("TrashCymbal"),
             getAmeliorateById("Organe")
-        ]),
+        ], trashElement),
     trashInterlude = new Island("Trash Interlude", "Ameliorate", daAmeliorateElements, trashElement, "hY7ooDf9HGY",
         [
             getAmeliorateById("Guira"),
@@ -848,6 +877,15 @@ export function makeIslandDiv(island, isSong = false)
     const islandName = document.createElement("label");
     islandName.innerHTML = island.name;
     islandDiv.appendChild(islandName);
+
+    islandDiv.addEventListener("click", function (e)
+    {
+        e.preventDefault();
+
+        const dominantMonster = island.monsters[Math.floor(Math.random() * island.monsters.length)];
+
+        transitionToSite(this.href, dominantMonster.images.shadowless, dominantMonster.dominantColor, island.transitionElement.sigil, island.transitionElement.highlight);
+    });
 
     return islandDiv;
 }

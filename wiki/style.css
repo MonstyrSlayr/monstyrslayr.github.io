@@ -257,6 +257,12 @@ p
 {
     scale: 105%;
     cursor: pointer;
+    text-decoration: none;
+}
+
+div > label:hover
+{
+    cursor: pointer;
 }
 
 .monsterEmoji
