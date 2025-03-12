@@ -1,3 +1,5 @@
+import { transitionToSiteRandom } from "./data.js";
+
 export function createHeader()
 {
     const header = document.createElement("header");
@@ -71,6 +73,12 @@ export function createHomeButton()
     const homeButtonLink = createLink("https://monstyrslayr.github.io/wiki/ameliorates");
     homeButtonLink.id = "homeButton";
     homeButtonLink.textContent = "< Home";
+    homeButtonLink.addEventListener("click", function (e)
+    {
+        e.preventDefault();
+    
+        transitionToSiteRandom(this.href);
+    });
     return homeButtonLink;
 }
 

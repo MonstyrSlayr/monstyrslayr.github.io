@@ -1,4 +1,4 @@
-import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSite } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
@@ -137,13 +137,7 @@ monsterRenderToolLink.addEventListener("click", function (e)
 {
 	e.preventDefault();
 
-	const curAmeliorates = getAmeliorates();
-	const dominantMonster = curAmeliorates[Math.floor(Math.random() * curAmeliorates.length)];
-
-	const curElements = getElements();
-	const dominantElement = curElements[Math.floor(Math.random() * curElements.length)];
-
-	transitionToSite(this.href, dominantMonster.images.shadowless, dominantMonster.dominantColor, dominantElement.sigil, dominantElement.highlight);
+	transitionToSiteRandom(this.href);
 });
 
 function resizeWindow()

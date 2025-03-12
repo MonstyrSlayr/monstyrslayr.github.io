@@ -8,11 +8,13 @@ body
 {
     margin: 16px;
     background-color: #1e1e1e;
+    overflow-x: hidden;
 }
 
 body > *
 {
     margin: 0 auto;
+    background-color: none;
 }
 
 header
@@ -22,6 +24,7 @@ header
     padding: 0;
     color: white;
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -635,10 +638,22 @@ input[type=range][orient=vertical]
     appearance: slider-vertical;
     width: 96px;
     height: 128px;
-    scale: 150%;
     margin-bottom: 50%;
     transform-origin: 50% 0;
     vertical-align: bottom;
+    scale: 150%;
+}
+
+input[type=range][orient=horizontal]
+{
+    writing-mode: horizontal-tb;
+    direction: ltr;
+    appearance: slider-horizontal;
+    height: 96px;
+    width: 128px;
+    transform-origin: 0 50%;
+    margin-top: -32px;
+    margin-bottom: 16px;
 }
 
 input[type=checkbox]
@@ -784,9 +799,52 @@ input[type=checkbox]
         flex-direction: column;
     }
 
+    #renderLeft
+    {
+        width: 100%;
+        align-items: center;
+    }
+
     #renderRight
     {
         width: auto;
         margin: 16px;
+    }
+}
+
+@media screen and (max-width: 750px)
+{
+    .scrollContainer
+    {
+        flex-direction: column;
+    }
+
+    .scrollBar
+    {
+        scale: 150%;
+    }
+
+    .scrollBar label
+    {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 550px)
+{
+    header
+    {
+        flex-direction: column;
+    }
+
+    #invisibleHomeButton
+    {
+        display: none;
+    }
+
+    div:has(label, select)
+    {
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -9,6 +9,22 @@ function fetchMonsters() {
     ];
 }
 
+function allElementsEqual(arr)
+{
+    if (arr.length === 0)
+    {
+        return true;
+    }
+    const first = arr[0];
+    return arr.every(element => element === first);
+}
+
+let bulbLimit = 1;
+let hostessLimit = 2;
+let clayLimit = 1;
+let signalLimit = 0;
+let trashLimit = 2;
+
 // Populate monster dropdown
 const monsterSelect = document.getElementById('monsterSelect');
 const monsters = getAmeliorates();
@@ -43,7 +59,7 @@ for (const barContainer of document.getElementsByClassName("scrollBar"))
 const linelessCheck = document.getElementById('lineless');
 const shadowlessCheck = document.getElementById('shadowless');
 
-function updateRenderedMonster()
+function updateRenderedMonster(caller = null)
 {
     const mon = getAmeliorateById(monsterSelect.value);
 
@@ -56,6 +72,47 @@ function updateRenderedMonster()
 
     const lineless = linelessCheck.checked ? "-Lineless" : "";
     const shadowless = shadowlessCheck.checked ? "-Shadowless" : "";
+
+    if (caller === monsterSelect)
+    {
+        bulbLimit = 0;
+        hostessLimit = 0;
+        clayLimit = 0;
+        signalLimit = 0;
+        trashLimit = 0;
+
+        mon.loadForms().then(() =>
+        {
+            for (const form of mon.forms)
+            {
+                if (allElementsEqual(form.elements) && form.elements.length > 0)
+                {
+                    switch (form.elements[0].name.toLowerCase())
+                    {
+                        case "bulb":
+                            bulbLimit = Math.max(bulbLimit, form.elements.length);
+                        break;
+                        
+                        case "hostess":
+                            hostessLimit = Math.max(hostessLimit, form.elements.length);
+                        break;
+                        
+                        case "clay":
+                            clayLimit = Math.max(clayLimit, form.elements.length);
+                        break;
+                        
+                        case "signal":
+                            signalLimit = Math.max(signalLimit, form.elements.length);
+                        break;
+                        
+                        case "trash":
+                            trashLimit = Math.max(trashLimit, form.elements.length);
+                        break;
+                    }
+                }
+            }
+        });
+    }
 
     // Construct file name
     const eleTags = bLevel + hLevel + cLevel + sLevel + tLevel;
@@ -87,36 +144,36 @@ monsterSelect.addEventListener("input", function()
     cScroll.value = 0;
     sScroll.value = 0;
     tScroll.value = 0;
-    updateRenderedMonster();
+    updateRenderedMonster(monsterSelect);
 });
 
 bScroll.addEventListener("input", function ()
 {
-    if (bScroll.value > 1) bScroll.value = 1;
+    if (bScroll.value > bulbLimit) bScroll.value = bulbLimit;
     updateRenderedMonster();
 });
 
 hScroll.addEventListener("input", function ()
 {
-    if (hScroll.value > 2) hScroll.value = 2;
+    if (hScroll.value > hostessLimit) hScroll.value = hostessLimit;
     updateRenderedMonster();
 });
 
 cScroll.addEventListener("input", function ()
 {
-    if (cScroll.value > 1) cScroll.value = 1;
+    if (cScroll.value > clayLimit) cScroll.value = clayLimit;
     updateRenderedMonster();
 });
 
 sScroll.addEventListener("input", function ()
 {
-    if (sScroll.value > 0) sScroll.value = 0;
+    if (sScroll.value > signalLimit) sScroll.value = signalLimit;
     updateRenderedMonster();
 });
 
 tScroll.addEventListener("input", function ()
 {
-    if (tScroll.value > 2) tScroll.value = 2;
+    if (tScroll.value > trashLimit) tScroll.value = trashLimit;
     updateRenderedMonster();
 });
 
@@ -151,7 +208,34 @@ renderButton.addEventListener("click", () =>
     });
 });
 
-updateRenderedMonster();
+updateRenderedMonster(monsterSelect);
+
+function resizeWindow()
+{
+	const width = window.innerWidth;
+    
+    // Select elements you want to update
+    const elements = document.querySelectorAll("input[type='range']");
+
+    elements.forEach(element =>
+    {
+        if (width < 750)
+		{
+            element.setAttribute('orient', 'horizontal');
+        }
+		else
+		{
+            element.setAttribute('orient', 'vertical');
+        }
+    });
+}
+
+window.addEventListener('resize', () =>
+{
+    resizeWindow();
+});
+
+resizeWindow();
 
 const daEvent = new CustomEvent("pageScriptRun",
 {

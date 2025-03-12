@@ -74,6 +74,37 @@ export function transitionToSite(href, charT, charTColor, sigilT, sigilTColor)
     }, transitionTime);
 }
 
+export function transitionToSiteRandom(href)
+{
+    const curAmeliorates = getAmeliorates();
+	const dominantMonster = curAmeliorates[Math.floor(Math.random() * curAmeliorates.length)];
+
+	const curElements = getElements();
+	const dominantElement = curElements[Math.floor(Math.random() * curElements.length)];
+
+    daCharT.src = dominantMonster.images.shadowless;
+    daCharTDiv.style.backgroundColor = dominantMonster.dominantColor;
+    daSigilT.src = dominantElement.sigil;
+    daSigilTDiv.style.backgroundColor = dominantElement.highlight;
+    setCookie("transitionCharacter", dominantMonster.images.shadowless, 1);
+    setCookie("transitionCharacterBackground", dominantMonster.dominantColor, 1);
+    setCookie("transitionSigil", dominantElement.sigil, 1);
+    setCookie("transitionSigilBackground", dominantElement.highlight, 1);
+
+    document.body.classList.add("transitionActive");
+
+    setTimeout(() =>
+    {
+        window.location.href = href;
+
+        // prevent blocking out the user if they press the back button
+        setTimeout(() =>
+        {
+            document.body.classList.remove("transitionActive");
+        }, 2000);
+    }, transitionTime);
+}
+
 function rgb(r, g, b)
 {
     function componentToHex(c)
