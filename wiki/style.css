@@ -533,12 +533,15 @@ a > .miniElement:hover
 
 #onyxGap
 {
-    height: 45.2px;
+    height: 182.2px;
 }
 
 #onyxImg
 {
-    max-width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
 }
 
 .miniInfoContainer
@@ -792,7 +795,7 @@ input[type=checkbox]
 }
 
 
-@media screen and (max-width: 875px)
+@media screen and (max-width: 1300px)
 {
     #renderContainer
     {

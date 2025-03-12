@@ -1,13 +1,5 @@
-import { fileExists, getAmeliorateById, getAmeliorates, getElementById } from "../data.js"
-
-// Mock function to fetch monsters from the server
-function fetchMonsters() {
-    return [
-        { id: 1, name: "Dragon", baseImage: "dragon.png" },
-        { id: 2, name: "Goblin", baseImage: "goblin.png" },
-        { id: 3, name: "Troll", baseImage: "troll.png" }
-    ];
-}
+import { fileExists, getAmeliorateById, getAmeliorates, getElementById, getElements } from "../data.js";
+import { createInfoSiteHeader } from "../wikiTools.js";
 
 function allElementsEqual(arr)
 {
@@ -19,19 +11,22 @@ function allElementsEqual(arr)
     return arr.every(element => element === first);
 }
 
-let bulbLimit = 1;
-let hostessLimit = 2;
-let clayLimit = 1;
-let signalLimit = 0;
-let trashLimit = 2;
+const ameliorateElements = getElements();
+
+const limit = new Object();
+limit.bulb = 1;
+limit.hostess = 2;
+limit.clay = 1;
+limit.signal = 0;
+limit.trash = 2;
 
 // Populate monster dropdown
-const monsterSelect = document.getElementById('monsterSelect');
+const monsterSelect = document.getElementById("monsterSelect");
 const monsters = getAmeliorates();
 
 monsters.forEach(monster =>
 {
-    const option = document.createElement('option');
+    const option = document.createElement("option");
     option.value = monster.id;
     option.textContent = monster.realName;
     monsterSelect.appendChild(option);
@@ -40,11 +35,11 @@ monsters.forEach(monster =>
 const renderedMonster = document.getElementById("renderedMonster");
 const renderedMonsterError = document.getElementById("renderedMonsterError");
 
-const bScroll = document.getElementById('bScroll');
-const hScroll = document.getElementById('hScroll');
-const cScroll = document.getElementById('cScroll');
-const sScroll = document.getElementById('sScroll');
-const tScroll = document.getElementById('tScroll');
+const scroll = new Object();
+ameliorateElements.forEach(element =>
+{
+    scroll[element.name.toLowerCase()] = document.getElementById(element.name.toLowerCase()[0] + "Scroll");
+});
 
 for (const barContainer of document.getElementsByClassName("scrollBar"))
 {
@@ -56,30 +51,33 @@ for (const barContainer of document.getElementsByClassName("scrollBar"))
     bar.style.accentColor = sigil.main;
 }
 
-const linelessCheck = document.getElementById('lineless');
-const shadowlessCheck = document.getElementById('shadowless');
+const linelessCheck = document.getElementById("lineless");
+const shadowlessCheck = document.getElementById("shadowless");
 
 function updateRenderedMonster(caller = null)
 {
     const mon = getAmeliorateById(monsterSelect.value);
 
     // Get selected tags
-    const bLevel = ["", "B"][bScroll.value];
-    const hLevel = ["", "H", "HH"][hScroll.value];
-    const cLevel = ["", "C"][cScroll.value];
-    const sLevel = [""][sScroll.value];
-    const tLevel = ["", "T", "TT"][tScroll.value];
+    const level = new Object();
+    const maxLevels = 2;
+    ameliorateElements.forEach(element =>
+    {
+        level[element.name.toLowerCase()] = 
+        [...Array.from({ length: maxLevels + 1 }, (_, i) => (element.name.toUpperCase()[0]).repeat(i))]
+        [scroll[element.name.toLowerCase()].value];
+    });
 
     const lineless = linelessCheck.checked ? "-Lineless" : "";
     const shadowless = shadowlessCheck.checked ? "-Shadowless" : "";
 
     if (caller === monsterSelect)
     {
-        bulbLimit = 0;
-        hostessLimit = 0;
-        clayLimit = 0;
-        signalLimit = 0;
-        trashLimit = 0;
+        limit.bulb = 0;
+        limit.hostess = 0;
+        limit.clay = 0;
+        limit.signal = 0;
+        limit.trash = 0;
 
         mon.loadForms().then(() =>
         {
@@ -87,35 +85,14 @@ function updateRenderedMonster(caller = null)
             {
                 if (allElementsEqual(form.elements) && form.elements.length > 0)
                 {
-                    switch (form.elements[0].name.toLowerCase())
-                    {
-                        case "bulb":
-                            bulbLimit = Math.max(bulbLimit, form.elements.length);
-                        break;
-                        
-                        case "hostess":
-                            hostessLimit = Math.max(hostessLimit, form.elements.length);
-                        break;
-                        
-                        case "clay":
-                            clayLimit = Math.max(clayLimit, form.elements.length);
-                        break;
-                        
-                        case "signal":
-                            signalLimit = Math.max(signalLimit, form.elements.length);
-                        break;
-                        
-                        case "trash":
-                            trashLimit = Math.max(trashLimit, form.elements.length);
-                        break;
-                    }
+                    limit[form.elements[0].name.toLowerCase()] = Math.max(limit[form.elements[0].name.toLowerCase()], form.elements.length);
                 }
             }
         });
     }
 
     // Construct file name
-    const eleTags = bLevel + hLevel + cLevel + sLevel + tLevel;
+    const eleTags = level.bulb + level.hostess + level.clay + level.signal + level.trash;
     const tags = (eleTags.length > 0 ? "-" : "") + eleTags + lineless + shadowless;
     const filename = "https://monstyrslayr.github.io/wiki/img/" + mon.id + "-" + mon.elementString + tags + ".png";
 
@@ -139,42 +116,20 @@ function updateRenderedMonster(caller = null)
 
 monsterSelect.addEventListener("input", function()
 {
-    bScroll.value = 0;
-    hScroll.value = 0;
-    cScroll.value = 0;
-    sScroll.value = 0;
-    tScroll.value = 0;
+    ameliorateElements.forEach(element =>
+    {
+        scroll[element.name.toLowerCase()].value = 0;
+    });
     updateRenderedMonster(monsterSelect);
 });
 
-bScroll.addEventListener("input", function ()
+ameliorateElements.forEach(element =>
 {
-    if (bScroll.value > bulbLimit) bScroll.value = bulbLimit;
-    updateRenderedMonster();
-});
-
-hScroll.addEventListener("input", function ()
-{
-    if (hScroll.value > hostessLimit) hScroll.value = hostessLimit;
-    updateRenderedMonster();
-});
-
-cScroll.addEventListener("input", function ()
-{
-    if (cScroll.value > clayLimit) cScroll.value = clayLimit;
-    updateRenderedMonster();
-});
-
-sScroll.addEventListener("input", function ()
-{
-    if (sScroll.value > signalLimit) sScroll.value = signalLimit;
-    updateRenderedMonster();
-});
-
-tScroll.addEventListener("input", function ()
-{
-    if (tScroll.value > trashLimit) tScroll.value = trashLimit;
-    updateRenderedMonster();
+    scroll[element.name.toLowerCase()].addEventListener("input", function ()
+    {
+        if (scroll[element.name.toLowerCase()].value > limit[element.name.toLowerCase()]) scroll[element.name.toLowerCase()].value = limit[element.name.toLowerCase()];
+        updateRenderedMonster();
+    });
 });
 
 linelessCheck.addEventListener("input", function()
@@ -197,7 +152,7 @@ renderButton.addEventListener("click", () =>
     {
         if (exists)
         {
-            const link = document.createElement('a');
+            const link = document.createElement("a");
             link.href = renderedMonster.src;
             link.download = renderedMonster.src;
             link.target = "_blank";
@@ -221,16 +176,16 @@ function resizeWindow()
     {
         if (width < 750)
 		{
-            element.setAttribute('orient', 'horizontal');
+            element.setAttribute("orient", "horizontal");
         }
 		else
 		{
-            element.setAttribute('orient', 'vertical');
+            element.setAttribute("orient", "vertical");
         }
     });
 }
 
-window.addEventListener('resize', () =>
+window.addEventListener("resize", () =>
 {
     resizeWindow();
 });
@@ -244,3 +199,6 @@ const daEvent = new CustomEvent("pageScriptRun",
     cancelable: true
 });
 document.dispatchEvent(daEvent);
+
+const header = document.querySelector("header");
+header.replaceWith(createInfoSiteHeader("Monster Render Tool"));
