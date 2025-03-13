@@ -125,11 +125,27 @@ function hexToRgb(hex)
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
     } : null;
-  }
+}
   
 function rgbToHex(r, g, b)
 {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+export function rgbFuncToHex(rgb)
+{
+    const values = rgb.substring(4, rgb.length - 1).split(',').map(Number);
+    const r = values[0];
+    const g = values[1];
+    const b = values[2];
+  
+    const componentToHex = (c) =>
+    {
+        const hex = c.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+    }
+  
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 function mixHexColors(colors)
@@ -169,6 +185,34 @@ function getCapitalLetters(str)
     }
     return capitals;
 }
+
+export function blendHexColors(hexA, hexB, percentage)
+{
+    const toRgb = hex => (
+    {
+        r: parseInt(hex.slice(1, 3), 16),
+        g: parseInt(hex.slice(3, 5), 16),
+        b: parseInt(hex.slice(5, 7), 16)
+    });
+  
+    const toHex = rgb => '#' + [rgb.r, rgb.g, rgb.b]
+    .map(x => x.toString(16).padStart(2, '0'))
+    .join('');
+  
+    const rgbA = toRgb(hexA);
+    const rgbB = toRgb(hexB);
+  
+    const blendedRgb =
+    {
+        r: Math.round(rgbA.r * (1 - percentage) + rgbB.r * percentage),
+        g: Math.round(rgbA.g * (1 - percentage) + rgbB.g * percentage),
+        b: Math.round(rgbA.b * (1 - percentage) + rgbB.b * percentage)
+    };
+  
+    return toHex(blendedRgb);
+}
+
+export const backgroundBlend = 0.05;
 
 function getFirstLetters(str)
 {

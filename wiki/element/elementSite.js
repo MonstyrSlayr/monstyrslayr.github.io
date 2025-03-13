@@ -1,4 +1,4 @@
-import { getAmeliorates, getElementById, getElementData, makeAmeliorateDiv } from "../data.js";
+import { getAmeliorates, getElementById, getElementData, makeAmeliorateDiv, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -15,6 +15,8 @@ function getLastFolder(url, num)
 
 const daId = getLastFolder(window.location.href, 1);
 const daElement = getElementById(daId);
+
+document.body.style.backgroundColor = blendHexColors(rgbFuncToHex(window.getComputedStyle(document.body).getPropertyValue("background-color")), daElement.main, backgroundBlend);
 
 const header = createInfoSiteHeader(daElement.name);
 document.body.appendChild(header);

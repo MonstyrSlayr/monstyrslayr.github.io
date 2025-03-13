@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -89,6 +89,8 @@ daMonster.loadForms().then(() =>
         }
         else
         {
+            document.body.style.backgroundColor = blendHexColors(rgbFuncToHex(window.getComputedStyle(document.body).getPropertyValue("background-color")), daMonster.dominantColor, backgroundBlend);
+        
             // cool animated monster logic
             const scrollThreshold = 0.45;
             let monsterVidEnded = function() {}

@@ -1,4 +1,4 @@
-import { getIslandById, getSongById, getIslandData, makeAmeliorateDiv, makeMiniElement } from "../data.js";
+import { getIslandById, getSongById, getIslandData, makeAmeliorateDiv, makeMiniElement, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
 import { createInfoSiteHeader, createContainer, createContentContainer, createInfoSection, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -17,6 +17,8 @@ const daId = getLastFolder(window.location.href, 1);
 let daIsland;
 if (getLastFolder(window.location.href, 2) !== "island") daIsland = getSongById(daId);
 else daIsland = getIslandById(daId);
+
+document.body.style.backgroundColor = blendHexColors(rgbFuncToHex(window.getComputedStyle(document.body).getPropertyValue("background-color")), daIsland.affiliation.main, backgroundBlend);
 
 const header = createInfoSiteHeader(daIsland.name);
 document.body.appendChild(header);
