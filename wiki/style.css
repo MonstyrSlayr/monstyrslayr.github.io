@@ -263,7 +263,7 @@ p
     text-decoration: none;
 }
 
-div > label:hover
+div > label:hover, a > label:hover
 {
     cursor: pointer;
 }
