@@ -591,6 +591,7 @@ const daAmeliorates =
                             {
                                 intro: "ReeseIntro",
                                 idle: "ReeseIdle",
+                                idling0: "ReeseIdling0",
                                 scrollDown: "ReeseScrollDown",
                                 scrolled: "ReeseScrolled",
                                 scrollUp: "ReeseScrollUp",

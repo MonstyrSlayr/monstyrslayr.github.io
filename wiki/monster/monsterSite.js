@@ -93,6 +93,7 @@ daMonster.loadForms().then(() =>
         
             // cool animated monster logic
             const scrollThreshold = 0.45;
+            const idlingChance = 0.33;
             let monsterVidEnded = function() {}
 
             const noClick = ["scrollDown", "scrolled", "intro"];
@@ -122,21 +123,25 @@ daMonster.loadForms().then(() =>
                     if (array.length >= targetLength && !executed)
                     {
                         executed = true;
-                        clearTimeout(timeoutId); // Stop the timeout
-                        clearInterval(intervalId); // Stop checking the array
+                        clearTimeout(timeoutId);
+                        clearInterval(intervalId);
                         callback(array);
                     }
-                }, 50); // Poll every 50ms (adjust as needed)
+                }, 50);
             }
 
             function changeMonsterState(state)
             {
-                if (state in daMonster.behavior)
+                const idlings = Object.entries(daMonster.behavior).filter(daState => daState[0].startsWith("idling"));
+                const hasIdlings = idlings.length > 0;
+                const isIdling = state == "idling" && hasIdlings;
+
+                if (state in daMonster.behavior || isIdling)
                 {
                     daMonsterState = state;
 
                     // my name is
-                    const daVid = document.getElementById("vid" + state); // dad, i want some ice cream
+                    const daVid = isIdling ? document.getElementById("vid" + idlings[Math.floor(Math.random() * idlings.length)][0]) : document.getElementById("vid" + state); // dad, i want some ice cream
 
                     if (daVid) // that is my name
                     {
@@ -187,7 +192,8 @@ daMonster.loadForms().then(() =>
 
                 const monsterVidSource = document.createElement("source");
                 monsterVidSource.type = "video/webm";
-                monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
+                // monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
+                monsterVidSource.src = "../../video/" + daMonster.behavior[state] + ".webm";
                 monsterVid.appendChild(monsterVidSource);
                 monsterVid.load();
 
@@ -254,10 +260,26 @@ daMonster.loadForms().then(() =>
                             }
                         break;
 
-                        case "scrollUp": case "click": case "intro":
+                        case "idle":
+                            {
+                                let curVid;
+
+                                if (Math.random() < idlingChance)
+                                {
+                                    curVid = changeMonsterState("idling");
+                                }
+                                else
+                                {
+                                    curVid = changeMonsterState("idle");
+                                }
+                                curVid.loop = false;
+                            }
+                        break;
+
+                        case "scrollUp": case "click": case "intro": case "idling":
                             {
                                 const curVid = changeMonsterState("idle");
-                                curVid.loop = true;
+                                curVid.loop = false;
                             }
                         break;
                     }
