@@ -20,35 +20,6 @@ daSigilTDiv.appendChild(daSigilT);
 
 const transitionTime = 400;
 
-if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
-{
-    document.body.classList.add("transitionActive");
-
-    daCharT.src = getCookie("transitionCharacter");
-    daCharTDiv.style.backgroundColor = getCookie("transitionCharacterBackground");
-    daSigilT.src = getCookie("transitionSigil");
-    daSigilTDiv.style.backgroundColor = getCookie("transitionSigilBackground");
-
-    deleteCookie("transitionCharacter");
-    deleteCookie("transitionSigil");
-    deleteCookie("transitionCharacterBackground");
-    deleteCookie("transitionSigilBackground");
-
-    window.addEventListener("pageScriptRun", () =>
-    {
-        setTimeout(() =>
-        {
-            document.body.classList.add("transitionFinal");
-
-            setTimeout(() =>
-            {
-                document.body.classList.remove("transitionActive");
-                document.body.classList.remove("transitionFinal");
-            }, transitionTime);
-        }, transitionTime);
-    });
-}
-
 export function transitionToSite(href, charT, charTColor, sigilT, sigilTColor)
 {
     daCharT.src = charT;
@@ -981,3 +952,61 @@ export async function getIslandData(id)
     return monsterLine;
 }
 //#endregion
+
+if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
+{
+    document.body.classList.add("transitionActive");
+
+    daCharT.src = getCookie("transitionCharacter");
+    daCharTDiv.style.backgroundColor = getCookie("transitionCharacterBackground");
+    daSigilT.src = getCookie("transitionSigil");
+    daSigilTDiv.style.backgroundColor = getCookie("transitionSigilBackground");
+
+    deleteCookie("transitionCharacter");
+    deleteCookie("transitionSigil");
+    deleteCookie("transitionCharacterBackground");
+    deleteCookie("transitionSigilBackground");
+
+    window.addEventListener("pageScriptRun", () =>
+    {
+        setTimeout(() =>
+        {
+            document.body.classList.add("transitionFinal");
+
+            setTimeout(() =>
+            {
+                document.body.classList.remove("transitionActive");
+                document.body.classList.remove("transitionFinal");
+            }, transitionTime);
+        }, transitionTime);
+    });
+}
+else
+{
+    const curAmeliorates = getAmeliorates();
+    const dominantMonster = curAmeliorates[Math.floor(Math.random() * curAmeliorates.length)];
+
+    const curElements = getElements();
+    const dominantElement = curElements[Math.floor(Math.random() * curElements.length)];
+
+    daCharT.src = dominantMonster.images.shadowless;
+    daCharTDiv.style.backgroundColor = dominantMonster.dominantColor;
+    daSigilT.src = dominantElement.sigil;
+    daSigilTDiv.style.backgroundColor = dominantElement.highlight;
+
+    document.body.classList.add("transitionActive");
+    
+    window.addEventListener("pageScriptRun", () =>
+    {
+        setTimeout(() =>
+        {
+            document.body.classList.add("transitionFinal");
+
+            setTimeout(() =>
+            {
+                document.body.classList.remove("transitionActive");
+                document.body.classList.remove("transitionFinal");
+            }, transitionTime);
+        }, transitionTime);
+    });
+}

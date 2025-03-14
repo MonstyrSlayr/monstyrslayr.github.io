@@ -132,6 +132,14 @@ daMonster.loadForms().then(() =>
 
             function changeMonsterState(state)
             {
+                if (state == daMonsterState)
+                {
+                    const vid = [...document.getElementsByClassName("monsterVid")].filter(daVid => !daVid.classList.contains("monsterVidDisabled"))[0];
+                    vid.currentTime = 0;
+                    vid.play();
+                    return vid;
+                }
+
                 const idlings = Object.entries(daMonster.behavior).filter(daState => daState[0].startsWith("idling"));
                 const hasIdlings = idlings.length > 0;
                 const isIdling = state == "idling" && hasIdlings;
@@ -147,6 +155,8 @@ daMonster.loadForms().then(() =>
                     {
                         function playDaVid() // i want another
                         {
+                            daVid.classList.remove("monsterVidDisabled");
+
                             for (const vid of document.getElementsByClassName("monsterVid"))
                             {
                                 if (vid !== daVid) // where is my ball ?
@@ -160,7 +170,6 @@ daMonster.loadForms().then(() =>
                             // i'm running out on the road
                             // there is a car
 
-                            daVid.classList.remove("monsterVidDisabled");
                             daVid.play();
                             daVid.removeEventListener("canplaythrough", playDaVid);
                         }
@@ -188,6 +197,7 @@ daMonster.loadForms().then(() =>
                 monsterVid.muted = true;
                 monsterVid.loop = true; // dependent for each behavior, define in switch
                 monsterVid.playsInline = true;
+                monsterVid.preload = "auto";
                 soloMonster.appendChild(monsterVid);
 
                 const monsterVidSource = document.createElement("source");
@@ -211,7 +221,7 @@ daMonster.loadForms().then(() =>
                     setupOpaqueClickDetection(monsterVid, function ()
                     {
                         const curVid = changeMonsterState("click");
-                        curVid.loop = false;
+                        if (curVid) curVid.loop = false;
                     });
                 }
             }
@@ -219,7 +229,8 @@ daMonster.loadForms().then(() =>
             waitForArray(document.getElementsByClassName("monsterVid"), Object.keys(daMonster.behavior).length, 50, function()
             {
                 const curVid = changeMonsterState("intro");
-                curVid.loop = false;
+                if (curVid) curVid.loop = false;
+                else changeMonsterState("idle");
 
                 // dynamic changing
                 const monsterVidInterval = setInterval
@@ -232,7 +243,7 @@ daMonster.loadForms().then(() =>
                                 if (getVisiblePercentage(soloMonster) < scrollThreshold)
                                 {
                                     const curVid = changeMonsterState("scrollDown");
-                                    curVid.loop = false;
+                                    if (curVid) curVid.loop = false;
                                 }
                             break;
 
@@ -240,7 +251,7 @@ daMonster.loadForms().then(() =>
                                 if (getVisiblePercentage(soloMonster) > scrollThreshold)
                                 {
                                     const curVid = changeMonsterState("scrollUp");
-                                    curVid.loop = false;
+                                    if (curVid) curVid.loop = false;
                                 }
                             break;
                         }
@@ -255,7 +266,7 @@ daMonster.loadForms().then(() =>
                         case "scrollDown":
                             {
                                 const curVid = changeMonsterState("scrolled");
-                                curVid.loop = true;
+                                if (curVid) curVid.loop = true;
                             }
                         break;
 
@@ -271,20 +282,24 @@ daMonster.loadForms().then(() =>
                                 {
                                     curVid = changeMonsterState("idle");
                                 }
-                                curVid.loop = false;
+                                if (curVid) curVid.loop = false;
                             }
                         break;
 
                         case "scrollUp": case "click": case "intro": case "idling":
                             {
                                 const curVid = changeMonsterState("idle");
-                                curVid.loop = false;
+                                if (curVid) curVid.loop = false;
                             }
                         break;
                     }
                 }
             })
         }
+
+        const soloWrapper = document.createElement("div");
+        soloWrapper.classList.add("soloWrapper");
+        soloMonster.appendChild(soloWrapper);
 
     document.body.appendChild(soloMonster);
 
