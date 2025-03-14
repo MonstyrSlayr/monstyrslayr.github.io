@@ -208,8 +208,7 @@ daMonster.loadForms().then(() =>
 
                 const monsterVidSource = document.createElement("source");
                 monsterVidSource.type = "video/webm";
-                // monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
-                monsterVidSource.src = "../../video/" + daMonster.behavior[state] + ".webm";
+                monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
                 monsterVid.appendChild(monsterVidSource);
                 monsterVid.load();
 
