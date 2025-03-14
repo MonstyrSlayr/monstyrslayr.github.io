@@ -26,12 +26,12 @@ function getVisiblePercentage(el)
     return (visibleHeight / rect.height);
 }
 
-function setupOpaqueClickDetection(videoElement, callback)
+function setupOpaqueClickDetection(soloWrapper, videoElement, callback)
 {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    videoElement.addEventListener("click", (event) =>
+    soloWrapper.addEventListener("click", (event) =>
     {
         const rect = videoElement.getBoundingClientRect();
         const scaleX = videoElement.videoWidth / rect.width;
@@ -41,18 +41,21 @@ function setupOpaqueClickDetection(videoElement, callback)
         const x = (event.clientX - rect.left) * scaleX;
         const y = (event.clientY - rect.top) * scaleY;
 
-        // Draw the current video frame on the canvas
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
-        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-
-        // Get the pixel data
-        const pixel = ctx.getImageData(x, y, 1, 1).data;
-        const alpha = pixel[3]; // Alpha channel (0 = transparent, 255 = fully opaque)
-
-        if (alpha > 0)
+        if (x !== Infinity && x !== NaN)
         {
-            callback(event); // Call the callback function if clicked on an opaque part
+            // Draw the current video frame on the canvas
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+            // Get the pixel data
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            const alpha = pixel[3]; // Alpha channel (0 = transparent, 255 = fully opaque)
+
+            if (alpha > 0)
+            {
+                callback(event); // Call the callback function if clicked on an opaque part
+            }
         }
     });
 }
@@ -73,6 +76,9 @@ daMonster.loadForms().then(() =>
     const soloMonster = document.createElement("div");
     soloMonster.classList = ["soloMonster"];
     soloMonster.style.backgroundColor = daMonster.affiliation.outside;
+
+        const soloWrapper = document.createElement("div");
+        soloWrapper.classList.add("soloWrapper");
 
         // safari doesn't support transparent webm files yet
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -202,7 +208,8 @@ daMonster.loadForms().then(() =>
 
                 const monsterVidSource = document.createElement("source");
                 monsterVidSource.type = "video/webm";
-                monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
+                // monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
+                monsterVidSource.src = "../../video/" + daMonster.behavior[state] + ".webm";
                 monsterVid.appendChild(monsterVidSource);
                 monsterVid.load();
 
@@ -218,7 +225,7 @@ daMonster.loadForms().then(() =>
 
                 if (!noClick.includes(state))
                 {
-                    setupOpaqueClickDetection(monsterVid, function ()
+                    setupOpaqueClickDetection(soloWrapper, monsterVid, function ()
                     {
                         const curVid = changeMonsterState("click");
                         if (curVid) curVid.loop = false;
@@ -297,8 +304,6 @@ daMonster.loadForms().then(() =>
             })
         }
 
-        const soloWrapper = document.createElement("div");
-        soloWrapper.classList.add("soloWrapper");
         soloMonster.appendChild(soloWrapper);
 
     document.body.appendChild(soloMonster);
