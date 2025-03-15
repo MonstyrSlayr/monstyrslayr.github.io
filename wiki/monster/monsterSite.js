@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements, blendHexColors, rgbFuncToHex, backgroundBlend, debug, home } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -152,6 +152,7 @@ daMonster.loadForms().then(() =>
 
                 if (state in daMonster.behavior || isIdling)
                 {
+                    if (debug) console.log("animated monster state: " + state);
                     daMonsterState = state;
 
                     // my name is
@@ -208,7 +209,7 @@ daMonster.loadForms().then(() =>
 
                 const monsterVidSource = document.createElement("source");
                 monsterVidSource.type = "video/webm";
-                monsterVidSource.src = "https://monstyrslayr.github.io/wiki/video/" + daMonster.behavior[state] + ".webm";
+                monsterVidSource.src = home + "video/" + daMonster.behavior[state] + ".webm";
                 monsterVid.appendChild(monsterVidSource);
                 monsterVid.load();
 
@@ -261,7 +262,7 @@ daMonster.loadForms().then(() =>
                                 }
                             break;
                         }
-                    }, 50
+                    }, 1000/24 // frame rate
                 );
 
                 // changing on video end
@@ -397,7 +398,7 @@ daMonster.loadForms().then(() =>
                         const monOtherDiv = createContentContainer();
                             for (const song of daSongs)
                             {
-                                const daSongDiv = makeIslandDiv(song);
+                                const daSongDiv = makeIslandDiv(song, true);
                                 monOtherDiv.appendChild(daSongDiv);
                             }
                         infoSectionOtherSongs.appendChild(monOtherDiv);
@@ -775,7 +776,7 @@ daMonster.loadForms().then(() =>
 
         if (Math.random() < showMessageChance && !hasPlayedTheseGamesBefore)
         {
-            fetch("https://monstyrslayr.github.io/wiki/monster/expifour/qna.json")
+            fetch(home + "monster/expifour/qna.json")
             .then(response => response.json())
             .then(data =>
             {

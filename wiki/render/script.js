@@ -1,4 +1,4 @@
-import { fileExists, getAmeliorateById, getAmeliorates, getElementById, getElements } from "../data.js";
+import { fileExists, getAmeliorateById, getAmeliorates, getElementById, getElements, home } from "../data.js";
 import { createInfoSiteHeader } from "../wikiTools.js";
 
 function allElementsEqual(arr)
@@ -94,7 +94,7 @@ function updateRenderedMonster(caller = null)
     // Construct file name
     const eleTags = level.bulb + level.hostess + level.clay + level.signal + level.trash;
     const tags = (eleTags.length > 0 ? "-" : "") + eleTags + lineless + shadowless;
-    const filename = "https://monstyrslayr.github.io/wiki/img/" + mon.id + "-" + mon.elementString + tags + ".png";
+    const filename = home + "img/" + mon.id + "-" + mon.elementString + tags + ".png";
 
     fileExists(filename).then(exists =>
     {

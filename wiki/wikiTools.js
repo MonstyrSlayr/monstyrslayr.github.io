@@ -1,4 +1,4 @@
-import { transitionToSiteRandom } from "./data.js";
+import { transitionToSiteRandom, home } from "./data.js";
 
 export function createHeader()
 {
@@ -70,7 +70,7 @@ export function createContentContainer()
 
 export function createHomeButton()
 {
-    const homeButtonLink = createLink("https://monstyrslayr.github.io/wiki/ameliorates");
+    const homeButtonLink = createLink(home + "ameliorates");
     homeButtonLink.id = "homeButton";
     homeButtonLink.textContent = "< Home";
     homeButtonLink.addEventListener("click", function (e)

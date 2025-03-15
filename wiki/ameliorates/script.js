@@ -1,4 +1,4 @@
-import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom, home } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
@@ -133,6 +133,7 @@ function createElementsDiv()
 createElementsDiv();
 
 const monsterRenderToolLink = document.getElementById("monsterRenderToolLink");
+monsterRenderToolLink.href = home + "render";
 monsterRenderToolLink.addEventListener("click", function (e)
 {
 	e.preventDefault();

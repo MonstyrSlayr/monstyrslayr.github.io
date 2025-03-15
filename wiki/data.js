@@ -1,6 +1,16 @@
 import { getCookie, setCookie, deleteCookie } from "https://monstyrslayr.github.io/wiki/cookies.js";
 
-export const IMG = "https://monstyrslayr.github.io/wiki/img/";
+function isLiveServer()
+{
+    return location.hostname === "127.0.0.1" || location.hostname === "localhost";
+}
+
+export const debug = isLiveServer();
+
+if (debug) console.log("debug mode");
+
+export const home = debug ? "http://127.0.0.1:5500/wiki/" : "https://monstyrslayr.github.io/wiki/";
+export const IMG = home + "img/";
 
 export const daCharTDiv = document.createElement("div");
 daCharTDiv.classList.add("characterT");
@@ -291,7 +301,7 @@ export function makeMiniElement(element, isActive = false, isClickable = true)
     {
         const aTag = document.createElement("a");
         aTag.appendChild(daSigil);
-        aTag.href = "https://monstyrslayr.github.io/wiki/element/" + daSigil.id.toLowerCase() + "/";
+        aTag.href = home + "element/" + daSigil.id.toLowerCase() + "/";
 
         aTag.addEventListener("click", function (e)
         {
@@ -314,7 +324,7 @@ export function makeElementDiv(element)
     elementDiv.classList = ["layer"];
     elementDiv.style.backgroundColor = element.outside;
     elementDiv.id = element.id;
-    elementDiv.href = "https://monstyrslayr.github.io/wiki/element/" + elementDiv.id.toLowerCase() + "/";
+    elementDiv.href = home + "element/" + elementDiv.id.toLowerCase() + "/";
 
     const elementImage = makeMiniElement(element, false, false);
     elementDiv.appendChild(elementImage);
@@ -348,7 +358,7 @@ function makeElementString(elements)
 
 export async function getElementData(id)
 {
-    const csvResponse = await fetch("https://monstyrslayr.github.io/wiki/elementData.csv");
+    const csvResponse = await fetch(home + "elementData.csv");
 	if (!csvResponse.ok)
 	{
 		throw new Error('Network response was not ok');
@@ -633,7 +643,7 @@ const daAmeliorates =
 
 export async function getMonsterData(id)
 {
-    const csvResponse = await fetch("https://monstyrslayr.github.io/wiki/monsterData.csv");
+    const csvResponse = await fetch(home + "monsterData.csv");
 	if (!csvResponse.ok)
 	{
 		throw new Error('Network response was not ok');
@@ -693,7 +703,7 @@ export function makeAmeliorateDiv(monster, className = "box")
     ameDiv.classList = [className + " ameliorateDiv"];
     ameDiv.style.backgroundColor = monster.affiliation.outside;
     ameDiv.id = monster.id;
-    ameDiv.href = "https://monstyrslayr.github.io/wiki/monster/" + ameDiv.id.toLowerCase() + "/";
+    ameDiv.href = home + "monster/" + ameDiv.id.toLowerCase() + "/";
 
     const ameImg = document.createElement("img");
     ameImg.src = monster.images.emoji;
@@ -919,7 +929,7 @@ export function makeIslandDiv(island, isSong = false)
     islandDiv.classList = ["layer"];
     islandDiv.style.backgroundColor = island.affiliation.outside;
     islandDiv.id = island.id;
-    islandDiv.href = "https://monstyrslayr.github.io/wiki/island/" + (isSong ? "song/" : "") + islandDiv.id.toLowerCase() + "/";
+    islandDiv.href = home + "island/" + (isSong ? "song/" : "") + islandDiv.id.toLowerCase() + "/";
 
     const islandName = document.createElement("label");
     islandName.innerHTML = island.name;
@@ -939,7 +949,7 @@ export function makeIslandDiv(island, isSong = false)
 
 export async function getIslandData(id)
 {
-    const csvResponse = await fetch("https://monstyrslayr.github.io/wiki/islandData.csv");
+    const csvResponse = await fetch(home + "islandData.csv");
 	if (!csvResponse.ok)
 	{
 		throw new Error('Network response was not ok');
