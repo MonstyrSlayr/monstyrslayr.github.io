@@ -100,9 +100,13 @@ daMonster.loadForms().then(() =>
             // cool animated monster logic
             const scrollThreshold = 0.45;
             const idlingChance = 0.33;
+            const sleepChance = 0.1;
             let monsterVidEnded = function() {}
 
-            const noClick = ["scrollDown", "scrolled", "intro"];
+            const monsterCanScroll = "scrolled" in daMonster.behavior;
+            const monsterCanSleep = "sleep" in daMonster.behavior;
+
+            const noClick = ["scrollDown", "scrolled", "intro", "sleepStart"];
 
             function waitForArray(array, targetLength, timeout, callback)
             {
@@ -138,6 +142,12 @@ daMonster.loadForms().then(() =>
 
             function changeMonsterState(state)
             {
+                const idlings = Object.entries(daMonster.behavior).filter(daState => daState[0].startsWith("idling"));
+                const hasIdlings = idlings.length > 0;
+                const isIdling = state == "idling" && hasIdlings;
+
+                if (state == "idling" && !isIdling) state = "idle";
+
                 if (state == daMonsterState)
                 {
                     const vid = [...document.getElementsByClassName("monsterVid")].filter(daVid => !daVid.classList.contains("monsterVidDisabled"))[0];
@@ -146,11 +156,7 @@ daMonster.loadForms().then(() =>
                     return vid;
                 }
 
-                const idlings = Object.entries(daMonster.behavior).filter(daState => daState[0].startsWith("idling"));
-                const hasIdlings = idlings.length > 0;
-                const isIdling = state == "idling" && hasIdlings;
-
-                if (state in daMonster.behavior || isIdling)
+                if (state in daMonster.behavior || isIdling || state == daMonsterState)
                 {
                     if (debug) console.log("animated monster state: " + state);
                     daMonsterState = state;
@@ -192,7 +198,10 @@ daMonster.loadForms().then(() =>
                     }
                 }
 
-                return null;
+                const vid = [...document.getElementsByClassName("monsterVid")].filter(daVid => !daVid.classList.contains("monsterVidDisabled"))[0];
+                vid.currentTime = 0;
+                vid.play();
+                return vid;
             }
 
             for (const state in daMonster.behavior)
@@ -247,7 +256,7 @@ daMonster.loadForms().then(() =>
                         switch (daMonsterState)
                         {
                             case "idle":
-                                if (getVisiblePercentage(soloMonster) < scrollThreshold)
+                                if (getVisiblePercentage(soloMonster) < scrollThreshold && monsterCanScroll)
                                 {
                                     const curVid = changeMonsterState("scrollDown");
                                     if (curVid) curVid.loop = false;
@@ -277,11 +286,22 @@ daMonster.loadForms().then(() =>
                             }
                         break;
 
+                        case "sleep": case "sleepStart":
+                            {
+                                const curVid = changeMonsterState("sleep");
+                                if (curVid) curVid.loop = false;
+                            }
+                        break;
+
                         case "idle":
                             {
                                 let curVid;
 
-                                if (Math.random() < idlingChance)
+                                if (Math.random() < sleepChance && monsterCanSleep)
+                                {
+                                    curVid = changeMonsterState("sleepStart");
+                                }
+                                else if (Math.random() < idlingChance)
                                 {
                                     curVid = changeMonsterState("idling");
                                 }

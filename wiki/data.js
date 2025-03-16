@@ -627,7 +627,15 @@ const daAmeliorates =
     new Ameliorate("KassBick",      [hostessElement, signalElement, trashElement], trashElement, "#006a36",
                         {age: 46, height: 114, weight: 177},    "Kass Bick"),
     new Ameliorate("Deltah",        [clayElement, signalElement, trashElement], clayElement, "#3ca33c",
-                        {age: 25, height: 191, heightIsApprox: true, weight: 108}),
+                        {age: 25, height: 191, heightIsApprox: true, weight: 108}, "Deltah",
+                            {
+                                intro: "DeltahIntro",
+                                idle: "DeltahIdle",
+                                sleepStart: "DeltahSleepStart",
+                                sleep: "DeltahSleep",
+                                click: "DeltahClick",
+                                idling0: "DeltahIdling0"
+                            }),
 
     new Ameliorate("Spotscast",     [bulbElement, hostessElement, clayElement, signalElement],   signalElement, "#ea62ea",
                         {age: 34, height: 203, weight: 135}),
