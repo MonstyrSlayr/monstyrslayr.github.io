@@ -14,16 +14,14 @@ class Animation
 
 function waitForArray(array, targetLength, timeout, callback)
 {
-    // Check if the array already meets the condition
-    if (array.length >= targetLength) {
+    if (array.length >= targetLength)
+    {
         callback(array);
         return;
     }
 
-    // Flag to ensure callback runs only once
     let executed = false;
 
-    // Timeout handler
     const timeoutId = setTimeout(() =>
     {
         if (!executed) {
@@ -32,16 +30,16 @@ function waitForArray(array, targetLength, timeout, callback)
         }
     }, timeout);
 
-    // Array observer
     const intervalId = setInterval(() =>
     {
-        if (array.length >= targetLength && !executed) {
+        if (array.length >= targetLength && !executed)
+        {
             executed = true;
-            clearTimeout(timeoutId); // Stop the timeout
-            clearInterval(intervalId); // Stop checking the array
+            clearTimeout(timeoutId);
+            clearInterval(intervalId);
             callback(array);
         }
-    }, 50); // Poll every 50ms (adjust as needed)
+    }, 50);
 }
 
 // TODO: in the future, when there are more artworks than just animation,
