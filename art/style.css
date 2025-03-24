@@ -85,7 +85,7 @@ h1
     border-style: solid;
 }
 
-button, select
+button, select, .turntableLeftArrow, .turntableRightArrow
 {
     background-color: #00000054;
     color: white;
@@ -283,5 +283,120 @@ ol
     {
         width: 70%;
         margin: 32px auto;
+    }
+}
+
+.turntable
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 64px auto;
+    height: 512px;
+    width: 1024px;
+    padding-right: 40px;
+}
+
+.turntable > div:not(.turntableAdjacentLeft, .turntableAdjacentRight, .turntableSelected, .turntableLeftArrow, .turntableRightArrow)
+{
+    display: none;
+}
+
+.turntableSelected
+{
+    display: block;
+    text-align: center;
+    width: 512px;
+    max-height: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -256px;
+    z-index: 1;
+    transition: all 0.3s;
+}
+
+.turntableAdjacentLeft, .turntableAdjacentRight
+{
+    display: block;
+    text-align: center;
+    width: 512px;
+    max-height: 100%;
+    position: absolute;
+    opacity: 50%;
+    scale: 50%;
+    margin-left: -256px;
+    transition: all 0.3s;
+}
+
+.turntableAdjacentLeft
+{
+    left: 35%;
+}
+
+.turntableAdjacentRight
+{
+    left: 65%;
+}
+
+.turntableLeftArrow, .turntableRightArrow
+{
+    display: block;
+    background-color: #000000a5;
+    color: white;
+    text-align: center;
+    padding: 32px;
+    user-select: none;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+.turntableLeftArrow:hover, .turntableRightArrow:hover
+{
+    scale: 120%;
+    cursor: pointer;
+}
+
+.turntableAdjacentLeft:hover, .turntableAdjacentRight:hover
+{
+    scale: 55%;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1150px)
+{
+    .turntable
+    {
+        width: calc(100% - 40px);
+    }
+}
+
+@media only screen and (max-width: 750px)
+{
+    .turntable
+    {
+        height: 256px;
+        margin: 128px auto;
+    }
+
+    .turntableAdjacentLeft, .turntableAdjacentRight
+    {
+        display: none;
+    }
+
+    .turntableSelected
+    {
+        width: 256px;
+        margin-left: -128px;
+    }
+
+    .turntableLeftArrow, .turntableRightArrow
+    {
+        scale: 75%;
+    }
+
+    .turntableLeftArrow:hover, .turntableRightArrow:hover
+    {
+        scale: 90%;
     }
 }
