@@ -17,7 +17,7 @@ body
 header
 {
     text-align: center;
-    margin: 32px;
+    margin: 32px auto;
     width: 95%;
     display: flex;
     align-items: center;
@@ -29,18 +29,37 @@ h1
     margin: 32px;
     text-align: center;
     font-size: 48;
-    display: inline-block;
+    display: block;
     position: absolute;
     left: 50%; /* Move the title halfway across the container */
     transform: translateX(calc(-50% - 32px)); /* Offset it back by half its width to center it */
     text-align: center;
+    text-wrap: nowrap;
+}
+
+@media only screen and (max-width: 720px)
+{
+    header
+    {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1
+    {
+        position: inherit;
+        left: 0;
+        transform: none;
+        text-wrap: wrap;
+    }
 }
 
 .artImg
 {
     width: min(75%, 500px);
     border-radius: 32px;
-    margin: 32px;
+    margin: 32px auto;
 }
 
 .artImg:hover
@@ -256,4 +275,13 @@ ol
     width: 640px;
     height: 360px;
     border-radius: 8px;
+}
+
+@media only screen and (max-width: 700px)
+{
+    .youtube
+    {
+        width: 70%;
+        margin: 32px auto;
+    }
 }
