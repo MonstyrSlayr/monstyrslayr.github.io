@@ -248,3 +248,12 @@ ol
 {
     background-color: rgb(128, 128, 128);
 }
+
+.youtube
+{
+    display: block;
+    margin: 32px;
+    width: 640px;
+    height: 360px;
+    border-radius: 8px;
+}
