@@ -827,13 +827,14 @@ export function makeFormDiv(monster, form, className = "box")
 //#region islands
 class Island
 {
-    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters, transitionElement)
+    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters, transitionElement, realId = "")
     {
         this.name = name;
         this.monsterClass = monsterClass;
         this.elements = elements;
         this.affiliation = affiliation;
-        this.id = getCapitalLetters(name);
+        if (realId == "") this.id = getCapitalLetters(name);
+        else this.id = realId;
         this.monsters = monsters;
         this.youtubeId = youtubeId;
         this.quad = null;
@@ -872,7 +873,7 @@ signalStadiumATN.quad = getAmeliorateById("Spotscast");
 clayKilnATN.single = getAmeliorateById("Arpeggidough");
 clayKilnATN.quad = getAmeliorateById("Trumpoff");
 
-let trashReveal, trashInterlude;
+let trashReveal, trashInterlude, dotBushka;
 const daAmeliorateSongs =
 [
     trashReveal = new Island("Trash Reveal", "Ameliorate", daAmeliorateElements, rubyElement, "w4HiDmp00Ms",
@@ -897,6 +898,22 @@ const daAmeliorateSongs =
             getAmeliorateById("Deltah"),
             getAmeliorateById("ReFabric"),
         ]),
+    dotBushka = new Island(".bushka", "Ameliorate", daAmeliorateElements, hostessElement, "Ubw1X95sXVc",
+        [
+            getAmeliorateById("Guira"),
+            getAmeliorateById("Arpeggidough"),
+            getAmeliorateById("Jugashley"),
+            getAmeliorateById("Esckickis"),
+            getAmeliorateById("Orgako"),
+            getAmeliorateById("Octosquish"),
+            getAmeliorateById("Dormana"),
+            getAmeliorateById("Organe"),
+            getAmeliorateById("Robby"),
+            getAmeliorateById("Rallentando"),
+            getAmeliorateById("SemOhSeaga"),
+            getAmeliorateById("KassBick"),
+            getAmeliorateById("Deltah")
+        ], hostessElement, "dotb")
 ]
 
 trashReveal.notables =
@@ -909,6 +926,11 @@ trashInterlude.notables =
     getAmeliorateById("Guira"),
     getAmeliorateById("Deltah"),
     getAmeliorateById("ReFabric")
+]
+
+dotBushka.notables =
+[
+    getAmeliorateById("Dormana")
 ]
 
 export function getIslands()
