@@ -855,7 +855,7 @@ const daAmeliorateIslands =
     getAmeliorates().filter(monster => !monster.elements.includes(bulbElement))),
     trashSkylands = new Island("Trash Skylands", "Ameliorate", getAmeliorateById("ReFabric").elements, trashElement, "lgbHc2OERr8",
     getAmeliorates().filter(monster => !monster.elements.includes(hostessElement))),
-    bulbiGardens = new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement, "f5rtJqeIuYs",
+    bulbiGardens = new Island("Bulbi Gardens", "Ameliorate", getAmeliorateById("Monkdom").elements, bulbElement, "-YCwm-fdJ9s",
     getAmeliorates().filter(monster => !monster.elements.includes(clayElement))),
     
     signalStadiumATN = new Island("Signal Stadium: All Together Now!", "Ameliorate", daAmeliorateElements, signalElement, "Ab6PF_njR44",
