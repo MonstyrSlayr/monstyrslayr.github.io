@@ -2,7 +2,7 @@ import { Song, MonsterData } from "../script.js";
 
 function init()
 {
-    const daSong = new Song("Celestial Island", 120, 16, 4, "red", [
+    const daSong = new Song("Celestial Island", 120, 16, 4, "#64e1b7", "white", [
         new MonsterData("Scaratar", [
             ["12-T01_Monster_01.wav", "12-T01_Monster_02.wav", "12-T01_Monster_01.wav", "12-T01_Monster_02.wav"],
         ], "monster_portrait_square_t01.avif"),

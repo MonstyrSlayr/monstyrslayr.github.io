@@ -7,6 +7,7 @@ let audioContext = null;
 const activeSources = [];
 const playbackState = new Map();
 const fileGainNodes = new Map();
+const fileAnalyserNodes = new Map();
 const fadeDuration = 0.2;
 
 async function preloadAudio(fileUrl)
@@ -64,14 +65,25 @@ async function playFilesInSync(fileUrls)
         const source = audioContext.createBufferSource();
         source.buffer = buffer;
     
-        // Create or get GainNode for this file
+        // gain node for mute and solo
         let fileGain = fileGainNodes.get(fileUrl);
-        if (!fileGain) {
+        if (!fileGain)
+        {
             fileGain = audioContext.createGain();
             fileGainNodes.set(fileUrl, fileGain);
         }
+
+        // analyser for audio visualizer
+        let fileAnalyser = fileAnalyserNodes.get(fileUrl);
+        if (!fileAnalyser)
+        {
+            fileAnalyser = audioContext.createAnalyser();
+            fileAnalyserNodes.set(fileUrl, fileAnalyser);
+            fileAnalyser.fftSize = 64;
+        }
     
-        fileGain.connect(audioContext.destination);
+        fileGain.connect(fileAnalyser);
+        fileAnalyser.connect(audioContext.destination);
         source.connect(fileGain);
     
         const offset = 0;
@@ -80,7 +92,8 @@ async function playFilesInSync(fileUrls)
     
         activeSources.push({ source, url: fileUrl, startTime, offset });
     
-        playbackState.set(fileUrl, {
+        playbackState.set(fileUrl,
+        {
             offset: 0,
             isPaused: false,
             startTimestamp: startTime
@@ -137,7 +150,6 @@ function pauseAudio(fileUrl)
         }
     });
 
-    // Clean up sources
     for (let i = activeSources.length - 1; i >= 0; i--)
     {
         if (activeSources[i].url === fileUrl)
@@ -164,7 +176,6 @@ function resumeAudio(fileUrl)
 
     activeSources.push({ source, url: fileUrl, startTime, offset });
 
-    // Update playback state
     state.isPaused = false;
     state.startTimestamp = startTime;
 }
@@ -250,7 +261,6 @@ function stopAudio(fileUrl)
         }
     });
 
-    // Remove stopped sources from the list
     for (let i = activeSources.length - 1; i >= 0; i--)
     {
         if (activeSources[i].url === fileUrl)
@@ -285,11 +295,9 @@ function getClosestNodeToMouse(nodes, mouseX, mouseY)
         const el = node.element;
         const rect = el.getBoundingClientRect();
     
-        // Clamp mouse coordinates to the nearest point on the rectangle
         const clampedX = Math.max(rect.left, Math.min(mouseX, rect.right));
         const clampedY = Math.max(rect.top, Math.min(mouseY, rect.bottom));
     
-        // Distance from mouse to closest point on the bounding box
         const dx = mouseX - clampedX;
         const dy = mouseY - clampedY;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -315,6 +323,31 @@ function areBoundingBoxesOverlapping(node1, node2)
     const verticalOverlap   = rect1.top < rect2.bottom && rect1.bottom > rect2.top;
   
     return horizontalOverlap && verticalOverlap;
+}
+
+function downsampleUint8Array(uint8arr, targetCount)
+{
+    if (uint8arr.length <= targetCount || targetCount < 3)
+    {
+        throw new Error("Array must be longer than targetCount and targetCount must be at least 3.");
+    }
+  
+    const result = [uint8arr[0]];
+    const middleCount = targetCount - 2;
+    const chunkSize = (uint8arr.length - 2) / middleCount;
+  
+    for (let i = 0; i < middleCount; i++)
+    {
+        let start = Math.floor(1 + i * chunkSize);
+        let end = Math.floor(1 + (i + 1) * chunkSize);
+        const chunk = uint8arr.slice(start, end);
+    
+        const avg = chunk.reduce((a, b) => a + b, 0) / chunk.length;
+        result.push(Math.round(avg));
+    }
+  
+    result.push(uint8arr[uint8arr.length - 1]);
+    return new Uint8Array(result);
 }
 
 class daNode
@@ -580,6 +613,73 @@ class MonsterButtonsDiv extends daNode
     }
 }
 
+class AudioVisualizer extends daNode
+{
+    // the funky line above the monsters
+    constructor()
+    {
+        super();
+
+        this.currentFile = "";
+        this.lastAnimNumber = null;
+
+        this.createElementWithClass("canvas", "audioVisualizer");
+
+        const self = this;
+
+        this.setCurrentFile = function(filename)
+        {
+            this.currentFile = filename;
+
+            if (filename == "")
+            {
+                cancelAnimationFrame(this.lastAnimNumber);
+                this.lastAnimNumber = null;
+            }
+            else
+            {
+                cancelAnimationFrame(this.lastAnimNumber);
+                this.setupVisualizer(filename);
+            }
+        }
+
+        this.setupVisualizer = function(fileUrl)
+        {
+            if (fileUrl == "") return;
+            const analyser = fileAnalyserNodes.get(fileUrl);
+            if (!analyser)
+            {
+                setTimeout(function() { self.setupVisualizer(fileUrl) }, 0.1); // check again fuckass
+                return;
+            }
+
+            const ctx = this.element.getContext("2d");
+            const dataArray = downsampleUint8Array(new Uint8Array(analyser.frequencyBinCount), 8);
+        
+            this.draw = function()
+            {
+                self.lastAnimNumber = requestAnimationFrame(self.draw);
+        
+                analyser.getByteFrequencyData(dataArray);
+        
+                ctx.clearRect(0, 0, self.element.width, self.element.height);
+                const barWidth = self.element.width / dataArray.length;
+        
+                for (let i = 0; i < dataArray.length; i++)
+                {
+                    const barHeight = dataArray[i] / 255 * self.element.height;
+                    const x = i * barWidth;
+        
+                    ctx.fillStyle = daSong.accentColor;
+                    ctx.fillRect(x, self.element.height - barHeight, barWidth + 1, barHeight);
+                }
+            }
+        
+            this.draw();
+        }
+    }
+}
+
 class Monster extends daNode
 {
     // the individual actual mimicbots
@@ -595,7 +695,7 @@ class Monster extends daNode
         this.monsterData = null;
 
         this.heightOffset = 0;
-        this.hOffMin = 0;
+        this.hOffMin = 20;
         this.hOffMax = 40;
 
         this.currentlyPlaying = null;
@@ -605,8 +705,12 @@ class Monster extends daNode
         this.createElementWithClass("div", "monster");
 
         this.sprite = this.appendNodeToElement(new MonsterSprite());
+
         this.portrait = document.createElement("img");
         this.sprite.element.appendChild(this.portrait);
+
+        this.audioVisualizer = new AudioVisualizer();
+        this.sprite.element.appendChild(this.audioVisualizer.element);
 
         this.tracksDiv = this.appendNodeToElement(new TracksDiv());
         this.beatTimer = this.appendNodeToElement(new BeatTimer());
@@ -930,12 +1034,17 @@ class PlayScreen extends daNode
 {
     // play screen before msmincredibox
     // REQUIRED because browsers require user input before audio playback
-    constructor()
+    // this also gives everything time to load haha
+    constructor(playScreenText)
     {
         super();
 
         this.createElementWithClass("div", "playScreen");
         this.element.classList.add("prePlay");
+
+        this.playScreenText = document.createElement("h1");
+        this.playScreenText.textContent = playScreenText;
+        this.element.appendChild(this.playScreenText);
 
         this.playScreenButton = document.createElement("img");
         this.playScreenButton.src = "../img/play.svg";
@@ -957,7 +1066,7 @@ export class MonsterData
 
 export class Song extends daNode
 {
-    constructor(titleText, bpm, bpl, bmod, accentColor, monsterData)
+    constructor(titleText, bpm, bpl, bmod, accentColor, accentText, monsterData)
     {
         super();
 
@@ -966,6 +1075,7 @@ export class Song extends daNode
         this.bmodulo = bmod; // loops until true loop
         this.bmcounter = -1;
         this.accentColor = accentColor;
+        this.accentText = accentText;
 
         this.eggCount = monsterData.length;
         this.monsterCount = 8;
@@ -974,7 +1084,7 @@ export class Song extends daNode
 
         this.stage = this.appendNodeToElement(new Stage(titleText, monsterData, this.monsterCount));
         this.plsLandscape = this.appendNodeToElement(new PlsLandscape());
-        this.playScreen = this.appendNodeToElement(new PlayScreen());
+        this.playScreen = this.appendNodeToElement(new PlayScreen("MSM Incredibox: " + titleText));
 
         this.beatInterval = null;
         this.lastLoopStart = new Date();
@@ -983,6 +1093,8 @@ export class Song extends daNode
         this.pauseTime = 0;
         this.canPause = false;
         this.startDelay = 500; // before loop begins
+
+        this.element.style.color = this.accentText;
 
         const self = this;
         daSong = self;
@@ -1070,6 +1182,7 @@ export class Song extends daNode
                         }
                         monster.eggIdPrev = monster.eggId;
                         monster.currentlyPlaying = daFullTrack;
+                        monster.audioVisualizer.setCurrentFile(daFullTrack);
                         monster.setSoundState();
                     }
                 }
