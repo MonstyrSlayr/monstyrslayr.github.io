@@ -856,7 +856,7 @@ class Nursery extends daNode
         this.createElementWithClass("div", "nursery");
 
         this.eggHolder = this.appendNodeToElement(new EggHolder());
-        this.mouseEgg = null;
+        this.mouseEgg = [];
 
         const self = this;
 
@@ -867,18 +867,18 @@ class Nursery extends daNode
 
             daEgg.element.addEventListener("mousedown", function()
             {
-                if (!self.mouseEgg && !daEgg.disabled)
+                if (!daEgg.disabled)
                 {
-                    self.mouseEgg = self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData));
+                    self.mouseEgg.push(self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData)));
                     daEgg.setDisabled(true);
                 }
             });
 
             daEgg.element.addEventListener("touchstart", function()
             {
-                if (!self.mouseEgg && !daEgg.disabled)
+                if (!daEgg.disabled)
                 {
-                    self.mouseEgg = self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData));
+                    self.mouseEgg.push(self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData)));
                     daEgg.setDisabled(true);
                 }
             });
@@ -903,6 +903,7 @@ class Stage extends daNode
         super();
 
         this.createElementWithClass("div", "stage");
+        this.element.classList.add("prePlay");
 
         this.navbar = this.appendNodeToElement(new Navbar(titleText));
         this.island = this.appendNodeToElement(new Island(monsterCount));
@@ -922,6 +923,25 @@ class PlsLandscape extends daNode
         this.flavorText = document.createElement("h2");
         this.flavorText.textContent = "Landscape only, please rotate your device";
         this.element.appendChild(this.flavorText);
+    }
+}
+
+class PlayScreen extends daNode
+{
+    // play screen before msmincredibox
+    // REQUIRED because browsers require user input before audio playback
+    constructor()
+    {
+        super();
+
+        this.createElementWithClass("div", "playScreen");
+        this.element.classList.add("prePlay");
+
+        this.playScreenButton = document.createElement("img");
+        this.playScreenButton.src = "../img/play.svg";
+        this.element.appendChild(this.playScreenButton);
+
+        this.playScreenButton.addEventListener("click", function(){ daSong.beginGame() });
     }
 }
 
@@ -954,6 +974,7 @@ export class Song extends daNode
 
         this.stage = this.appendNodeToElement(new Stage(titleText, monsterData, this.monsterCount));
         this.plsLandscape = this.appendNodeToElement(new PlsLandscape());
+        this.playScreen = this.appendNodeToElement(new PlayScreen());
 
         this.beatInterval = null;
         this.lastLoopStart = new Date();
@@ -961,6 +982,7 @@ export class Song extends daNode
         this.isPaused = false;
         this.pauseTime = 0;
         this.canPause = false;
+        this.startDelay = 500; // before loop begins
 
         const self = this;
         daSong = self;
@@ -981,6 +1003,12 @@ export class Song extends daNode
         }
 
         preloadAllAudio(allAudioFiles);
+
+        this.beginGame = function()
+        {
+            this.stage.element.classList.remove("prePlay");
+            this.playScreen.element.classList.remove("prePlay");
+        }
 
         this.soloEra = false;
         this.figureSoloEra = function()
@@ -1038,6 +1066,7 @@ export class Song extends daNode
                                     stopAudio("./audio/" + filename);
                                 }
                             }
+                            stopAudio(monster.currentlyPlaying);
                         }
                         monster.eggIdPrev = monster.eggId;
                         monster.currentlyPlaying = daFullTrack;
@@ -1062,8 +1091,11 @@ export class Song extends daNode
 
         this.startBeatInterval = function()
         {
-            this.canPause = true;
-            this.beatIntervalFunction();
+            setTimeout(function()
+            {
+                self.canPause = true;
+                self.beatIntervalFunction();
+            }, this.startDelay);
         }
 
         this.cancelBeatInterval = function()
@@ -1088,7 +1120,11 @@ export class Song extends daNode
         {
             if (e.key === "Backspace" && !e.repeat)
             {
-                if (this.stage.nursery.mouseEgg) this.stage.nursery.mouseEgg = this.stage.nursery.eggHolder.removeNodeFromElement(this.stage.nursery.mouseEgg);
+                for (const mouseEgg of this.stage.nursery.mouseEgg)
+                {
+                    this.stage.nursery.eggHolder.removeNodeFromElement(mouseEgg);
+                }
+                this.stage.nursery.mouseEgg = [];
 
                 for (const monster of this.stage.island.monsters)
                 {
@@ -1102,46 +1138,66 @@ export class Song extends daNode
             }
         });
 
-        this.mouseMoveEvent = function(e)
+        this.preMouseMoveEvent = function()
         {
-            if (this.stage.nursery.mouseEgg)
+            const monsters = this.stage.island.monsters;
+            for (const monster of monsters)
             {
+                monster.element.classList.remove("highlight");
+            }
+        }
+
+        this.mouseMoveEvent = function(e, mouseEggIndex = 0)
+        {
+            if (this.stage.nursery.mouseEgg[mouseEggIndex])
+            {
+                const mouseEgg = this.stage.nursery.mouseEgg[mouseEggIndex];
                 this.controllingHighlight = true;
-                this.stage.nursery.mouseEgg.element.style.left = `calc(${e.clientX}px - (60% / 20))`;
-                this.stage.nursery.mouseEgg.element.style.top = `calc(${e.clientY}px - (60% / 20))`;
+                mouseEgg.element.style.left = `calc(${e.clientX}px - (60% / 20))`;
+                mouseEgg.element.style.top = `calc(${e.clientY}px - (60% / 20))`;
 
                 const monsters = this.stage.island.monsters;
                 const closestMonster = getClosestNodeToMouse(monsters, e.clientX, e.clientY);
-                const theyTouching = areBoundingBoxesOverlapping(closestMonster, this.stage.nursery.mouseEgg);
+                const theyTouching = areBoundingBoxesOverlapping(closestMonster, mouseEgg);
 
-                for (const monster of monsters)
-                {
-                    monster.element.classList.remove("highlight");
-                }
                 if (theyTouching) closestMonster.element.classList.add("highlight");
             }
         }
 
         document.addEventListener("mousemove", (e) =>
         {
-            self.mouseMoveEvent(e);
+            if (this.stage.nursery.mouseEgg.length > 0)
+            {
+                self.preMouseMoveEvent();
+                self.mouseMoveEvent(e);
+            }
         });
 
         document.addEventListener("touchmove", (e) =>
         {
-            e.clientX = e.changedTouches[0].clientX;
-            e.clientY = e.changedTouches[0].clientY;
-            self.mouseMoveEvent(e);
+            if (this.stage.nursery.mouseEgg.length > 0)
+            {
+                this.preMouseMoveEvent();
+                for (let i = 0; i < e.changedTouches.length; i++)
+                {
+                    const touch = e.changedTouches[i];
+                    const touchEvent = {};
+                    touchEvent.clientX = touch.clientX;
+                    touchEvent.clientY = touch.clientY;
+                    self.mouseMoveEvent(touchEvent, i);
+                }
+            }
         });
 
-        this.mouseUpEvent = function(e)
+        this.mouseUpEvent = function(e, mouseEggIndex = 0)
         {
-            if (this.stage.nursery.mouseEgg)
+            if (this.stage.nursery.mouseEgg[mouseEggIndex])
             {
+                const mouseEgg = this.stage.nursery.mouseEgg[mouseEggIndex];
                 this.controllingHighlight = false;
                 const monsters = this.stage.island.monsters;
                 const closestMonster = getClosestNodeToMouse(monsters, e.clientX, e.clientY);
-                const theyTouching = areBoundingBoxesOverlapping(closestMonster, this.stage.nursery.mouseEgg);
+                const theyTouching = areBoundingBoxesOverlapping(closestMonster, mouseEgg);
 
                 for (const monster of monsters)
                 {
@@ -1155,28 +1211,40 @@ export class Song extends daNode
                     {
                         this.stage.nursery.getEggById(closestMonster.eggId).setDisabled(false);
                     }
-                    closestMonster.setEggId(this.stage.nursery.mouseEgg.eggId);
-                    this.stage.nursery.getEggById(this.stage.nursery.mouseEgg.eggId).setDisabled(true);
+                    closestMonster.setEggId(mouseEgg.eggId);
+                    this.stage.nursery.getEggById(mouseEgg.eggId).setDisabled(true);
                 }
                 else
                 {
-                    this.stage.nursery.getEggById(this.stage.nursery.mouseEgg.eggId).setDisabled(false);
+                    this.stage.nursery.getEggById(mouseEgg.eggId).setDisabled(false);
                 }
 
-                this.stage.nursery.mouseEgg = this.stage.nursery.eggHolder.removeNodeFromElement(this.stage.nursery.mouseEgg);
+                this.stage.nursery.mouseEgg = this.stage.nursery.mouseEgg.filter((egg) => egg != mouseEgg);
+                this.stage.nursery.eggHolder.removeNodeFromElement(mouseEgg);
             }
         }
 
         document.addEventListener("mouseup", (e) =>
         {
-            self.mouseUpEvent(e);
+            if (this.stage.nursery.mouseEgg.length > 0)
+            {
+                self.mouseUpEvent(e);
+            }
         });
 
         document.addEventListener("touchend", (e) =>
         {
-            e.clientX = e.changedTouches[0].clientX;
-            e.clientY = e.changedTouches[0].clientY;
-            self.mouseUpEvent(e);
+            if (this.stage.nursery.mouseEgg.length > 0)
+            {
+                for (let i = 0; i < e.changedTouches.length; i++)
+                {
+                    const touch = e.changedTouches[i];
+                    const touchEvent = {};
+                    touchEvent.clientX = touch.clientX;
+                    touchEvent.clientY = touch.clientY;
+                    self.mouseUpEvent(touchEvent, i);
+                }
+            }
         });
     }
 }
