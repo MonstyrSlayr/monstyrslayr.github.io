@@ -1,0 +1,398 @@
+:root
+{
+    --vh: 100%;
+}
+
+*
+{
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    overflow: hidden;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color: lime;
+    background: linear-gradient(to bottom, rgb(29, 29, 29), rgb(100, 100, 100));
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1
+{
+    display: inline;
+    font-size: 7vh;
+    margin: auto 1%;
+}
+
+.songDiv
+{
+    width: 100%;
+    height: 100%;
+}
+
+.songDiv.debug
+{
+    background-color: gray;
+}
+
+.stage
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.stage.debug
+{
+    background-color: red;
+}
+
+.navbar
+{
+    height: 15%;
+    display: grid;
+    grid-template-rows: repeat(1, 100%);
+    grid-template-columns: repeat(2, 1fr);
+    background-color: white;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.navbar.debug
+{
+    background-color: lime;
+}
+
+.navbar > .beatTimerDiv
+{
+    height: 80%;
+    margin: auto auto;
+    margin-right: 1%;
+}
+
+.pauseButton
+{
+    height: 65%;
+    margin: auto auto;
+}
+
+.island
+{
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.island.debug
+{
+    background-color: blue;
+}
+
+.nursery
+{
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.nursery.debug
+{
+    background-color: fuchsia;
+}
+
+.eggHolder
+{
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    overflow: visible;
+}
+
+.eggHolder.debug
+{
+    background-color: #ff0000a1;
+}
+
+.egg
+{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    flex: 1 1 0;
+    user-select: none;
+}
+
+:nth-child(n+11 of .egg)
+{
+    margin-bottom: 0;
+    margin-top: auto;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.egg.debug
+{
+    background-color: lime;
+    border: black dashed 2px;
+}
+
+.egg.disabled
+{
+    opacity: 50%;
+}
+
+.egg:not(.debug) > p
+{
+    display: none;
+}
+
+.egg > img
+{
+    width: 100%;
+    height: 100%;
+}
+
+.mouseEgg
+{
+    width: calc(60% / 10);
+    position: fixed;
+    pointer-events: none;
+}
+
+.monsterHolder
+{
+    width: calc(100% - 4em);
+    height: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    overflow: hidden;
+}
+
+.monsterHolder.debug
+{
+    background-color: #00ffffa1;
+}
+
+.monster
+{
+    width: 90%;
+    margin: 0 auto;
+    user-select: none;
+    padding: 0;
+    filter: brightness(0.4);
+}
+
+.monster.highlight
+{
+    filter: none;
+}
+
+.monster.debug
+{
+    background-color: #ff0000a1;
+    border: #000000a1 dashed 2px;
+}
+
+.monsterSprite
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* temporary */
+    background-color: antiquewhite;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.monsterSprite.debug
+{
+    background-color: #ffff00;
+}
+
+.monster > .beatTimerDiv
+{
+    width: 30%;
+    margin-top: 65%;
+}
+
+.monsterSprite > img
+{
+    width: 50%;
+    height: auto;
+}
+
+.monsterSprite > img[src=""]
+{
+    display: none;
+}
+
+.egg.debug > p, .monster.debug > p
+{
+    color: black;
+    font-size: 3em;
+}
+
+.beatTimerDiv
+{
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.beatTimerDiv.debug
+{
+    background-color: fuchsia;
+}
+
+.sweepingCircle
+{
+    width: 177.78%;
+    min-width: 177.78%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+}
+
+.tracksDiv
+{
+    width: 100%;
+    height: 30%;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tracksDiv.debug
+{
+    background-color: #00ff00a1;
+}
+
+.trackButton
+{
+    width: 80%;
+    height: 80%;
+    aspect-ratio: 1 / 1;
+    line-height: 0;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto;
+    font-size: 2vw;
+    color: white;
+    filter: grayscale(80%) drop-shadow(0 0 5px black);
+}
+
+.trackButton > p
+{
+    overflow: visible;
+}
+
+.trackButton.selected
+{
+    filter: drop-shadow(0 0 5px black);
+}
+
+.trackButton:not(.selected):hover
+{
+    filter: drop-shadow(0 0 5px black);
+    cursor: pointer;
+}
+
+.monsterButtonsDiv
+{
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    margin-top: -90%;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.monster:not(.hasEgg) > .monsterButtonsDiv
+{
+    display: none;
+}
+
+.monsterButtonsDiv.debug
+{
+    background-color: #00ffffa1;
+}
+
+.monsterButton
+{
+    width: 65%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: auto auto;
+    filter: brightness(0) saturate(100%) invert(22%) sepia(2%) saturate(24%) hue-rotate(325deg) brightness(89%) contrast(83%) drop-shadow(0 0 5px black); /* dark gray */
+}
+
+.monsterButton:hover, .pauseButton:hover
+{
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px black); /* white */
+}
+
+.monsterButton.selected, .pauseButton
+{
+    filter: drop-shadow(0 0 5px black); /* white */
+}
+
+.plsLandscape
+{
+    display: none;
+}
+
+@media screen and (max-width: 1200px)
+{
+    
+}
+
+@media (orientation: portrait)
+{
+    .plsLandscape
+    {
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        color: white;
+        z-index: 99;
+    }
+}
