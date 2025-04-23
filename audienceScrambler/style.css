@@ -35,6 +35,18 @@ twisty-player
     margin: auto;
 }
 
+#qrCode
+{
+    margin: 1rem;
+}
+
+#qrCode > img
+{
+    display: inline;
+    margin: auto;
+    border-radius: 1rem;
+}
+
 #voteForm
 {
     display: block;

@@ -27,6 +27,7 @@ const cube = document.getElementById("cube");
 const audienceAlgs = document.getElementById("audienceAlgs");
 const scrambleDiv = document.getElementById("scrambleDiv");
 const scrambleText = document.getElementById("scrambleText");
+const qrCode = document.getElementById("qrCode");
 
 const scrambleRef = doc(collection(db, "scrambles"), "current");
 const votesRef = collection(scrambleRef, "votes");
@@ -142,6 +143,7 @@ onSnapshot(scrambleRef, (doc) =>
             
             scrambleDiv.classList.add("inactive");
             audienceAlgs.classList.add("inactive");
+            qrCode.classList.remove("inactive");
         }
         break;
 
@@ -150,6 +152,8 @@ onSnapshot(scrambleRef, (doc) =>
             startVoteListener();
             audienceAlgs.classList.remove("inactive");
             scrambleDiv.classList.add("inactive");
+            qrCode.classList.remove("inactive");
+
             status.textContent = "Audience is building the scramble...";
 
             audienceAlgs.innerHTML = "";
@@ -164,6 +168,7 @@ onSnapshot(scrambleRef, (doc) =>
 
             audienceAlgs.classList.remove("inactive");
             scrambleDiv.classList.add("inactive");
+            qrCode.classList.add("inactive");
 
             const daDocs = [];
 
@@ -230,6 +235,7 @@ onSnapshot(scrambleRef, (doc) =>
 
             scrambleDiv.classList.add("inactive");
             audienceAlgs.classList.remove("inactive");
+            qrCode.classList.add("inactive");
         }
         break;
 
@@ -245,6 +251,7 @@ onSnapshot(scrambleRef, (doc) =>
 
             scrambleDiv.classList.add("inactive");
             audienceAlgs.classList.remove("inactive");
+            qrCode.classList.add("inactive");
         }
         break;
     }
