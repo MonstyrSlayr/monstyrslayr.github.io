@@ -1,0 +1,176 @@
+*
+{
+    transition: all 0.15s;
+}
+
+body
+{
+    font-family: sans-serif;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+p
+{
+    font-size: 2rem;
+}
+
+h1
+{
+    font-size: 3rem;
+}
+
+#status
+{
+    font-size: 1.5rem;
+    margin: 1rem;
+}
+
+twisty-player
+{
+    width: 23em;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: auto;
+}
+
+#voteForm
+{
+    display: block;
+    margin: 2rem;
+}
+
+button
+{
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-size: 2rem;
+    margin: 0.5rem;
+}
+
+button:hover
+{
+    scale: 105%;
+    cursor: pointer;
+}
+
+#flavorText
+{
+    margin: 1rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.inactive
+{
+    display: none !important;
+}
+
+#algButtons, #audienceAlgs
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem;
+    align-items: center;
+    max-width: 100%;
+}
+
+.algOption
+{
+    padding: 1rem;
+    margin: 1rem;
+    display: inline;
+    border-radius: 0.5rem;
+}
+
+.algOption > p
+{
+    display: inline;
+    margin: 1rem;
+    font-size: 2rem;
+    user-select: none;
+}
+
+#algButtons > .algOption:not(.selected):hover
+{
+    cursor: pointer;
+    scale: 105%;
+}
+
+.algOption.selected
+{
+    border: black solid 4px;
+}
+
+.floating
+{
+    position: relative;
+    transition: all 0.3s;
+}
+
+.enter
+{
+    animation: enterUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.exit
+{
+    animation: exitDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+  
+@keyframes enterUp
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(300px);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes exitDown
+{
+    0%
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100%
+    {
+        opacity: 0;
+        transform: translateY(300px);
+    }
+}
+
+@media screen and (max-device-width: 400px)
+{
+    twisty-player
+    {
+        width: 90%;
+    }
+
+    button
+    {
+        font-size: 5rem;
+        padding: 1.5rem;
+    }
+
+    .algOption > p
+    {
+        font-size: 5rem;
+    }
+}

@@ -61,7 +61,7 @@ function init()
         new MonsterData("Spurrit", [
             ["21-S15_Monster_01.wav", "21-S15_Monster_01.wav"],
         ], "monster_portrait_square_s15.avif"),
-    ]);
+    ], 10);
     document.body.appendChild(daSong.element);
 }
 

@@ -1,6 +1,7 @@
 :root
 {
     --vh: 100%;
+    --monsterCount: 8;
 }
 
 body
@@ -191,7 +192,7 @@ h1
     height: 95%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(var(--monsterCount, 8), 1fr);
     overflow: hidden;
 }
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audience Generated Scrambler</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h1>Audience Generated Scrambler 🧊</h1>
+    <div id="status">Waiting for scramble...</div>
+    <twisty-player id="cube" puzzle="3x3x3" background="none" control-panel="none"></twisty-player>
+
+    <div id="audienceAlgs">
+    </div>
+    
+    <div id="scrambleDiv">
+        <p>Scramble:</p>
+        <p id="scrambleText"></p>
+    </div>
+
+    <script type="module" src="https://cdn.cubing.net/v0/js/cubing/twisty"></script>
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

@@ -932,6 +932,9 @@ class MouseEgg extends Egg
     {
         super(eggId, monsterData);
 
+        this.x = 0;
+        this.y = 0;
+
         this.element.classList.add("mouseEgg");
     }
 }
@@ -1066,7 +1069,7 @@ export class MonsterData
 
 export class Song extends daNode
 {
-    constructor(titleText, bpm, bpl, bmod, accentColor, accentText, monsterData)
+    constructor(titleText, bpm, bpl, bmod, accentColor, accentText, monsterData, monsterCount = 8)
     {
         super();
 
@@ -1078,7 +1081,8 @@ export class Song extends daNode
         this.accentText = accentText;
 
         this.eggCount = monsterData.length;
-        this.monsterCount = 8;
+        this.monsterCount = monsterCount;
+        document.body.style.setProperty('--monsterCount', `${monsterCount}`);
 
         this.createElementWithClass("div", "songDiv");
 
@@ -1265,9 +1269,10 @@ export class Song extends daNode
             if (this.stage.nursery.mouseEgg[mouseEggIndex])
             {
                 const mouseEgg = this.stage.nursery.mouseEgg[mouseEggIndex];
-                this.controllingHighlight = true;
                 mouseEgg.element.style.left = `calc(${e.clientX}px - (60% / 20))`;
                 mouseEgg.element.style.top = `calc(${e.clientY}px - (60% / 20))`;
+                mouseEgg.x = e.clientX;
+                mouseEgg.y = e.clientY;
 
                 const monsters = this.stage.island.monsters;
                 const closestMonster = getClosestNodeToMouse(monsters, e.clientX, e.clientY);
@@ -1275,6 +1280,7 @@ export class Song extends daNode
 
                 if (theyTouching) closestMonster.element.classList.add("highlight");
             }
+            this.controllingHighlight = this.stage.nursery.mouseEgg.length > 0;
         }
 
         document.addEventListener("mousemove", (e) =>
@@ -1307,7 +1313,6 @@ export class Song extends daNode
             if (this.stage.nursery.mouseEgg[mouseEggIndex])
             {
                 const mouseEgg = this.stage.nursery.mouseEgg[mouseEggIndex];
-                this.controllingHighlight = false;
                 const monsters = this.stage.island.monsters;
                 const closestMonster = getClosestNodeToMouse(monsters, e.clientX, e.clientY);
                 const theyTouching = areBoundingBoxesOverlapping(closestMonster, mouseEgg);
@@ -1334,6 +1339,7 @@ export class Song extends daNode
 
                 this.stage.nursery.mouseEgg = this.stage.nursery.mouseEgg.filter((egg) => egg != mouseEgg);
                 this.stage.nursery.eggHolder.removeNodeFromElement(mouseEgg);
+                this.controllingHighlight = this.stage.nursery.mouseEgg.length > 0;
             }
         }
 
@@ -1355,7 +1361,21 @@ export class Song extends daNode
                     const touchEvent = {};
                     touchEvent.clientX = touch.clientX;
                     touchEvent.clientY = touch.clientY;
-                    self.mouseUpEvent(touchEvent, i);
+
+                    let closestIndex = 0;
+                    let closestDist = Infinity;
+                    for (let j = 0; j < this.stage.nursery.mouseEgg.length; j++)
+                    {
+                        const daMouseEgg = this.stage.nursery.mouseEgg[j];
+                        const daDist = Math.pow(Math.sqrt(Math.pow((daMouseEgg.y - touch.clientY), 2) + Math.pow((daMouseEgg.x - touch.clientX), 2)), 2);
+
+                        if (daDist < closestDist)
+                        {
+                            closestDist = daDist;
+                            closestIndex = j;
+                        }
+                    }
+                    self.mouseUpEvent(touchEvent, closestIndex);
                 }
             }
         });

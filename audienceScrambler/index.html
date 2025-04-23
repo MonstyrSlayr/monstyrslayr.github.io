@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audience Generated Scrambler</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <h1>Audience Generated Scrambler 🧊</h1>
+    <div id="status">Waiting for scramble...</div>
+    <twisty-player id="cube" puzzle="3x3x3" background="none" control-panel="none"></twisty-player>
+
+    <div id="voteForm">
+        <div id="algButtons">
+            <!-- alg buttons go here or something -->
+        </div>
+        <button id="voteFormSubmit">Submit Algorithm</button>
+
+        <p>What is an algorithm?</p>
+        <p>An algorithm is simply a series of moves.</p>
+        <p>A move is denoted by a letter and a turn direction.</p>
+        <p>R is the Right face, U is the Up face, F is the Front face, etc.</p>
+        <p>A turn direction is represented by nothing (clockwise 90°), a 2 (180°) or a ' (counterclockwise 90°).</p>
+        <p>The algorithm you choose will be portrayed on the cube above, so don't worry about the logistics too much.</p>
+    </div>
+    <div id="flavorText"></div>
+    <div id="scrambleDiv">
+        <p>Scramble:</p>
+        <p id="scrambleText"></p>
+    </div>
+
+    <script type="module" src="https://cdn.cubing.net/v0/js/cubing/twisty"></script>
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
