@@ -69,18 +69,15 @@ function updatePositions()
 		break;
 	}
 
-    // Get container and its children
     const images = Array.from(monsterContainer.children);
 
-    // Reorder the images in the DOM based on sorted monsters
     monsters.forEach((item, index) =>
 	{
 		const image = document.getElementById(item.id);
 		monsterContainer.appendChild(image);
     });
 
-    // Animate images to their new positions using GSAP
-    gsap.fromTo(images, { opacity: 0 }, { duration: 0.5, opacity: 1, stagger: 0.03 });
+    gsap.fromTo(images, { opacity: 0 }, { duration: 0.25, opacity: 1, stagger: 0.02 });
 }
 
 // Initial position update
@@ -135,6 +132,15 @@ createElementsDiv();
 const monsterRenderToolLink = document.getElementById("monsterRenderToolLink");
 monsterRenderToolLink.href = home + "render";
 monsterRenderToolLink.addEventListener("click", function (e)
+{
+	e.preventDefault();
+
+	transitionToSiteRandom(this.href);
+});
+
+const monsterSpectrumLink = document.getElementById("monsterSpectrumLink");
+monsterSpectrumLink.href = home + "spectrum";
+monsterSpectrumLink.addEventListener("click", function (e)
 {
 	e.preventDefault();
 

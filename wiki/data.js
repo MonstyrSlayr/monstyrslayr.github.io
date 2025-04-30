@@ -51,7 +51,7 @@ export function transitionToSite(href, charT, charTColor, sigilT, sigilTColor)
         setTimeout(() =>
         {
             document.body.classList.remove("transitionActive");
-        }, 2000);
+        }, 3000);
     }, transitionTime);
 }
 
@@ -82,7 +82,7 @@ export function transitionToSiteRandom(href)
         setTimeout(() =>
         {
             document.body.classList.remove("transitionActive");
-        }, 2000);
+        }, 3000);
     }, transitionTime);
 }
 
@@ -194,6 +194,48 @@ export function blendHexColors(hexA, hexB, percentage)
 }
 
 export const backgroundBlend = 0.05;
+
+function padZero(str, len)
+{
+    len = len || 2;
+    var zeros = new Array(len).join("0");
+    return (zeros + str).slice(-len);
+}
+
+export function invertColor(hex, bw)
+{
+    if (hex.indexOf("#") === 0)
+    {
+        hex = hex.slice(1);
+    }
+
+    if (hex.length === 3)
+    {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    if (hex.length !== 6)
+    {
+        throw new Error("Invalid HEX color.");
+    }
+
+    var r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+    
+    if (bw)
+    {
+        return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+            ? "#000000"
+            : "#FFFFFF";
+    }
+    
+    r = (255 - r).toString(16);
+    g = (255 - g).toString(16);
+    b = (255 - b).toString(16);
+
+    return "#" + padZero(r) + padZero(g) + padZero(b);
+}
 
 function getFirstLetters(str)
 {
@@ -587,11 +629,11 @@ const daAmeliorates =
     new Ameliorate("Etikan",        [trashElement],   trashElement, "#4b4b42",
                         {age: 12, height: 139, weight: 178}),
 
-    new Ameliorate("Tabi",          [bulbElement, hostessElement],    hostessElement, "#a65457",
+    new Ameliorate("Tabi",          [bulbElement, hostessElement],    hostessElement, "#739e93",
                         {age: 34, height: 81, weight: 85}),
-    new Ameliorate("Yaun",          [bulbElement, clayElement],    clayElement, "#495ed5",
+    new Ameliorate("Yaun",          [bulbElement, clayElement],    clayElement, "#1a296d",
                         {age: 6, height: 147, weight: 183}),
-    new Ameliorate("Esckickis",     [bulbElement, signalElement],    bulbElement, "#addb2c",
+    new Ameliorate("Esckickis",     [bulbElement, signalElement],    bulbElement, "#69a24d",
                         {age: 20, height: 123, weight: 161}),
     new Ameliorate("nillaCorn",     [bulbElement, trashElement],    bulbElement, "#903eb4",
                         {age: 17, height: 132, weight: 200}),
@@ -601,9 +643,9 @@ const daAmeliorates =
                         {age: 19, height: 113, weight: 97}),
     new Ameliorate("Alliumaid",     [hostessElement, trashElement],    hostessElement, "#b5f8eb",
                         {age: 21, height: 136, weight: 4}),
-    new Ameliorate("ExpiFour",      [clayElement, signalElement],    signalElement, "#84f1a1",
+    new Ameliorate("ExpiFour",      [clayElement, signalElement],    signalElement, "#c1e9cb",
                         {age: 0, height: 139},    "Expi Four"),
-    new Ameliorate("Octosquish",    [clayElement, trashElement],    trashElement, "#51cac1",
+    new Ameliorate("Octosquish",    [clayElement, trashElement],    trashElement, "#417da7",
                         {age: 21, height: 135, weight: 167}),
     new Ameliorate("TrashCymbal",   [signalElement, trashElement],    trashElement, "#624c9a",
                         {age: 27, height: 152, weight: 189},    "Trash Cymbal"),
@@ -616,17 +658,17 @@ const daAmeliorates =
                        {age: 39, height: 178, heightIsApprox: true, weight: 192, weightIsApprox: true},       "Organe"),
     new Ameliorate("Robby",         [bulbElement, clayElement, signalElement], signalElement, "#766a65",
                         {age: 29, height: 129, weight: 157}),
-    new Ameliorate("Vack",          [bulbElement, clayElement, trashElement], trashElement, "#ee324f",
+    new Ameliorate("Vack",          [bulbElement, clayElement, trashElement], trashElement, "#9e931c",
                         {age: 46, height: 168, weight: 130}),
     new Ameliorate("Rallentando",   [bulbElement, signalElement, trashElement], bulbElement, "#3ce54a",
                         {age: 50, height: 143, weight: 233}),
     new Ameliorate("SemOhSeaga",    [hostessElement, clayElement, signalElement], signalElement, "#eeee3a",
                         {age: 27, height: 149, weight: 207},    "Sem oh Seaga"),
-    new Ameliorate("Athenerd",      [hostessElement, clayElement, trashElement], clayElement, "#f2e877",
+    new Ameliorate("Athenerd",      [hostessElement, clayElement, trashElement], clayElement, "#6e7261",
                         {age: 26, height: 184, weight: 185}),
     new Ameliorate("KassBick",      [hostessElement, signalElement, trashElement], trashElement, "#006a36",
                         {age: 46, height: 114, weight: 177},    "Kass Bick"),
-    new Ameliorate("Deltah",        [clayElement, signalElement, trashElement], clayElement, "#3ca33c",
+    new Ameliorate("Deltah",        [clayElement, signalElement, trashElement], clayElement, "#0b480b",
                         {age: 25, height: 191, heightIsApprox: true, weight: 108}, "Deltah",
                             {
                                 intro: "DeltahIntro",
@@ -641,11 +683,11 @@ const daAmeliorates =
                         {age: 34, height: 203, weight: 135}),
     // new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement, "#dee",
     //                    {age: 49, weight: 6}),
-    new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement, "#ea9436",
+    new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement, "#6e5735",
                         {age: 56, height: 173, weight: 212}),
-    new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement, "#8f8e80",
+    new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement, "#5b565a",
                         {age: 37, height: 217, weight: 294}, "Re-Fabrić"),
-    new Ameliorate("Trumpoff",      [hostessElement, clayElement, signalElement, trashElement],   clayElement, "#8d5935",
+    new Ameliorate("Trumpoff",      [hostessElement, clayElement, signalElement, trashElement],   clayElement, "#3a1a09",
                         {age: 54, height: 117, weight: 114}),
 ];
 
@@ -709,7 +751,7 @@ export function makeAmeliorateDiv(monster, className = "box")
 {
     const ameDiv = document.createElement("a");
     ameDiv.classList = [className + " ameliorateDiv"];
-    ameDiv.style.backgroundColor = monster.affiliation.outside;
+    ameDiv.style.backgroundColor = monster.dominantColor;
     ameDiv.id = monster.id;
     ameDiv.href = home + "monster/" + ameDiv.id.toLowerCase() + "/";
 
