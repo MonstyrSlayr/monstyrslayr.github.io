@@ -86,6 +86,25 @@ export function transitionToSiteRandom(href)
     }, transitionTime);
 }
 
+export function waitForElement(selector)
+{
+    return new Promise(resolve =>
+    {
+        const el = document.querySelector(selector);
+        if (el) return resolve(el);
+        const observer = new MutationObserver(() =>
+        {
+            const el = document.querySelector(selector);
+            if (el)
+            {
+                observer.disconnect();
+                resolve(el);
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+}
+
 function rgb(r, g, b)
 {
     function componentToHex(c)
@@ -1035,10 +1054,10 @@ export async function getIslandData(id)
 }
 //#endregion
 
+document.body.classList.add("transitionActive");
+
 if (getCookie("transitionCharacter") && getCookie("transitionSigil"))
 {
-    document.body.classList.add("transitionActive");
-
     daCharT.src = getCookie("transitionCharacter");
     daCharTDiv.style.backgroundColor = getCookie("transitionCharacterBackground");
     daSigilT.src = getCookie("transitionSigil");
