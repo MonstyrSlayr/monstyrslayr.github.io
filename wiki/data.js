@@ -311,6 +311,8 @@ class MonsterElement
         this.highlight = highlight;
         this.single = null;
         this.quad = null;
+        this.islandMajora = null;
+        this.islandMinora = null;
     }
 }
 const bulbElement = new MonsterElement("Bulb", IMG + "ElementBulb.png",
@@ -929,10 +931,16 @@ signalStadium.quad = getAmeliorateById("Spotscast");
 clayKiln.quad = getAmeliorateById("Trumpoff");
 trashSkylands.quad = getAmeliorateById("ReFabric");
 bulbiGardens.quad = getAmeliorateById("Monkdom");
+
 signalStadiumATN.single = getAmeliorateById("Meeka");
 signalStadiumATN.quad = getAmeliorateById("Spotscast");
 clayKilnATN.single = getAmeliorateById("Arpeggidough");
 clayKilnATN.quad = getAmeliorateById("Trumpoff");
+
+signalElement.islandMajora = signalStadium;
+clayElement.islandMajora = clayKiln;
+trashElement.islandMajora = trashSkylands;
+bulbElement.islandMajora = bulbiGardens;
 
 let trashReveal, trashInterlude, dotBushka;
 const daAmeliorateSongs =

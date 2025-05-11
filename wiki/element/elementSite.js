@@ -1,4 +1,4 @@
-import { getAmeliorates, getElementById, getElementData, makeAmeliorateDiv, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
+import { getAmeliorates, getElementById, getElementData, makeAmeliorateDiv, blendHexColors, rgbFuncToHex, backgroundBlend, makeIslandDiv } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -46,23 +46,23 @@ const mainContainer = createContainer();
         const infoSectionNotables = createInfoSection("Notable Monsters");
         monsterInfo.appendChild(infoSectionNotables);
 
-        if (daElement.single)
-        {
-            const infoSectionSingle = createMiniSection("Single");
-                const singleMonster = makeAmeliorateDiv(daElement.single, "box");
-                singleMonster.id = "singleMonster";
-                infoSectionSingle.appendChild(singleMonster);
-            monsterInfo.appendChild(infoSectionSingle);
-        }
-        
-        if (daElement.quad)
-        {
-            const infoSectionQuad = createMiniSection("Quad");
-                const quadMonster = makeAmeliorateDiv(daElement.quad, "box");
-                quadMonster.id = "quadMonster";
-                infoSectionQuad.appendChild(quadMonster);
-            monsterInfo.appendChild(infoSectionQuad);
-        }
+            if (daElement.single)
+            {
+                const infoSectionSingle = createMiniSection("Single");
+                    const singleMonster = makeAmeliorateDiv(daElement.single, "box");
+                    singleMonster.id = "singleMonster";
+                    infoSectionSingle.appendChild(singleMonster);
+                monsterInfo.appendChild(infoSectionSingle);
+            }
+            
+            if (daElement.quad)
+            {
+                const infoSectionQuad = createMiniSection("Quad");
+                    const quadMonster = makeAmeliorateDiv(daElement.quad, "box");
+                    quadMonster.id = "quadMonster";
+                    infoSectionQuad.appendChild(quadMonster);
+                monsterInfo.appendChild(infoSectionQuad);
+            }
 
         const infoSectionMon = createInfoSection("Monsters");
             const islandMonDiv = createContentContainer();
@@ -75,6 +75,24 @@ const mainContainer = createContainer();
                 }
             infoSectionMon.appendChild(islandMonDiv);
         monsterInfo.appendChild(infoSectionMon);
+        
+        if (daElement.islandMajora)
+        {
+            const infoSectionMajora = createInfoSection("Island Majora");
+                const isleMajor = makeIslandDiv(daElement.islandMajora, false);
+                isleMajor.id = "islandMajora";
+                infoSectionMajora.appendChild(isleMajor);
+            monsterInfo.appendChild(infoSectionMajora);
+        }
+        
+        if (daElement.islandMinora)
+        {
+            const infoSectionMinora = createInfoSection("Island Minora");
+                const isleMinor = makeIslandDiv(daElement.islandMinora, false);
+                isleMinor.id = "islandMinora";
+                infoSectionMinora.appendChild(isleMinor);
+            monsterInfo.appendChild(infoSectionMinora);
+        }
     mainContainer.appendChild(monsterInfo);
 document.body.appendChild(mainContainer);
 
