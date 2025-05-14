@@ -117,7 +117,7 @@ export async function getMonsters()
 		else if (monster.id.endsWith("_min")) monster.rarity = RARITY.MINOR;
 		else monster.rarity = RARITY.COMMON;
 
-		//classes & element count
+		// classes & element count
 		if (monster.elementString.startsWith("z"))
 		{
 			monster.class = CLASS.SHUGAFAM;
@@ -286,7 +286,7 @@ export async function getMonsters()
 			monster.name = monsterLine.name;
 			monster.islands = new Set(monsterLine.islands.split("&").slice(0, -1));
 
-			//epic wubbox clause
+			// epic wubbox clause
 			if (monster.elementString.startsWith("f"))
 			{
 				for (let island of monster.islands)
