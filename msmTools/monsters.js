@@ -57,6 +57,7 @@ export class Monster
 	hasPoison = false;
 
 	hasControl = false;
+	hasHoax = false;
 
 	hasElectricity = false;
 	hasLegendary = false;
@@ -136,7 +137,16 @@ export async function getMonsters()
 			monster.class = CLASS.PAIRONORMAL;
 			monster.identifier = monster.elementString.replace("i", "");
 			monster.elements = 1;
-			monster.hasControl = true; // change when new paironormals come out
+
+			switch (monster.identifier)
+			{
+				case "01":
+					monster.hasControl = true;
+					break;
+				case "02":
+					monster.hasHoax = true;
+					break;
+			}
 		}
 		else if (monster.elementString.startsWith("VOC"))
 		{
