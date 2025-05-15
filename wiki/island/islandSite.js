@@ -1,4 +1,4 @@
-import { getIslandById, getSongById, getIslandData, makeAmeliorateDiv, makeMiniElement, blendHexColors, rgbFuncToHex, backgroundBlend } from "../data.js";
+import { getIslandById, getSongById, getIslandData, makeAmeliorateDiv, makeMiniElement, blendHexColors, rgbFuncToHex, backgroundBlend, getLocationById } from "../data.js";
 import { createInfoSiteHeader, createContainer, createContentContainer, createInfoSection, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -17,6 +17,8 @@ const daId = getLastFolder(window.location.href, 1);
 let daIsland;
 if (getLastFolder(window.location.href, 2) !== "island") daIsland = getSongById(daId);
 else daIsland = getIslandById(daId);
+if (daIsland == null) daIsland = getLocationById(daId);
+if (daIsland == null) console.error("could not find island with id " + daId);
 
 document.body.style.backgroundColor = blendHexColors(rgbFuncToHex(window.getComputedStyle(document.body).getPropertyValue("background-color")), daIsland.affiliation.main, backgroundBlend);
 
@@ -30,15 +32,18 @@ soloIsland.style.backgroundColor = daIsland.affiliation.outside;
     soloGap.classList = ["soloGap"];
     soloIsland.appendChild(soloGap);
 
-    const youtubeVideo = document.createElement("iframe");
-    youtubeVideo.src = "https://www.youtube.com/embed/" + daIsland.youtubeId;
-    youtubeVideo.width = "640";
-    youtubeVideo.height = "360";
-    youtubeVideo.frameborder = "0";
-    youtubeVideo.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    youtubeVideo.allowfullscreen = true;
-    youtubeVideo.classList = ["youtubeVideo"];
-    soloIsland.appendChild(youtubeVideo);
+    if (daIsland.youtubeId != "")
+    {
+        const youtubeVideo = document.createElement("iframe");
+        youtubeVideo.src = "https://www.youtube.com/embed/" + daIsland.youtubeId;
+        youtubeVideo.width = "640";
+        youtubeVideo.height = "360";
+        youtubeVideo.frameborder = "0";
+        youtubeVideo.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        youtubeVideo.allowfullscreen = true;
+        youtubeVideo.classList = ["youtubeVideo"];
+        soloIsland.appendChild(youtubeVideo);
+    }
 document.body.appendChild(soloIsland);
 
 const mainContainer = createContainer();
@@ -81,6 +86,15 @@ const mainContainer = createContainer();
                     notablesDiv.appendChild(daNotable);
                 }
                 infoSectionNotables.appendChild(notablesDiv);
+            }
+
+            if (daIsland.single !== null) // lazy ass
+            {
+                const infoSectionQuad = createMiniSection("Single");
+                    const quadMonster = makeAmeliorateDiv(daIsland.single, "box");
+                    quadMonster.id = "singleMonster";
+                    infoSectionQuad.appendChild(quadMonster);
+                infoSectionNotables.appendChild(infoSectionQuad);
             }
 
             if (daIsland.quad !== null)

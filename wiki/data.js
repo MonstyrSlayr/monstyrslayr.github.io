@@ -522,6 +522,9 @@ class Ameliorate extends Monster
         if (attributes.hasOwnProperty("weightIsApprox")) this.weightIsApprox = attributes.weightIsApprox;
         else this.weightIsApprox = false;
 
+        if (attributes.hasOwnProperty("deplorable")) this.dead = attributes.deplorable;
+        else this.dead = false;
+
         this.elementString = makeElementString(elements);
 
         const basicImage = id + "-" + this.elementString;
@@ -536,7 +539,13 @@ class Ameliorate extends Monster
 
         this.forms = [];
 
-        this.forms.push(new Form("Base", this.elements, [], this.images.default));
+        fileExists(this.images.default).then((thingExists) =>
+        {
+            if (thingExists)
+            {
+                this.forms.push(new Form("Base", this.elements, [], this.images.default));
+            }
+        });
 
         this.loadForms = async function()
         {
@@ -702,8 +711,8 @@ const daAmeliorates =
 
     new Ameliorate("Spotscast",     [bulbElement, hostessElement, clayElement, signalElement],   signalElement, "#ea62ea",
                         {age: 34, height: 203, weight: 135}),
-    // new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement, "#dee",
-    //                    {age: 49, weight: 6}),
+    new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement, "#632893",
+                       {age: 49, height: 195, weight: 83, deplorable: true}),
     new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement, "#6e5735",
                         {age: 56, height: 173, weight: 212}),
     new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement, "#5b565a",
@@ -729,7 +738,7 @@ export async function getMonsterData(id)
 
 export function getAmeliorates()
 {
-    return daAmeliorates;
+    return daAmeliorates.filter(monster => !monster.dead);
 }
 
 export function getAmeliorateById(id)
@@ -745,8 +754,8 @@ export function randomizeMonsterValues(monster)
     let minHeight = 110
     let maxHeight = 220
     let expiHeight = Math.round((maxHeight - minHeight) * Math.random() + minHeight);
-    let minWeight = 40 * 0.453592
-    let maxWeight = 250 * 0.453592
+    let minWeight = 40 * 0.453592;
+    let maxWeight = 250 * 0.453592;
     let expiWeight = Math.round(((maxWeight - minWeight) * Math.random() + minWeight) * 100) / 100;
 
     monster.age = expiAge;
@@ -776,33 +785,39 @@ export function makeAmeliorateDiv(monster, className = "box")
     ameDiv.id = monster.id;
     ameDiv.href = home + "monster/" + ameDiv.id.toLowerCase() + "/";
 
-    const ameImg = document.createElement("img");
-    ameImg.src = monster.images.emoji;
-    ameImg.classList = ["monsterEmoji"];
-    ameDiv.appendChild(ameImg);
-    if (monster.id == "ExpiFour")
+    fileExists(monster.images.emoji).then((thingExists) => 
     {
-        const rotation = Math.floor(Math.random() * 4) * 90;
-        ameImg.style.transform = "rotate(" + rotation + "deg)"
-    }
+        if (thingExists)
+        {
+            const ameImg = document.createElement("img");
+            ameImg.src = monster.images.emoji;
+            ameImg.classList = ["monsterEmoji"];
+            ameDiv.appendChild(ameImg);
+            if (monster.id == "ExpiFour")
+            {
+                const rotation = Math.floor(Math.random() * 4) * 90;
+                ameImg.style.transform = "rotate(" + rotation + "deg)"
+            }
+        }
 
-    const daLabel = document.createElement("div");
-    daLabel.classList = ["monsterLabel"];
-    ameDiv.appendChild(daLabel);
+        const daLabel = document.createElement("div");
+        daLabel.classList = ["monsterLabel"];
+        ameDiv.appendChild(daLabel);
 
-    const daElementList = document.createElement("div");
-    daElementList.classList = ["miniElementList"];
-    daLabel.appendChild(daElementList);
+        const daElementList = document.createElement("div");
+        daElementList.classList = ["miniElementList"];
+        daLabel.appendChild(daElementList);
 
-    for (const element of monster.elements)
-    {
-        const daSigil = makeMiniElement(element, false, false);
-        daElementList.appendChild(daSigil);
-    }
+        for (const element of monster.elements)
+        {
+            const daSigil = makeMiniElement(element, false, false);
+            daElementList.appendChild(daSigil);
+        }
 
-    const ameName = document.createElement("label");
-    ameName.innerHTML = monster.realName;
-    daLabel.appendChild(ameName);
+        const ameName = document.createElement("label");
+        ameName.innerHTML = monster.realName;
+        daLabel.appendChild(ameName);
+    });
 
     ameDiv.addEventListener("click", function (e)
     {
@@ -890,19 +905,19 @@ export function makeFormDiv(monster, form, className = "box")
 //#region islands
 class Island
 {
-    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters, transitionElement, realId = "")
+    constructor (name, monsterClass, elements, affiliation, youtubeId, monsters, transitionElement = null, realId = "")
     {
         this.name = name;
         this.monsterClass = monsterClass;
         this.elements = elements;
         this.affiliation = affiliation;
-        if (realId == "") this.id = getCapitalLetters(name);
+        if (realId == "") this.id = getCapitalLetters(name).trim();
         else this.id = realId;
         this.monsters = monsters;
         this.youtubeId = youtubeId;
         this.quad = null;
 
-        if (transitionElement == undefined) transitionElement = affiliation;
+        if (transitionElement == undefined || transitionElement == null) transitionElement = affiliation;
         this.transitionElement = transitionElement;
 
         this.isATN = name.endsWith("All Together Now!");
@@ -1002,6 +1017,33 @@ dotBushka.notables =
     getAmeliorateById("Dormana")
 ]
 
+let signalEmergency, clayChasm, trashDump, bulbiPsychedelica, hostessSanctuary;
+const daAmeliorateLocations =
+[
+    signalEmergency = new Island("Signal Emergency", "Ameliorate", getElements(), signalElement, "",
+        getAmeliorates().filter(monster => monster.elements.includes(signalElement))),
+    clayChasm = new Island("Clay Chasm", "Ameliorate", getElements(), clayElement, "",
+        getAmeliorates().filter(monster => monster.elements.includes(clayElement))),
+    trashDump = new Island("Trash Dump", "Ameliorate", getElements(), trashElement, "",
+        getAmeliorates().filter(monster => monster.elements.includes(trashElement))),
+    bulbiPsychedelica = new Island("Bulbi Psychedelia", "Ameliorate", getElements(), bulbElement, "",
+        getAmeliorates().filter(monster => monster.elements.includes(bulbElement))),
+    hostessSanctuary = new Island("Hostess Sanctuary", "Ameliorate", getElements(), hostessElement, "",
+        getAmeliorates().filter(monster => monster.elements.includes(hostessElement))),
+];
+
+signalEmergency.single = getAmeliorateById("Meeka");
+clayChasm.single = getAmeliorateById("Arpeggidough");
+trashDump.single = getAmeliorateById("Etikan");
+bulbiPsychedelica.single = getAmeliorateById("Reese");
+hostessSanctuary.single = getAmeliorateById("Guira");
+
+signalElement.islandMinora = signalEmergency;
+clayElement.islandMinora = clayChasm;
+trashElement.islandMinora = trashDump;
+bulbElement.islandMinora = bulbiPsychedelica;
+hostessElement.islandMinora = hostessSanctuary;
+
 export function getIslands()
 {
     return daAmeliorateIslands;
@@ -1020,6 +1062,16 @@ export function getSongs()
 export function getSongById(id)
 {
     return daAmeliorateSongs.find(island => island.id.toLowerCase() == id.toLowerCase());
+}
+
+export function getLocations()
+{
+    return daAmeliorateLocations;
+}
+
+export function getLocationById(id)
+{
+    return daAmeliorateLocations.find(island => island.id.toLowerCase() == id.toLowerCase());
 }
 
 export function makeIslandDiv(island, isSong = false)

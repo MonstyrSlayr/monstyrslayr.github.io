@@ -1,8 +1,9 @@
-import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom, home } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom, home, getLocations } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
 const monsterContainer = document.getElementById("monsterContainer");
+const flavorText = document.getElementById("flavorText");
 
 function createAmelioratesDiv()
 {
@@ -20,6 +21,7 @@ const sortSelect = document.getElementById("sortSelect");
 // Function to sort and animate images based on ranking
 function updatePositions()
 {
+	flavorText.textContent = "";
     switch (sortSelect.value)
 	{
 		case "alphabetical": default:
@@ -52,6 +54,7 @@ function updatePositions()
 			{
 				return a.age - b.age;
 			});
+			flavorText.textContent = "don't think about it too much";
 		break;
 
 		case "height":
@@ -113,6 +116,19 @@ function createSongsDiv()
 	}
 }
 createSongsDiv();
+
+const locs = getLocations();
+const locsContainer = document.getElementById("locsContainer");
+function createLocsDiv()
+{
+	for (const loc of locs)
+	{
+		const locDiv = makeIslandDiv(loc);
+
+		locsContainer.append(locDiv);
+	}
+}
+createLocsDiv();
 
 const elements = getElements();
 const elementsContainer = document.getElementById("elementsContainer");

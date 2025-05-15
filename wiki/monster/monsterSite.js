@@ -1,4 +1,4 @@
-import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements, blendHexColors, rgbFuncToHex, backgroundBlend, debug, home, invertColor } from "../data.js";
+import { getAmeliorateById, getMonsterData, getIslands, getSongs, makeIslandDiv, makeMiniElement, makeFormDiv, randomizeMonsterValues, getAmeliorates, getElements, blendHexColors, rgbFuncToHex, backgroundBlend, debug, home, invertColor, fileExists } from "../data.js";
 import { createContainer, createContentContainer, createInfoSection, createInfoSiteHeader, createMiniSection } from "../wikiTools.js";
 
 function getLastFolder(url, num)
@@ -88,10 +88,16 @@ daMonster.loadForms().then(() =>
             soloGap.classList = ["soloGap"];
             soloMonster.appendChild(soloGap);
 
-            const monsterImg = document.createElement("img");
-            monsterImg.id = "monsterImg";
-            monsterImg.src = daMonster.images.default;
-            soloMonster.appendChild(monsterImg);
+            fileExists(daMonster.images.default).then((thingExists) =>
+            {
+                if (thingExists)
+                {
+                    const monsterImg = document.createElement("img");
+                    monsterImg.id = "monsterImg";
+                    monsterImg.src = daMonster.images.default;
+                    soloMonster.appendChild(monsterImg);
+                }
+            });
         }
         else
         {

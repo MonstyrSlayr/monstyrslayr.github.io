@@ -818,6 +818,11 @@ input[type=checkbox]
     transform-origin: left bottom;
 }
 
+#flavorText
+{
+    text-align: center;
+}
+
 @media screen and (max-width: 750px)
 {
     .characterT, .sigilT
