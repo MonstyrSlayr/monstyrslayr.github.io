@@ -1,4 +1,4 @@
-import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom, home, getLocations } from "../data.js";
+import { getElements, getAmeliorates, getIslands, makeAmeliorateDiv, makeIslandDiv, makeElementDiv, getSongs, transitionToSiteRandom, home, getLocations, hexToRgb, rgbStringToRgb, rgbToHsl } from "../data.js";
 
 // Initial monsters
 let monsters = getAmeliorates();
@@ -68,6 +68,23 @@ function updatePositions()
 			monsters.sort((a, b) =>
 			{
 				return a.weight - b.weight;
+			});
+		break;
+
+		case "hue":
+			function getHue(colorStr)
+			{
+				let rgb = hexToRgb(colorStr);
+				let r = rgb.r;
+				let g = rgb.g;
+				let b = rgb.b;
+				const [h] = rgbToHsl(r, g, b);
+				return h;
+			}
+
+			monsters.sort((a, b) => 
+			{
+				return getHue(a.dominantColor) - getHue(b.dominantColor);
 			});
 		break;
 	}
