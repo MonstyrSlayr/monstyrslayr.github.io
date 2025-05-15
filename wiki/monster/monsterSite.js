@@ -97,6 +97,8 @@ daMonster.loadForms().then(() =>
                     monsterImg.src = daMonster.images.default;
                     soloMonster.appendChild(monsterImg);
                 }
+                
+                soloMonster.appendChild(soloWrapper);
             });
         }
         else
@@ -328,9 +330,9 @@ daMonster.loadForms().then(() =>
                     }
                 }
             })
+            
+            soloMonster.appendChild(soloWrapper);
         }
-
-        soloMonster.appendChild(soloWrapper);
 
     document.body.appendChild(soloMonster);
 
