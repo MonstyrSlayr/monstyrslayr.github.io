@@ -39,6 +39,7 @@ for (let i = 0; i < programmingProjects.length; i++)
 
     const projectWrapper = document.createElement("div"); // necessary for background shenanigans
     projectWrapper.classList.add("projectWrapper");
+    document.body.appendChild(projectWrapper);
 
     const projectDiv = createProjectDiv(project);
 
@@ -61,8 +62,6 @@ for (let i = 0; i < programmingProjects.length; i++)
         const daImageQuartet = createImageQuartet();
         projectWrapper.appendChild(daImageQuartet);
     }
-
-    document.body.appendChild(projectWrapper);
 }
 
 const footer = createFooter();
