@@ -1,4 +1,4 @@
-import { createNavbar, programmingProjects, getMonthName } from "../data.js";
+import { createNavbar, programmingProjects, getMonthName, createFooter } from "../data.js";
 
 // copied from home,, idiot you fool
 
@@ -91,4 +91,19 @@ for (const project of programmingProjects)
             const projectDesc = document.createElement("p");
             projectDesc.textContent = project.desc;
             projectWords.appendChild(projectDesc);
+}
+
+const footer = createFooter();
+
+if (programmingProjects.length % 2 == 1)
+{
+    const paddingDiv = document.createElement("div");
+    paddingDiv.classList.add("paddingDiv");
+    document.body.appendChild(paddingDiv);
+
+    paddingDiv.appendChild(footer);
+}
+else
+{
+    document.body.appendChild(footer);
 }

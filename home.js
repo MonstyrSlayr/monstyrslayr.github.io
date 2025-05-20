@@ -1,6 +1,6 @@
 // dynamically crafted homepage for your struggles
 
-import { createNavbar, education, languages, skillset } from "./data.js";
+import { createNavbar, education, languages, skillset, createFooter } from "./data.js";
 
 const imageQuartet = document.createElement("div");
 imageQuartet.id = "imageQuartet";
@@ -97,12 +97,15 @@ document.body.appendChild(paddingDiv2);
             skillTitle.textContent = "Skillset";
             skillsetDiv.appendChild(skillTitle);
 
-            for (const skill of skillset)
-            {
-                const skillText = document.createElement("p");
-                skillText.textContent = skill;
-                skillsetDiv.appendChild(skillText);
-            }
+            const skillsDiv = document.createElement("div");
+            skillsetDiv.appendChild(skillsDiv);
+
+                for (const skill of skillset)
+                {
+                    const skillText = document.createElement("p");
+                    skillText.textContent = skill;
+                    skillsDiv.appendChild(skillText);
+                }
 
         const langsetDiv = document.createElement("div");
         skillFlex.appendChild(langsetDiv);
@@ -111,13 +114,19 @@ document.body.appendChild(paddingDiv2);
             langTitle.textContent = "Programming";
             langsetDiv.appendChild(langTitle);
 
-            for (const lang of languages)
-            {
-                const langText = document.createElement("p");
-                langText.textContent = lang;
-                langsetDiv.appendChild(langText);
-            }
+            const langsDiv = document.createElement("div");
+            langsetDiv.appendChild(langsDiv);
+
+                for (const langLink of languages)
+                {
+                    const langText = document.createElement("img");
+                    langText.src = langLink;
+                    langsDiv.appendChild(langText);
+                }
 
 const diaTransitionDiv4 = document.createElement("div");
 diaTransitionDiv4.classList.add("diaTransitionDivOut");
 document.body.appendChild(diaTransitionDiv4);
+
+const footer = createFooter();
+document.body.appendChild(footer);

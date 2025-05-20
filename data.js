@@ -135,15 +135,15 @@ export const skillset =
 
 export const languages =
 [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React.js",
-    "Python",
-    "Java",
-    "C",
-    "SQL",
-    "GML"
+    "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/1f/Python_logo_01.svg",
+    "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png",
+    "https://upload.wikimedia.org/wikipedia/commons/f/fb/GameMaker_Logo.png"
 ]
 
 class Education
@@ -188,6 +188,37 @@ export function createNavbar()
     }
 
     return navbar;
+}
+
+export function createFooter()
+{
+    const footer = document.createElement("footer");
+
+        const footerHeading = document.createElement("h2");
+        footerHeading.textContent = "Personal / Contact";
+        footer.appendChild(footerHeading);
+
+        const daEmail = document.createElement("p");
+        daEmail.textContent = "Email: ";
+        footer.appendChild(daEmail);
+
+            const emailLink = document.createElement("a");
+            emailLink.href = "mailto:eehikioya@wightfoundation.com";
+            emailLink.target = "_blank";
+            emailLink.textContent = "eehikioya@wightfoundation.com";
+            daEmail.appendChild(emailLink);
+
+        const daSite = document.createElement("p");
+        daSite.textContent = "Website: ";
+        footer.appendChild(daSite);
+
+            const siteLink = document.createElement("a");
+            siteLink.href = "https://monstyrslayr.github.io";
+            siteLink.target = "_blank";
+            siteLink.textContent = "monstyrslayr.github.io";
+            daSite.appendChild(siteLink);
+
+    return footer;
 }
 
 export function getMonthName(monthNumber)
