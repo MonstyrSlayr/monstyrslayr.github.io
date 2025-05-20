@@ -14,6 +14,12 @@ body
     margin: 0;
 }
 
+header, .projectWrapper
+{
+    position: relative;
+    overflow: hidden;
+}
+
 h1
 {
     font-size: 48px;
@@ -74,13 +80,13 @@ a:hover
     padding: 0;
 }
 
-#imageQuartet
+.imageQuartet
 {
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 13.5;
     height: auto;
     margin: 0;
     opacity: 0.2;
@@ -88,6 +94,8 @@ a:hover
     position: absolute;
     top: 0;
     left: 0;
+
+    transition: none;
 
     user-drag: none;
     -webkit-user-drag: none;
@@ -101,7 +109,7 @@ a:hover
     pointer-events: none;
 }
 
-#imageQuartet > img
+.imageQuartet > img
 {
     width: 100%;
     height: 100%;
@@ -134,11 +142,32 @@ a:hover
     background: linear-gradient(to bottom right, #ffffff00 0%, #ffffff00 50%, #ffffff 50%, #ffffff 100%);
 }
 
+.diaTransitionDivIn2
+{
+    width: 100%;
+    height: 4em;
+    background: linear-gradient(to bottom left, #ffffff00 0%, #ffffff00 50%, #ffffff 50%, #ffffff 100%);
+}
+
 .diaTransitionDivOut
 {
     width: 100%;
     height: 2em;
     background: white;
+}
+
+.diaTransitionDivOut2
+{
+    width: 100%;
+    height: 4em;
+    background: linear-gradient(to top left, #ffffff00 0%, #ffffff00 50%, #ffffff 50%, #ffffff 100%);
+}
+
+.diaTransitionDivOut3
+{
+    width: 100%;
+    height: 4em;
+    background: linear-gradient(to top right, #ffffff00 0%, #ffffff00 50%, #ffffff 50%, #ffffff 100%);
 }
 
 .paddingDiv
@@ -206,64 +235,75 @@ a:hover
     max-width: 100%;
 }
 
-.projectsDiv > div
+.projectDiv
 {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     padding: 4em 8em;
+    overflow: hidden;
+    position: relative;
 }
 
-.projectsDiv > div:nth-child(2n)
+.paddingDiv > .projectDiv
 {
     background-color: white;
     color: black;
     flex-direction: row-reverse;
 }
 
-.projectsDiv > div > a, .projectsDiv > div > div
+.projectDiv > .imageQuartet
+{
+    margin: 0;
+    width: 100%;
+}
+
+.projectDiv > div
+{
+    width: 40%;
+    overflow: hidden;
+    margin: 4em;
+}
+
+.projectDiv > a
 {
     width: 40%;
     border-radius: 1.5em;
     overflow: hidden;
     margin: 4em;
-}
-
-.projectsDiv > div > a
-{
     border: solid white 4px;
 }
 
-.projectsDiv > div:nth-child(2n) > a
+.paddingDiv > .projectDiv > a
 {
     border-color: black;
 }
 
-.projectsDiv > div > a:hover
+.projectDiv > a:hover
 {
     border-color: cyan;
     scale: 102%;
 }
 
-.projectsDiv > div > a > img
+.projectDiv > a > img
 {
     width: 100%;
     height: 100%;
 }
 
-.projectsDiv > div > div > a > h2
+.projectDiv > div > a > h2
 {
     margin: 0em;
     padding: 0em;
 }
 
-.projectsDiv > div:nth-child(2n) > div > a
+.paddingDiv > .projectDiv > div > a
 {
     color: black;
 }
 
-.projectsDiv > div > div > h3
+.projectDiv > div > h3
 {
     margin: 0em;
     margin-bottom: 1em;
@@ -293,17 +333,18 @@ footer
         margin: 0 1em;
     }
 
-    .projectsDiv > div
+    .projectDiv
+    {
+        flex-direction: column;
+        padding: 1em 1em;
+    }
+
+    .paddingDiv > .projectDiv
     {
         flex-direction: column;
     }
 
-    .projectsDiv > div:nth-child(2n)
-    {
-        flex-direction: column;
-    }
-
-    .projectsDiv > div > a, .projectsDiv > div > div
+    .projectDiv > a, .projectDiv > div
     {
         width: 90%;
     }
@@ -314,6 +355,19 @@ footer
     #navbar
     {
         flex-direction: column;
+    }
+
+    .imageQuartet
+    {
+        display: flex;
+        flex-direction: column;
+        aspect-ratio: 16 / 36;
+    }
+
+    .imageQuartet > img
+    {
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
 
     #educationsDiv

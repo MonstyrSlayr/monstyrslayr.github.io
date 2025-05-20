@@ -1,41 +1,25 @@
-import { createNavbar, programmingProjects, getMonthName, createFooter } from "../data.js";
+import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet } from "../data.js";
 
-// copied from home,, idiot you fool
-
-const imageQuartet = document.createElement("div");
-imageQuartet.id = "imageQuartet";
-document.body.appendChild(imageQuartet);
-
-    const artSiteImg = document.createElement("img");
-    artSiteImg.src = "https://monstyrslayr.github.io/img/artSite.png";
-    imageQuartet.appendChild(artSiteImg);
-    
-    const ameWikiImg = document.createElement("img");
-    ameWikiImg.src = "https://monstyrslayr.github.io/img/ameWiki.png";
-    imageQuartet.appendChild(ameWikiImg);
-    
-    const lbaldleImg = document.createElement("img");
-    lbaldleImg.src = "https://monstyrslayr.github.io/img/LBALDLEDAILY.png";
-    imageQuartet.appendChild(lbaldleImg);
-    
-    const msmIncreImg = document.createElement("img");
-    msmIncreImg.src = "https://monstyrslayr.github.io/img/msmincredibox.png";
-    imageQuartet.appendChild(msmIncreImg);
+const header = document.createElement("header");
+document.body.appendChild(header);
 
 const h1 = document.createElement("h1");
 h1.textContent = "My Résumé and Personal Projects";
-document.body.appendChild(h1);
+header.appendChild(h1);
 
 const navbar = createNavbar();
-document.body.appendChild(navbar);
+header.appendChild(navbar);
 
 const showcaseSpace = document.createElement("div");
 showcaseSpace.classList.add("showcaseSpace");
-document.body.appendChild(showcaseSpace);
+header.appendChild(showcaseSpace);
+
+const imageQuartet = createImageQuartet();
+header.appendChild(imageQuartet);
 
 const diaTransitionDiv = document.createElement("div");
 diaTransitionDiv.classList.add("diaTransitionDivIn");
-document.body.appendChild(diaTransitionDiv);
+header.appendChild(diaTransitionDiv);
 
 const paddingDiv = document.createElement("div");
 paddingDiv.classList.add("paddingDiv");
@@ -47,50 +31,38 @@ document.body.appendChild(paddingDiv);
     `
     paddingDiv.appendChild(desc);
 
-const diaTransitionDiv2 = document.createElement("div");
-diaTransitionDiv2.classList.add("diaTransitionDivOut");
-document.body.appendChild(diaTransitionDiv2);
-
-const projectsDiv = document.createElement("div");
-projectsDiv.classList.add("projectsDiv");
-document.body.appendChild(projectsDiv);
-
 programmingProjects.sort((a, b) => b.date - a.date); // chronological desc
 
-for (const project of programmingProjects)
+for (let i = 0; i < programmingProjects.length; i++)
 {
-    const projectDiv = document.createElement("div");
-    projectsDiv.appendChild(projectDiv);
+    const project = programmingProjects[i];
 
-        const projectImageLink = document.createElement("a");
-        projectImageLink.href = project.link;
-        projectImageLink.target = "_blank";
-        projectDiv.appendChild(projectImageLink);
+    const projectWrapper = document.createElement("div"); // necessary for background shenanigans
+    projectWrapper.classList.add("projectWrapper");
 
-            const projectImage = document.createElement("img");
-            projectImage.src = project.image;
-            projectImageLink.appendChild(projectImage);
+    const projectDiv = createProjectDiv(project);
 
-        const projectWords = document.createElement("div");
-        projectDiv.appendChild(projectWords);
+    if (i % 2 == 1) // white bg
+    {
+        const daPaddingDiv = document.createElement("div");
+        daPaddingDiv.classList.add("paddingDiv");
+        projectWrapper.appendChild(daPaddingDiv);
 
-            const projectTitleLink = document.createElement("a");
-            projectTitleLink.href = project.link;
-            projectTitleLink.target = "_blank";
-            projectWords.appendChild(projectTitleLink);
+            daPaddingDiv.appendChild(projectDiv);
+    }
+    else // image quartet bg
+    {
+        projectWrapper.appendChild(createRandomTransitionOut());
 
-                const projectTitle = document.createElement("h2");
-                projectTitle.textContent = project.title;
-                projectTitleLink.appendChild(projectTitle);
+        projectWrapper.appendChild(projectDiv);
 
-            const projectDate = document.createElement("h3");
-            projectDate.textContent = getMonthName(project.date.getMonth() + 1) + " " + (project.date.getYear() + 1900);
-            if (project.isWIP) projectDate.textContent += " (WIP)";
-            projectWords.appendChild(projectDate);
+        projectWrapper.appendChild(createRandomTransitionIn());
+        
+        const daImageQuartet = createImageQuartet();
+        projectWrapper.appendChild(daImageQuartet);
+    }
 
-            const projectDesc = document.createElement("p");
-            projectDesc.textContent = project.desc;
-            projectWords.appendChild(projectDesc);
+    document.body.appendChild(projectWrapper);
 }
 
 const footer = createFooter();
@@ -107,3 +79,14 @@ else
 {
     document.body.appendChild(footer);
 }
+
+window.addEventListener("scroll", () =>
+{
+    document.querySelectorAll(".imageQuartet").forEach(el =>
+    {
+        const parent = el.offsetParent;
+        const parentTop = parent.getBoundingClientRect().top + window.scrollY;
+        const scrollRelativeToParent = window.scrollY - parentTop;
+        el.style.top = `${scrollRelativeToParent}px`;
+    });
+});

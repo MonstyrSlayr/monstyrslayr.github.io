@@ -221,7 +221,7 @@ export function createFooter()
     return footer;
 }
 
-export function getMonthName(monthNumber)
+function getMonthName(monthNumber)
 {
     const monthNames = [
         "January", "February", "March", "April",
@@ -229,4 +229,88 @@ export function getMonthName(monthNumber)
         "September", "October", "November", "December"
     ];
     return monthNames[monthNumber - 1];
+}
+
+export function createRandomTransitionIn()
+{
+    const transitions = ["diaTransitionDivIn", "diaTransitionDivIn2"];
+    const diaTransitionDiv = document.createElement("div");
+    diaTransitionDiv.classList.add(transitions[Math.floor(Math.random() * transitions.length)]);
+    return diaTransitionDiv;
+}
+
+export function createRandomTransitionOut()
+{
+    const transitions = ["diaTransitionDivOut", "diaTransitionDivOut2", "diaTransitionDivOut3"];
+    const diaTransitionDiv = document.createElement("div");
+    diaTransitionDiv.classList.add(transitions[Math.floor(Math.random() * transitions.length)]);
+    return diaTransitionDiv;
+}
+
+export function createProjectDiv(project)
+{
+    const projectDiv = document.createElement("div");
+    projectDiv.classList.add("projectDiv");
+
+        const projectImageLink = document.createElement("a");
+        projectImageLink.href = project.link;
+        projectImageLink.target = "_blank";
+        projectDiv.appendChild(projectImageLink);
+
+            const projectImage = document.createElement("img");
+            projectImage.src = project.image;
+            projectImageLink.appendChild(projectImage);
+
+        const projectWords = document.createElement("div");
+        projectDiv.appendChild(projectWords);
+
+            const projectTitleLink = document.createElement("a");
+            projectTitleLink.href = project.link;
+            projectTitleLink.target = "_blank";
+            projectWords.appendChild(projectTitleLink);
+
+                const projectTitle = document.createElement("h2");
+                projectTitle.textContent = project.title;
+                projectTitleLink.appendChild(projectTitle);
+
+            const projectDate = document.createElement("h3");
+            projectDate.textContent = getMonthName(project.date.getMonth() + 1) + " " + (project.date.getYear() + 1900);
+            if (project.isWIP) projectDate.textContent += " (WIP)";
+            projectWords.appendChild(projectDate);
+
+            const projectDesc = document.createElement("p");
+            projectDesc.textContent = project.desc;
+            projectWords.appendChild(projectDesc);
+
+    return projectDiv;
+}
+
+function shuffleSetToArray(set)
+{
+    const array = Array.from(set);
+
+    for (let i = array.length - 1; i > 0; i--)
+    {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+}
+
+export function createImageQuartet()
+{
+    const imageQuartet = document.createElement("div");
+    imageQuartet.classList.add("imageQuartet");
+
+        const projects = shuffleSetToArray(new Set(programmingProjects, artProjects));
+
+        for (let i = 0; i < 6; i++)
+        {
+            const daImg = document.createElement("img");
+            daImg.src = projects[i].image;
+            imageQuartet.appendChild(daImg);
+        }
+    
+    return imageQuartet;
 }

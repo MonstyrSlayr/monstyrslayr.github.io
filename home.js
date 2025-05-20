@@ -1,41 +1,27 @@
 // dynamically crafted homepage for your struggles
 
-import { createNavbar, education, languages, skillset, createFooter } from "./data.js";
+import { createNavbar, education, languages, skillset, createFooter, createImageQuartet } from "./data.js";
 
-const imageQuartet = document.createElement("div");
-imageQuartet.id = "imageQuartet";
-document.body.appendChild(imageQuartet);
-
-    const artSiteImg = document.createElement("img");
-    artSiteImg.src = "./img/artSite.png";
-    imageQuartet.appendChild(artSiteImg);
-    
-    const ameWikiImg = document.createElement("img");
-    ameWikiImg.src = "./img/ameWiki.png";
-    imageQuartet.appendChild(ameWikiImg);
-    
-    const lbaldleImg = document.createElement("img");
-    lbaldleImg.src = "./img/LBALDLEDAILY.png";
-    imageQuartet.appendChild(lbaldleImg);
-    
-    const msmIncreImg = document.createElement("img");
-    msmIncreImg.src = "./img/msmincredibox.png";
-    imageQuartet.appendChild(msmIncreImg);
+const header = document.createElement("header");
+document.body.appendChild(header);
 
 const h1 = document.createElement("h1");
 h1.textContent = "My Résumé and Personal Projects";
-document.body.appendChild(h1);
+header.appendChild(h1);
 
 const navbar = createNavbar();
-document.body.appendChild(navbar);
+header.appendChild(navbar);
 
 const showcaseSpace = document.createElement("div");
 showcaseSpace.classList.add("showcaseSpace");
-document.body.appendChild(showcaseSpace);
+header.appendChild(showcaseSpace);
+
+const imageQuartet = createImageQuartet();
+header.appendChild(imageQuartet);
 
 const diaTransitionDiv = document.createElement("div");
 diaTransitionDiv.classList.add("diaTransitionDivIn");
-document.body.appendChild(diaTransitionDiv);
+header.appendChild(diaTransitionDiv);
 
 const paddingDiv = document.createElement("div");
 paddingDiv.classList.add("paddingDiv");
@@ -50,37 +36,44 @@ document.body.appendChild(paddingDiv);
     `
     paddingDiv.appendChild(desc);
 
-const diaTransitionDiv2 = document.createElement("div");
-diaTransitionDiv2.classList.add("diaTransitionDivOut");
-document.body.appendChild(diaTransitionDiv2);
+const daEduWrapper = document.createElement("div"); // necessary for background shenanigans
+daEduWrapper.classList.add("projectWrapper");
+document.body.appendChild(daEduWrapper);
 
-const hEdu = document.createElement("h2");
-hEdu.textContent = "Education";
-document.body.appendChild(hEdu);
+    const diaTransitionDiv2 = document.createElement("div");
+    diaTransitionDiv2.classList.add("diaTransitionDivOut");
+    daEduWrapper.appendChild(diaTransitionDiv2);
 
-const educationsDiv = document.createElement("div");
-educationsDiv.id = "educationsDiv";
-document.body.appendChild(educationsDiv);
+    const hEdu = document.createElement("h2");
+    hEdu.textContent = "Education";
+    daEduWrapper.appendChild(hEdu);
 
-    for (const edu of education)
-    {
-        const eduDiv = document.createElement("div");
-        educationsDiv.appendChild(eduDiv);
+    const educationsDiv = document.createElement("div");
+    educationsDiv.id = "educationsDiv";
+    daEduWrapper.appendChild(educationsDiv);
 
-            const eduAnchor = document.createElement("a");
-            eduAnchor.textContent = edu.title;
-            eduAnchor.href = edu.link;
-            eduAnchor.target = "_blank";
-            eduDiv.appendChild(eduAnchor);
+        for (const edu of education)
+        {
+            const eduDiv = document.createElement("div");
+            educationsDiv.appendChild(eduDiv);
 
-            const eduGrad = document.createElement("p");
-            eduGrad.textContent = "Graduation: " + edu.gradMonth;
-            eduDiv.appendChild(eduGrad);
-    }
+                const eduAnchor = document.createElement("a");
+                eduAnchor.textContent = edu.title;
+                eduAnchor.href = edu.link;
+                eduAnchor.target = "_blank";
+                eduDiv.appendChild(eduAnchor);
 
-const diaTransitionDiv3 = document.createElement("div");
-diaTransitionDiv3.classList.add("diaTransitionDivIn");
-document.body.appendChild(diaTransitionDiv3);
+                const eduGrad = document.createElement("p");
+                eduGrad.textContent = "Graduation: " + edu.gradMonth;
+                eduDiv.appendChild(eduGrad);
+        }
+
+    const diaTransitionDiv3 = document.createElement("div");
+    diaTransitionDiv3.classList.add("diaTransitionDivIn2");
+    daEduWrapper.appendChild(diaTransitionDiv3);
+
+    const imageQuartet2 = createImageQuartet();
+    daEduWrapper.appendChild(imageQuartet2);
 
 const paddingDiv2 = document.createElement("div");
 paddingDiv2.classList.add("paddingDiv");
@@ -124,9 +117,27 @@ document.body.appendChild(paddingDiv2);
                     langsDiv.appendChild(langText);
                 }
 
-const diaTransitionDiv4 = document.createElement("div");
-diaTransitionDiv4.classList.add("diaTransitionDivOut");
-document.body.appendChild(diaTransitionDiv4);
+const daFooterWrapper = document.createElement("div"); // necessary for background shenanigans
+daFooterWrapper.classList.add("projectWrapper");
+document.body.appendChild(daFooterWrapper);
 
-const footer = createFooter();
-document.body.appendChild(footer);
+    const diaTransitionDiv4 = document.createElement("div");
+    diaTransitionDiv4.classList.add("diaTransitionDivOut2");
+    daFooterWrapper.appendChild(diaTransitionDiv4);
+
+    const footer = createFooter();
+    daFooterWrapper.appendChild(footer);
+
+    const imageQuartet3 = createImageQuartet();
+    daFooterWrapper.appendChild(imageQuartet3);
+
+window.addEventListener("scroll", () =>
+{
+    document.querySelectorAll(".imageQuartet").forEach(el =>
+    {
+        const parent = el.offsetParent;
+        const parentTop = parent.getBoundingClientRect().top + window.scrollY;
+        const scrollRelativeToParent = window.scrollY - parentTop;
+        el.style.top = `${scrollRelativeToParent}px`;
+    });
+});
