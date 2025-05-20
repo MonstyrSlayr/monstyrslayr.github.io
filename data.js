@@ -1,0 +1,201 @@
+class Project
+{
+    constructor(title, description, image, link, date, isWIP = false)
+    {
+        this.title = title;
+        this.desc = description;
+        this.image = image;
+        this.link = link;
+        this.date = date;
+        this.isWIP = isWIP;
+    }
+}
+
+const bicolage = new Project(
+    "Bicolage",
+    "I created this website along with 3 of my classmates in order to tell our American Studies class about the history of Seneca Village.",
+    "https://monstyrslayr.github.io/img/bicolage.png",
+    "https://monstyrslayr.github.io/bicolage/project/",
+    new Date("02/01/2023")
+);
+
+const boxPush = new Project(
+    "boxPush",
+    "I created a game using GameMaker Studio 2 for my final project in my physics mechanics class. Two opponents push a box into their goals.",
+    "https://monstyrslayr.github.io/img/boxPush.png",
+    "https://monstyrslayr.github.io/boxPush/",
+    new Date("01/16/2023")
+);
+
+const magonet = new Project(
+    "Magonet",
+    "I created a game using GameMaker Studio for my final project in my physics electricity & magnetism class. Guide your magnetic character into the yellow goals.",
+    "https://monstyrslayr.github.io/img/magoNet.png",
+    "https://monstyrslayr.github.io/magonet/",
+    new Date("05/24/2023")
+);
+
+const lbaldle = new Project(
+    "LBALdle",
+    "This is a passion project based on Wordle, the popular word guessing game, and Luck Be a Landlord, one of my favorite video games. You are able to guess a Luck Be a Landlord symbol based on clues.",
+    "https://monstyrslayr.github.io/img/LBALDLE.png",
+    "https://monstyrslayr.github.io/lbaldle/",
+    new Date("09/22/2024")
+);
+
+const tigerGoodbuy = new Project(
+    "Tiger Goodbuy",
+    "A team of students and I created a prototype for a website similar to Ebay, but for RIT students.",
+    "https://monstyrslayr.github.io/img/tigerGoodbuy.png",
+    "https://adeseyn.github.io/tigergoodbuy/",
+    new Date("12/09/2024")
+);
+
+const msmRMG = new Project(
+    "MSM Random Monster Generator",
+    "I created a website for fans of My Singing Monsters, the hit mobile game. This site generates a random monster from the game. All of the other generators I found were outdated, so I made my own!",
+    "https://monstyrslayr.github.io/img/MSMRMG.png",
+    "https://monstyrslayr.github.io/randomMonsterGenerator/",
+    new Date(), // literally ongoing, not worth it to update here every time
+    true
+);
+
+const ameliorateWiki = new Project(
+    "Ameliorate Wiki",
+    "For my YouTube fans to explore the extensive lore of my original characters.",
+    "https://monstyrslayr.github.io/img/ameWiki.png",
+    "https://monstyrslayr.github.io/wiki/",
+    new Date(),
+    true
+);
+
+const msmIncredibox = new Project(
+    "MSM Incredibox",
+    "A passion project mashup of Incredibox mechanics and My Singing Monsters music.",
+    "https://monstyrslayr.github.io/img/msmincredibox.png",
+    "https://monstyrslayr.github.io/msmincredibox/",
+    new Date("04/10/2025"),
+    true
+);
+
+const blackCatSaga = new Project(
+    "Black Cat Saga",
+    "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
+    "https://monstyrslayr.github.io/img/blackCat.png",
+    "https://youtu.be/RYFg599fCRM",
+    new Date("11/14/2020")
+);
+
+const ameliorateSaga = new Project(
+    "Ameliorate Saga",
+    "I started Signal Stadium around a year after my old laptop crashed and I lost all of my intricate animation projects, including the Black Cat Saga. This island helped me to get back into the flow of music and animation.",
+    "https://monstyrslayr.github.io/img/sigStad.png",
+    "https://youtu.be/x03o46Deeyo",
+    new Date("05/19/2025"), // do something you fool
+    true
+);
+
+const artArchive = new Project(
+    "General Art Archive",
+    "I'm trying a new way to share my general / uncategorized artwork.",
+    "https://monstyrslayr.github.io/img/artSite.png",
+    "https://monstyrslayr.github.io/art",
+    new Date(),
+    true
+);
+
+export const programmingProjects =
+[
+    bicolage, boxPush, magonet,
+    lbaldle,
+    tigerGoodbuy,
+    msmRMG, ameliorateWiki, msmIncredibox,
+    artArchive
+];
+
+export const artProjects =
+[
+    blackCatSaga,
+    ameliorateSaga,
+    artArchive
+];
+
+export const skillset =
+[
+    "Web development",
+    "Game development",
+    "Project management",
+    "Database management",
+    "DevOps cycle",
+    "Repository management",
+    "Git",
+    "GitHub",
+    "GitLab"
+]
+
+export const languages =
+[
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React.js",
+    "Python",
+    "Java",
+    "C",
+    "SQL",
+    "GML"
+]
+
+class Education
+{
+    constructor(title, gradMonth, link, info = "")
+    {
+        this.title = title;
+        this.gradMonth = gradMonth;
+        this.link = link;
+        this.info = info;
+    }
+}
+
+export const education =
+[
+    new Education("The Wight Foundation", "June 2020", "https://www.wightfoundation.org/"),
+    new Education("The Masters School", "June 2024", "https://www.mastersny.org/"),
+    new Education("Rochester Institute of Technology", "May 2029", "https://www.rit.edu/", "(5 year major)"),
+];
+
+export function createNavbar()
+{
+    const navbar = document.createElement("div");
+    navbar.id = "navbar";
+    const navbarNames = ["HOME", "PROGRAMMING", "CREATIVE"];
+    const navbarLinks = ["https://monstyrslayr.github.io/",
+                            "https://monstyrslayr.github.io/programming",
+                                "https://monstyrslayr.github.io/creative"];
+
+    for (let i = 0; i < navbarNames.length; i++)
+    {
+        const daName = navbarNames[i];
+        const daLink = navbarLinks[i];
+
+        const daAnchor = document.createElement("a");
+        daAnchor.href = daLink;
+        navbar.appendChild(daAnchor);
+
+            const daAnchorText = document.createElement("p");
+            daAnchorText.textContent = daName;
+            daAnchor.appendChild(daAnchorText);
+    }
+
+    return navbar;
+}
+
+export function getMonthName(monthNumber)
+{
+    const monthNames = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+    ];
+    return monthNames[monthNumber - 1];
+}

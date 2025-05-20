@@ -7,20 +7,25 @@
 
 body
 {
-    background-color: antiquewhite;
+    background-color: black;
+    color: white;
     margin: 32px;
+    padding: 0;
+    margin: 0;
 }
 
 h1
 {
     font-size: 48px;
     font-weight: 800;
+    margin: 1em;
 }
 
 h2
 {
     font-size: 40px;
     font-weight: 700;
+    margin: 1em;
 }
 
 h3
@@ -29,10 +34,208 @@ h3
     font-weight: 600;
 }
 
+#navbar
+{
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    margin: 1em auto;
+    justify-content: space-around;
+    align-items: center;
+    border-top: white 4px solid;
+    border-bottom: white 4px solid;
+}
+
+a
+{
+    color: white;
+}
+
+a:hover
+{
+    color: white;
+}
+
+#navbar > a
+{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#navbar > a:hover
+{
+    background-color: #ffffff42;
+}
+
+#navbar > a > p
+{
+    margin: 0.5em auto;
+    padding: 0;
+}
+
+#imageQuartet
+{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    margin: 0;
+    opacity: 0.2;
+    z-index: -10;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    overflow: hidden;
+    touch-action: manipulation;
+
+    pointer-events: none;
+}
+
+#imageQuartet > img
+{
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    overflow: hidden;
+    touch-action: manipulation;
+
+    pointer-events: none;
+}
+
+.showcaseSpace
+{
+    background: none;
+    width: 100%;
+    height: 32em;
+}
+
+.diaTransitionDivIn
+{
+    width: 100%;
+    height: 4em;
+    background: linear-gradient(to bottom right, #ffffff00 0%, #ffffff00 50%, #ffffff 50%, #ffffff 100%);
+}
+
+.diaTransitionDivOut
+{
+    width: 100%;
+    height: 2em;
+    background: white;
+}
+
+.paddingDiv
+{
+    background-color: white;
+    color: black;
+    padding: 2em 10em;
+}
+
+#educationsDiv
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 75%;
+    margin: 1em auto;
+}
+
+#educationsDiv > div > a
+{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#skillFlex
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.projectsDiv > div
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 4em 8em;
+}
+
+.projectsDiv > div:nth-child(2n)
+{
+    background-color: white;
+    color: black;
+    flex-direction: row-reverse;
+}
+
+.projectsDiv > div > a, .projectsDiv > div > div
+{
+    width: 40%;
+    border-radius: 1.5em;
+    overflow: hidden;
+    margin: 4em;
+}
+
+.projectsDiv > div > a
+{
+    border: solid white 4px;
+}
+
+.projectsDiv > div:nth-child(2n) > a
+{
+    border-color: black;
+}
+
+.projectsDiv > div > a:hover
+{
+    border-color: cyan;
+    scale: 102%;
+}
+
+.projectsDiv > div > a > img
+{
+    width: 100%;
+    height: 100%;
+}
+
+.projectsDiv > div > div > a > h2
+{
+    margin: 0em;
+    padding: 0em;
+}
+
+.projectsDiv > div:nth-child(2n) > div > a
+{
+    color: black;
+}
+
+.projectsDiv > div > div > h3
+{
+    margin: 0em;
+    margin-bottom: 1em;
+}
+
 p, li
 {
     font-size: 24px;
     list-style-type: none;
+    user-select: text;
 }
 
 ul
@@ -58,20 +261,6 @@ ul
 {
     width: 600px;
     padding: 1%;
-}
-
-img
-{
-    border-radius: 32px;
-    width: 80%;
-    border: 4px solid black;
-    transition: all 0.10s;
-}
-
-img:hover
-{
-    scale: 102%;
-    cursor: pointer;
 }
 
 .sectionBreak
