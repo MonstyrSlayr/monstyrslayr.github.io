@@ -131,13 +131,4 @@ document.body.appendChild(daFooterWrapper);
     const imageQuartet3 = createImageQuartet();
     daFooterWrapper.appendChild(imageQuartet3);
 
-window.addEventListener("scroll", () =>
-{
-    document.querySelectorAll(".imageQuartet").forEach(el =>
-    {
-        const parent = el.offsetParent;
-        const parentTop = parent.getBoundingClientRect().top + window.scrollY;
-        const scrollRelativeToParent = window.scrollY - parentTop;
-        el.style.top = `${scrollRelativeToParent}px`;
-    });
-});
+scrollQuartets();

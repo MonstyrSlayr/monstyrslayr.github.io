@@ -89,7 +89,7 @@ a:hover
     aspect-ratio: 16 / 13.5;
     height: auto;
     margin: 0;
-    opacity: 0.2;
+    opacity: 0.15;
     z-index: -10;
     position: absolute;
     top: 0;
@@ -361,7 +361,7 @@ footer
     {
         display: flex;
         flex-direction: column;
-        aspect-ratio: 16 / 36;
+        aspect-ratio: 16 / 54;
     }
 
     .imageQuartet > img

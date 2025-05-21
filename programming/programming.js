@@ -79,13 +79,4 @@ else
     document.body.appendChild(footer);
 }
 
-window.addEventListener("scroll", () =>
-{
-    document.querySelectorAll(".imageQuartet").forEach(el =>
-    {
-        const parent = el.offsetParent;
-        const parentTop = parent.getBoundingClientRect().top + window.scrollY;
-        const scrollRelativeToParent = window.scrollY - parentTop;
-        el.style.top = `${scrollRelativeToParent}px`;
-    });
-});
+scrollQuartets();

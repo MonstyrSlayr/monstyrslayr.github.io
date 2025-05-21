@@ -1,4 +1,4 @@
-import { createNavbar, artProjects, createFooter, createImageQuartet, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut } from "../data.js";
+import { createNavbar, artProjects, createFooter, createImageQuartet, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, scrollQuartets } from "../data.js";
 
 const header = document.createElement("header");
 document.body.appendChild(header);
@@ -27,6 +27,8 @@ document.body.appendChild(paddingDiv);
 
     const desc = document.createElement("p");
     desc.textContent = `
+        Although I am primarily a programmer, I dabble in animation and art.
+        Even in animation, I find myself doing some programming, like procedurally generated particles and mathematically calculated positions, so I decided to create this page.
         Here are some of my creative projects!
     `
     paddingDiv.appendChild(desc);
@@ -80,13 +82,4 @@ else
     document.body.appendChild(footer);
 }
 
-window.addEventListener("scroll", () =>
-{
-    document.querySelectorAll(".imageQuartet").forEach(el =>
-    {
-        const parent = el.offsetParent;
-        const parentTop = parent.getBoundingClientRect().top + window.scrollY;
-        const scrollRelativeToParent = window.scrollY - parentTop;
-        el.style.top = `${scrollRelativeToParent}px`;
-    });
-});
+scrollQuartets();
