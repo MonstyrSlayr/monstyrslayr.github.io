@@ -1,4 +1,4 @@
-import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet } from "../data.js";
+import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet, scrollQuartets } from "../data.js";
 
 const header = document.createElement("header");
 document.body.appendChild(header);

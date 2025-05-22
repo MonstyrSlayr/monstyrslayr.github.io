@@ -1,6 +1,6 @@
 // dynamically crafted homepage for your struggles
 
-import { createNavbar, education, languages, skillset, createFooter, createImageQuartet } from "./data.js";
+import { createNavbar, education, languages, skillset, createFooter, createImageQuartet, scrollQuartets } from "./data.js";
 
 const header = document.createElement("header");
 document.body.appendChild(header);
