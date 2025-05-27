@@ -78,6 +78,14 @@ const msmIncredibox = new Project(
     true
 );
 
+const lbalBadApple = new Project(
+    "Bad Apple but it's Luck be a Landlord",
+    "A recreation of the Bad Apple music video using nothing but Python and LbaL symbols. Remaster of a January 2024 project.",
+    "https://i9.ytimg.com/vi_webp/f5CtDEwnOLw/maxresdefault.webp?v=68358012&sqp=CIyN18EG&rs=AOn4CLCyAu-5WmyURFn5feJFw9RfmrNrJQ",
+    "https://youtu.be/f5CtDEwnOLw",
+    new Date("05/27/2025")
+);
+
 const blackCatSaga = new Project(
     "Black Cat Saga",
     "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
@@ -107,7 +115,7 @@ const artArchive = new Project(
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
-    lbaldle,
+    lbaldle, lbalBadApple,
     tigerGoodbuy,
     msmRMG, ameliorateWiki, msmIncredibox,
     artArchive
@@ -119,6 +127,8 @@ export const artProjects =
     ameliorateSaga,
     artArchive
 ];
+
+export const featuredProgrammingProject = lbalBadApple;
 
 export const skillset =
 [

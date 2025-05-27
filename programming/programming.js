@@ -1,4 +1,4 @@
-import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet, scrollQuartets } from "../data.js";
+import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet, scrollQuartets, featuredProgrammingProject } from "../data.js";
 
 const header = document.createElement("header");
 document.body.appendChild(header);
@@ -13,6 +13,14 @@ header.appendChild(navbar);
 const showcaseSpace = document.createElement("div");
 showcaseSpace.classList.add("showcaseSpace");
 header.appendChild(showcaseSpace);
+
+    const featuredHeading = document.createElement("h1");
+    featuredHeading.textContent = "Featured Project";
+    showcaseSpace.appendChild(featuredHeading);
+
+    const featuredProjectDiv = createProjectDiv(featuredProgrammingProject);
+    featuredProjectDiv.classList.add("featured");
+    showcaseSpace.appendChild(featuredProjectDiv);
 
 const imageQuartet = createImageQuartet();
 header.appendChild(imageQuartet);

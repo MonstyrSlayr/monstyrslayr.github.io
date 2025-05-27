@@ -132,7 +132,7 @@ a:hover
 {
     background: none;
     width: 100%;
-    height: 32em;
+    min-height: 32em;
 }
 
 .diaTransitionDivIn
@@ -250,6 +250,11 @@ a:hover
 {
     background-color: white;
     color: black;
+    flex-direction: row-reverse;
+}
+
+.featured
+{
     flex-direction: row-reverse;
 }
 
