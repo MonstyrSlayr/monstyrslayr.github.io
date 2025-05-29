@@ -81,7 +81,7 @@ const msmIncredibox = new Project(
 const lbalBadApple = new Project(
     "Bad Apple but it's Luck be a Landlord",
     "A recreation of the Bad Apple music video using nothing but Python and LbaL symbols. Remaster of a January 2024 project.",
-    "https://i9.ytimg.com/vi_webp/f5CtDEwnOLw/maxresdefault.webp?v=68358012&sqp=CIyN18EG&rs=AOn4CLCyAu-5WmyURFn5feJFw9RfmrNrJQ",
+    "https://monstyrslayr.github.io/img/lbalBadApple.png",
     "https://youtu.be/f5CtDEwnOLw",
     new Date("05/27/2025")
 );
