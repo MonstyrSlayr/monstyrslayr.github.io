@@ -132,6 +132,7 @@ export const featuredProgrammingProject = lbalBadApple;
 
 export const skillset =
 [
+    // programming
     "Web development",
     "Game development",
     "Project management",
@@ -140,7 +141,11 @@ export const skillset =
     "Repository management",
     "Git",
     "GitHub",
-    "GitLab"
+    "GitLab",
+    
+    // youtube
+    "Community moderation",
+    "Content creation"
 ]
 
 export const languages =
