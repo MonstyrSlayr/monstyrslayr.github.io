@@ -7,7 +7,7 @@ document.body.appendChild(header);
 
 const h1 = document.createElement("h1");
 h1.classList.add("bigMan");
-h1.textContent = "My Résumé and Personal Projects";
+h1.textContent = "My Résumé and Portfolio";
 header.appendChild(h1);
 
 const navbar = createNavbar();
