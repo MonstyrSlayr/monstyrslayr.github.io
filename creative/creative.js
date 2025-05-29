@@ -4,6 +4,7 @@ const header = document.createElement("header");
 document.body.appendChild(header);
 
 const h1 = document.createElement("h1");
+h1.classList.add("bigMan");
 h1.textContent = "My Résumé and Personal Projects";
 header.appendChild(h1);
 
