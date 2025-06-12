@@ -296,16 +296,30 @@ export async function getMonsters()
 					{
 						monster.islands = new Set();
 						monster.islands.add(island);
+
+						let islandName = island;
+						if (island == "Haven" || island == "Oasis")
+						{
+							islandName = "Fire" + island;
+						}
+
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + islandName + ".wav";
 						break;
 					}
 				}
 			}
 			
-			//paironormal clause
+			// paironormal clause
 			if (monster.elementString.startsWith("i"))
 			{
 				monster.rarity = monster.elementString.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
 				monster.name = (monster.rarity == RARITY.MINOR ? "Minor" : "Major") + " " + monsterLine.name;
+
+				if (monster.identifier != 1)
+				{
+					const daStr = monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN";
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + daStr + "-Memory.wav").trim();
+				}
 			}
 			
 			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // TODO: there is still stuff to do here, seperating it by island
