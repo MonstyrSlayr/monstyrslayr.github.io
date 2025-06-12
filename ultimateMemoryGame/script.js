@@ -659,6 +659,15 @@ async function main()
         }
     });
 
+    window.addEventListener("beforeunload", function (e)
+    {
+        if (startTime != null && endTime == null) // if game is ongoing
+        {
+            e.preventDefault();
+            e.returnValue = "";
+        }
+    });
+
     const footer = document.createElement("footer");
     document.body.appendChild(footer);
 
