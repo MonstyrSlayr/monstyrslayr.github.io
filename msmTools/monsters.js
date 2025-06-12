@@ -95,6 +95,7 @@ export async function getMonsters()
 
 	for (const line of lines)
 	{
+		if (line == "") continue;
 		let monster = new Monster;
 
 		monster.file = line.trim();

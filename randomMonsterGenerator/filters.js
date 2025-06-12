@@ -485,7 +485,6 @@ async function createFilters()
                     monsterDiv.classList.add("monsterReveal");
 
                     const sound = new Audio(monsterDiv.finalMonster.memory);
-                    console.log(monsterDiv.finalMonster.memory);
                     sound.play();
 
                     allFilteredMonsters.splice(allFilteredMonsters.indexOf(monsterDiv.finalMonster), 1);
