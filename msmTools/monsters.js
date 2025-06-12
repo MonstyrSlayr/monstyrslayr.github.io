@@ -137,15 +137,15 @@ export async function getMonsters()
 		else if (monster.elementString.startsWith("i"))
 		{
 			monster.class = MCLASS.PAIRONORMAL;
-			monster.identifier = monster.elementString.replace("i", "");
+			monster.identifier = parseInt(monster.elementString.replace("i", "").replace("_maj", "").replace("_min", ""));
 			monster.elements = 1;
 
 			switch (monster.identifier)
 			{
-				case "01":
+				case 1:
 					monster.hasControl = true;
 					break;
-				case "02":
+				case 2:
 					monster.hasHoax = true;
 					break;
 			}

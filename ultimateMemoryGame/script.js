@@ -27,6 +27,8 @@ class MonsterData // wrapper class linking monster to their div without spoiling
             if (!this.forefited)
             {
                 const sound = new Audio(this.monster.memory);
+                console.log(this.monster);
+                console.log(this.monster.memory);
                 sound.play();
             }
 
