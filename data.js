@@ -91,8 +91,7 @@ const msmMemory = new Project(
     "Let's see how well My Singing Monsters fans can name every single monster in the game.",
     "https://monstyrslayr.github.io/img/msmMemoryGame.png",
     "https://monstyrslayr.github.io/msmMemoryGame/",
-    new Date("04/10/2025"),
-    true
+    new Date("06/12/2025")
 );
 
 const blackCatSaga = new Project(
