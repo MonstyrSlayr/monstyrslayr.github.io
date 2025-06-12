@@ -1,0 +1,299 @@
+*
+{
+    transition: all 0.15s;
+    pointer-events: none;
+    --accent-color: #853e80;
+    --accent-color2: #413376;
+}
+
+body
+{
+    font-family: 'OpenDyslexic', sans-serif;
+    background-color: black;
+    color: white;
+    margin: 0;
+    max-width: 100vw;
+    max-height: 100vw;
+    overflow-x: hidden;
+}
+
+h1
+{
+    text-align: center;
+    margin: 1em;
+}
+
+h2
+{
+    margin: 0;
+}
+
+p
+{
+    margin: 0;
+}
+
+.hidden
+{
+    display: none !important;
+}
+
+button:not(.disabled):hover
+{
+    cursor: pointer;
+    scale: 105%;
+}
+
+.fullScreenWarning
+{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background-color: #000000bb;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    display: flex;
+    text-align: center;
+}
+
+.fullScreenWarning > *
+{
+    margin: 1em;
+}
+
+.buttonsDiv
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.topBarWrapper, .bottomBarWrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 1em auto;
+    padding: 0;
+}
+
+.topBar, .bottomBar
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.topBar > *, .bottomBar > *
+{
+    border: none;
+    padding: 1em;
+    border-radius: 4px;
+    background: linear-gradient(to bottom right, var(--accent-color), var(--accent-color2));
+}
+
+.playerInputBox, button
+{
+    pointer-events: all;
+    font-family: 'OpenDyslexic', sans-serif;
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 1em;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    font-size: 1em;
+}
+
+.playerInputBox:focus
+{
+    outline: none;
+    box-shadow: none;
+}
+
+.playerInputBox::placeholder
+{
+    color: white;
+}
+
+.monsterCount, .timerWrapper
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-self: center;
+    align-items: center;
+    gap: 0.33em;
+}
+
+.timerTime
+{
+    min-width: 7em;
+    max-width: 7em;
+}
+
+.monsterBoxesWrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.monsterBoxes
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: calc(100% - 1.5em);
+    max-width: calc(100% - 1.5em);
+}
+
+.monsterBoxCol
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em;
+}
+
+.monsterBox
+{
+    border: 2px white solid;
+    border-radius: 4px;
+    padding: 1em;
+    margin: 1em auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.completed
+{
+    background: linear-gradient(to bottom right, var(--accent-color), var(--accent-color2));
+}
+
+.monsterBoxPortraits, .monsterBoxPortraitsWithNames
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.monsterPortraitDiv
+{
+    width: 10%;
+    min-width: 3em;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0.1em;
+}
+
+@keyframes shrinkIn
+{
+    from
+    {
+        scale: 150%;
+    }
+
+    to
+    {
+        scale: 100%;
+    }
+}
+
+.revealed
+{
+    animation: shrinkIn 0.15s ease-in;
+}
+
+.missedMonster
+{
+    width: 10%;
+    margin: 0.1em;
+}
+
+.monsterPortraitDiv > img
+{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+}
+
+.missedMonster
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.missedMonster > .monsterPortraitDiv
+{
+    width: 60%;
+}
+
+.toast
+{
+    position: fixed;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom right, var(--accent-color), var(--accent-color2));
+    color: white;
+    padding: 1em;
+    border-radius: 8px;
+    font-size: 2em;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.toast.show
+{
+    opacity: 1;
+}
+
+footer
+{
+    padding: 1em;
+    background: #333;
+    color: #fff;
+    margin: 0;
+    padding-bottom: 5em;
+}
+
+footer > p > a
+{
+    pointer-events: all;
+    color: cyan;
+}
+
+@media only screen and (max-width: 1000px)
+{
+    .monsterBoxes
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .monsterBoxCol
+    {
+        margin: 0;
+    }
+}

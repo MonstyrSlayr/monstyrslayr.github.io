@@ -86,6 +86,15 @@ const lbalBadApple = new Project(
     new Date("05/27/2025")
 );
 
+const msmMemory = new Project(
+    "MSM Ultimate Memory Game",
+    "Let's see how well My Singing Monsters fans can name every single monster in the game.",
+    "https://monstyrslayr.github.io/img/msmMemoryGame.png",
+    "https://monstyrslayr.github.io/msmMemoryGame/",
+    new Date("04/10/2025"),
+    true
+);
+
 const blackCatSaga = new Project(
     "Black Cat Saga",
     "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
@@ -117,7 +126,7 @@ export const programmingProjects =
     bicolage, boxPush, magonet,
     lbaldle, lbalBadApple,
     tigerGoodbuy,
-    msmRMG, ameliorateWiki, msmIncredibox,
+    msmRMG, ameliorateWiki, msmIncredibox, msmMemory,
     artArchive
 ];
 

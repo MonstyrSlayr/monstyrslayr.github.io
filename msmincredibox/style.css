@@ -1,3 +1,8 @@
+*
+{
+    transition: all 0.2s;
+}
+
 body
 {
     padding: 0;
@@ -19,7 +24,7 @@ body
 #homePage > h1
 {
     color: white;
-    margin: 1em;
+    margin: 1em auto;
     text-align: center;
     font-size: 300%;
     max-width: 90%;
@@ -28,6 +33,7 @@ body
 #homePage p
 {
     font-size: 150%;
+    margin: auto;
 }
 
 #incrediboxIslands
@@ -57,9 +63,19 @@ body
     padding: 1em;
 }
 
+#incrediboxIslands > a:hover
+{
+    scale: 105%;
+}
+
 #incrediboxIslands > a > img
 {
     max-width: 100%;
+}
+
+a
+{
+    color: cyan;
 }
 
 @media screen and (max-width: 600px)

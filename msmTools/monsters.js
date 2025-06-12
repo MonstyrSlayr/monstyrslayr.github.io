@@ -9,7 +9,7 @@ const RARITY = Object.freeze
 	MINOR: 6 //paironormal only
 });
 
-const CLASS = Object.freeze
+const MCLASS = Object.freeze
 ({
     NATURAL: 0,
     FIRE: 1,
@@ -102,14 +102,14 @@ export async function getMonsters()
 		monster.portrait = ("https://monstyrslayr.github.io/msmTools/img/portrait/" + line).trim();
 		monster.portraitBlack = monster.portrait.replace(".avif", "_black.avif");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".avif", "").trim();
-		if (monster.id == "ad") //special quibble case
+		if (monster.id == "ad") // special quibble case
 		{
 			monster.square = "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_square_ad_copy.avif";
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/img/portrait/monster_portrait_square_ad_copy.avif";
 		}
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
 
-		//rarities
+		// rarities
 		if (monster.id.endsWith("_rare")) monster.rarity = RARITY.RARE;
 		else if (monster.id.includes("_epic")) monster.rarity = RARITY.EPIC; //includes for epic wubboxes
 		else if (monster.id.endsWith("_adult")) monster.rarity = RARITY.ADULT;
@@ -120,21 +120,21 @@ export async function getMonsters()
 		// classes & element count
 		if (monster.elementString.startsWith("z"))
 		{
-			monster.class = CLASS.SHUGAFAM;
+			monster.class = MCLASS.SHUGAFAM;
 			monster.identifier = parseInt(monster.elementString.replace("z", ""));
 			monster.elements = 1;
 			monster.hasLegendary = true;
 		}
 		else if (monster.elementString.startsWith("x"))
 		{
-			monster.class = CLASS.TITANSOUL;
+			monster.class = MCLASS.TITANSOUL;
 			monster.identifier = parseInt(monster.elementString.replace("x", ""));
 			monster.elements = 1;
 			monster.hasTitansoul = true;
 		}
 		else if (monster.elementString.startsWith("i"))
 		{
-			monster.class = CLASS.PAIRONORMAL;
+			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = monster.elementString.replace("i", "");
 			monster.elements = 1;
 
@@ -150,14 +150,14 @@ export async function getMonsters()
 		}
 		else if (monster.elementString.startsWith("VOC"))
 		{
-			monster.class = CLASS.WERDO;
+			monster.class = MCLASS.WERDO;
 			monster.identifier = parseInt(monster.id.replace("VOC_", ""));
 			monster.elements = 1;
 			monster.hasLegendary = true;
 		}
 		else if (monster.elementString.startsWith("prm"))
 		{
-			monster.class = CLASS.PRIMORDIAL;
+			monster.class = MCLASS.PRIMORDIAL;
 			monster.identifier = parseInt(monster.id.replace("prm_", ""));
 			monster.elements = 1;
 			monster.hasPrimordialPlant = true; // change when new primordials come out
@@ -165,7 +165,7 @@ export async function getMonsters()
 		else if (monster.elementString.startsWith("u")
 					|| monster.elementString.startsWith("f"))
 		{
-			monster.class = CLASS.SUPERNATURAL;
+			monster.class = MCLASS.SUPERNATURAL;
 			monster.elements = 1;
 			monster.hasElectricity = true;
 
@@ -180,7 +180,7 @@ export async function getMonsters()
 		}
 		else if (monster.elementString.startsWith("t"))
 		{
-			monster.class = CLASS.CELESTIAL;
+			monster.class = MCLASS.CELESTIAL;
 			if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.CHILD;
 			monster.identifier = parseInt(monster.elementString.replace("t", ""));
 			monster.elements = 1;
@@ -188,26 +188,26 @@ export async function getMonsters()
 		}
 		else if (monster.elementString.startsWith("s"))
 		{
-			monster.class = CLASS.SEASONAL;
+			monster.class = MCLASS.SEASONAL;
 			monster.identifier = parseInt(monster.elementString.replace("s", ""));
 			monster.elements = 1;
 		}
 		else if (monster.elementString.startsWith("q"))
 		{
-			monster.class = CLASS.DIPSTER;
+			monster.class = MCLASS.DIPSTER;
 			monster.identifier = parseInt(monster.elementString.replace("q", ""));
 			monster.elements = 1;
 			monster.hasDipster = true;
 		}
 		else if (monster.elementString.startsWith("p"))
 		{
-			monster.class = CLASS.MYTHICAL;
+			monster.class = MCLASS.MYTHICAL;
 			monster.identifier = parseInt(monster.elementString.replace("p", ""));
 			monster.elements = 1;
 			monster.hasMythical = true;
 			if (monster.identifier >= 8)
 			{
-				monster.class = CLASS.DREAMYTHICAL;
+				monster.class = MCLASS.DREAMYTHICAL;
 				monster.hasDream = true;
 				if (monster.identifier >= 9)
 				{
@@ -225,7 +225,7 @@ export async function getMonsters()
 							|| monster.elementString.includes("l")
 								|| monster.elementString.includes("m"))
 		{
-			monster.class = CLASS.ETHEREAL;
+			monster.class = MCLASS.ETHEREAL;
 			monster.elements = monster.elementString.length;
 		}
 		else if (monster.elementString.includes("r")
@@ -233,17 +233,17 @@ export async function getMonsters()
 						|| monster.elementString.includes("w")
 							|| monster.elementString.includes("y"))
 		{
-			monster.class = CLASS.MAGICAL;
+			monster.class = MCLASS.MAGICAL;
 			monster.elements = monster.elementString.length;
 		}
 		else if (monster.elementString.includes("n"))
 		{
-			monster.class = CLASS.FIRE;
+			monster.class = MCLASS.FIRE;
 			monster.elements = monster.elementString.length;
 		}
 		else
 		{
-			monster.class = CLASS.NATURAL;
+			monster.class = MCLASS.NATURAL;
 			monster.elements = monster.elementString.length;
 		}
 
@@ -252,10 +252,10 @@ export async function getMonsters()
 
 	monsters.forEach((monster) =>
 	{
-		if (monster.class == CLASS.ETHEREAL
-			|| monster.class == CLASS.MAGICAL
-				|| monster.class == CLASS.FIRE
-					|| monster.class == CLASS.NATURAL)
+		if (monster.class == MCLASS.ETHEREAL
+			|| monster.class == MCLASS.MAGICAL
+				|| monster.class == MCLASS.FIRE
+					|| monster.class == MCLASS.NATURAL)
 		{
 			monster.hasLight = monster.elementString.includes("w");
 			monster.hasPsychic = monster.elementString.includes("r");
@@ -327,5 +327,5 @@ export function getRarities()
 
 export function getClasses()
 {
-	return CLASS;
+	return MCLASS;
 }
