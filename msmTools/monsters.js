@@ -302,8 +302,15 @@ export async function getMonsters()
 						{
 							islandName = "Fire" + island;
 						}
-
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + islandName + ".wav";
+						
+						if (island == "Plant")
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
+						}
+						else
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + islandName + ".wav";
+						}
 						break;
 					}
 				}
