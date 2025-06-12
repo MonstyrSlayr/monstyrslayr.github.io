@@ -108,7 +108,7 @@ export async function getMonsters()
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/img/portrait/monster_portrait_square_ad_copy.avif";
 		}
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
-		monster.memory = (monster.elementString + "-Memory.wav").trim();
+		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString + "-Memory.wav").trim();
 
 		// rarities
 		if (monster.id.endsWith("_rare")) monster.rarity = RARITY.RARE;
