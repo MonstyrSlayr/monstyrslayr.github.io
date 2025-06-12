@@ -392,6 +392,7 @@ async function createFilters()
     generateButton.onclick = function()
     {
         if (generateButton.classList.contains("disabled")) return;
+
         const filteredMonsters = monsters.filter((monster) => {
             return rarityConditionals.some((conditional) => conditional.condition(monster) && conditional.checkbox.checked)
                 && classConditionals.some((conditional) => conditional.condition(monster) && conditional.checkbox.checked)
@@ -470,7 +471,7 @@ async function createFilters()
                 monsterImg.src = monsterDiv.shownMonster.portraitBlack;
                 monsterName.innerHTML = monsterDiv.shownMonster.name;
 
-                // Show the final random image after flashing
+                // show the final random image after flashing
                 setTimeout(() =>
                 {
                     if (monsterDiv.timeoutRan) return;
@@ -482,6 +483,10 @@ async function createFilters()
                     monsterImg.classList.remove("flashing");
                     monsterName.innerHTML = monsterDiv.finalMonster.name;
                     monsterDiv.classList.add("monsterReveal");
+
+                    const sound = new Audio(monsterDiv.finalMonster.memory);
+                    console.log(monsterDiv.finalMonster.memory)
+                    sound.play();
 
                     allFilteredMonsters.splice(allFilteredMonsters.indexOf(monsterDiv.finalMonster), 1);
 
