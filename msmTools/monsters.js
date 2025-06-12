@@ -292,24 +292,26 @@ export async function getMonsters()
 			{
 				for (let island of monster.islands)
 				{
-					if (island.toLowerCase() == monster.identifier.replace("epic_", "").toLowerCase())
+					if (island.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
 					{
 						monster.islands = new Set();
 						monster.islands.add(island);
 
-						let islandName = island;
 						if (island == "Haven" || island == "Oasis")
 						{
-							islandName = "Fire" + island;
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island + ".wav";
 						}
-						
-						if (island == "Plant")
+						else if (island == "Plant" || island == "Gold")
 						{
 							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
 						}
+						else if (island == "cold")
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.wav"; // why bbb why
+						}
 						else
 						{
-							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + islandName + ".wav";
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island + ".wav";
 						}
 						break;
 					}
@@ -322,10 +324,9 @@ export async function getMonsters()
 				monster.rarity = monster.elementString.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
 				monster.name = (monster.rarity == RARITY.MINOR ? "Minor" : "Major") + " " + monsterLine.name;
 
-				if (monster.identifier != 1)
+				if (monster.identifier == 1)
 				{
-					const daStr = monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN";
-					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + daStr + "-Memory.wav").trim();
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.wav";
 				}
 			}
 			

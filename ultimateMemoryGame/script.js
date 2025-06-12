@@ -24,6 +24,12 @@ class MonsterData // wrapper class linking monster to their div without spoiling
                 this.revealedWithoutOutline = true;
             }
 
+            if (!this.forefited)
+            {
+                const sound = new Audio(this.monster.memory);
+                sound.play();
+            }
+
             this.portraitDiv.classList.add("revealed");
         }
 
