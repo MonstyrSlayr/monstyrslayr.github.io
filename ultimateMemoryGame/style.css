@@ -148,8 +148,8 @@ button:not(.disabled):hover
 
 .timerTime
 {
-    min-width: 7em;
-    max-width: 7em;
+    min-width: 7.7em;
+    max-width: 7.7em;
 }
 
 .monsterBoxesWrapper
