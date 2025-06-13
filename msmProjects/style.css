@@ -6,7 +6,8 @@
 @font-face
 {
     font-family: 'OpenDyslexic';
-    src: url('./fonts/_OpenDyslexic3-Regular.ttf') format('truetype');
+    /* src: url('./fonts/_OpenDyslexic3-Regular.ttf') format('truetype'); */
+    src: url('https://opendyslexic.org/assets/fonts/OpenDyslexic3-d2c01a97d426dbf4de2e249d3c69da4d.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
