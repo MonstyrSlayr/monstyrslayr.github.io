@@ -9,7 +9,7 @@
 @font-face
 {
     font-family: 'OpenDyslexic';
-    src: url('https://monstyrslayr.github.io/fonts/_OpenDyslexic3-Regular.ttf') format('tff');
+    src: url('../fonts/_OpenDyslexic3-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -115,7 +115,7 @@ button:not(.disabled):hover
 .playerInputBox, button
 {
     pointer-events: all;
-    font-family: 'OpenDyslexic', sans-serif;
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
     background-color: transparent;
     border: none;
     color: white;
