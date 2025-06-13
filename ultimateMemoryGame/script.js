@@ -384,6 +384,7 @@ async function main()
     {
         showOutlinesButton.classList.add("disabled");
         forefitButton.classList.add("disabled");
+        smallAssFlavorText.classList.add("hidden");
 
         endTime = performance.now();
 
