@@ -9,7 +9,7 @@ body
     background: linear-gradient(to bottom right, rgb(13, 13, 13), rgb(15, 51, 54));
     width: 100vw;
     height: calc(var(--vh, 1vh) * 100);
-    font-family: 'OpenDyslexic', sans-serif;
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
     overflow-x: hidden;
 }
 
