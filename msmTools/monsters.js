@@ -318,6 +318,12 @@ export async function getMonsters()
 					}
 				}
 			}
+
+			// rare wubbox clause (thanks event)
+			if (monster.elementString.startsWith("f_rare"))
+			{
+				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.wav"; // WHY BBB WHY
+			}
 			
 			// paironormal clause
 			if (monster.elementString.startsWith("i"))

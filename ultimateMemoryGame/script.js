@@ -1,4 +1,4 @@
-import { Monster, getRarities, getClasses, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+import { getRarities, getClasses, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
 
 class MonsterData // wrapper class linking monster to their div without spoiling it in the dom
 {
@@ -12,6 +12,19 @@ class MonsterData // wrapper class linking monster to their div without spoiling
         this.isOutline = false;
         this.revealedWithoutOutline = false;
         this.forefited = false;
+
+        this.resetPortrait = function()
+        {
+            if (this.isRevealed)
+            {
+                if (this.isOutline) this.monsterImg.src = this.monster.portrait;
+                else this.monsterImg.src = this.monster.square;
+            }
+            else
+            {
+                if (this.isOutline) this.monsterImg.src = this.monster.portraitBlack;
+            }
+        }
 
         this.revealMonster = function()
         {
@@ -187,13 +200,16 @@ async function main()
         }, duration);
     }
 
+    let voidcorn = false;
     const monsterData = [];
     const RARITY = getRarities();
     const MCLASS = getClasses();
     const allowedRarities = [RARITY.COMMON, RARITY.ADULT, RARITY.MAJOR];
     const monsters = await getMonsters();
 
-    const commonMonsters = monsters.filter((monster = Monster) => allowedRarities.includes(monster.rarity));
+    const commonMonsters = monsters
+                            .filter((monster) => allowedRarities.includes(monster.rarity))
+                            .map(monster => ({ ...monster })); // make deep copy to prevent name shenanigans
     // const commonMonsters = monsters.filter((monster = Monster) => monster.class == MCLASS.DIPSTER);
 
     let startTime = null;
@@ -639,6 +655,93 @@ async function main()
                         endGame();
                     }
                     break;
+                }
+            }
+        }
+
+        // easter eggs
+        let toggleString = null;
+        switch (trimmedVal)
+        {
+            case "common":
+                showToast("Toggled Common monster forms");
+                toggleString = "";
+            break;
+            case "rare":
+                showToast("Toggled Rare monster forms");
+                toggleString = "Rare ";
+            break;
+            case "epic":
+                showToast("Toggled Epic monster forms");
+                toggleString = "Epic ";
+            break;
+            case "child":
+                showToast("Toggled Child Celestial forms");
+                toggleString = "";
+            break;
+            case "adult":
+                showToast("Toggled Adult Celestial forms");
+                toggleString = "Adult ";
+            break;
+            case "major":
+                showToast("Toggled Major Paironormal forms");
+                toggleString = "Major ";
+            break;
+            case "minor":
+                showToast("Toggled Minor Paironormal forms");
+                toggleString = "Minor ";
+            break;
+
+            case "voidcorn":
+                if (!voidcorn)
+                {
+                    voidcorn = true;
+                    event.target.value = "";
+
+                    document.body.classList.add("voidcorn");
+
+                    const r = document.querySelector(':root');
+                    r.style.setProperty('--accent-color', '#222222');
+                    r.style.setProperty('--accent-color2', '#373737');
+                }
+            break;
+        }
+
+        if (toggleString != null)
+        {
+            event.target.value = "";
+
+            for (const monData of monsterData)
+            {
+                // instead of setting the monster, just change the monster's square, portraits, and memory sound
+                let targetMonsters;
+
+                if (trimmedVal == "child") // fuck off
+                {
+                    targetMonsters = monsters.filter((monster) => 
+                            monster.name == monData.monster.name
+                                && monster.class == MCLASS.CELESTIAL);
+                }
+                else if (trimmedVal == "common")
+                {
+                    targetMonsters = monsters.filter((monster) => 
+                            monster.name == monData.monster.name
+                                && monster.class != MCLASS.CELESTIAL);
+                }
+                else
+                {
+                    targetMonsters = monsters.filter((monster) => 
+                        monster.name == toggleString + monData.monster.name);
+                }
+
+                if (targetMonsters.length > 0)
+                {
+                    const targetMonster = targetMonsters[0];
+                    monData.monster.square = targetMonster.square;
+                    monData.monster.portrait = targetMonster.portrait;
+                    monData.monster.portraitBlack = targetMonster.portraitBlack;
+                    monData.monster.memory = targetMonster.memory;
+                    monData.resetPortrait();
                 }
             }
         }
