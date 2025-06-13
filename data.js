@@ -56,8 +56,7 @@ const msmRMG = new Project(
     "I created a website for fans of My Singing Monsters, the hit mobile game. This site generates a random monster from the game. All of the other generators I found were outdated, so I made my own!",
     "https://monstyrslayr.github.io/img/MSMRMG.png",
     "https://monstyrslayr.github.io/randomMonsterGenerator/",
-    new Date(), // literally ongoing, not worth it to update here every time
-    true
+    new Date("06/12/2025")
 );
 
 const ameliorateWiki = new Project(
@@ -90,7 +89,7 @@ const msmMemory = new Project(
     "MSM Ultimate Memory Game",
     "Let's see how well My Singing Monsters fans can name every single monster in the game.",
     "https://monstyrslayr.github.io/img/msmMemoryGame.png",
-    "https://monstyrslayr.github.io/msmMemoryGame/",
+    "https://monstyrslayr.github.io/ultimateMemoryGame/",
     new Date("06/12/2025")
 );
 
