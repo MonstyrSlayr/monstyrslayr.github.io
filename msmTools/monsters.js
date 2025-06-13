@@ -306,7 +306,7 @@ export async function getMonsters()
 						{
 							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
 						}
-						else if (island == "cold")
+						else if (island == "Cold")
 						{
 							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.wav"; // why bbb why
 						}
