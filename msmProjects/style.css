@@ -3,6 +3,15 @@
     transition: all 0.2s;
 }
 
+@font-face
+{
+    font-family: 'OpenDyslexic';
+    src: url('https://monstyrslayr.github.io/fonts/_OpenDyslexic3-Regular.ttf') format('tff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body
 {
     padding: 0;

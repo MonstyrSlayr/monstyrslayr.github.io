@@ -6,6 +6,15 @@
     --accent-color2: #413376;
 }
 
+@font-face
+{
+    font-family: 'OpenDyslexic';
+    src: url('https://monstyrslayr.github.io/fonts/_OpenDyslexic3-Regular.ttf') format('tff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body
 {
     font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
