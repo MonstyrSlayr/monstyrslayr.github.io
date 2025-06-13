@@ -674,7 +674,7 @@ async function main()
         const footerParagraph = document.createElement("p");
         footerParagraph.innerHTML = `
             Can you recall every MSM monster? Enter your first monster to begin.<br>
-            If you find any bugs or have some feedback, dm <a href="https://discord.com/channels/@me/434840883637125121" target="_blank">@monstyrSlayr on Discord.</a><br>
+            If you find any bugs or have some feedback, dm <a href="https://discord.com/channels/@me/434840883637125121" target="_blank">@monstyrslayr on Discord.</a><br>
             This project is heavily inspired by <a href="https://pkmnquiz.com/" target="_blank">pkmnquiz.com</a>, go check it out!<br>
             <a href="https://monstyrslayr.github.io/msmProjects" target="_blank">Check out some of my other MSM related projects!</a><br>
             Portions of the materials used are trademarks and/or copyrighted works of Big Blue Bubble. All rights reserved
