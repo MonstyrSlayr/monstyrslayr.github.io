@@ -206,6 +206,10 @@ async function main()
     bigAssHeading.textContent = "My Singing Monsters Ultimate Memory Game";
     document.body.appendChild(bigAssHeading);
 
+    const smallAssFlavorText = document.createElement("h3");
+    smallAssFlavorText.textContent = "Start typing whenever you're ready";
+    document.body.appendChild(smallAssFlavorText);
+
     const topBarWrapper = document.createElement("div");
     topBarWrapper.classList.add("topBarWrapper");
     document.body.appendChild(topBarWrapper);
@@ -626,6 +630,7 @@ async function main()
                     if (startTime == null)
                     {
                         startTime = performance.now();
+                        smallAssFlavorText.classList.add("hidden");
                     }
 
                     if (foundMonsters.length == monsterData.length && endTime == null)

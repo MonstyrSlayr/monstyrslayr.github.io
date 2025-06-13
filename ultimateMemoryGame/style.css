@@ -38,6 +38,12 @@ h2
     margin: 0;
 }
 
+h3
+{
+    text-align: center;
+    margin: 0;
+}
+
 p
 {
     margin: 0;
@@ -199,9 +205,15 @@ button:not(.disabled):hover
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     margin: 0 auto;
     width: 100%;
+    gap: 0.5em;
+}
+
+.monsterBox:has(> .monsterBoxPortraitsWithNames)
+{
+    width: 80%;
 }
 
 .monsterPortraitDiv
@@ -231,12 +243,6 @@ button:not(.disabled):hover
     animation: shrinkIn 0.15s ease-in;
 }
 
-.missedMonster
-{
-    width: 10%;
-    margin: 0.1em;
-}
-
 .monsterPortraitDiv > img
 {
     width: 100%;
@@ -246,6 +252,8 @@ button:not(.disabled):hover
 
 .missedMonster
 {
+    min-width: 10%;
+    margin: 0.1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -254,7 +262,14 @@ button:not(.disabled):hover
 
 .missedMonster > .monsterPortraitDiv
 {
-    width: 60%;
+    width: 4.5em;
+}
+
+.missedMonster > p
+{
+    max-width: 90%;
+    text-align: center;
+    text-wrap: wrap;
 }
 
 .toast
