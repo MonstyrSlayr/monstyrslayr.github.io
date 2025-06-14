@@ -27,8 +27,7 @@ class MonsterData // wrapper class linking monster to their div without spoiling
     {
         this.monster = monster;
         this.portraitDiv = portraitDiv;
-        this.monsterSrc = portraitDiv.querySelector("picture").querySelector("source");
-        this.monsterImg = portraitDiv.querySelector("picture").querySelector("img");
+        this.monsterImg = portraitDiv.firstChild;
 
         this.isRevealed = false;
         this.isOutline = false;
@@ -37,7 +36,6 @@ class MonsterData // wrapper class linking monster to their div without spoiling
 
         this.changePortraitImage = function(src) // always avif file
         {
-            this.monsterSrc.srcset = src;
             this.monsterImg.src = src;
         }
 
@@ -167,10 +165,7 @@ function createMonsterPortrait()
     daDiv.classList.add("monsterPortraitDiv");
 
         daDiv.innerHTML = `
-            <picture>
-                <source srcset="https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif" type="image/avif">
-                <img src="https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif" alt="..." />
-            </picture>
+            <img src="https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif" alt="..."/>
         `
 
     return daDiv;
@@ -501,8 +496,7 @@ async function main()
                         missedPortraitsDiv.appendChild(missedMeDiv);
 
                             const daPortraitDiv = createMonsterPortrait();
-                            daPortraitDiv.querySelector("picture").querySelector("source").srcset = monData.monsterImg.src;
-                            daPortraitDiv.querySelector("picture").querySelector("img").src = monData.monsterImg.src;
+                            daPortraitDiv.firstChild.src = monData.monsterImg.src;
                             missedMeDiv.appendChild(daPortraitDiv);
 
                             const daName = document.createElement("p");

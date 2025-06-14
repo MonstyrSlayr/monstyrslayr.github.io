@@ -1,4 +1,12 @@
 import { Song, MonsterData } from "../script.js";
+import { getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+
+const monsters = await getMonsters();
+
+function getMonsterSquareByName(name)
+{
+    return monsters.filter((monster) => monster.name.toLowerCase() == name.toLowerCase())[0].square; // never punished
+}
 
 function init()
 {
@@ -8,59 +16,59 @@ function init()
             ["21-Bass_Monster_02.wav", ""],
             ["21-Bass_Monster_03.wav", ""],
             ["21-Bass_Monster_04.wav", ""],
-        ], "monster_portrait_anniversary.avif"),
+        ], "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_anniversary.webp"),
         new MonsterData("Punkleton", [
             ["21-S01_Monster_01.wav", "21-S01_Monster_01.wav"],
-        ], "monster_portrait_square_s01.avif"),
+        ], getMonsterSquareByName("punkleton")),
         new MonsterData("Yool", [
             ["21-S02_Monster_01.wav", ""],
             ["21-S02_Monster_02.wav", ""],
-        ], "monster_portrait_square_s02.avif"),
+        ], getMonsterSquareByName("yool")),
         new MonsterData("Schmoochle", [
             ["21-S03_Monster_01.wav", ""],
             ["21-S03_Monster_02.wav", ""],
-        ], "monster_portrait_square_s03.avif"),
+        ], getMonsterSquareByName("schmoochle")),
         new MonsterData("Blabbit", [
             ["21-S04_Monster_01.wav", ""],
             ["21-S04_Monster_02.wav", ""],
-        ], "monster_portrait_square_s04.avif"),
+        ], getMonsterSquareByName("blabbit")),
         new MonsterData("Hoola", [
             ["21-S05_Monster_01.wav", ""],
             ["21-S05_Monster_02.wav", ""],
-        ], "monster_portrait_square_s05.avif"),
+        ], getMonsterSquareByName("hoola")),
         new MonsterData("Gobbleygourd", [
             ["21-S06_Monster_01.wav", ""],
             ["21-S06_Monster_02.wav", ""],
-        ], "monster_portrait_square_s06.avif"),
+        ], getMonsterSquareByName("gobbleygourd")),
         new MonsterData("Clavavera", [
             ["21-S07_Monster_01.wav", ""],
-        ], "monster_portrait_square_s07.avif"),
+        ], getMonsterSquareByName("clavavera")),
         new MonsterData("Viveine", [
             ["21-S08_Monster_01.wav", "21-S08_Monster_01.wav"],
-        ], "monster_portrait_square_s08.avif"),
+        ], getMonsterSquareByName("viveine")),
         new MonsterData("Jam Boree", [
             ["21-S09_Monster_01.wav", ""],
             ["21-S09_Monster_02.wav", ""],
-        ], "monster_portrait_square_s09.avif"),
+        ], getMonsterSquareByName("jam boree")),
         new MonsterData("Carillong", [
             ["21-S10_Monster_01.wav", ""],
-        ], "monster_portrait_square_s10.avif"),
+        ], getMonsterSquareByName("carillong")),
         new MonsterData("Whiz-bang", [
             ["21-S11_Monster_01.wav", "21-S11_Monster_01.wav"],
-        ], "monster_portrait_square_s11.avif"),
+        ], getMonsterSquareByName("whiz-bang")),
         new MonsterData("Monculus", [
             ["21-S12_Monster_01.wav", ""],
-        ], "monster_portrait_square_s12.avif"),
+        ], getMonsterSquareByName("monculus")),
         new MonsterData("Ffidyll", [
             ["21-S13_Monster_01.wav", ""],
             ["21-S13_Monster_02.wav", ""],
-        ], "monster_portrait_square_s13.avif"),
+        ], getMonsterSquareByName("ffidyll")),
         new MonsterData("Boo'qwurm", [
             ["21-S14_Monster_01.wav", "21-S14_Monster_01.wav"],
-        ], "monster_portrait_square_s14.avif"),
+        ], getMonsterSquareByName("boo'qwurm")),
         new MonsterData("Spurrit", [
             ["21-S15_Monster_01.wav", "21-S15_Monster_01.wav"],
-        ], "monster_portrait_square_s15.avif"),
+        ], getMonsterSquareByName("spurrit")),
     ], 10);
     document.body.appendChild(daSong.element);
 }

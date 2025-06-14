@@ -19,7 +19,7 @@ def list_files(directory, output_file):
             f.write(f"{file}\n")
 
 # Specify the directory path and output file path
-directory_path = './msmTools/img/portrait'
+directory_path = './msmTools/webp/portrait'
 output_file_path = './msmTools/monsterImgs.txt'
 
 # Call the function to list files and export them to a txt file

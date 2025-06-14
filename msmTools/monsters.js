@@ -99,14 +99,14 @@ export async function getMonsters()
 		let monster = new Monster;
 
 		monster.file = line.trim();
-		monster.square = ("https://monstyrslayr.github.io/msmTools/img/square/" + line).trim();
-		monster.portrait = ("https://monstyrslayr.github.io/msmTools/img/portrait/" + line).trim();
-		monster.portraitBlack = monster.portrait.replace(".avif", "_black.avif");
-		monster.id = line.replace("monster_portrait_square_", "").replace(".avif", "").trim();
+		monster.square = ("https://monstyrslayr.github.io/msmTools/webp/square/" + line).trim();
+		monster.portrait = ("https://monstyrslayr.github.io/msmTools/webp/portrait/" + line).trim();
+		monster.portraitBlack = monster.portrait.replace(".webp", "_black.webp");
+		monster.id = line.replace("monster_portrait_square_", "").replace(".webp", "").trim();
 		if (monster.id == "ad") // special quibble case
 		{
-			monster.square = "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_square_ad_copy.avif";
-			monster.portrait = "https://monstyrslayr.github.io/msmTools/img/portrait/monster_portrait_square_ad_copy.avif";
+			monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_ad_copy.webp";
+			monster.portrait = "https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_ad_copy.webp";
 		}
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
 		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "-Memory.wav").trim();
