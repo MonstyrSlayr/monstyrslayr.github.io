@@ -721,6 +721,19 @@ async function main()
                     const r = document.querySelector(':root');
                     r.style.setProperty('--accent-color', '#222222');
                     r.style.setProperty('--accent-color2', '#373737');
+
+                    let currentReplacedMonData = null;
+
+                    setInterval(function()
+                    {
+                        if (currentReplacedMonData != null)
+                        {
+                            currentReplacedMonData.resetPortrait();
+                        }
+
+                        currentReplacedMonData = monsterData[Math.floor(Math.random() * monsterData.length)];
+                        currentReplacedMonData.changePortraitImage("./img/voidcorn.webp");
+                    }, 2000)
                 }
             break;
         }
