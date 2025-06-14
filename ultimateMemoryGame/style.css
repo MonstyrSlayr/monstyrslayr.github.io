@@ -281,7 +281,7 @@ button:not(.disabled):hover
     cursor: pointer;
 }
 
-.monsterPortraitDiv > img
+.monsterPortraitDiv > picture > img
 {
     width: 100%;
     height: auto;
