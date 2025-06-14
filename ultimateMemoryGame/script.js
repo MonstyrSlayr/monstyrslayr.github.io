@@ -27,14 +27,14 @@ class MonsterData // wrapper class linking monster to their div without spoiling
     {
         this.monster = monster;
         this.portraitDiv = portraitDiv;
-        this.monsterImg = portraitDiv.firstChild;
+        this.monsterImg = portraitDiv.querySelector("img");
 
         this.isRevealed = false;
         this.isOutline = false;
         this.revealedWithoutOutline = false;
         this.forefited = false;
 
-        this.changePortraitImage = function(src) // always avif file
+        this.changePortraitImage = function(src) // always webp file
         {
             this.monsterImg.src = src;
         }
@@ -49,7 +49,7 @@ class MonsterData // wrapper class linking monster to their div without spoiling
             else
             {
                 if (this.isOutline) this.changePortraitImage(this.monster.portraitBlack);
-                else this.changePortraitImage("https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif");
+                else this.changePortraitImage("https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp");
             }
         }
 
@@ -165,7 +165,7 @@ function createMonsterPortrait()
     daDiv.classList.add("monsterPortraitDiv");
 
         daDiv.innerHTML = `
-            <img src="https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif" alt="..."/>
+            <img src="https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp" alt="..."/>
         `
 
     return daDiv;
