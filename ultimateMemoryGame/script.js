@@ -496,7 +496,7 @@ async function main()
                         missedPortraitsDiv.appendChild(missedMeDiv);
 
                             const daPortraitDiv = createMonsterPortrait();
-                            daPortraitDiv.firstChild.src = monData.monsterImg.src;
+                            daPortraitDiv.querySelector("img").src = monData.monsterImg.src;
                             missedMeDiv.appendChild(daPortraitDiv);
 
                             const daName = document.createElement("p");
