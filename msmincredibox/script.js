@@ -1063,7 +1063,7 @@ export class MonsterData
     {
         this.name = name;
         this.tracks = tracks;
-        this.portrait = "./img/" + portrait;
+        this.portrait = portrait;
     }
 }
 

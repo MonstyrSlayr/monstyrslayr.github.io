@@ -4,14 +4,14 @@ def list_files(directory, output_file):
     # Get a list of all files in the directory
     files = os.listdir(directory)
     
-    # Filter out files that end with "_black.avif"
-    filtered_files = [file for file in files if not file.endswith('_black.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_copy.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_gold_air.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_gold_cold.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_gold_earth.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_gold_plant.avif')]
-    filtered_files = [file for file in filtered_files if not file.endswith('_gold_water.avif')]
+    # Filter out files that end with "_black.webp"
+    filtered_files = [file for file in files if not file.endswith('_black.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_copy.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_gold_air.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_gold_cold.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_gold_earth.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_gold_plant.webp')]
+    filtered_files = [file for file in filtered_files if not file.endswith('_gold_water.webp')]
     
     # Write the filtered list of files to the output file
     with open(output_file, 'w') as f:
