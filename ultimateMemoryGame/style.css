@@ -2,6 +2,7 @@
 {
     transition: all 0.15s;
     pointer-events: none;
+    user-select: none;
     --accent-color: #853e80;
     --accent-color2: #413376;
 }
@@ -254,6 +255,7 @@ button:not(.disabled):hover
     height: auto;
     aspect-ratio: 1 / 1;
     margin: 0.1em;
+    pointer-events: all;
 }
 
 @keyframes shrinkIn
@@ -274,11 +276,17 @@ button:not(.disabled):hover
     animation: shrinkIn 0.15s ease-in;
 }
 
+.revealed:hover
+{
+    cursor: pointer;
+}
+
 .monsterPortraitDiv > img
 {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
+    pointer-events: none;
 }
 
 .missedMonster

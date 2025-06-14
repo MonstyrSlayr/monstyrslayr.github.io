@@ -1,5 +1,26 @@
 import { getRarities, getClasses, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
 
+function showToast(message, duration = 3000)
+{
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // Trigger fade-in
+    requestAnimationFrame(() =>
+    {
+        toast.classList.add("show");
+    });
+
+    // Fade-out and remove
+    setTimeout(() =>
+    {
+        toast.classList.remove("show");
+        toast.addEventListener("transitionend", () => toast.remove());
+    }, duration);
+}
+
 class MonsterData // wrapper class linking monster to their div without spoiling it in the dom
 {
     constructor(monster, portraitDiv)
@@ -23,6 +44,7 @@ class MonsterData // wrapper class linking monster to their div without spoiling
             else
             {
                 if (this.isOutline) this.monsterImg.src = this.monster.portraitBlack;
+                else this.monsterImg.src = "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_prize.avif";
             }
         }
 
@@ -59,6 +81,20 @@ class MonsterData // wrapper class linking monster to their div without spoiling
             this.forefited = true;
             this.revealMonster();
         }
+
+        const self = this;
+
+        this.portraitDiv.addEventListener("click", function()
+        {
+            if (self.isRevealed)
+            {
+                const sound = new Audio(self.monster.memory);
+                sound.play();
+
+                showToast(self.monster.name);
+                self.portraitDiv.classList.add("revealed");
+            }
+        })
     }
 }
 
@@ -178,27 +214,6 @@ async function main()
         fullScreenWarningDiv.classList.add("hidden");
     }
     closeFullScreenWarning();
-
-    function showToast(message, duration = 3000)
-    {
-        const toast = document.createElement("div");
-        toast.className = "toast";
-        toast.textContent = message;
-        document.body.appendChild(toast);
-
-        // Trigger fade-in
-        requestAnimationFrame(() =>
-        {
-            toast.classList.add("show");
-        });
-
-        // Fade-out and remove
-        setTimeout(() =>
-        {
-            toast.classList.remove("show");
-            toast.addEventListener("transitionend", () => toast.remove());
-        }, duration);
-    }
 
     let voidcorn = false;
     const monsterData = [];
@@ -533,10 +548,8 @@ async function main()
                         monData.revealedWithoutOutline = false;
                         monData.forefited = false;
 
-                        const newPortraitDiv = createMonsterPortrait();
-                        monData.portraitDiv.replaceWith(newPortraitDiv);
-                        monData.portraitDiv = newPortraitDiv;
-                        monData.monsterImg = monData.portraitDiv.firstChild;
+                        monData.resetPortrait();
+                        monData.portraitDiv.classList.remove("revealed");
                     }
 
                     for (const daBox of monsterBoxes)
