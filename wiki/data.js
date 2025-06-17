@@ -739,7 +739,7 @@ const daAmeliorates =
     new Ameliorate("Spotscast",     [bulbElement, hostessElement, clayElement, signalElement],   signalElement, "#ea62ea",
                         {age: 34, height: 203, weight: 135}),
     new Ameliorate("Bushka",       [bulbElement, hostessElement, clayElement, trashElement],   hostessElement, "#632893",
-                       {age: 49, height: 195, weight: 83, deplorable: true}),
+                        {age: 49, height: 195, weight: 83, deplorable: true}),
     new Ameliorate("Monkdom",       [bulbElement, hostessElement, signalElement, trashElement],   bulbElement, "#6e5735",
                         {age: 56, height: 173, weight: 212}),
     new Ameliorate("ReFabric",      [bulbElement, clayElement, signalElement, trashElement],   trashElement, "#5b565a",
@@ -806,6 +806,7 @@ trashElement.quad = getAmeliorateById("ReFabric");
 
 export function makeAmeliorateDiv(monster, className = "box")
 {
+    if (monster == undefined) return;
     const ameDiv = document.createElement("a");
     ameDiv.classList = [className + " ameliorateDiv"];
     ameDiv.style.backgroundColor = monster.dominantColor;
@@ -942,6 +943,7 @@ class Island
         else this.id = realId;
         this.monsters = monsters;
         this.youtubeId = youtubeId;
+        this.single = null;
         this.quad = null;
 
         if (transitionElement == undefined || transitionElement == null) transitionElement = affiliation;
@@ -984,7 +986,7 @@ clayElement.islandMajora = clayKiln;
 trashElement.islandMajora = trashSkylands;
 bulbElement.islandMajora = bulbiGardens;
 
-let trashReveal, trashInterlude, dotBushka;
+let trashReveal, trashInterlude, dotBushka, hostessMakeover;
 const daAmeliorateSongs =
 [
     trashReveal = new Island("Trash Reveal", "Ameliorate", daAmeliorateElements, rubyElement, "w4HiDmp00Ms",
@@ -1024,7 +1026,23 @@ const daAmeliorateSongs =
             getAmeliorateById("SemOhSeaga"),
             getAmeliorateById("KassBick"),
             getAmeliorateById("Deltah")
-        ], hostessElement, "dotb")
+        ], hostessElement, "dotb"),
+    hostessMakeover = new Island("Hostess Makeover", "Ameliorate", daAmeliorateElements, hostessElement, "lv1UTzTYo6g",
+        [
+            getAmeliorateById("guira"),
+            getAmeliorateById("reese"),
+            getAmeliorateById("organe"),
+            getAmeliorateById("orgako"),
+            getAmeliorateById("octosquish"),
+            getAmeliorateById("deltah"),
+            getAmeliorateById("athenerd"),
+            getAmeliorateById("etikan"),
+            getAmeliorateById("tabi"),
+            getAmeliorateById("dormana"),
+            getAmeliorateById("trashcymbal"),
+            getAmeliorateById("trumpoff"),
+            getAmeliorateById("bushka")
+        ], hostessElement, "hmo")
 ]
 
 trashReveal.notables =
@@ -1042,6 +1060,11 @@ trashInterlude.notables =
 dotBushka.notables =
 [
     getAmeliorateById("Dormana")
+]
+
+hostessMakeover.notables =
+[
+    getAmeliorateById("Guira")
 ]
 
 let signalEmergency, clayChasm, trashDump, bulbiPsychedelica, hostessSanctuary;
