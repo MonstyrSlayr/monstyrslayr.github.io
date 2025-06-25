@@ -70,6 +70,10 @@ export class Monster
 	hasTitansoul = false;
 
 	hasPrimordialPlant = false;
+	hasPrimordialCold = false;
+	hasPrimordialAir = false;
+	hasPrimordialWater = false;
+	hasPrimordialEarth = false;
 }
 
 export async function getMonsters()
@@ -162,7 +166,16 @@ export async function getMonsters()
 			monster.class = MCLASS.PRIMORDIAL;
 			monster.identifier = parseInt(monster.id.replace("prm_", ""));
 			monster.elements = 1;
-			monster.hasPrimordialPlant = true; // change when new primordials come out
+
+			switch (monster.identifier)
+			{
+				case 1:
+					monster.hasPrimordialPlant = true;
+					break;
+				case 3:
+					monster.hasPrimordialAir = true;
+					break;
+			}
 		}
 		else if (monster.elementString.startsWith("u")
 					|| monster.elementString.startsWith("f"))

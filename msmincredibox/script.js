@@ -171,13 +171,59 @@ function resumeAudio(fileUrl)
     source.connect(audioContext.destination);
 
     const offset = state.offset || 0;
-    const startTime = audioContext.currentTime + 0.05;
-    source.start(startTime, offset);
+    const startDelay = 0.05; // Small delay to avoid race conditions
+    const actualStartTime = audioContext.currentTime;
 
-    activeSources.push({ source, url: fileUrl, startTime, offset });
+    source.start(startDelay, offset);
+
+    activeSources.push({
+        source,
+        url: fileUrl,
+        startTime: actualStartTime,
+        offset
+    });
 
     state.isPaused = false;
+    state.startTimestamp = actualStartTime;
+}
+
+function resumeAudioFromOffset(fileUrl, offset = 0)
+{
+    const buffer = audioBufferCache.get(fileUrl);
+    if (!buffer)
+    {
+        console.warn("No audio buffer found for:", fileUrl);
+        return;
+    }
+
+    if (typeof offset !== "number" || offset < 0)
+    {
+        console.warn("Invalid offset for:", fileUrl);
+        return;
+    }
+
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+
+    const startDelay = 0.05; // small delay to safely schedule
+    const startTime = audioContext.currentTime;
+
+    source.start(startTime + startDelay, offset / 1000);
+
+    // Optional: store playback state
+    activeSources.push({
+        source,
+        url: fileUrl,
+        startTime: startTime,
+        offset: offset / 1000
+    });
+
+    const state = playbackState.get(fileUrl) || {};
+    state.isPaused = false;
+    state.offset = offset / 1000;
     state.startTimestamp = startTime;
+    playbackState.set(fileUrl, state);
 }
 
 function pauseAllAudio()
@@ -472,6 +518,16 @@ class Title extends daNode
 
         this.createElementWithClass("h1", "title");
         this.element.textContent = text;
+    }
+}
+
+class Action /* lawsuit */
+{
+    // a recording is made up of actions
+    // these actions are replayed on replay
+    constructor()
+    {
+        
     }
 }
 
@@ -972,21 +1028,28 @@ class Nursery extends daNode
             const daEgg = this.appendNodeToNode(this.eggHolder, new Egg(i, monsterData[i]));
             this.eggs.push(daEgg);
 
-            daEgg.element.addEventListener("mousedown", function()
+            daEgg.element.addEventListener("mousedown", (e) =>
             {
                 if (!daEgg.disabled)
                 {
                     self.mouseEgg.push(self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData)));
                     daEgg.setDisabled(true);
+                    daSong.mouseMoveEvent(e);
                 }
             });
 
-            daEgg.element.addEventListener("touchstart", function()
+            daEgg.element.addEventListener("touchstart", (e) =>
             {
                 if (!daEgg.disabled)
                 {
+                    const touch = e.changedTouches[e.changedTouches.length - 1];
+                    const touchEvent = {};
+                    touchEvent.clientX = touch.clientX;
+                    touchEvent.clientY = touch.clientY;
+
                     self.mouseEgg.push(self.appendNodeToNode(self.eggHolder, new MouseEgg(daEgg.eggId, self.getEggById(daEgg.eggId).monsterData)));
                     daEgg.setDisabled(true);
+                    daSong.mouseMoveEvent(touchEvent, e.changedTouches.length - 1);
                 }
             });
         }
@@ -1159,42 +1222,75 @@ export class Song extends daNode
             this.bmcounter++;
             if (this.bmcounter == this.bmodulo) this.bmcounter = 0;
 
+            console.log("running sounds [" + (this.bmcounter + 1) + "/" + this.bmodulo + "]----------------------------");
+
             // determine which files need to be played
             let tracksToPlay = [];
-            for (const monster of this.stage.island.monsters)
+            for (let i = 0; i < this.stage.island.monsters.length; i++)
             {
-                if (monster.monsterData == null) continue;
-
-                monster.beatTimer.endSweepingCircle();
-                if (monster.monsterData.tracks[monster.track].length > this.bmcounter)
+                const monster = this.stage.island.monsters[i];
+                if (monster.monsterData == null)
                 {
-                    const daTrack = monster.monsterData.tracks[monster.track][this.bmcounter];
-                    if (daTrack != "")
-                    {
-                        const daFullTrack = "./audio/" + daTrack;
-                        tracksToPlay.push(daFullTrack);
-                        if (monster.currentlyPlaying && monster.eggId != monster.eggIdPrev)
-                        {
-                            for (const track of monster.monsterData.tracks)
-                            {
-                                for (const filename of track)
-                                {
-                                    stopAudio("./audio/" + filename);
-                                }
-                            }
-                            stopAudio(monster.currentlyPlaying);
-                        }
-                        monster.eggIdPrev = monster.eggId;
-                        monster.currentlyPlaying = daFullTrack;
-                        monster.audioVisualizer.setCurrentFile(daFullTrack);
-                        monster.setSoundState();
-                    }
+                    console.log("Monster[" + i + "]: None");
                 }
+                else
+                {
+                    monster.beatTimer.endSweepingCircle();
+                    if (monster.monsterData.tracks[monster.track].length > this.bmcounter)
+                    {
+                        const daTrack = monster.monsterData.tracks[monster.track][this.bmcounter];
+                        if (daTrack != "")
+                        {
+                            const daFullTrack = "./audio/" + daTrack;
+                            tracksToPlay.push(daFullTrack);
+
+                            if (monster.currentlyPlaying && monster.eggId != monster.eggIdPrev)
+                            {
+                                for (const track of monster.monsterData.tracks)
+                                {
+                                    for (const filename of track)
+                                    {
+                                        stopAudio("./audio/" + filename);
+                                    }
+                                }
+                                stopAudio(monster.currentlyPlaying);
+                            }
+
+                            monster.eggIdPrev = monster.eggId;
+                            monster.currentlyPlaying = daFullTrack;
+                            monster.audioVisualizer.setCurrentFile(daFullTrack);
+                            monster.setSoundState();
+                        }
+                        else
+                        {
+                            // sync
+                            pauseAudio(monster.currentlyPlaying);
+                        }
+                    }
+
+                    console.log("Monster[" + i + "]: " + monster.monsterData.name);
+                }
+                console.log("    Currently Playing: " + monster.currentlyPlaying);
             }
 
             playFilesInSync(tracksToPlay)
             .then(function()
             {
+                for (let i = 0; i < self.stage.island.monsters.length; i++)
+                {
+                    const monster = self.stage.island.monsters[i];
+                    if (monster.monsterData == null) continue;
+
+                    if (monster.monsterData.tracks[monster.track].length > self.bmcounter)
+                    {
+                        const daTrack = monster.monsterData.tracks[monster.track][self.bmcounter];
+                        if (daTrack == "")
+                        {
+                            // sync
+                            resumeAudioFromOffset(monster.currentlyPlaying, ((60/self.bpm) * 1000 * self.bpl) * self.bmcounter);
+                        }
+                    }
+                }
                 self.lastLoopStart = new Date();
 
                 self.stage.navbar.beatTimer.restartSweepingCircle(self.bpm, self.bpl);

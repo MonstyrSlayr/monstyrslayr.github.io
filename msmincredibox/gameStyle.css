@@ -376,6 +376,11 @@ h1
     filter: drop-shadow(0 0 5px black); /* white */
 }
 
+.playScreen > img
+{
+    pointer-events: all;
+}
+
 .monsterButton.selected, .pauseButton, .playScreen > img
 {
     filter: drop-shadow(0 0 5px black); /* white */
