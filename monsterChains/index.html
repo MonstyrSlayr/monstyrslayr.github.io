@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Monster Chains</title>
+
+    <meta name="description" content="Make a monster chain!">
+    <meta name="keywords" content="MSM, My Singing Monsters">
+    <meta name="author" content="MonstyrSlayr">
+
+    <meta property="og:url" content="https://monstyrslayr.github.io/monsterChains/"/>
+    <meta property="og:title" content="MSM Monster Chains"/>
+    <meta property="og:description" content="Make a monster chain!"/>
+    <meta property="og:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/monsterChainer.png"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+
+    <meta property="twitter:url" content="https://monstyrslayr.github.io/monsterChains/">
+    <meta property="twitter:title" content="MSM Monster Chains">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:description" content="Make a monster chain!"/>
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/monsterChainer.png"/>
+
+</head>
+<body>
+    <h1>Monster Chain Maker</h1>
+    <p>Connect monsters by the islands they inhabit!</p>
+    <p>(Doesn't have Bone Island Paironormal yet, sorry)</p>
+    <p><a href="https://www.reddit.com/r/MySingingMonsters/comments/1madtd8/monster_chains/" target="_blank">Inspired by this Reddit post</a></p>
+
+    <div class="monsterInputs">
+        <div class="monsterInput">
+            <img class="monsterPortrait" id="monsterPortraitA">
+
+            <div class="inputStuff">
+                <label for="monsterA">Monster A:</label>
+                <input type="text" id="monsterA" autocomplete="off">
+                <div class="autocompleteList" id="autocompleteA"></div>
+            </div>
+        </div>
+
+        <div class="monsterInput">
+            <img class="monsterPortrait" id="monsterPortraitB">
+            
+            <div class="inputStuff">
+                <label for="monsterB">Monster B:</label>
+                <input type="text" id="monsterB" autocomplete="off">
+                <div class="autocompleteList" id="autocompleteB"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pathChain" class="chainContainer">No chain found.</div>
+
+
+    <div id="islandConditionalDiv"></div>
+
+    <footer>
+        <p>Find some cool chains! See if you can find the longest one!</p>
+        <p>Report any issues and feedback to <a href="https://discord.com/channels/@me/434840883637125121" target="_blank">@MonstyrSlayr on Discord</a></p>
+        <p><a href="https://monstyrslayr.github.io/msmProjects" target="_blank">Check out some of my other MSM related projects!</a></p>
+        <p>Portions of the materials used are trademarks and/or copyrighted works of Big Blue Bubble. All rights reserved
+            by Big Blue Bubble. This material is not official and is not endorsed by Big Blue Bubble.</p>
+    </footer>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>

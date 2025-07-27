@@ -93,6 +93,14 @@ const msmMemory = new Project(
     new Date("06/13/2025")
 );
 
+const msmChainer = new Project(
+    "MSM Monster Chains",
+    "Make a monster chain that links two monsters through their islands!",
+    "https://monstyrslayr.github.io/img/monsterChainer.png",
+    "https://monstyrslayr.github.io/monsterChains/",
+    new Date("07/27/2025")
+);
+
 const blackCatSaga = new Project(
     "Black Cat Saga",
     "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
@@ -124,7 +132,7 @@ export const programmingProjects =
     bicolage, boxPush, magonet,
     lbaldle, lbalBadApple,
     tigerGoodbuy,
-    msmRMG, ameliorateWiki, msmIncredibox, msmMemory,
+    msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer,
     artArchive
 ];
 
@@ -135,7 +143,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = lbalBadApple;
+export const featuredProgrammingProject = msmChainer;
 
 export const skillset =
 [

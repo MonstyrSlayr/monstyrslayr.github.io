@@ -1,0 +1,221 @@
+*
+{
+    color: white;
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+}
+
+body
+{
+    background-color: rgb(30, 30, 30);
+    margin: 1em;
+}
+
+h1
+{
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+}
+
+p
+{
+    text-align: center;
+}
+
+.monsterInputs
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: end;
+    margin: 1em 0;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.monsterInput
+{
+    display: flex;
+    width: 33%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputStuff
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    text-wrap: nowrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    position: relative;
+}
+
+@media only screen and (max-width: 700px)
+{
+    .monsterInput
+    {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .monsterInput > img
+    {
+        width: 75%;
+    }
+}
+
+input
+{
+    color: black;
+    max-width: 100%;
+}
+
+.autocompleteList
+{
+    position: absolute;
+    background: white;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    top: 100%;
+}
+
+.autocompleteList:has(.autocompleteItem)
+{
+    border: 1px solid #ccc;
+}
+
+.autocompleteItem
+{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.autocompleteItem > img
+{
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.autocompleteItem > span
+{
+    color: black;
+}
+
+.autocompleteItem:hover
+{
+    background-color: #f0f0f0;
+}
+
+#islandConditionalDiv
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.checkboxDiv
+{
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: red;
+    padding: 1em;
+    margin: 1em;
+}
+
+.checkboxDiv:hover
+{
+    cursor: pointer;
+    scale: 103%;
+}
+
+.checkboxDiv:hover > label
+{
+    cursor: pointer;
+}
+
+.checkboxDiv.checked
+{
+    background-color: lime;
+}
+
+.checkboxImage
+{
+    width: 5em;
+}
+
+.checkbox
+{
+    display: none;
+}
+
+.chainContainer
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
+    border: 2px solid white;
+    padding: 1em;
+}
+
+.chainStep
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.chainStep img
+{
+    width: 12em;
+    height: 12em;
+    object-fit: contain;
+    border-radius: 8px;
+    max-width: 100%;
+}
+
+.arrow
+{
+    font-size: 24px;
+    user-select: none;
+}
+
+footer
+{
+    margin: 16px;
+}
+
+footer > p
+{
+    text-align: left;
+}
+
+a
+{
+    color: white;
+    text-decoration: underline;
+}
+
+a:hover
+{
+    color: white;
+    cursor: pointer;
+}
