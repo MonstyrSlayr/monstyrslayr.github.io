@@ -3,6 +3,7 @@
     color: white;
     font-family: Helvetica, Helvetica, Arial, sans-serif;
     font-size: 24px;
+    transition: all 0.2s;
 }
 
 body
@@ -218,4 +219,18 @@ a:hover
 {
     color: white;
     cursor: pointer;
+}
+
+button
+{
+    background-color: white;
+    color: black;
+    padding: 0.33em;
+    border-radius: 0.33em;
+    border: none;
+}
+
+button:hover
+{
+    scale: 103%;
 }

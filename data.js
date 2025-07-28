@@ -98,7 +98,7 @@ const msmChainer = new Project(
     "Make a monster chain that links two monsters through their islands!",
     "https://monstyrslayr.github.io/img/monsterChainer.png",
     "https://monstyrslayr.github.io/monsterChains/",
-    new Date("07/27/2025")
+    new Date("07/28/2025")
 );
 
 const blackCatSaga = new Project(

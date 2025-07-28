@@ -23,12 +23,38 @@ for (const monster of monsters)
     }
 }
 
+let includeDipsters = true;
+document.getElementById("dipsterCheck").checked = true;
+document.getElementById("dipsterDiv").classList.add("checked");
+
+document.getElementById("dipsterDiv").addEventListener("click", function()
+{
+    const checkbox = document.getElementById("dipsterCheck");
+    
+    checkbox.click();
+    includeDipsters = checkbox.checked;
+
+    if (checkbox.checked)
+    {
+        this.classList.add("checked");
+    }
+    else
+    {
+        this.classList.remove("checked");
+    }
+
+    monsterGraph = makeGraph(commonMonsters, excludedIslands);
+    renderPathChain(findShortestPath(selectedA, selectedB, monsterGraph));
+});
+
 function makeGraph(allMonsters, disabledIslands = new Set())
 {
     const graph = new Map(); // map<object|string, set<object|string>>
 
     for (const monster of allMonsters)
     {
+        if (!includeDipsters && monster.class == MCLASS.DIPSTER) continue;
+
         if (!graph.has(monster)) graph.set(monster, new Set());
 
         for (const island of monster.islands)
@@ -308,10 +334,29 @@ function setSelectedB(monster)
     renderPathChain(findShortestPath(selectedA, selectedB, monsterGraph));
 }
 
+const noCelestials = commonMonsters.filter(monster => monster.class != MCLASS.CELESTIAL);
+const noCeDipsters = noCelestials.filter(monster => monster.class != MCLASS.DIPSTER);
+
 setupAutocomplete("monsterA", "autocompleteA", commonMonsters, m => setSelectedA(m));
 setupAutocomplete("monsterB", "autocompleteB", commonMonsters, m => setSelectedB(m));
 
-setSelectedA(commonMonsters[Math.floor(Math.random() * commonMonsters.length)]);
-setSelectedB(commonMonsters[Math.floor(Math.random() * commonMonsters.length)]);
+setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
+setSelectedB(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
+
+document.getElementById("randomizeButton").addEventListener("click", function()
+{
+    document.getElementById("autocompleteA").value = "";
+    document.getElementById("autocompleteB").value = "";
+    if (includeDipsters)
+    {
+        setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
+        setSelectedB(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
+    }
+    else
+    {
+        setSelectedA(noCeDipsters[Math.floor(Math.random() * noCeDipsters.length)]);
+        setSelectedB(noCeDipsters[Math.floor(Math.random() * noCeDipsters.length)]);
+    }
+})
 
 // longest chain is 5 btw

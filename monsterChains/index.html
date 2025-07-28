@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -43,6 +44,8 @@
             </div>
         </div>
 
+        <button id="randomizeButton">RANDOMIZE!</button>
+
         <div class="monsterInput">
             <img class="monsterPortrait" id="monsterPortraitB">
             
@@ -56,6 +59,13 @@
 
     <div id="pathChain" class="chainContainer">No chain found.</div>
 
+    <div id="dipsterDiv" class="checkboxDiv">
+        <input type="checkbox" class="checkbox" id="dipsterCheck">
+        <label for="dipsterCheck">
+            <img src="https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_q01.webp">
+        </label>
+        <label for="dipsterCheck">Include Dipsters</label>
+    </div>
 
     <div id="islandConditionalDiv"></div>
 
