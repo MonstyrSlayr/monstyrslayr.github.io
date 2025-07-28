@@ -345,8 +345,8 @@ setSelectedB(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
 
 document.getElementById("randomizeButton").addEventListener("click", function()
 {
-    document.getElementById("autocompleteA").value = "";
-    document.getElementById("autocompleteB").value = "";
+    document.getElementById("monsterA").value = "";
+    document.getElementById("monsterB").value = "";
     if (includeDipsters)
     {
         setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
