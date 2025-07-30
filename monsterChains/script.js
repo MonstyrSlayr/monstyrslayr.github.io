@@ -9,6 +9,7 @@ const commonMonsters = monsters
                         .filter((monster) => allowedRarities.includes(monster.rarity))
                         .map(monster => ({ ...monster })); // make deep copy to prevent name shenanigans
 
+// standardize names
 for (const monster of commonMonsters)
 {
     monster.name = monster.name.replace(/\b(Adult|Major)\b/gi, "").trim().replace(/\s+/g, " ");
@@ -49,7 +50,7 @@ document.getElementById("dipsterDiv").addEventListener("click", function()
 
 function makeGraph(allMonsters, disabledIslands = new Set())
 {
-    const graph = new Map(); // map<object|string, set<object|string>>
+    const graph = new Map(); // Map<object|string, set<object|string>>
 
     for (const monster of allMonsters)
     {
@@ -227,9 +228,9 @@ function pathToString(path)
     return path
         .map(node =>
         {
-            if (typeof node === "string") return `(${node})`; // Island
-            if (typeof node === "object" && node.name) return node.name; // Monster
-            return String(node); // Fallback
+            if (typeof node === "string") return `(${node})`; // island
+            if (typeof node === "object" && node.name) return node.name; // monster
+            return String(node); // fallback
         })
         .join(" -> ");
 }
@@ -302,8 +303,9 @@ function setupAutocomplete(inputId, listId, allMonsters, onSelect)
     {
         if (e.key === "Enter" && currentMatches.length > 0)
         {
-            e.preventDefault(); // Prevent form submission if inside a form
-            // Simulate click on first match
+            e.preventDefault();
+
+            // simulate click on first match
             const firstItem = list.querySelector(".autocompleteItem");
             if (firstItem) firstItem.click();
         }
@@ -342,11 +344,11 @@ setupAutocomplete("monsterB", "autocompleteB", commonMonsters, m => setSelectedB
 
 setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
 setSelectedB(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
+document.getElementById("monsterA").value = selectedA.name;
+document.getElementById("monsterB").value = selectedA.name;
 
 document.getElementById("randomizeButton").addEventListener("click", function()
 {
-    document.getElementById("monsterA").value = "";
-    document.getElementById("monsterB").value = "";
     if (includeDipsters)
     {
         setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
@@ -357,6 +359,8 @@ document.getElementById("randomizeButton").addEventListener("click", function()
         setSelectedA(noCeDipsters[Math.floor(Math.random() * noCeDipsters.length)]);
         setSelectedB(noCeDipsters[Math.floor(Math.random() * noCeDipsters.length)]);
     }
+    document.getElementById("monsterA").value = selectedA.name;
+    document.getElementById("monsterB").value = selectedA.name;
 })
 
 // longest chain is 5 btw
