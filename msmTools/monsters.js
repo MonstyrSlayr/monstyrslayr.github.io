@@ -112,9 +112,10 @@ export class Island
 	codename;
 	symbol;
 
-	constructor(name, symbol)
+	constructor(name, codename, symbol)
 	{
 		this.name = name;
+		this.codename = codename;
 		this.symbol = symbol;
 	}
 }
