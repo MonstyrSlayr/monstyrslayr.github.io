@@ -82,7 +82,8 @@ const elementSigils =
 	new ElementSigil("Ruin", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png"),
 ];
 
-const seasonalElementSigils = [
+const seasonalElementSigils =
+[
 	new ElementSigil("Spooktacle", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Spooktacle.png"),
 	new ElementSigil("Festival of Yay", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Festival of Yay.png"),
 	new ElementSigil("Season of Love", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Season of Love.png"),
@@ -103,6 +104,79 @@ const seasonalElementSigils = [
 function stringToElementSigil(daStr)
 {
 	return elementSigils.find((sigil) => sigil.name == daStr);
+}
+
+export class Island
+{
+	name;
+	codename;
+	symbol;
+
+	constructor(name, symbol)
+	{
+		this.name = name;
+		this.symbol = symbol;
+	}
+}
+
+const islands =
+[
+	new Island("Plant Island", "Plant", "https://monstyrslayr.github.io/msmTools/img/island/Plant.png"),
+	new Island("Cold Island", "Cold", "https://monstyrslayr.github.io/msmTools/img/island/Cold.png"),
+	new Island("Air Island", "Air", "https://monstyrslayr.github.io/msmTools/img/island/Air.png"),
+	new Island("Water Island", "Water", "https://monstyrslayr.github.io/msmTools/img/island/Water.png"),
+	new Island("Earth Island", "Earth", "https://monstyrslayr.github.io/msmTools/img/island/Earth.png"),
+
+	new Island("Shugabush Island", "Shugabush", "https://monstyrslayr.github.io/msmTools/img/island/Shugabush.png"),
+	new Island("The Colossingum", "Colossingum", "https://monstyrslayr.github.io/msmTools/img/island/Colossingum.png"),
+	new Island("Gold Island", "Gold", "https://monstyrslayr.github.io/msmTools/img/island/Gold.png"),
+
+	new Island("Ethereal Island", "Ethereal", "https://monstyrslayr.github.io/msmTools/img/island/Ethereal.png"),
+	new Island("Ethereal Workshop", "Workshop", "https://monstyrslayr.github.io/msmTools/img/island/Workshop.png"),
+
+	new Island("Fire Haven", "Haven", "https://monstyrslayr.github.io/msmTools/img/island/Haven.png"),
+	new Island("Fire Oasis", "Oasis", "https://monstyrslayr.github.io/msmTools/img/island/Oasis.png"),
+
+	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
+	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
+	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
+	new Island("Crystal Islet", "Crystal", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
+	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
+
+	new Island("Mythical Island", "Mythical", "https://monstyrslayr.github.io/msmTools/img/island/Mythical.png"),
+
+	new Island("Light Island", "Light", "https://monstyrslayr.github.io/msmTools/img/island/Light.png"),
+	new Island("Psychic Island", "Psychic", "https://monstyrslayr.github.io/msmTools/img/island/Psychic.png"),
+	new Island("Faerie Island", "Faerie", "https://monstyrslayr.github.io/msmTools/img/island/Faerie.png"),
+	new Island("Bone Island", "Bone", "https://monstyrslayr.github.io/msmTools/img/island/Bone.png"),
+
+	new Island("Magical Sanctum", "Sanctum", "https://monstyrslayr.github.io/msmTools/img/island/Sanctum.png"),
+	new Island("Magical Nexus", "Nexus", "https://monstyrslayr.github.io/msmTools/img/island/Nexus.png"),
+
+	new Island("Seasonal Shanty", "Seasonal", "https://monstyrslayr.github.io/msmTools/img/island/Seasonal.png"),
+	new Island("Amber Island", "Amber", "https://monstyrslayr.github.io/msmTools/img/island/Amber.png"),
+
+	new Island("Wublin Island", "Wublin", "https://monstyrslayr.github.io/msmTools/img/island/Wublin.png"),
+	new Island("Celestial Island", "Celestial", "https://monstyrslayr.github.io/msmTools/img/island/Celestial.png"),
+
+	new Island("Tribal Island", "Tribal", "https://monstyrslayr.github.io/msmTools/img/island/Tribal.png"),
+	new Island("Composer Island", "Composer", "https://monstyrslayr.github.io/msmTools/img/island/Composer.png"),
+]
+
+function stringToIsland(daStr)
+{
+	return islands.find((island) => island.codename == daStr);
+}
+
+function islandStringsToSet(daArr)
+{
+	let daSet = new Set();
+	for (const daStr of daArr)
+	{
+		daStr.replace(" Islet", "")
+		daSet.add(stringToIsland(daStr));
+	}
+	return daSet;
 }
 
 export class Monster
@@ -324,7 +398,7 @@ export async function getMonsters()
 		if (monsterLine)
 		{
 			monster.name = monsterLine.name;
-			monster.islands = new Set(monsterLine.islands.split("&").slice(0, -1));
+			monster.islands = islandStringsToSet(monsterLine.islands.split("&").slice(0, -1));
 
 			// epic wubbox clause
 			if (monster.elementString.startsWith("f"))
@@ -334,7 +408,7 @@ export async function getMonsters()
 					if (island.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
 					{
 						monster.islands = new Set();
-						monster.islands.add(island);
+						monster.islands.add(stringToIsland(island));
 
 						if (island == "Haven" || island == "Oasis")
 						{
@@ -405,4 +479,9 @@ export function getClasses()
 export function getElements() // DOES NOT get seasonal elements
 {
 	return elementSigils;
+}
+
+export function getIslands()
+{
+	return islands;
 }

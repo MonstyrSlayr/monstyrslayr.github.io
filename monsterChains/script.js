@@ -1,4 +1,4 @@
-import { getRarities, getClasses, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+import { getRarities, getClasses, getMonsters, getIslands } from "https://monstyrslayr.github.io/msmTools/monsters.js";
 
 const RARITY = getRarities();
 const MCLASS = getClasses();
@@ -15,14 +15,7 @@ for (const monster of commonMonsters)
     monster.name = monster.name.replace(/\b(Adult|Major)\b/gi, "").trim().replace(/\s+/g, " ");
 }
 
-let islands = new Set();
-for (const monster of monsters)
-{
-    if (monster.islands)
-    {
-        islands = islands.union(monster.islands);
-    }
-}
+const islands = getIslands();
 
 let includeDipsters = true;
 document.getElementById("dipsterCheck").checked = true;
@@ -157,30 +150,30 @@ let selectedA = null;
 let selectedB = null;
 
 let excludedIslands = new Set();
-const fuckYou = ["Shadow Islet", "Crystal Islet", "Poison Islet"]
-const islandConditionalDiv = document.getElementById("islandConditionalDiv")
+const fuckYou = ["Shadow", "Crystal", "Poison"];
+const islandConditionalDiv = document.getElementById("islandConditionalDiv");
 
 for (const island of islands)
 {
     const lilDiv = document.createElement("div");
     lilDiv.className = "checkboxDiv";
-    lilDiv.id = island + "Div";
+    lilDiv.id = island.codename + "Div";
     islandConditionalDiv.append(lilDiv);
 
     const imageLabel = document.createElement("label");
     lilDiv.append(imageLabel);
 
     const daImg = document.createElement("img");
-    daImg.src = "https://monstyrslayr.github.io/msmTools/img/island/" + island + ".png";
+    daImg.src = island.symbol;
     daImg.classList.add("checkboxImage");
     imageLabel.append(daImg);
 
     const checkbox = document.createElement("input");
-    checkbox.id = island + "Checkbox";
+    checkbox.id = island.codename + "Checkbox";
     checkbox.classList.add("checkbox");
-    checkbox.name = island;
+    checkbox.name = island.codename;
     checkbox.type = "checkbox";
-    if (!fuckYou.includes(island))
+    if (!fuckYou.includes(island.codename))
     {
         checkbox.checked = true;
     }
@@ -217,7 +210,7 @@ for (const island of islands)
     }
 
     const label = document.createElement("label");
-    label.textContent = "Include " + island;
+    label.textContent = "Include " + island.name;
     lilDiv.append(label);
 }
 

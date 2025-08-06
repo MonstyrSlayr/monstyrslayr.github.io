@@ -1,4 +1,4 @@
-import { Monster, getClasses, getRarities, getMonsters, getElements } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+import { Monster, getClasses, getRarities, getMonsters, getElements, getIslands } from "https://monstyrslayr.github.io/msmTools/monsters.js";
 
 const RARITY = getRarities();
 const CLASS = getClasses();
@@ -123,14 +123,9 @@ async function createFilters()
 {
     const monsters = await getMonsters();
 
-    let islands = new Set();
     for (const monster of monsters)
     {
-        if (monster.islands)
-        {
-            islands = islands.union(monster.islands);
-        }
-        else console.log(monster);
+        if (!monster.islands) console.log(monster);
     }
     
     //#region rarity
@@ -227,14 +222,9 @@ async function createFilters()
     elementCheckboxDiv.classList.add("conditionalsCheckboxDiv");
     elementConditionalsDiv.append(elementCheckboxDiv);
 
-    const elementConditionals = [];
-
-    for (const elementSigil of getElements())
-    {
-        elementConditionals.push(
-            new Conditional("have " + elementSigil.name, elementCheckboxDiv, function(monster = Monster) { return monster.elements.has(elementSigil)}, elementSigil.sigil, true)
-        )
-    }
+    const elementConditionals = getElements().map(elementSigil =>
+        new Conditional("have " + elementSigil.name, elementCheckboxDiv, function(monster = Monster) { return monster.elements.has(elementSigil)}, elementSigil.sigil, true)
+    );
 
     elementCheckAll.onclick = function ()
     {
@@ -282,8 +272,8 @@ async function createFilters()
     islandCheckboxDiv.classList.add("conditionalsCheckboxDiv");
     islandConditionalsDiv.append(islandCheckboxDiv);
 
-    const islandConditionals = [...islands].map(island =>
-        new Conditional("be on " + island, islandCheckboxDiv, function(monster = Monster) { return monster.islands.has(island) }, "https://monstyrslayr.github.io/msmTools/img/island/" + island + ".png", true),
+    const islandConditionals = getIslands().map(island =>
+        new Conditional("be on " + island.name, islandCheckboxDiv, function(monster = Monster) { return monster.islands.has(island) }, island.symbol, true),
     )
 
     islandCheckAll.onclick = function ()
