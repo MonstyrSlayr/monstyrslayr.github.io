@@ -384,3 +384,69 @@ footer > p > a
         margin: 0;
     }
 }
+
+.discordMessage
+{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 1em;
+}
+
+.discordAvatar
+{
+    width: 128px;
+    border-radius: 64px;
+}
+
+.discordTextPart
+{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
+
+.leaderboard
+{
+    display: grid;
+    gap: 0.5em;
+    width: 100%;
+    max-width: 60%;
+    margin: 2em auto;
+}
+
+.leaderboardHeader,
+.leaderboardRow
+{
+    display: grid;
+    grid-template-columns: 3em 1fr 5em;
+    padding: 0.75em 1em;
+    align-items: center;
+}
+
+.leaderboardHeader
+{
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5em 0.5em 0 0;
+}
+
+.leaderboardRow
+{
+    border-radius: 0.25em;
+    border-top: 1px solid white;
+}
+
+.leaderboardUser
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.leaderboardUser > img
+{
+    width: 32px;
+    border-radius: 16px;
+}

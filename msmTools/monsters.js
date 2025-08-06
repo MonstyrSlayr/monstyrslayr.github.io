@@ -58,6 +58,7 @@ export class Monster
 
 	hasControl = false;
 	hasHoax = false;
+	hasRuin = false;
 
 	hasElectricity = false;
 	hasLegendary = false;
@@ -151,6 +152,9 @@ export async function getMonsters()
 					break;
 				case 2:
 					monster.hasHoax = true;
+					break;
+				case 3:
+					monster.hasRuin = true
 					break;
 			}
 		}

@@ -266,6 +266,7 @@ async function createFilters()
 
         new Conditional("have Control", elementCheckboxDiv, function(monster = Monster) { return monster.hasControl}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png", true),
         new Conditional("have Hoax", elementCheckboxDiv, function(monster = Monster) { return monster.hasHoax}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png", true),
+        new Conditional("have Ruin", elementCheckboxDiv, function(monster = Monster) { return monster.hasRuin}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png", true),
     ];
 
     elementCheckAll.onclick = function ()
