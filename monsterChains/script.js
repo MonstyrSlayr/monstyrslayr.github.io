@@ -121,8 +121,8 @@ function renderPathChain(path)
         if (typeof node === "string")
         {
             // It's an island
-            img.src = `https://monstyrslayr.github.io/msmTools/img/island/${node}.png`;
-            label.textContent = node;
+            img.src = node.symbol;
+            label.textContent = node.name;
         }
         else if (typeof node === "object" && node.portrait)
         {
