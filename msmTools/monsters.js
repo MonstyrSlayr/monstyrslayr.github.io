@@ -142,7 +142,7 @@ const islands =
 	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
 	new Island("Crystal Islet", "Crystal", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
-	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
+	new Island("Poison Islet", "Poison", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png"),
 
 	new Island("Mythical Island", "Mythical", "https://monstyrslayr.github.io/msmTools/img/island/Mythical.png"),
 
