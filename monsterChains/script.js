@@ -118,13 +118,13 @@ function renderPathChain(path)
         const img = document.createElement("img");
         const label = document.createElement("div");
 
-        if (typeof node === "string")
+        if (node.symbol)
         {
             // It's an island
             img.src = node.symbol;
             label.textContent = node.name;
         }
-        else if (typeof node === "object" && node.portrait)
+        else if (node.portrait)
         {
             // It's a monster
             img.src = node.portrait;

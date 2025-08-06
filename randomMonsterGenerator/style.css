@@ -78,6 +78,7 @@ h1
     margin: 16px;
     border-radius: 16px;
     padding: 8px;
+    gap: 0.5em;
 }
 
 .checkboxDiv label
@@ -88,7 +89,7 @@ h1
 
 .checkboxDiv > label > img
 {
-    max-height: 128px;
+    max-height: 3em;
 }
 
 .checkboxDiv input
