@@ -405,28 +405,31 @@ export async function getMonsters()
 			{
 				for (let island of monster.islands)
 				{
-					if (island.codename.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
+					if (island != undefined)
 					{
-						monster.islands = new Set();
-						monster.islands.add(stringToIsland(island.codename));
+						if (island.codename.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
+						{
+							monster.islands = new Set();
+							monster.islands.add(stringToIsland(island.codename));
 
-						if (island.codename == "Haven" || island.codename == "Oasis")
-						{
-							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island + ".wav";
+							if (island.codename == "Haven" || island.codename == "Oasis")
+							{
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island + ".wav";
+							}
+							else if (island.codename == "Plant" || island.codename == "Gold")
+							{
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
+							}
+							else if (island.codename == "Cold")
+							{
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.wav"; // why bbb why
+							}
+							else
+							{
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island + ".wav";
+							}
+							break;
 						}
-						else if (island.codename == "Plant" || island.codename == "Gold")
-						{
-							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
-						}
-						else if (island.codename == "Cold")
-						{
-							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.wav"; // why bbb why
-						}
-						else
-						{
-							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island + ".wav";
-						}
-						break;
 					}
 				}
 			}
