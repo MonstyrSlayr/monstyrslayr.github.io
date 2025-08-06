@@ -1,4 +1,4 @@
-import { Monster, getClasses, getRarities, getMonsters } from "https://monstyrslayr.github.io/msmTools/monsters.js";
+import { Monster, getClasses, getRarities, getMonsters, getElements } from "https://monstyrslayr.github.io/msmTools/monsters.js";
 
 const RARITY = getRarities();
 const CLASS = getClasses();
@@ -227,47 +227,14 @@ async function createFilters()
     elementCheckboxDiv.classList.add("conditionalsCheckboxDiv");
     elementConditionalsDiv.append(elementCheckboxDiv);
 
-    const elementConditionals =
-    [
-        new Conditional("have Air", elementCheckboxDiv, function(monster = Monster) { return monster.hasAir}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Air.png", true),
-        new Conditional("have Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPlant}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Plant.png", true),
-        new Conditional("have Earth", elementCheckboxDiv, function(monster = Monster) { return monster.hasEarth}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Earth.png", true),
-        new Conditional("have Water", elementCheckboxDiv, function(monster = Monster) { return monster.hasWater}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Water.png", true),
-        new Conditional("have Cold", elementCheckboxDiv, function(monster = Monster) { return monster.hasCold}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Cold.png", true),
-        new Conditional("have Fire", elementCheckboxDiv, function(monster = Monster) { return monster.hasFire}, "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Fire.png", true),
+    const elementConditionals = [];
 
-        new Conditional("have Light", elementCheckboxDiv, function(monster = Monster) { return monster.hasLight}, "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Light.png", true),
-        new Conditional("have Psychic", elementCheckboxDiv, function(monster = Monster) { return monster.hasPsychic}, "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Psychic.png", true),
-        new Conditional("have Faerie", elementCheckboxDiv, function(monster = Monster) { return monster.hasFaerie}, "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Faerie.png", true),
-        new Conditional("have Bone", elementCheckboxDiv, function(monster = Monster) { return monster.hasBone}, "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Bone.png", true),
-
-        new Conditional("have Plasma", elementCheckboxDiv, function(monster = Monster) { return monster.hasPlasma}, "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Plasma.png", true),
-        new Conditional("have Shadow", elementCheckboxDiv, function(monster = Monster) { return monster.hasShadow}, "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Shadow.png", true),
-        new Conditional("have Mech", elementCheckboxDiv, function(monster = Monster) { return monster.hasMech}, "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Mech.png", true),
-        new Conditional("have Crystal", elementCheckboxDiv, function(monster = Monster) { return monster.hasCrystal}, "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Crystal.png", true),
-        new Conditional("have Poison", elementCheckboxDiv, function(monster = Monster) { return monster.hasPoison}, "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Poison.png", true),
-
-        new Conditional("have Electricity", elementCheckboxDiv, function(monster = Monster) { return monster.hasElectricity}, "https://monstyrslayr.github.io/msmTools/img/sigil/Supernatural - Electricity.png", true),
-
-        new Conditional("have Legendary", elementCheckboxDiv, function(monster = Monster) { return monster.hasLegendary}, "https://monstyrslayr.github.io/msmTools/img/sigil/Legendary.png", true),
-
-        new Conditional("have Mythical", elementCheckboxDiv, function(monster = Monster) { return monster.hasMythical}, "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Mythical.png", true),
-        new Conditional("have Dream", elementCheckboxDiv, function(monster = Monster) { return monster.hasDream}, "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Dream.png", true),
-        
-        new Conditional("have Dipster", elementCheckboxDiv, function(monster = Monster) { return monster.hasDipster}, "https://monstyrslayr.github.io/msmTools/img/sigil/Dipster.png", true),
-        new Conditional("have Celestial", elementCheckboxDiv, function(monster = Monster) { return monster.hasCelestial}, "https://monstyrslayr.github.io/msmTools/img/sigil/Celestial.png", true),
-        new Conditional("have Titansoul", elementCheckboxDiv, function(monster = Monster) { return monster.hasTitansoul}, "https://monstyrslayr.github.io/msmTools/img/sigil/Titansoul.png", true),
-
-        new Conditional("have Primordial Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPrimordialPlant}, "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Plant.png", true),
-        new Conditional("have Primordial Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPrimordialCold}, "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Cold.png", true),
-        new Conditional("have Primordial Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPrimordialAir}, "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Air.png", true),
-        new Conditional("have Primordial Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPrimordialWater}, "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Water.png", true),
-        new Conditional("have Primordial Plant", elementCheckboxDiv, function(monster = Monster) { return monster.hasPrimordialEarth}, "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Earth.png", true),
-
-        new Conditional("have Control", elementCheckboxDiv, function(monster = Monster) { return monster.hasControl}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png", true),
-        new Conditional("have Hoax", elementCheckboxDiv, function(monster = Monster) { return monster.hasHoax}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png", true),
-        new Conditional("have Ruin", elementCheckboxDiv, function(monster = Monster) { return monster.hasRuin}, "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png", true),
-    ];
+    for (const elementSigil of getElements())
+    {
+        elementConditionals.push(
+            new Conditional("have " + elementSigil.name, elementCheckboxDiv, function(monster = Monster) { return monster.elements.has(elementSigil)}, elementSigil.sigil, true)
+        )
+    }
 
     elementCheckAll.onclick = function ()
     {
@@ -368,7 +335,7 @@ async function createFilters()
     let elementCountConditionals = [];
     for (let i = 1; i < 6; i++)
     {
-        elementCountConditionals.push(new Conditional((i == 1) ? "1 Element" : i + " Elements", elementCountCheckboxDiv, function(monster = Monster) { return monster.elements == i} ));
+        elementCountConditionals.push(new Conditional((i == 1) ? "1 Element" : i + " Elements", elementCountCheckboxDiv, function(monster = Monster) { return monster.elements.size == i} ));
     }
 
     elementCountCheckAll.onclick = function ()

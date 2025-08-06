@@ -28,8 +28,86 @@ const MCLASS = Object.freeze
 	PRIMORDIAL: 14
 });
 
+export class ElementSigil // dumb name bc "element" will get confusing with HTML stuff
+{
+	name;
+	sigil;
+
+	constructor(name, sigil)
+	{
+		this.name = name;
+		this.sigil = sigil;
+	}
+}
+
+const elementSigils =
+[
+	new ElementSigil("Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Air.png"),
+	new ElementSigil("Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Plant.png"),
+	new ElementSigil("Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Earth.png"),
+	new ElementSigil("Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Water.png"),
+	new ElementSigil("Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Cold.png"),
+	new ElementSigil("Fire", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Fire.png"),
+
+	new ElementSigil("Light", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Light.png"),
+	new ElementSigil("Psychic", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Psychic.png"),
+	new ElementSigil("Faerie", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Faerie.png"),
+	new ElementSigil("Bone", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Bone.png"),
+
+	new ElementSigil("Plasma", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Plasma.png"),
+	new ElementSigil("Shadow", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Shadow.png"),
+	new ElementSigil("Mech", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Mech.png"),
+	new ElementSigil("Crystal", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Crystal.png"),
+	new ElementSigil("Poison", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Poison.png"),
+
+	new ElementSigil("Electricity", "https://monstyrslayr.github.io/msmTools/img/sigil/Supernatural - Electricity.png"),
+
+	new ElementSigil("Legendary", "https://monstyrslayr.github.io/msmTools/img/sigil/Legendary.png"),
+
+	new ElementSigil("Mythical", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Mythical.png"),
+	new ElementSigil("Dream", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Dream.png"),
+
+	new ElementSigil("Dipster", "https://monstyrslayr.github.io/msmTools/img/sigil/Dipster.png"),
+	new ElementSigil("Celestial", "https://monstyrslayr.github.io/msmTools/img/sigil/Celestial.png"),
+	new ElementSigil("Titansoul", "https://monstyrslayr.github.io/msmTools/img/sigil/Titansoul.png"),
+
+	new ElementSigil("Primordial Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Plant.png"),
+	new ElementSigil("Primordial Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Cold.png"),
+	new ElementSigil("Primordial Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Air.png"),
+	new ElementSigil("Primordial Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Water.png"),
+	new ElementSigil("Primordial Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Earth.png"),
+
+	new ElementSigil("Control", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png"),
+	new ElementSigil("Hoax", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png"),
+	new ElementSigil("Ruin", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png"),
+];
+
+const seasonalElementSigils = [
+	new ElementSigil("Spooktacle", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Spooktacle.png"),
+	new ElementSigil("Festival of Yay", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Festival of Yay.png"),
+	new ElementSigil("Season of Love", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Season of Love.png"),
+	new ElementSigil("Eggs-Travaganza", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - Eggs-Travaganza.png"),
+	new ElementSigil("SummerSong", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Core) - SummerSong.png"),
+	new ElementSigil("Feast-Ember", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Feast-Ember.png"),
+	new ElementSigil("Beat Hereafter", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Beat Hereafter.png"),
+	new ElementSigil("Echoes of Eco", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Echoes of Eco.png"),
+	new ElementSigil("Anniversary Month", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal - Anniversary Month.png"),
+	new ElementSigil("Crescendo Moon", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Crescendo Moon.png"),
+	new ElementSigil("SkyPainting", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - SkyPainting.png"),
+	new ElementSigil("Life-Formula", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Life-Formula.png"),
+	new ElementSigil("Cloverspell", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Cloverspell.png"),
+	new ElementSigil("MindBoggle", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - MindBoggle.png"),
+	new ElementSigil("Perplexplore", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Perplexplore.png"),
+];
+
+function stringToElementSigil(daStr)
+{
+	return elementSigils.find((sigil) => sigil.name == daStr);
+}
+
 export class Monster
 {
+	name;
 	rarity;
 	class;
 	identifier;
@@ -37,44 +115,6 @@ export class Monster
 	islands;
 	likes;
 	bio;
-
-	hasAir = false;
-	hasPlant = false;
-	hasEarth = false;
-	hasWater = false;
-	hasCold = false;
-	hasFire = false;
-
-	hasLight = false;
-	hasPsychic = false;
-	hasFaerie = false;
-	hasBone = false;
-
-	hasPlasma = false;
-	hasShadow = false;
-	hasMech = false;
-	hasCrystal = false;
-	hasPoison = false;
-
-	hasControl = false;
-	hasHoax = false;
-	hasRuin = false;
-
-	hasElectricity = false;
-	hasLegendary = false;
-	hasDipster = false;
-
-	hasMythical = false;
-	hasDream = false;
-
-	hasCelestial = false;
-	hasTitansoul = false;
-
-	hasPrimordialPlant = false;
-	hasPrimordialCold = false;
-	hasPrimordialAir = false;
-	hasPrimordialWater = false;
-	hasPrimordialEarth = false;
 }
 
 export async function getMonsters()
@@ -89,7 +129,7 @@ export async function getMonsters()
 	let csvText = await csvResponse.text();
 	let results = await Papa.parse(csvText, { header: true });
 
-	const response = await fetch('https://monstyrslayr.github.io/msmTools/monsterImgs.txt');
+	const response = await fetch("https://monstyrslayr.github.io/msmTools/monsterImgs.txt");
 	if (!response.ok)
 	{
 		throw new Error('Network response was not ok');
@@ -124,37 +164,35 @@ export async function getMonsters()
 		else if (monster.id.endsWith("_min")) monster.rarity = RARITY.MINOR;
 		else monster.rarity = RARITY.COMMON;
 
-		// classes & element count
+		// classes & elements
+		monster.elements = new Set();
 		if (monster.elementString.startsWith("z"))
 		{
 			monster.class = MCLASS.SHUGAFAM;
 			monster.identifier = parseInt(monster.elementString.replace("z", ""));
-			monster.elements = 1;
-			monster.hasLegendary = true;
+			monster.elements.add(stringToElementSigil("Legendary"));
 		}
 		else if (monster.elementString.startsWith("x"))
 		{
 			monster.class = MCLASS.TITANSOUL;
 			monster.identifier = parseInt(monster.elementString.replace("x", ""));
-			monster.elements = 1;
-			monster.hasTitansoul = true;
+			monster.elements.add(stringToElementSigil("Titansoul"));
 		}
 		else if (monster.elementString.startsWith("i"))
 		{
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", "").replace("_maj", "").replace("_min", ""));
-			monster.elements = 1;
 
 			switch (monster.identifier)
 			{
 				case 1:
-					monster.hasControl = true;
+					monster.elements.add(stringToElementSigil("Control"));
 					break;
 				case 2:
-					monster.hasHoax = true;
+					monster.elements.add(stringToElementSigil("Hoax"));
 					break;
 				case 3:
-					monster.hasRuin = true
+					monster.elements.add(stringToElementSigil("Ruin"));
 					break;
 			}
 		}
@@ -162,22 +200,20 @@ export async function getMonsters()
 		{
 			monster.class = MCLASS.WERDO;
 			monster.identifier = parseInt(monster.id.replace("VOC_", ""));
-			monster.elements = 1;
-			monster.hasLegendary = true;
+			monster.elements.add(stringToElementSigil("Legendary"));
 		}
 		else if (monster.elementString.startsWith("prm"))
 		{
 			monster.class = MCLASS.PRIMORDIAL;
 			monster.identifier = parseInt(monster.id.replace("prm_", ""));
-			monster.elements = 1;
 
 			switch (monster.identifier)
 			{
 				case 1:
-					monster.hasPrimordialPlant = true;
+					monster.elements.add(stringToElementSigil("Primordial Plant"));
 					break;
 				case 3:
-					monster.hasPrimordialAir = true;
+					monster.elements.add(stringToElementSigil("Primordial Air"));
 					break;
 			}
 		}
@@ -185,8 +221,7 @@ export async function getMonsters()
 					|| monster.elementString.startsWith("f"))
 		{
 			monster.class = MCLASS.SUPERNATURAL;
-			monster.elements = 1;
-			monster.hasElectricity = true;
+			monster.elements.add(stringToElementSigil("Electricity"));
 
 			if (monster.elementString.startsWith("f"))
 			{
@@ -202,40 +237,30 @@ export async function getMonsters()
 			monster.class = MCLASS.CELESTIAL;
 			if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.CHILD;
 			monster.identifier = parseInt(monster.elementString.replace("t", ""));
-			monster.elements = 1;
-			monster.hasCelestial = true;
+			monster.elements.add(stringToElementSigil("Celestial"));
 		}
 		else if (monster.elementString.startsWith("s"))
 		{
 			monster.class = MCLASS.SEASONAL;
 			monster.identifier = parseInt(monster.elementString.replace("s", ""));
-			monster.elements = 1;
+			monster.elements.add(seasonalElementSigils[monster.identifier]);
 		}
 		else if (monster.elementString.startsWith("q"))
 		{
 			monster.class = MCLASS.DIPSTER;
 			monster.identifier = parseInt(monster.elementString.replace("q", ""));
-			monster.elements = 1;
-			monster.hasDipster = true;
+			monster.elements.add(stringToElementSigil("Dipster"));
 		}
 		else if (monster.elementString.startsWith("p"))
 		{
 			monster.class = MCLASS.MYTHICAL;
 			monster.identifier = parseInt(monster.elementString.replace("p", ""));
-			monster.elements = 1;
-			monster.hasMythical = true;
+			if (monster.identifier != 8) monster.elements.add(stringToElementSigil("Mythical"));
+
 			if (monster.identifier >= 8)
 			{
 				monster.class = MCLASS.DREAMYTHICAL;
-				monster.hasDream = true;
-				if (monster.identifier >= 9)
-				{
-					monster.elements = 2;
-				}
-				else
-				{
-					monster.hasMythical = false;
-				}
+				monster.elements.add(stringToElementSigil("Dream"));
 			}
 		}
 		else if (monster.elementString.includes("g")
@@ -245,7 +270,6 @@ export async function getMonsters()
 								|| monster.elementString.includes("m"))
 		{
 			monster.class = MCLASS.ETHEREAL;
-			monster.elements = monster.elementString.length;
 		}
 		else if (monster.elementString.includes("r")
 					|| monster.elementString.includes("v")
@@ -253,17 +277,14 @@ export async function getMonsters()
 							|| monster.elementString.includes("y"))
 		{
 			monster.class = MCLASS.MAGICAL;
-			monster.elements = monster.elementString.length;
 		}
 		else if (monster.elementString.includes("n"))
 		{
 			monster.class = MCLASS.FIRE;
-			monster.elements = monster.elementString.length;
 		}
 		else
 		{
 			monster.class = MCLASS.NATURAL;
-			monster.elements = monster.elementString.length;
 		}
 
 		monsters.push(monster);
@@ -276,23 +297,23 @@ export async function getMonsters()
 				|| monster.class == MCLASS.FIRE
 					|| monster.class == MCLASS.NATURAL)
 		{
-			monster.hasLight = monster.elementString.includes("w");
-			monster.hasPsychic = monster.elementString.includes("r");
-			monster.hasFaerie = monster.elementString.includes("y");
-			monster.hasBone = monster.elementString.includes("v");
+			if (monster.elementString.includes("r")) monster.elements.add(stringToElementSigil("Psychic"));
+			if (monster.elementString.includes("v")) monster.elements.add(stringToElementSigil("Bone"));
+			if (monster.elementString.includes("w")) monster.elements.add(stringToElementSigil("Light"));
+			if (monster.elementString.includes("y")) monster.elements.add(stringToElementSigil("Faerie"));
 
-			monster.hasPlasma = monster.elementString.includes("g");
-			monster.hasShadow = monster.elementString.includes("j");
-			monster.hasMech = monster.elementString.includes("k");
-			monster.hasCrystal = monster.elementString.includes("l");
-			monster.hasPoison = monster.elementString.includes("m");
+			if (monster.elementString.includes("g")) monster.elements.add(stringToElementSigil("Plasma"));
+			if (monster.elementString.includes("j")) monster.elements.add(stringToElementSigil("Shadow"));
+			if (monster.elementString.includes("k")) monster.elements.add(stringToElementSigil("Mech"));
+			if (monster.elementString.includes("l")) monster.elements.add(stringToElementSigil("Crystal"));
+			if (monster.elementString.includes("m")) monster.elements.add(stringToElementSigil("Poison"));
 
-			monster.hasAir = monster.elementString.includes("a");
-			monster.hasPlant = monster.elementString.includes("b");
-			monster.hasEarth = monster.elementString.includes("c");
-			monster.hasWater = monster.elementString.includes("d");
-			monster.hasCold = monster.elementString.includes("e");
-			monster.hasFire = monster.elementString.includes("n");
+			if (monster.elementString.includes("a")) monster.elements.add(stringToElementSigil("Air"));
+			if (monster.elementString.includes("b")) monster.elements.add(stringToElementSigil("Plant"));
+			if (monster.elementString.includes("c")) monster.elements.add(stringToElementSigil("Earth"));
+			if (monster.elementString.includes("d")) monster.elements.add(stringToElementSigil("Water"));
+			if (monster.elementString.includes("e")) monster.elements.add(stringToElementSigil("Cold"));
+			if (monster.elementString.includes("n")) monster.elements.add(stringToElementSigil("Fire"));
 		}
 
 		let monsterLine = results.data.find((line) => 
@@ -379,4 +400,9 @@ export function getRarities()
 export function getClasses()
 {
 	return MCLASS;
+}
+
+export function getElements() // DOES NOT get seasonal elements
+{
+	return elementSigils;
 }
