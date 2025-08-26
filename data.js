@@ -81,7 +81,7 @@ const lbalBadApple = new Project(
     "Bad Apple but it's Luck be a Landlord",
     "A recreation of the Bad Apple music video using nothing but Python and LbaL symbols. Remaster of a January 2024 project.",
     "https://monstyrslayr.github.io/img/lbalBadApple.png",
-    "https://youtu.be/f5CtDEwnOLw",
+    "https://github.com/MonstyrSlayr/lbalBadApple",
     new Date("05/27/2025")
 );
 
