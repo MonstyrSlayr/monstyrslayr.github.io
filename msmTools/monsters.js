@@ -415,7 +415,7 @@ export async function getMonsters()
 
 							if (island.codename == "Haven" || island.codename == "Oasis")
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island + ".wav";
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".wav";
 							}
 							else if (island.codename == "Plant" || island.codename == "Gold")
 							{
@@ -427,7 +427,7 @@ export async function getMonsters()
 							}
 							else
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island + ".wav";
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".wav";
 							}
 							break;
 						}

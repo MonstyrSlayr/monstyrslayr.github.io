@@ -8,7 +8,7 @@ class BreakException(Exception):
 class SkipException(Exception):
     pass
 
-names, links, islands_lists, likes_lists, bios = [], [], [], [], []
+names, links, islands_lists, likes_lists, bios, first_discovered = [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
 resp = request.urlopen(url_starter + "/wiki/Monsters")
@@ -96,6 +96,13 @@ try:
                                     
                                     islands_lists.append(island_string)
 
+                                    # get first discovered by
+                                    dibs_td = monster_soup.find("td", attrs = {"data-source": "first discovered"})
+                                    if dibs_td:
+                                        first_discovered.append(dibs_td.text.strip())
+                                    else:
+                                        first_discovered.append("")
+
                                     # get likes on each island or polarity
                                     h2s = monster_soup.find_all("h2")
                                     likes_header = None
@@ -105,24 +112,37 @@ try:
                                         spans = h2.find_all("span", recursive = False)
                                         if len(spans) == 2:
                                             if spans[0].text.strip() == "Likes":
-                                                likes_list = h2.find_next("ul").find_next("ul")
+                                                likes_divs = []
 
-                                                for li in likes_list.find_all("li"):
-                                                    like_link_list = li.find_all("a")
-                                                    like_link = like_link_list[0]
-                                                    done_linkie = False
+                                                first_like_div = h2.find_next("p").find_next("div")
+                                                likes_divs.append(first_like_div)
+
+                                                if first_like_div:
+                                                    for sibling in first_like_div.next_siblings:
+                                                        if sibling.name == "p":
+                                                            break
+
+                                                        if sibling.name == "div":
+                                                            likes_divs.append(sibling)
+
+                                                for like_div in likes_divs:
+                                                    like_link_list = like_div.find_all("a")
 
                                                     if len(like_link_list) > 1:
-                                                        for linkie in like_link_list[1::]:
-                                                            linkie_title = linkie["title"]
-                                                            if linkie_title != "Experience" and linkie_title != "Mystery Likes":
-                                                                likes_string += linkie_title + ":" + like_link.text.strip() + "&"
-                                                                done_linkie = True
+                                                        like_link = like_link_list[1]
+                                                        done_linkie = False
 
-                                                    if not done_linkie:
-                                                        likes_string += "All:" + like_link.text.strip() + "&"
+                                                        if len(like_link_list) > 2:
+                                                            for linkie in like_link_list[2::]:
+                                                                if linkie.has_attr("title"):
+                                                                    linkie_title = linkie["title"]
+                                                                    if linkie_title != "Experience" and linkie_title != "Mystery Likes":
+                                                                        likes_string += linkie_title + ":" + like_link.text.strip() + "&"
+                                                                        done_linkie = True
+
+                                                        if not done_linkie:
+                                                            likes_string += "All:" + like_link.text.strip() + "&"
                                                 
-                                                break
                                             elif spans[0].text.strip() == "Polarity":
                                                 polarity_table = h2.find_next("table")
 
@@ -148,6 +168,7 @@ df = pd.DataFrame({"name": names,
                     "link": links,
                     "islands": islands_lists,
                     "likes/polarity": likes_lists,
-                    "bio": bios})
+                    "bio": bios,
+                    "first_discovered": first_discovered})
 
 df.to_csv("./msmTools/monsterDataRaw.csv")
