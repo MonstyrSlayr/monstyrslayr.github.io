@@ -150,7 +150,7 @@ let selectedA = null;
 let selectedB = null;
 
 let excludedIslands = new Set();
-const fuckYou = ["Shadow", "Crystal", "Poison"];
+const fuckYou = ["Shadow Islet", "Crystal Islet", "Poison Islet"];
 const islandConditionalDiv = document.getElementById("islandConditionalDiv");
 
 for (const island of islands)

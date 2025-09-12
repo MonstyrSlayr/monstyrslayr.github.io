@@ -139,10 +139,10 @@ const islands =
 	new Island("Fire Oasis", "Oasis", "https://monstyrslayr.github.io/msmTools/img/island/Oasis.png"),
 
 	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
-	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
+	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
-	new Island("Crystal Islet", "Crystal", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
-	new Island("Poison Islet", "Poison", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png"),
+	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
+	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png"),
 
 	new Island("Mythical Island", "Mythical", "https://monstyrslayr.github.io/msmTools/img/island/Mythical.png"),
 
@@ -223,7 +223,7 @@ export async function getMonsters()
 		monster.portrait = ("https://monstyrslayr.github.io/msmTools/webp/portrait/" + line).trim();
 		monster.portraitBlack = monster.portrait.replace(".webp", "_black.webp");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".webp", "").trim();
-		if (monster.id == "ad") // special quibble case
+		if (monster.id == "ad") // special quibble case (because of ad blockers lol)
 		{
 			monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_ad_copy.webp";
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_ad_copy.webp";
@@ -233,7 +233,7 @@ export async function getMonsters()
 
 		// rarities
 		if (monster.id.endsWith("_rare")) monster.rarity = RARITY.RARE;
-		else if (monster.id.includes("_epic")) monster.rarity = RARITY.EPIC; //includes for epic wubboxes
+		else if (monster.id.includes("_epic")) monster.rarity = RARITY.EPIC; // includes for epic wubboxes
 		else if (monster.id.endsWith("_adult")) monster.rarity = RARITY.ADULT;
 		else if (monster.id.endsWith("_maj")) monster.rarity = RARITY.MAJOR;
 		else if (monster.id.endsWith("_min")) monster.rarity = RARITY.MINOR;
