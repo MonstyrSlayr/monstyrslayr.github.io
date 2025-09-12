@@ -262,7 +262,7 @@ async function main()
     document.body.appendChild(bigAssHeading);
 
     const smallAssFlavorText = document.createElement("h3");
-    smallAssFlavorText.textContent = "Send a message when you're ready";
+    smallAssFlavorText.textContent = "Join the discord server in the description to participate!";
     document.body.appendChild(smallAssFlavorText);
 
     const topBarWrapper = document.createElement("div");
@@ -617,6 +617,7 @@ async function main()
                     showOutlinesButton.classList.remove("disabled");
                     forefitButton.classList.remove("disabled");
                     missedMonstersDiv.classList.add("hidden");
+                    smallAssFlavorText.classList.remove("hidden");
                     missedPortraitsDiv.innerHTML = "";
 
                     monsterNumerator.textContent = "0";
@@ -752,7 +753,6 @@ async function main()
                     if (startTime == null)
                     {
                         startTime = performance.now();
-                        smallAssFlavorText.classList.add("hidden");
                     }
 
                     // add to leaderboard
