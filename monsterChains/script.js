@@ -353,7 +353,7 @@ document.getElementById("randomizeButton").addEventListener("click", function()
         setSelectedB(noCeDipsters[Math.floor(Math.random() * noCeDipsters.length)]);
     }
     document.getElementById("monsterA").value = selectedA.name;
-    document.getElementById("monsterB").value = selectedA.name;
+    document.getElementById("monsterB").value = selectedB.name;
 })
 
 // longest chain is 5 btw
