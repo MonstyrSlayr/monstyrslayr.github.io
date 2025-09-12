@@ -338,7 +338,7 @@ setupAutocomplete("monsterB", "autocompleteB", commonMonsters, m => setSelectedB
 setSelectedA(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
 setSelectedB(noCelestials[Math.floor(Math.random() * noCelestials.length)]);
 document.getElementById("monsterA").value = selectedA.name;
-document.getElementById("monsterB").value = selectedA.name;
+document.getElementById("monsterB").value = selectedB.name;
 
 document.getElementById("randomizeButton").addEventListener("click", function()
 {
@@ -354,6 +354,6 @@ document.getElementById("randomizeButton").addEventListener("click", function()
     }
     document.getElementById("monsterA").value = selectedA.name;
     document.getElementById("monsterB").value = selectedB.name;
-})
+});
 
 // longest chain is 5 btw
