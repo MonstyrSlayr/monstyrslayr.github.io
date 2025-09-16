@@ -1,31 +1,31 @@
 const RARITY = Object.freeze
 ({
-    COMMON: 0,
-    RARE: 1,
-    EPIC: 2,
-    CHILD: 3, //celestials only
-    ADULT: 4, //celestials only
-	MAJOR: 5, //paironormal only
-	MINOR: 6 //paironormal only
+    COMMON: "Common",
+    RARE: "Rare",
+    EPIC: "Epic",
+    CHILD: "Child", // celestials only
+    ADULT: "Adult", // celestials only
+	MAJOR: "Major", // paironormal only
+	MINOR: "Minor" // paironormal only
 });
 
 const MCLASS = Object.freeze
 ({
-    NATURAL: 0,
-    FIRE: 1,
-    MAGICAL: 2,
-    MYTHICAL: 3,
-	SEASONAL: 4,
-	ETHEREAL: 5,
-	SUPERNATURAL: 6,
-	SHUGAFAM: 7,
-	WERDO: 8,
-	CELESTIAL: 9,
-	DIPSTER: 10,
-	TITANSOUL: 11,
-	DREAMYTHICAL: 12,
-	PAIRONORMAL: 13,
-	PRIMORDIAL: 14
+    NATURAL: "Natural",
+    FIRE: "Fire",
+    MAGICAL: "Magical",
+    MYTHICAL: "Mythical",
+	SEASONAL: "Seasonal",
+	ETHEREAL: "Ethereal",
+	SUPERNATURAL: "Supernatural",
+	SHUGAFAM: "Shugafam",
+	WERDO: "Werdo",
+	CELESTIAL: "Celestial",
+	DIPSTER: "Dipster",
+	TITANSOUL: "Titansoul",
+	DREAMYTHICAL: "Dreamythical",
+	PAIRONORMAL: "Paironormal",
+	PRIMORDIAL: "Primordial"
 });
 
 export class ElementSigil // dumb name bc "element" will get confusing with HTML stuff

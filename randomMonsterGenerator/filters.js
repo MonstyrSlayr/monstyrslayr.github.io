@@ -142,13 +142,13 @@ async function createFilters()
 
     const rarityConditionals =
     [
-        new Conditional("Commons", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.COMMON}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_monsters.avif" ),
-        new Conditional("Rares", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.RARE}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_rares.avif" ),
-        new Conditional("Epics", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.EPIC}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_epics.avif" ),
-        new Conditional("Young (Celestials Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.CHILD}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_celestial.avif" ),
-        new Conditional("Adult (Celestials Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.ADULT}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_celestial.avif" ),
-        new Conditional("Major (Paironormal Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.MAJOR} ),
-        new Conditional("Minor (Paironormal Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.MINOR} ),
+        new Conditional("Commons", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.COMMON }, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_monsters.avif" ),
+        new Conditional("Rares", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.RARE }, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_rares.avif" ),
+        new Conditional("Epics", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.EPIC }, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_epics.avif" ),
+        new Conditional("Young (Celestials Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.CHILD }, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_celestial.avif" ),
+        new Conditional("Adult (Celestials Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.ADULT }, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_celestial.avif" ),
+        new Conditional("Major (Paironormal Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.MAJOR } ),
+        new Conditional("Minor (Paironormal Only)", rarityCheckboxDiv, function(monster = Monster) { return monster.rarity == RARITY.MINOR } ),
     ];
 
     rarityCheckAll.onclick = function ()
@@ -180,7 +180,7 @@ async function createFilters()
     const classConditionals =
     [
         new Conditional("Naturals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.NATURAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_plant.avif" ),
-        new Conditional("Fire Monsters", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.FIRE}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_fire.avif" ),
+        new Conditional("Fire Naturals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.FIRE}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_fire.avif" ),
         new Conditional("Magicals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.MAGICAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_psychic.avif" ),
         new Conditional("Mythicals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.MYTHICAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_mythical.avif" ),
         new Conditional("Dreamythicals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.DREAMYTHICAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_mythical.avif" ),
