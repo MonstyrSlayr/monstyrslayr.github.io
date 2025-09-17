@@ -111,12 +111,14 @@ export class Island
 	name;
 	codename;
 	symbol;
+	hasLikes;
 
-	constructor(name, codename, symbol)
+	constructor(name, codename, symbol, hasLikes = true)
 	{
 		this.name = name;
 		this.codename = codename;
 		this.symbol = symbol;
+		this.hasLikes = hasLikes;
 	}
 }
 
@@ -129,8 +131,8 @@ const islands =
 	new Island("Earth Island", "Earth", "https://monstyrslayr.github.io/msmTools/img/island/Earth.png"),
 
 	new Island("Shugabush Island", "Shugabush", "https://monstyrslayr.github.io/msmTools/img/island/Shugabush.png"),
-	new Island("The Colossingum", "Colossingum", "https://monstyrslayr.github.io/msmTools/img/island/Colossingum.png"),
-	new Island("Gold Island", "Gold", "https://monstyrslayr.github.io/msmTools/img/island/Gold.png"),
+	new Island("The Colossingum", "Colossingum", "https://monstyrslayr.github.io/msmTools/img/island/Colossingum.png", false),
+	new Island("Gold Island", "Gold", "https://monstyrslayr.github.io/msmTools/img/island/Gold.png", false),
 
 	new Island("Ethereal Island", "Ethereal", "https://monstyrslayr.github.io/msmTools/img/island/Ethereal.png"),
 	new Island("Ethereal Workshop", "Workshop", "https://monstyrslayr.github.io/msmTools/img/island/Workshop.png"),
@@ -152,17 +154,22 @@ const islands =
 	new Island("Bone Island", "Bone", "https://monstyrslayr.github.io/msmTools/img/island/Bone.png"),
 
 	new Island("Magical Sanctum", "Sanctum", "https://monstyrslayr.github.io/msmTools/img/island/Sanctum.png"),
-	new Island("Magical Nexus", "Nexus", "https://monstyrslayr.github.io/msmTools/img/island/Nexus.png"),
+	new Island("Magical Nexus", "Nexus", "https://monstyrslayr.github.io/msmTools/img/island/Nexus.png", false),
 
 	new Island("Seasonal Shanty", "Seasonal", "https://monstyrslayr.github.io/msmTools/img/island/Seasonal.png"),
 	new Island("Amber Island", "Amber", "https://monstyrslayr.github.io/msmTools/img/island/Amber.png"),
 
-	new Island("Wublin Island", "Wublin", "https://monstyrslayr.github.io/msmTools/img/island/Wublin.png"),
-	new Island("Celestial Island", "Celestial", "https://monstyrslayr.github.io/msmTools/img/island/Celestial.png"),
+	new Island("Wublin Island", "Wublin", "https://monstyrslayr.github.io/msmTools/img/island/Wublin.png", false),
+	new Island("Celestial Island", "Celestial", "https://monstyrslayr.github.io/msmTools/img/island/Celestial.png", false),
 
-	new Island("Tribal Island", "Tribal", "https://monstyrslayr.github.io/msmTools/img/island/Tribal.png"),
-	new Island("Composer Island", "Composer", "https://monstyrslayr.github.io/msmTools/img/island/Composer.png"),
-]
+	new Island("Tribal Island", "Tribal", "https://monstyrslayr.github.io/msmTools/img/island/Tribal.png", false),
+	new Island("Composer Island", "Composer", "https://monstyrslayr.github.io/msmTools/img/island/Composer.png", false),
+];
+
+function islandNameToIsland(daStr)
+{
+	return islands.find((island) => island.name == daStr);
+}
 
 function stringToIsland(daStr)
 {
@@ -190,6 +197,18 @@ export class Monster
 	islands;
 	likes;
 	bio;
+}
+
+class Like
+{
+	name;
+	island;
+
+	constructor(name, island)
+	{
+		this.name = name;
+		this.island = island;
+	}
 }
 
 export async function getMonsters()
@@ -453,7 +472,51 @@ export async function getMonsters()
 				}
 			}
 			
-			monster.likes = monsterLine["likes/polarity"].split("&").slice(0, -1); // TODO: there is still stuff to do here, seperating it by island
+			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
+			monster.likes = new Set();
+			monster.positive = null;
+			monster.negative = null;
+
+			const wublinIsland = stringToIsland("Wublin");
+
+			if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
+			{
+				if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
+				if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
+			}
+			else
+			{
+				for (const likeString of likesStringArr)
+				{
+					const daSplit = likeString.split(":");
+
+					if (daSplit)
+					{
+						const daLike = daSplit[1];
+
+						if (daLike != "Unreleased")
+						{
+							const islandName = daSplit[0];
+
+							if (islandName == "All")
+							{
+								for (const island of monster.islands)
+								{
+									if (island.hasLikes)
+									{
+										monster.likes.add(new Like(daLike, island));
+									}
+								}
+							}
+							else
+							{
+								monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
+							}
+						}
+					}
+				}
+			}
+		
 			monster.bio = monsterLine.bio;
 			monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 		}
@@ -489,3 +552,5 @@ export function getIslands()
 {
 	return islands;
 }
+
+console.log(await getMonsters());
