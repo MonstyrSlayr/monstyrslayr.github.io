@@ -1,3 +1,19 @@
+*
+{
+    transition: all 0.15s;
+}
+
+p
+{
+    font-size: 24px;
+}
+
+body
+{
+    background-color: rgb(25, 26, 42);
+    color: white;
+}
+
 h1
 {
     text-align: center;
@@ -8,72 +24,329 @@ h2
     text-align: center;
 }
 
+h4
+{
+    text-align: center;
+}
+
+.flow
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.finalizer, .downloadDiv
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#tooltip
+{
+    display: none;
+    position: absolute;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.863);
+    z-index: 100;
+    color: black;
+}
+
+.textFields
+{
+    width: 33vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.sudokuWrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .sudoku
 {
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 4px;
+    border: white solid 4px;
+    background-color: white; /* grid color */
+    width: 40vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 2em;
+    border-top-left-radius: 0;
 }
 
-.conditionalDropdown ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+#squareN2, #ssquareN2
+{
+    border-top-right-radius: 2em;
 }
 
-.conditionalDropdown > ul > li {
-  display: inline-block;
-  position: relative;
+#square2N, #ssquare2N
+{
+    border-bottom-left-radius: 2em;
 }
 
-.dropdownButton {
-  background: #3498db;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
+#square22, #ssquare22
+{
+    border-bottom-right-radius: 2em;
 }
 
-.dropdownButton:hover {
-  background: #2980b9;
+.sudoku > div
+{
+    background-color: rgb(30, 30, 30);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
 }
 
-.dropdownContent {
-  display: none;
-  position: absolute;
-  left: 0;
-  background: white;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
+.sudoku > div.valid
+{
+    background-color: rgb(165, 255, 165);
 }
 
-.dropdownContent li {
-  position: relative;
+.sudoku > div.invalid
+{
+    background-color: rgb(255, 167, 167);
 }
 
-.dropdownContent a, .dropdownContent .dropdownButton {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  text-align: left;
-  background: white;
-  color: black;
-  border: none;
+.sudoku > div.nolid
+{
+    background-color: rgb(176, 176, 176);
 }
 
-.dropdownContent a:hover,
-.dropdownContent .dropdownButton:hover {
-  background: #f1f1f1;
+.inverseCheckboxDiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5em;
+    font-size: 24px;
 }
 
-/* Show submenu when parent has 'open' */
-li.open > .dropdownContent {
-  display: block;
-  top: 100%;
-  left: 0;
+.inverseCheckboxDiv > input
+{
+    scale: 150%;
+    border-radius: 0;
+    border: none;
 }
 
-/* Submenu nesting (appears to the right) */
-li.open > .dropdownContent li.open > .dropdownContent {
-  top: 0;
-  left: 100%;
+.conditionalDropdown
+{
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.dropdown
+{
+    display: none;
+}
+
+.dropdown.open
+{
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown > ul > li
+{
+    display: block;
+    position: relative;
+    width: 20em;
+}
+
+button
+{
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.5em;
+    font-size: 16px;
+}
+
+button:hover
+{
+    scale: 103%;
+}
+
+.dropdownButton, .option
+{
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    text-wrap: nowrap;
+}
+
+.dropdownButton:hover, .option:hover
+{
+    scale: 100%;
+    background-color: #ccc;
+}
+
+.dropdownContent
+{
+    display: none;
+    position: absolute;
+    left: 0;
+    background: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.dropdownContent li
+{
+    position: relative;
+}
+
+.dropdownContent .dropdownButton, 
+.dropdownContent .option
+{
+    background: white;
+    color: black;
+}
+
+.dropdownContent .dropdownButton:hover, 
+.dropdownContent .option:hover
+{
+    background: #f1f1f1;
+}
+
+/* Show submenu when parent is open */
+li.open > .dropdownContent
+{
+    display: block;
+    top: 100%;
+    left: 0;
+}
+
+/* Nested submenu (appears to the right) */
+li.open > .dropdownContent li.open > .dropdownContent
+{
+    top: 0;
+    left: 100%;
+}
+
+.autocompleteList
+{
+    position: absolute;
+    background: white;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    top: 100%;
+    width: 100%;
+}
+
+.autocompleteList:has(.autocompleteItem)
+{
+    border: 1px solid #ccc;
+}
+
+.autocompleteItem
+{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.autocompleteItem > img
+{
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.autocompleteItem > span
+{
+    color: black;
+}
+
+.autocompleteItem:hover
+{
+    background-color: #f0f0f0;
+}
+
+.monsterCounter
+{
+    color: black;
+    font-size: 24px;
+}
+
+input[type=text]
+{
+    width: 100%;
+    color: black;
+}
+
+a
+{
+    color: white;
+    text-decoration: underline;
+}
+
+a:hover
+{
+    color: white;
+    cursor: pointer;
+}
+
+footer
+{
+    background-color: black;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.monsterImg
+{
+    width: 40%;
+}
+
+.inputStuff
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.gone
+{
+    display: none;
 }

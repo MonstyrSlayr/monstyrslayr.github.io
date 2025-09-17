@@ -1,0 +1,73 @@
+{
+    "metadata": {
+        "name": "My Awesome Sudoku!",
+        "author": "A Mysterious Author",
+        "friendCode": ""
+    },
+    "conditionalRows": [
+        {
+            "id": "d",
+            "inverse": false
+        },
+        {
+            "id": "d",
+            "inverse": false
+        },
+        {
+            "id": "d",
+            "inverse": false
+        }
+    ],
+    "conditionalCols": [
+        {
+            "id": "d",
+            "inverse": false
+        },
+        {
+            "id": "d",
+            "inverse": false
+        },
+        {
+            "id": "d",
+            "inverse": false
+        }
+    ],
+    "solutionMonsters": [
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "a"
+        }
+    ]
+}

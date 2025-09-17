@@ -552,5 +552,3 @@ export function getIslands()
 {
 	return islands;
 }
-
-console.log(await getMonsters());
