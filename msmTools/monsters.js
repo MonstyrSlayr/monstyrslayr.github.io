@@ -80,6 +80,7 @@ const elementSigils =
 	new ElementSigil("Control", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png"),
 	new ElementSigil("Hoax", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png"),
 	new ElementSigil("Ruin", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png"),
+	new ElementSigil("Depths", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Depths.png"),
 ];
 
 const seasonalElementSigils =
@@ -156,6 +157,7 @@ const islands =
 	new Island("Magical Sanctum", "Sanctum", "https://monstyrslayr.github.io/msmTools/img/island/Sanctum.png"),
 	new Island("Magical Nexus", "Nexus", "https://monstyrslayr.github.io/msmTools/img/island/Nexus.png", false),
 
+	new Island("Paironormal Carnival", "Paironormal", "https://monstyrslayr.github.io/msmTools/img/island/Paironormal.png", false),
 	new Island("Seasonal Shanty", "Seasonal", "https://monstyrslayr.github.io/msmTools/img/island/Seasonal.png"),
 	new Island("Amber Island", "Amber", "https://monstyrslayr.github.io/msmTools/img/island/Amber.png"),
 
@@ -279,14 +281,17 @@ export async function getMonsters()
 
 			switch (monster.identifier)
 			{
-				case 1:
+				case 1: case 5: case 11:
 					monster.elements.add(stringToElementSigil("Control"));
 					break;
-				case 2:
+				case 2: case 5: case 8: case 11:
 					monster.elements.add(stringToElementSigil("Hoax"));
 					break;
-				case 3:
+				case 3: case 8: case 11:
 					monster.elements.add(stringToElementSigil("Ruin"));
+					break;
+				case 4:
+					monster.elements.add(stringToElementSigil("Depths"));
 					break;
 			}
 		}
