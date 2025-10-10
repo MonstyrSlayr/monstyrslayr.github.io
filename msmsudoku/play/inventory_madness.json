@@ -1,0 +1,73 @@
+{
+    "metadata": {
+        "name": "Inventory Madness!",
+        "author": "MonstyrSlayr",
+        "friendCode": "DXPM-XCN7-ZTGD-ML"
+    },
+    "conditionalRows": [
+        {
+            "id": "cFire",
+            "inverse": false
+        },
+        {
+            "id": "cCelestial",
+            "inverse": false
+        },
+        {
+            "id": "cSupernatural",
+            "inverse": false
+        }
+    ],
+    "conditionalCols": [
+        {
+            "id": "gFurcorn",
+            "inverse": false
+        },
+        {
+            "id": "z3",
+            "inverse": false
+        },
+        {
+            "id": "gQuibble",
+            "inverse": false
+        }
+    ],
+    "solutionMonsters": [
+        {
+            "rarity": "Common",
+            "elementString": "bcen"
+        },
+        {
+            "rarity": "Rare",
+            "elementString": "aden"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "abn"
+        },
+        {
+            "rarity": "Child",
+            "elementString": "t08"
+        },
+        {
+            "rarity": "Child",
+            "elementString": "t02"
+        },
+        {
+            "rarity": "Adult",
+            "elementString": "t06"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "u05"
+        },
+        {
+            "rarity": "Epic",
+            "elementString": "u01"
+        },
+        {
+            "rarity": "Common",
+            "elementString": "u13"
+        }
+    ]
+}

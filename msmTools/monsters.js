@@ -300,16 +300,16 @@ export async function getMonsters()
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			if (monster.identifier in [1, 5, 11])
+			if ([1, 5, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
-			if (monster.identifier in [2, 5, 8, 11])
+			if ([2, 5, 8, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Hoax"));
 
-			if (monster.identifier in [3, 8, 11])
+			if ([3, 8, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if (monster.identifier in [4])
+			if ([4].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
@@ -502,6 +502,12 @@ export async function getMonsters()
 			monster.levelAvailable = parseInt(monsterLine.level_available);
 			monster.firstDiscovered = monsterLine.first_discovered;
 			monster.timeLimit = monsterLine.time_limit;
+
+			// kayna clause
+			if (monster.id == "n" && monster.rarity == RARITY.COMMON)
+			{
+				monster.levelAvailable = 9;
+			}
 			
 			// paironormal clause
 			if (monster.elementString.startsWith("i"))
@@ -646,4 +652,5 @@ export function getIslands()
 	return islands;
 }
 
-// console.log(await getMonsters());
+// const allMonsters = await getMonsters();
+// console.log(allMonsters.filter((monster) => isNaN(monster.levelAvailable)));

@@ -132,7 +132,7 @@ class LikedByConditional extends Conditional // b
     }
 }
 
-class EggConditional extends Conditional // v for inVentory
+class EggConditional extends Conditional // g for eGg
 {
     egg;
 
@@ -142,14 +142,90 @@ class EggConditional extends Conditional // v for inVentory
         {
             for (const daInv of monster.inventory.values())
             {
-                if (daInv.monster == egg)
+                if (daInv.name == egg)
                 {
                     return true;
                 }
             }
             return false; 
-        }, "This monster's inventory requires a " + egg.toUpperCase() + " egg.", "v" + elementSigil.name, "Has the " + elementSigil.name.toUpperCase() + " element", "Does not have the " + elementSigil.name.toUpperCase() + " element");
-        this.elementSigil = elementSigil;
+        }, "This monster's inventory requires a " + egg.toUpperCase() + " EGG.", "g" + egg, "Inventory requires " + egg.toUpperCase() + " EGG", "Inventory does not require " + egg.toUpperCase() + " EGG, or does not have egg inventory");
+        this.egg = egg;
+    }
+}
+
+class RequiredByConditional extends Conditional // q for reQuired
+{
+    daMonster;
+
+    constructor (daMonster)
+    {
+        super(function (monster = Monster)
+        {
+            for (const daEgg of daMonster.inventory.values())
+            {
+                if (daEgg.name == monster.name)
+                {
+                    return true;
+                }
+            }
+            return false; 
+        }, "This monster's egg is required by " + daMonster.name.toUpperCase() + ".", "q" + daMonster.name.replace(" ", ""), "Egg required by " + daMonster.name.toUpperCase() + "'s inventory", "Egg not required by " + daMonster.name.toUpperCase() + "'s inventory");
+        this.daMonster = daMonster;
+    }
+}
+
+class SizeConditional extends Conditional // z
+{
+    size;
+
+    constructor(size)
+    {
+        super(function (monster = Monster) { return monster.size == size; }, "This monster takes up a " + size + " BY " + size + " AREA.", "z" + size, "Takes up " + size + " BY " + size, "Does not take up " + size + " BY " + size)
+        this.size = size;
+    }
+}
+
+class BedsConditional extends Conditional // 🛏️ (sue me)
+{
+    beds;
+
+    constructor(beds)
+    {
+        super(function (monster = Monster) { return monster.beds == beds; }, "This monster takes up " + beds + " beds in a standard castle.", "🛏️" + beds, "Uses " + beds + " beds", "Does not use " + beds + " beds")
+        this.beds = beds;
+    }
+}
+
+class LevelConditional extends Conditional // v for leVel
+{
+    level;
+
+    constructor(level)
+    {
+        super(function (monster = Monster) { return monster.levelAvailable == level; }, "This monster is available to buy or breed by LEVEL " + level + ".", "v" + level, "Available at LEVEL" + level, "Availability starts at a level other than LEVEL" + level)
+        this.level = level;
+    }
+}
+
+class TimeLimitConditional extends Conditional // t
+{
+    timeLimit;
+
+    constructor(timeLimit)
+    {
+        super(function (monster = Monster) { return monster.timeLimit == timeLimit; }, "This monster's inventory has a time limit of " + timeLimit + " DAYS.", "t" + timeLimit, "Time limit of " + timeLimit + " DAYS", "Time limit other than " + timeLimit + " DAYS, or no time limit")
+        this.timeLimit = timeLimit;
+    }
+}
+
+class FirstDiscoveredConditional extends Conditional // f
+{
+    firstDiscovered;
+
+    constructor(firstDiscovered)
+    {
+        super(function (monster = Monster) { return monster.firstDiscovered == firstDiscovered; }, "This monster was first discovered by " + firstDiscovered.toUpperCase() + ".", "f" + firstDiscovered, "First discovered by " + firstDiscovered.toUpperCase(), "Not first discovered by " + firstDiscovered)
+        this.firstDiscovered = firstDiscovered;
     }
 }
 
@@ -223,18 +299,26 @@ elementSigils.forEach(elementSigil =>
 });
 
 export const countConditionals = [];
-for (let i = 1; i <= 5; i++)
-{
-    countConditionals.push(new ElementCountConditional(i));
-}
-
 export const likeConditionals = [];
 export const likedByConditionals = [];
 export const eggConditionals = [];
+export const reqConditionals = [];
+export const sizeConditionals = [];
+export const bedsConditionals = [];
+export const levelConditionals = [];
+export const timeConditionals = [];
+export const firstConditionals = [];
 
+const uniqueCounts = new Set();
 const uniqueLikes = new Set();
 const uniqueMonsterLikes = new Set();
 const uniqueEggs = new Set();
+const uniqueReqs = new Set();
+const uniqueSizes = new Set();
+const uniqueBeds = new Set();
+const uniqueLevels = new Set();
+const uniqueTimes = new Set();
+const uniqueFirsts = new Set();
 
 monsters.forEach(monster =>
 {
@@ -247,11 +331,29 @@ monsters.forEach(monster =>
         if (maybeMonster) uniqueMonsterLikes.add(maybeMonster);
     });
 
-    monster.inventory.values.forEach(eggObj =>
+    monster.inventory.values().forEach(eggObj =>
     {
-        uniqueEggs.add(eggObj.monster);
+        uniqueEggs.add(eggObj.name);
     });
+
+    if (monster.inventory.size > 0)
+    {
+        uniqueReqs.add(monster);
+    }
+
+    uniqueCounts.add(monster.elements.size);
+    uniqueSizes.add(monster.size);
+    uniqueBeds.add(monster.beds);
+    if (!isNaN(monster.levelAvailable)) uniqueLevels.add(monster.levelAvailable);
+    if (monster.timeLimit != 0) uniqueTimes.add(monster.timeLimit);
+    if (monster.firstDiscovered != "") uniqueFirsts.add(monster.firstDiscovered);
 });
+
+uniqueCounts.values().forEach(count =>
+{
+    countConditionals.push(new ElementCountConditional(count));
+});
+countConditionals.sort((a, b) => a - b);
 
 uniqueLikes.values().forEach(like =>
 {
@@ -270,3 +372,39 @@ uniqueEggs.values().forEach(egg =>
     eggConditionals.push(new EggConditional(egg));
 });
 eggConditionals.sort((a, b) => a.egg.toLowerCase().localeCompare(b.egg.toLowerCase()));
+
+uniqueReqs.values().forEach(req =>
+{
+    reqConditionals.push(new RequiredByConditional(req));
+});
+reqConditionals.sort((a, b) => a.daMonster.name.toLowerCase().localeCompare(b.daMonster.name.toLowerCase()));
+
+uniqueSizes.values().forEach(size =>
+{
+    sizeConditionals.push(new SizeConditional(size));
+});
+sizeConditionals.sort((a, b) => a.size - b.size);
+
+uniqueBeds.values().forEach(beds =>
+{
+    bedsConditionals.push(new BedsConditional(beds));
+});
+bedsConditionals.sort((a, b) => a.beds - b.beds);
+
+uniqueLevels.values().forEach(level =>
+{
+    levelConditionals.push(new LevelConditional(level));
+});
+levelConditionals.sort((a, b) => a.level - b.level);
+
+uniqueTimes.values().forEach(time =>
+{
+    timeConditionals.push(new TimeLimitConditional(time));
+});
+timeConditionals.sort((a, b) => a.timeLimit - b.timeLimit);
+
+uniqueFirsts.values().forEach(first =>
+{
+    firstConditionals.push(new FirstDiscoveredConditional(first));
+});
+firstConditionals.sort((a, b) => a.firstDiscovered.toLowerCase().localeCompare(b.firstDiscovered.toLowerCase()));

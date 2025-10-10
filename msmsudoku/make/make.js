@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
 
 const dropdownRows =
 [
@@ -420,7 +420,109 @@ for (const daDiv of document.getElementsByClassName("conditionalDropdown"))
 
                     for (const eggConditional of eggConditionals)
                     {
-                        eggContent.appendChild(makeSelectableConditional(eggConditional, eggConditional.egg + " EGG"));
+                        eggContent.appendChild(makeSelectableConditional(eggConditional, "REQUIRES " + eggConditional.egg.toUpperCase() + " EGG"));
+                    }
+            
+            const reqDropdown = document.createElement("li");
+            daDropdownList.appendChild(reqDropdown);
+
+                const reqButton = document.createElement("button");
+                reqButton.textContent = "EGG REQUIRED BY ᐳ";
+                reqButton.classList.add("dropdownButton");
+                reqDropdown.appendChild(reqButton);
+
+                const reqContent = document.createElement("ul");
+                reqContent.classList.add("dropdownContent");
+                reqDropdown.appendChild(reqContent);
+
+                    for (const reqConditional of reqConditionals)
+                    {
+                        reqContent.appendChild(makeSelectableConditional(reqConditional, "REQUIRED BY " + reqConditional.daMonster.name.toUpperCase()));
+                    }
+            
+            const sizeDropdown = document.createElement("li");
+            daDropdownList.appendChild(sizeDropdown);
+
+                const sizeButton = document.createElement("button");
+                sizeButton.textContent = "SIZE ᐳ";
+                sizeButton.classList.add("dropdownButton");
+                sizeDropdown.appendChild(sizeButton);
+
+                const sizeContent = document.createElement("ul");
+                sizeContent.classList.add("dropdownContent");
+                sizeDropdown.appendChild(sizeContent);
+
+                    for (const sizeConditional of sizeConditionals)
+                    {
+                        sizeContent.appendChild(makeSelectableConditional(sizeConditional, sizeConditional.size + "X" + sizeConditional.size + " AREA"));
+                    }
+            
+            const bedsDropdown = document.createElement("li");
+            daDropdownList.appendChild(bedsDropdown);
+
+                const bedsButton = document.createElement("button");
+                bedsButton.textContent = "BEDS ᐳ";
+                bedsButton.classList.add("dropdownButton");
+                bedsDropdown.appendChild(bedsButton);
+
+                const bedsContent = document.createElement("ul");
+                bedsContent.classList.add("dropdownContent");
+                bedsDropdown.appendChild(bedsContent);
+
+                    for (const bedsConditional of bedsConditionals)
+                    {
+                        bedsContent.appendChild(makeSelectableConditional(bedsConditional, bedsConditional.beds + " BEDS"));
+                    }
+            
+            const levelDropdown = document.createElement("li");
+            daDropdownList.appendChild(levelDropdown);
+
+                const levelButton = document.createElement("button");
+                levelButton.textContent = "LEVEL AVAILABLE BY ᐳ";
+                levelButton.classList.add("dropdownButton");
+                levelDropdown.appendChild(levelButton);
+
+                const levelContent = document.createElement("ul");
+                levelContent.classList.add("dropdownContent");
+                levelDropdown.appendChild(levelContent);
+
+                    for (const levelConditional of levelConditionals)
+                    {
+                        levelContent.appendChild(makeSelectableConditional(levelConditional, "LEVEL " + levelConditional.level));
+                    }
+                    
+            const timesDropdown = document.createElement("li");
+            daDropdownList.appendChild(timesDropdown);
+
+                const timesButton = document.createElement("button");
+                timesButton.textContent = "INVENTORY TIME LIMIT ᐳ";
+                timesButton.classList.add("dropdownButton");
+                timesDropdown.appendChild(timesButton);
+
+                const timesContent = document.createElement("ul");
+                timesContent.classList.add("dropdownContent");
+                timesDropdown.appendChild(timesContent);
+
+                    for (const timesConditional of timeConditionals)
+                    {
+                        timesContent.appendChild(makeSelectableConditional(timesConditional, timesConditional.timeLimit + " DAYS"));
+                    }
+            
+            const firstsDropdown = document.createElement("li");
+            daDropdownList.appendChild(firstsDropdown);
+
+                const firstsButton = document.createElement("button");
+                firstsButton.textContent = "FIRST DISCOVERED ᐳ";
+                firstsButton.classList.add("dropdownButton");
+                firstsDropdown.appendChild(firstsButton);
+
+                const firstsContent = document.createElement("ul");
+                firstsContent.classList.add("dropdownContent");
+                firstsDropdown.appendChild(firstsContent);
+
+                    for (const firstsConditional of firstConditionals)
+                    {
+                        firstsContent.appendChild(makeSelectableConditional(firstsConditional, firstsConditional.firstDiscovered.toUpperCase()));
                     }
 }
 

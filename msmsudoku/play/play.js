@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
 
 const labelRows =
 [
@@ -98,13 +98,15 @@ function addTooltip(daElement, tipFunction)
 
 const allConditionals = [defaultConditional, ...rarityConditionals, ...classConditionals,
                                 ...islandConditionals, ...elementConditionals, ...countConditionals,
-                                    ...likeConditionals, ...likedByConditionals]
+                                    ...likeConditionals, ...likedByConditionals, ...eggConditionals,
+                                        ...reqConditionals, ...sizeConditionals, ...bedsConditionals,
+                                            ...levelConditionals, ...timeConditionals, ...firstConditionals]
 
 const sudokuName = document.getElementById("sudokuName");
 const sudokuAuthor = document.getElementById("sudokuAuthor");
 const sudokuFriendCode = document.getElementById("sudokuFriendCode");
 
-const sudResponse = await fetch("./my_msm_sudoku.json");
+const sudResponse = await fetch("./inventory_madness.json");
 if (!sudResponse.ok)
 {
     throw new Error('Network response was not ok');
