@@ -288,21 +288,17 @@ export async function getMonsters()
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			switch (monster.identifier)
-			{
-				case 1: case 5: case 11:
-					monster.elements.add(stringToElementSigil("Control"));
-					break;
-				case 2: case 5: case 8: case 11:
-					monster.elements.add(stringToElementSigil("Hoax"));
-					break;
-				case 3: case 8: case 11:
-					monster.elements.add(stringToElementSigil("Ruin"));
-					break;
-				case 4:
-					monster.elements.add(stringToElementSigil("Depths"));
-					break;
-			}
+			if (monster.identifier in [1, 5, 11])
+				monster.elements.add(stringToElementSigil("Control"));
+
+			if (monster.identifier in [2, 5, 8, 11])
+				monster.elements.add(stringToElementSigil("Hoax"));
+
+			if (monster.identifier in [3, 8, 11])
+				monster.elements.add(stringToElementSigil("Ruin"));
+
+			if (monster.identifier in [4])
+				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
 		{
@@ -333,7 +329,7 @@ export async function getMonsters()
 
 			if (monster.elementString.startsWith("f"))
 			{
-				monster.identifier = monster.elementString.replace("f_", "");
+				monster.identifier = monster.id.replace("f_", "");
 			}
 			else
 			{
@@ -613,3 +609,5 @@ export function getIslands()
 {
 	return islands;
 }
+
+// console.log(await getMonsters());
