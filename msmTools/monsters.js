@@ -471,6 +471,11 @@ export async function getMonsters()
 								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".wav";
 							}
 
+							if (island.codename == "Gold")
+							{
+								monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_f_epic_gold_plant.webp";
+							}
+
 							monster.name = monster.name + "(" + island.codename + ")";
 							break;
 						}
