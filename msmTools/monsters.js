@@ -217,13 +217,21 @@ export async function getMonsters()
 {
 	let monsters = [];
 
-	const csvResponse = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
-	if (!csvResponse.ok)
+	const dataCsv = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
+	if (!dataCsv.ok)
 	{
 		throw new Error('Network response was not ok');
 	}
-	let csvText = await csvResponse.text();
-	let results = await Papa.parse(csvText, { header: true });
+	let dataCsvText = await dataCsv.text();
+	let dataResults = await Papa.parse(dataCsvText, { header: true });
+
+	const codenameCsv = await fetch("https://monstyrslayr.github.io/msmTools/codenames.csv");
+	if (!codenameCsv.ok)
+	{
+		throw new Error('Network response was not ok');
+	}
+	let codenameCsvText = await codenameCsv.text();
+	let codenameResults = await Papa.parse(codenameCsvText, { header: true });
 
 	const response = await fetch("https://monstyrslayr.github.io/msmTools/monsterImgs.txt");
 	if (!response.ok)
@@ -249,7 +257,7 @@ export async function getMonsters()
 			monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_ad_copy.webp";
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_ad_copy.webp";
 		}
-		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "");
+		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "").replace("_maj", "").replace("_min", "");
 		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "-Memory.wav").trim();
 
 		// rarities
@@ -277,7 +285,7 @@ export async function getMonsters()
 		else if (monster.elementString.startsWith("i"))
 		{
 			monster.class = MCLASS.PAIRONORMAL;
-			monster.identifier = parseInt(monster.elementString.replace("i", "").replace("_maj", "").replace("_min", ""));
+			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
 			switch (monster.identifier)
 			{
@@ -415,18 +423,25 @@ export async function getMonsters()
 			if (monster.elementString.includes("n")) monster.elements.add(stringToElementSigil("Fire"));
 		}
 
-		let monsterLine = results.data.find((line) => 
-			(monster.id.startsWith("f_epic") && line.codename == "f_epic")
-			|| (line.codename.startsWith("i") && line.codename == monster.id.substring(0, 3))
-			|| line.codename == monster.id)
+		let codenameLine = codenameResults.data.find((line) => monster.elementString == line.codename)
+
+		if (codenameLine)
+		{
+			monster.name = (monster.rarity == RARITY.COMMON ? "" : monster.rarity + " ") + codenameLine.monster;
+		}
+		else // complain
+		{
+			console.error("Monster codename not found: " + monster.id)
+		}
+
+		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name)
 
 		if (monsterLine)
 		{
-			monster.name = monsterLine.name;
 			monster.islands = islandStringsToSet(monsterLine.islands.split("&").slice(0, -1));
 
 			// epic wubbox clause
-			if (monster.elementString.startsWith("f"))
+			if (monster.elementString.startsWith("f") && monster.rarity == RARITY.EPIC)
 			{
 				for (let island of monster.islands)
 				{
@@ -453,6 +468,8 @@ export async function getMonsters()
 							{
 								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".wav";
 							}
+
+							monster.name = monster.name + "(" + island.codename + ")";
 							break;
 						}
 					}
@@ -464,16 +481,45 @@ export async function getMonsters()
 			{
 				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.wav"; // WHY BBB WHY
 			}
+
+			monster.size = parseInt(monsterLine.size);
+			monster.beds = parseInt(monsterLine.beds);
+			monster.levelAvailable = parseInt(monsterLine.level_available);
+			monster.firstDiscovered = monsterLine.first_discovered;
 			
 			// paironormal clause
 			if (monster.elementString.startsWith("i"))
 			{
 				monster.rarity = monster.elementString.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
-				monster.name = (monster.rarity == RARITY.MINOR ? "Minor" : "Major") + " " + monsterLine.name;
 
 				if (monster.identifier == 1)
 				{
 					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.wav";
+				}
+
+				if (monster.elements.size == 1)
+				{
+					if (monster.rarity == RARITY.MAJOR)
+					{
+						monster.levelAvailable = 9;
+					}
+					else
+					{
+						monster.levelAvailable = 30;
+					}
+				}
+
+				if (monsterLine.first_discovered.includes("Major:"))
+				{
+					const firsties = monsterLine.first_discovered.split("&Minor: ");
+					if (monster.rarity == RARITY.MAJOR)
+					{
+						monster.firstDiscovered = firsties[0].replace("Major: ", "");
+					}
+					else
+					{
+						monster.firstDiscovered = firsties[1];
+					}
 				}
 			}
 			
@@ -525,6 +571,10 @@ export async function getMonsters()
 			monster.bio = monsterLine.bio;
 			monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 		}
+		else // complain
+		{
+			console.error("Monster line not found: " + monster.id)
+		}
 
 		// preloading
 		new Image().src = monster.square;
@@ -532,7 +582,6 @@ export async function getMonsters()
 		new Image().src = monster.portraitBlack;
 
 		// not audio, not enough resources
-		// new Audio(monster.memory);
 	});
 
 	return monsters;

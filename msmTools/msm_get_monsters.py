@@ -8,7 +8,7 @@ class BreakException(Exception):
 class SkipException(Exception):
     pass
 
-names, links, islands_lists, likes_lists, bios, first_discovered = [], [], [], [], [], []
+names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available = [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
 resp = request.urlopen(url_starter + "/wiki/Monsters")
@@ -16,7 +16,9 @@ data = resp.read()
 soup = BeautifulSoup(data, "html.parser")
 tables = soup.find_all("table")
 
-max_monsters = -1
+max_monsters = -1 # for testing, set to -1 to process all monsters
+starting_monster = "" # for testing, set to blank for all monsters
+has_started = False
 monster_count = 0
 parsed_epic_wubbox = False
 
@@ -32,7 +34,7 @@ try:
                     for td in table_datas:
                         # almost each td is a monster
                         # which has an image link, a text link, and may have a set of elements too
-                        # so we only want the second a tag
+                        # so we only want the second anchor tag
 
                         try:
                             a_tags_all = td.find_all("a")
@@ -62,7 +64,13 @@ try:
                                     
                                     if (monster_name == "Glowbes"):
                                         raise SkipException
-                                        
+                                    
+                                    if (starting_monster != "" and not has_started):
+                                        if monster_name == starting_monster:
+                                            has_started = True
+                                        else:
+                                            raise SkipException
+
                                     monster_count += 1
                                     print(monster_name)
 
@@ -74,7 +82,7 @@ try:
                                             monster_resp = request.urlopen(link)
                                             do_parse_stuff = True
                                         except:
-                                            print(">>>>http error")
+                                            print("    >http error")
                                     
                                     monster_data = monster_resp.read()
                                     monster_soup = BeautifulSoup(monster_data, "html.parser")
@@ -96,12 +104,65 @@ try:
                                     
                                     islands_lists.append(island_string)
 
-                                    # get first discovered by
+                                    # get inventory and time limit
+                                    inventory_div = monster_soup.find("div", attrs = {"data-source": "wublin inventory"})
+                                    if inventory_div:
+                                        if inventory_div.find("div").find(string=True, recursive=False) and inventory_div.find("div").find(string=True, recursive=False).strip() != "":
+                                            time_limit.append(inventory_div.find("div").find(string=True, recursive=False).strip().split()[2])
+                                        elif monster_name == "Dwumrohl": # why fandom why
+                                            time_limit.append(14)
+                                        else:
+                                            time_limit.append(0)
+
+                                        inventory_text = ""
+
+                                        for da_span in inventory_div.find_all("span"):
+                                            if da_span.find("a"): # monster
+                                                inventory_text += da_span.find("a")["title"] + ":"
+                                            else: # monster count
+                                                da_count_sup = da_span
+                                                da_count = da_count_sup.text.strip().replace("x", "")
+                                                inventory_text += da_count + "&"
+                                        
+                                        inventory.append(inventory_text)
+                                    else:
+                                        inventory.append("")
+                                        time_limit.append(0)
+
+                                    # get some other data idk
                                     dibs_td = monster_soup.find("td", attrs = {"data-source": "first discovered"})
                                     if dibs_td:
-                                        first_discovered.append(dibs_td.text.strip())
+                                        if "Minor:" in dibs_td.text.strip():
+                                            if "&" in dibs_td.text.strip():
+                                                first_discovered.append(dibs_td.text.strip().replace("Major & Minor: ", ""))
+                                            else:
+                                                first_discovered.append(dibs_td.text.strip().replace("Minor:", "&Minor:"))
+                                        else:
+                                            first_discovered.append(dibs_td.text.strip())
                                     else:
                                         first_discovered.append("")
+                                    
+                                    level_db = monster_soup.find("td", attrs = {"data-source": "available"})
+                                    if level_db:
+                                        level_available.append(level_db.find("b").text.strip().split()[-1])
+                                    else:
+                                        level_available.append("")
+                                    
+                                    beds_db = monster_soup.find("td", attrs = {"data-source": "beds required"})
+                                    if beds_db:
+                                        da_beds = beds_db.find("b").text.strip().split()[0]
+                                        if da_beds == "N/A" or da_beds == "Zero":
+                                            beds.append(0)
+                                        else:
+                                            beds.append(da_beds)
+                                    else:
+                                        beds.append("")
+                                    
+                                    space_db = monster_soup.find("td", attrs = {"data-source": "size"})
+                                    if space_db:
+                                        tiles.append(space_db.find("b").text.strip()[0])
+                                    else:
+                                        tiles.append("")
 
                                     # get likes on each island or polarity
                                     h2s = monster_soup.find_all("h2")
@@ -150,6 +211,7 @@ try:
                                                     like_link = pol_td.find_all("a")[1]
                                                     likes_string += like_link.text.strip() + "&"
                                     
+                                    likes_string.replace("\"", "")
                                     likes_lists.append(likes_string)
 
                                     # get bio
@@ -169,6 +231,11 @@ df = pd.DataFrame({"name": names,
                     "islands": islands_lists,
                     "likes/polarity": likes_lists,
                     "bio": bios,
-                    "first_discovered": first_discovered})
+                    "size": tiles,
+                    "beds": beds,
+                    "level_available": level_available,
+                    "first_discovered": first_discovered,
+                    "inventory": inventory,
+                    "time_limit": time_limit})
 
-df.to_csv("./msmTools/monsterDataRaw.csv")
+df.to_csv("./msmTools/monsterData.csv")
