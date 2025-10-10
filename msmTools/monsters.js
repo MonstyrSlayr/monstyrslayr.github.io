@@ -499,6 +499,10 @@ export async function getMonsters()
 				{
 					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.wav";
 				}
+				else
+				{
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + (monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN") + "-Memory.wav").trim();
+				}
 
 				if (monster.elements.size == 1)
 				{
