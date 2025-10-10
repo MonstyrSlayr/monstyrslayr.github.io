@@ -37,7 +37,7 @@ function renderSudokus(sudokus)
         div.innerHTML = `
             <a href="../play/${s.filename.replace(".json", "")}">
                 <strong>${s.name}</strong><br>
-                <span class="author">by ${p.author}</span><br>
+                <span class="author">by ${s.author}</span><br>
                 ${s.dateCreated ? `<span class="date">${s.dateCreated}</span>` : ""}
             </a>
         `;
