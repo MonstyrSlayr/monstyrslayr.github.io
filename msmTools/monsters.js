@@ -493,7 +493,7 @@ export async function getMonsters()
 			// paironormal clause
 			if (monster.elementString.startsWith("i"))
 			{
-				monster.rarity = monster.elementString.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
+				monster.rarity = monster.id.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
 
 				if (monster.identifier == 1)
 				{
