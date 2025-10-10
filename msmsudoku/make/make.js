@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, encryptAndDownload } from "../script.js";
 
 const dropdownRows =
 [
@@ -661,7 +661,34 @@ const nameLimit = 60;
 const authorField = document.getElementById("authorField");
 const authorLimit = 20;
 const friendField = document.getElementById("friendField");
-const friendLimit = 19;
+const friendLimit = 17;
+const colorField = document.getElementById("colorField");
+const monsterField = document.getElementById("monsterField");
+const monsterAutoComplete = document.getElementById("monsterFieldAutocomplete");
+const monsterSquare = document.getElementById("monsterSquare");
+let repMonster = null;
+setupAutocomplete(monsterField, monsterAutoComplete, monsters, m =>
+{
+    if (m)
+    {
+        repMonster = m;
+        monsterSquare.src = repMonster.square;
+    }
+    else
+    {
+        repMonster = null;
+        monsterSquare.src = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp";
+    }
+});
+
+function toSnakeCase(str)
+{
+    return str
+    .replace(/\s+/g, '_') // Replace one or more spaces with a single underscore
+    .replace(/([A-Z])/g, '_$1') // Add an underscore before uppercase letters (for camelCase conversion)
+    .replace(/^-/, '') // Remove leading underscore if present
+    .toLowerCase(); // Convert the entire string to lowercase
+}
 
 downloadButton.addEventListener("click", function()
 {
@@ -674,9 +701,12 @@ downloadButton.addEventListener("click", function()
         daObject.conditionalCols = [];
         daObject.solutionMonsters = [];
 
-        daObject.metadata.name = nameField.value;
-        daObject.metadata.author = authorField.value;
-        daObject.metadata.friendCode = friendField.value;
+        daObject.metadata.name = nameField.value.trim();
+        daObject.metadata.author = authorField.value.trim();
+        daObject.metadata.friendCode = friendField.value.trim();
+        daObject.metadata.dateCreated = new Date();
+        daObject.metadata.color = colorField.value;
+        daObject.metadata.img = repMonster ? repMonster.square : "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp";
 
         for (const row of labelRows)
         {
@@ -706,18 +736,6 @@ downloadButton.addEventListener("click", function()
             });
         }
 
-        const jsonString = JSON.stringify(daObject, null, 4);
-        const filename = "my_msm_sudoku.json";
-
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a); // Append to body to make it clickable
-        a.click();
-        document.body.removeChild(a); // Clean up
-        URL.revokeObjectURL(url); // Release the object URL
+        encryptAndDownload(daObject, toSnakeCase(daObject.metadata.name) + ".sud")
     }
 });

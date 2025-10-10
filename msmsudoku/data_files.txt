@@ -1,2 +1,2 @@
-inventory_madness.json
-my_msm_sudoku.json
+inventory_madness.sud
+the_first_sudoku.sud

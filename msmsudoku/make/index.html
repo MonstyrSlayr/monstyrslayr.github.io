@@ -38,10 +38,22 @@
         <div class="textFields">
             <label for="nameField">Sudoku Name:</label>
             <input type="text" autocomplete="off" id="nameField" value="My Awesome Sudoku!" minlength="3" maxlength="60">
+
             <label for="authorField">Author:</label>
             <input type="text" autocomplete="off" id="authorField" value="A Mysterious Author" minlength="3" maxlength="32">
+
             <label for="friendField">Friend Code (optional):</label>
             <input type="text" autocomplete="off" id="friendField" maxlength="17">
+
+            <label for="colorField">Select a color to represent your sudoku:</label>
+            <input type="color" id="colorField" value="#ffffff">
+
+            <label for="monsterField">Choose a monster to represent your sudoku:</label>
+            <div class="inputStuff">
+                <img id="monsterSquare" src="https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp">
+                <input type="text" id="monsterField" autocomplete="off">
+                <div class="autocompleteList" id="monsterFieldAutocomplete"></div>
+            </div>
         </div>
 
         <div class="sudokuWrapper">
@@ -199,7 +211,17 @@
                 <p>Your sudoku is valid! Now fill it with your own solution.</p>
                 <p>(It is advised to fill your solution with unique monsters.)</p>
                 <button id="downloadButton">Download!</button>
+                <p>After download, <a href="https://discord.gg/MmQYS6MJ6r" target="_blank">submit your sudoku in my Discord server!</a></p>
             </div>
+        </div>
+
+        <div class="linkList">
+            <a href="../featured">
+                Play the featured MSM Sudoku!
+            </a>
+            <a href="../browse">
+                Browse some cool MSM Sudokus!
+            </a>
         </div>
     </div>
 

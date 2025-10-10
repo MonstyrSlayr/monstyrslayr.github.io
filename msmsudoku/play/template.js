@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFromURL } from "../script.js";
 
 function getLastFolder(url, num)
 {
@@ -115,17 +115,14 @@ const allConditionals = [defaultConditional, ...rarityConditionals, ...classCond
 const sudokuName = document.getElementById("sudokuName");
 const sudokuAuthor = document.getElementById("sudokuAuthor");
 const sudokuFriendCode = document.getElementById("sudokuFriendCode");
+const sudokuImg = document.getElementById("sudokuImg");
 
-const sudResponse = await fetch(`../../data/${featuredSudoku}.json`);
-if (!sudResponse.ok)
-{
-    throw new Error('Network response was not ok');
-}
-const json = await sudResponse.json();
+const json = await decryptFromURL(`../../data/${featuredSudoku}.sud`);
 
 sudokuName.textContent = json.metadata.name;
 sudokuAuthor.textContent = "Author: " + json.metadata.author;
 sudokuFriendCode.textContent = "Friend Code: " + (json.metadata.friendCode == "" ? "None provided" : json.metadata.friendCode);
+sudokuImg.src = json.metadata.img;
 
 for (let i = 0; i < json.conditionalRows.length; i++)
 {
@@ -167,6 +164,12 @@ for (let i = 0; i < json.conditionalCols.length; i++)
     daLabel.isInverse = condit.inverse;
     daLabel.innerHTML = daLabel.isInverse ? conditRef.inverseLabel : conditRef.label;
     addTooltip(daLabel, function() { return conditRef.description; });
+}
+
+for (const sudokuDiv of document.getElementsByClassName("sudoku"))
+{
+    sudokuDiv.style.backgroundColor = json.metadata.color;
+    sudokuDiv.style.borderColor = json.metadata.color;
 }
 
 function validateMonsters()

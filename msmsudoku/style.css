@@ -65,7 +65,8 @@ h4
 
 .textFields
 {
-    width: 33vw;
+    min-width: 33vw;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,7 +79,8 @@ h4
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    max-width: 90%;
+    min-width: 40vw;
     aspect-ratio: 1 / 1;
 }
 
@@ -113,7 +115,7 @@ h4
 .sudoku > div
 {
     background-color: rgb(30, 30, 30);
-    padding: 10px;
+    padding: 1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,7 +123,7 @@ h4
     aspect-ratio: 1 / 1;
     width: 100%;
     height: 100%;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .sudoku > div.valid
@@ -143,7 +145,7 @@ h4
 {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
     gap: 0.5em;
     font-size: 24px;
@@ -154,6 +156,12 @@ h4
     scale: 150%;
     border-radius: 0;
     border: none;
+    margin: 0.5em 0;
+}
+
+.inverseCheckboxDiv > label
+{
+    margin: 0.5em 0;
 }
 
 .conditionalDropdown
@@ -316,6 +324,8 @@ li.open > .dropdownContent li.open > .dropdownContent
     color: black;
     font-size: 24px;
     text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 input[type=text]
@@ -366,17 +376,107 @@ footer
     display: none;
 }
 
+.controls
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-bottom: 2em;
+}
+
+select
+{
+    background-color: white;
+    border: none;
+    border-radius: 0.5em;
+    color: black;
+    padding: 0.5em;
+    width: 100%;
+}
+
+select:hover
+{
+    cursor: pointer;
+}
+
+.sudokuList
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    gap: 1em;
+}
+
+.sudokuResult
+{
+    background: white;
+    padding: 1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 1em;
+    border-top-left-radius: 0;
+}
+
+.sudokuResult:hover
+{
+    cursor: pointer;
+    scale: 1.04;
+}
+
+.sudokuResult a
+{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 1em;
+    gap: 1em;
+}
+
+.linkList
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.linkList > a
+{
+    font-size: 24px;
+}
+
 @media screen and (max-width: 760px)
 {
-    h4, .monsterCounter
+    h4, .monsterCounter, .inverseCheckboxDiv, button > span
     {
         font-size: 12px;
+    }
+
+    .inverseCheckboxDiv > input
+    {
+        scale: 100%;
+    }
+
+    button
+    {
+        margin: 0;
+    }
+
+    .conditionalDropdown
+    {
+        margin: 0;
+    }
+
+    .sudoku > div
+    {
+        padding: 0.3em;
     }
 }
 
 @media screen and (max-width: 450px)
 {
-    h4, .monsterCounter
+    h4, .monsterCounter, .inverseCheckboxDiv, button > span
     {
         font-size: 8px;
         margin: 0;

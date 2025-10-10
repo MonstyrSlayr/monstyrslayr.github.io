@@ -1,3 +1,5 @@
+import { decryptFromURL } from "../script.js";
+
 async function loadSudokus()
 {
     const dataFile = await fetch("../data_files.txt");
@@ -9,12 +11,13 @@ async function loadSudokus()
     {
         try
         {
-            const res = await fetch(`../data/${filename}`);
-            const json = await res.json();
+            const json = await decryptFromURL(`../data/${filename}`);
             sudokus.push({
                 name: json.metadata?.name ?? filename,
                 author: json.metadata?.author ?? "Unknown",
                 dateCreated: json.metadata?.dateCreated ?? null,
+                color: json.metadata?.color ?? "#ffffff",
+                img: json.metadata?.img ?? "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp",
                 filename
             });
         }
@@ -26,22 +29,91 @@ async function loadSudokus()
     return sudokus;
 }
 
+function invertColor(hex, bw)
+{
+    if (hex.indexOf("#") === 0)
+    {
+        hex = hex.slice(1);
+    }
+
+    if (hex.length === 3)
+    {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    if (hex.length !== 6)
+    {
+        throw new Error("Invalid HEX color.");
+    }
+
+    var r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+    
+    if (bw)
+    {
+        return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+            ? "#000000"
+            : "#FFFFFF";
+    }
+    
+    r = (255 - r).toString(16);
+    g = (255 - g).toString(16);
+    b = (255 - b).toString(16);
+
+    return "#" + padZero(r) + padZero(g) + padZero(b);
+}
+
 function renderSudokus(sudokus)
 {
     const container = document.getElementById("sudokuList");
     container.innerHTML = "";
     for (const s of sudokus)
     {
+        const textColor = invertColor(s.color, true);
+
         const div = document.createElement("div");
-        div.className = "sudoku";
-        div.innerHTML = `
-            <a href="../play/${s.filename.replace(".json", "")}">
-                <strong>${s.name}</strong><br>
-                <span class="author">by ${s.author}</span><br>
-                ${s.dateCreated ? `<span class="date">${s.dateCreated}</span>` : ""}
-            </a>
-        `;
+        div.classList.add("sudokuResult");
+        div.style.backgroundColor = s.color;
         container.appendChild(div);
+
+            const link = document.createElement("a");
+            link.href = `../play/${s.filename.replace(".json", "")}`;
+            div.appendChild(link);
+
+                const textSide = document.createElement("div");
+                link.appendChild(textSide);
+
+                    const title = document.createElement("strong");
+                    title.textContent = s.name;
+                    title.style.color = textColor;
+                    textSide.appendChild(title);
+
+                    const br1 = document.createElement("br");
+                    textSide.appendChild(br1);
+
+                    const authorSpan = document.createElement("span");
+                    authorSpan.classList.add("author");
+                    authorSpan.textContent = `by ${s.author}`;
+                    authorSpan.style.color = textColor;
+                    textSide.appendChild(authorSpan);
+
+                    if (s.dateCreated)
+                    {
+                        const br2 = document.createElement("br");
+                        const dateSpan = document.createElement("span");
+                        dateSpan.classList.add("date");
+                        dateSpan.textContent = s.dateCreated;
+                        textSide.appendChild(br2);
+                        textSide.appendChild(dateSpan);
+                    }
+                
+                const imgSide = document.createElement("div");
+                link.appendChild(imgSide);
+                    
+                    const daImg = document.createElement("img");
+                    daImg.src = s.img;
+                    imgSide.appendChild(daImg);
     }
 }
 

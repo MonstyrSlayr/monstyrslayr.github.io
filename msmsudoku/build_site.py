@@ -18,7 +18,7 @@ if __name__ == "__main__":
     os.makedirs("./msmsudoku/play", exist_ok=True)
 
     for file_name in files:
-        folder_path = os.path.join("./msmsudoku/play", file_name.replace(".json", ""))
+        folder_path = os.path.join("./msmsudoku/play", file_name.replace(".sud", ""))
 
         # Delete if it already exists
         if os.path.exists(folder_path):

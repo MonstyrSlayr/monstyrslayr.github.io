@@ -2,7 +2,10 @@
     "metadata": {
         "name": "My Awesome Sudoku!",
         "author": "A Mysterious Author",
-        "friendCode": ""
+        "friendCode": "",
+        "dateCreated": "2025-10-10T19:12:55.887Z",
+        "color": "#ffffff",
+        "img": "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp"
     },
     "conditionalRows": [
         {

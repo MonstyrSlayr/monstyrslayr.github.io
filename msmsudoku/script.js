@@ -408,3 +408,94 @@ uniqueFirsts.values().forEach(first =>
     firstConditionals.push(new FirstDiscoveredConditional(first));
 });
 firstConditionals.sort((a, b) => a.firstDiscovered.toLowerCase().localeCompare(b.firstDiscovered.toLowerCase()));
+
+const secretKey = "amongUsInRealLifeSusSus"; // change this!
+
+// Utility: convert string <-> ArrayBuffer
+function strToBuf(str)
+{
+    return new TextEncoder().encode(str);
+}
+
+function bufToStr(buf)
+{
+    return new TextDecoder().decode(buf);
+}
+
+// Utility: derive a crypto key from a password
+async function deriveKey(password)
+{
+    const enc = strToBuf(password);
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        enc,
+        { name: "PBKDF2" },
+        false,
+        ["deriveKey"]
+    );
+
+    return crypto.subtle.deriveKey
+    (
+        {
+            name: "PBKDF2",
+            salt: strToBuf("sudoku-salt"), // change salt if you want
+            iterations: 100000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["encrypt", "decrypt"]
+    );
+}
+
+export async function encryptAndDownload(jsonObj, filename = "my_msm_sudoku.sud")
+{
+    const key = await deriveKey(secretKey);
+    const iv = crypto.getRandomValues(new Uint8Array(12)); // AES-GCM needs 12-byte IV
+    const data = strToBuf(JSON.stringify(jsonObj));
+
+    const encrypted = await crypto.subtle.encrypt(
+        { name: "AES-GCM", iv },
+        key,
+        data
+    );
+
+    // Combine IV + encrypted data into one file
+    const combined = new Uint8Array(iv.byteLength + encrypted.byteLength);
+    combined.set(iv, 0);
+    combined.set(new Uint8Array(encrypted), iv.byteLength);
+
+    const blob = new Blob([combined], { type: "application/octet-stream" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+}
+
+async function decryptFile(file)
+{
+    const key = await deriveKey(secretKey);
+    const buffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+
+    // Extract IV (first 12 bytes)
+    const iv = bytes.slice(0, 12);
+    const encryptedData = bytes.slice(12);
+
+    const decrypted = await crypto.subtle.decrypt(
+        { name: "AES-GCM", iv },
+        key,
+        encryptedData
+    );
+
+    const jsonStr = bufToStr(decrypted);
+    return JSON.parse(jsonStr);
+}
+
+export async function decryptFromURL(url)
+{
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return decryptFile(blob);
+}
