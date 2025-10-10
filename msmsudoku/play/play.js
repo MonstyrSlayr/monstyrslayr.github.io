@@ -1,5 +1,7 @@
 import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
 
+const featuredSudoku = "inventory_madness";
+
 const labelRows =
 [
     document.getElementById("clr0"),
@@ -106,7 +108,7 @@ const sudokuName = document.getElementById("sudokuName");
 const sudokuAuthor = document.getElementById("sudokuAuthor");
 const sudokuFriendCode = document.getElementById("sudokuFriendCode");
 
-const sudResponse = await fetch("./inventory_madness.json");
+const sudResponse = await fetch(`../data/${featuredSudoku}.json`);
 if (!sudResponse.ok)
 {
     throw new Error('Network response was not ok');
