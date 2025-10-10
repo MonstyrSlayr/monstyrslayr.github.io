@@ -552,12 +552,12 @@ export async function getMonsters()
 
 				if (daSplit)
 				{
-					const monster = daSplit[0];
+					const daMonster = daSplit[0];
 					const count = daSplit[1];
 
-					if (monster != "Flex")
+					if (daMonster != "Flex")
 					{
-						monster.inventory.add(new InventoryEgg(monster, count))
+						monster.inventory.add(new InventoryEgg(daMonster, count))
 					}
 				}
 			}
