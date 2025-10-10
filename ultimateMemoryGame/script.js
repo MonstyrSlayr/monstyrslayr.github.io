@@ -762,7 +762,8 @@ async function main()
                 else
                 {
                     targetMonsters = monsters.filter((monster) => 
-                        monster.name == toggleString + monData.monster.name);
+                        monster.name == toggleString + monData.monster.name
+                        || monster.name == toggleString + monData.monster.name + " (Plant)");
                 }
 
                 if (targetMonsters.length > 0)
