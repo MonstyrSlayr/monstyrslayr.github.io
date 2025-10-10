@@ -1,6 +1,14 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals } from "../../script.js";
 
-const featuredSudoku = "inventory_madness";
+function getLastFolder(url, num)
+{
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    const parts = pathname.split('/').filter(part => part !== '').filter(part => part !== 'index.html'); // Split and remove empty elements and index.html
+    return parts[parts.length - num]; // Return the last part
+}
+
+const featuredSudoku = getLastFolder(window.location.href, 1);
 
 const labelRows =
 [
@@ -108,7 +116,7 @@ const sudokuName = document.getElementById("sudokuName");
 const sudokuAuthor = document.getElementById("sudokuAuthor");
 const sudokuFriendCode = document.getElementById("sudokuFriendCode");
 
-const sudResponse = await fetch(`../data/${featuredSudoku}.json`);
+const sudResponse = await fetch(`../../data/${featuredSudoku}.json`);
 if (!sudResponse.ok)
 {
     throw new Error('Network response was not ok');
