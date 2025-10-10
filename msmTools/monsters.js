@@ -423,7 +423,9 @@ export async function getMonsters()
 			if (monster.elementString.includes("n")) monster.elements.add(stringToElementSigil("Fire"));
 		}
 
-		let codenameLine = codenameResults.data.find((line) => monster.elementString == line.codename)
+		let codenameLine = codenameResults.data.find((line) =>
+			monster.elementString == line.codename
+			|| (monster.elementString.includes("f_epic") && line.codename == "f_epic"))
 
 		if (codenameLine)
 		{
