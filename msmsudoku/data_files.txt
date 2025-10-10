@@ -1,2 +1,3 @@
 inventory_madness.sud
+sick_percussionists.sud
 the_first_sudoku.sud

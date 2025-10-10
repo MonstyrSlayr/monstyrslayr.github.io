@@ -684,10 +684,10 @@ setupAutocomplete(monsterField, monsterAutoComplete, monsters, m =>
 function toSnakeCase(str)
 {
     return str
-    .replace(/\s+/g, '_') // Replace one or more spaces with a single underscore
-    .replace(/([A-Z])/g, '_$1') // Add an underscore before uppercase letters (for camelCase conversion)
-    .replace(/^-/, '') // Remove leading underscore if present
-    .toLowerCase(); // Convert the entire string to lowercase
+    .replace(/([a-z])([A-Z])/g, '$1_$2') // handle camelCase
+    .replace(/[\s\-]+/g, '_')            // spaces and dashes → underscores
+    .replace(/[^a-zA-Z0-9_]/g, '')       // remove other non-alphanumeric chars
+    .toLowerCase();
 }
 
 downloadButton.addEventListener("click", function()
