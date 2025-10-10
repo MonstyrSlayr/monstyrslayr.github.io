@@ -472,7 +472,7 @@ export async function getMonsters()
 								monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_f_epic_gold_plant.webp";
 							}
 
-							monster.name = monster.name + "(" + island.codename + ")";
+							monster.name = monster.name + " (" + island.codename + ")";
 							break;
 						}
 					}
