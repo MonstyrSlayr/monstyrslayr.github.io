@@ -213,6 +213,18 @@ class Like
 	}
 }
 
+class InventoryEgg
+{
+	name;
+	count;
+
+	constructor(name, count)
+	{
+		this.name = name;
+		this.count = count;
+	}
+}
+
 export async function getMonsters()
 {
 	let monsters = [];
@@ -489,6 +501,7 @@ export async function getMonsters()
 			monster.beds = parseInt(monsterLine.beds);
 			monster.levelAvailable = parseInt(monsterLine.level_available);
 			monster.firstDiscovered = monsterLine.first_discovered;
+			monster.timeLimit = monsterLine.time_limit;
 			
 			// paironormal clause
 			if (monster.elementString.startsWith("i"))
@@ -526,6 +539,25 @@ export async function getMonsters()
 					else
 					{
 						monster.firstDiscovered = firsties[1];
+					}
+				}
+			}
+
+			const inventoryStringArr = monsterLine.inventory.split("&").slice(0, -1);
+			monster.inventory = new Set();
+
+			for (const invString of inventoryStringArr)
+			{
+				const daSplit = invString.split(":");
+
+				if (daSplit)
+				{
+					const monster = daSplit[0];
+					const count = daSplit[1];
+
+					if (monster != "Flex")
+					{
+						monster.inventory.add(new InventoryEgg(monster, count))
 					}
 				}
 			}

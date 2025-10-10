@@ -28,7 +28,7 @@ class Conditional // different from the random monster generator one :)
     }
 }
 
-class RarityConditional extends Conditional
+class RarityConditional extends Conditional // r
 {
     rarity;
 
@@ -39,7 +39,7 @@ class RarityConditional extends Conditional
     }
 }
 
-class ClassConditional extends Conditional
+class ClassConditional extends Conditional // c
 {
     mclasses = []; // can have multiple
     name = ""
@@ -57,7 +57,7 @@ class ClassConditional extends Conditional
     }
 }
 
-class IslandConditional extends Conditional
+class IslandConditional extends Conditional // i
 {
     island;
 
@@ -68,7 +68,7 @@ class IslandConditional extends Conditional
     }
 }
 
-class ElementConditional extends Conditional
+class ElementConditional extends Conditional // e
 {
     elementSigil;
 
@@ -79,7 +79,7 @@ class ElementConditional extends Conditional
     }
 }
 
-class ElementCountConditional extends Conditional
+class ElementCountConditional extends Conditional // #
 {
     count;
 
@@ -90,7 +90,7 @@ class ElementCountConditional extends Conditional
     }
 }
 
-class LikeConditional extends Conditional
+class LikeConditional extends Conditional // l
 {
     like;
 
@@ -111,7 +111,7 @@ class LikeConditional extends Conditional
     }
 }
 
-class LikedByConditional extends Conditional
+class LikedByConditional extends Conditional // b
 {
     daMonster;
 
@@ -129,6 +129,27 @@ class LikedByConditional extends Conditional
             return false; 
         }, "This monster is liked by " + daMonster.name.toUpperCase() + ".", "b" + daMonster.name.replace(" ", ""), "Liked by " + daMonster.name.toUpperCase(), "Not liked by " + daMonster.name.toUpperCase());
         this.daMonster = daMonster;
+    }
+}
+
+class EggConditional extends Conditional // v for inVentory
+{
+    egg;
+
+    constructor (egg)
+    {
+        super(function (monster = Monster)
+        {
+            for (const daInv of monster.inventory.values())
+            {
+                if (daInv.monster == egg)
+                {
+                    return true;
+                }
+            }
+            return false; 
+        }, "This monster's inventory requires a " + egg.toUpperCase() + " egg.", "v" + elementSigil.name, "Has the " + elementSigil.name.toUpperCase() + " element", "Does not have the " + elementSigil.name.toUpperCase() + " element");
+        this.elementSigil = elementSigil;
     }
 }
 
@@ -209,9 +230,11 @@ for (let i = 1; i <= 5; i++)
 
 export const likeConditionals = [];
 export const likedByConditionals = [];
+export const eggConditionals = [];
 
 const uniqueLikes = new Set();
 const uniqueMonsterLikes = new Set();
+const uniqueEggs = new Set();
 
 monsters.forEach(monster =>
 {
@@ -222,6 +245,11 @@ monsters.forEach(monster =>
         const maybeMonster = getMonsterByName(likeObj.name);
 
         if (maybeMonster) uniqueMonsterLikes.add(maybeMonster);
+    });
+
+    monster.inventory.values.forEach(eggObj =>
+    {
+        uniqueEggs.add(eggObj.monster);
     });
 });
 
@@ -236,3 +264,9 @@ uniqueMonsterLikes.values().forEach(monster =>
     likedByConditionals.push(new LikedByConditional(monster));
 });
 likedByConditionals.sort((a, b) => a.daMonster.name.toLowerCase().localeCompare(b.daMonster.name.toLowerCase()));
+
+uniqueEggs.values().forEach(egg =>
+{
+    eggConditionals.push(new EggConditional(egg));
+});
+eggConditionals.sort((a, b) => a.egg.toLowerCase().localeCompare(b.egg.toLowerCase()));

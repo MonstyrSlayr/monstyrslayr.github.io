@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals } from "../script.js";
 
 const dropdownRows =
 [
@@ -404,6 +404,23 @@ for (const daDiv of document.getElementsByClassName("conditionalDropdown"))
                     for (const likedByConditional of likedByConditionals)
                     {
                         likedByContent.appendChild(makeSelectableConditional(likedByConditional, "LIKED BY " + likedByConditional.daMonster.name.toUpperCase()));
+                    }
+            
+            const eggDropdown = document.createElement("li");
+            daDropdownList.appendChild(eggDropdown);
+
+                const eggButton = document.createElement("button");
+                eggButton.textContent = "INVENTORY REQUIRES ᐳ";
+                eggButton.classList.add("dropdownButton");
+                eggDropdown.appendChild(eggButton);
+
+                const eggContent = document.createElement("ul");
+                eggContent.classList.add("dropdownContent");
+                eggDropdown.appendChild(eggContent);
+
+                    for (const eggConditional of eggConditionals)
+                    {
+                        eggContent.appendChild(makeSelectableConditional(eggConditional, eggConditional.egg + " EGG"));
                     }
 }
 
