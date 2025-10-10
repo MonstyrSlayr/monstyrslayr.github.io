@@ -429,7 +429,7 @@ export async function getMonsters()
 
 		if (codenameLine)
 		{
-			monster.name = (monster.rarity == RARITY.COMMON ? "" : monster.rarity + " ") + codenameLine.monster;
+			monster.name = ((monster.rarity == RARITY.COMMON || monster.rarity == RARITY.CHILD) ? "" : monster.rarity + " ") + codenameLine.monster;
 		}
 		else // complain
 		{
