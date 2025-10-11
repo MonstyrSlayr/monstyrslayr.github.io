@@ -116,7 +116,7 @@ h4
 .sudoku > div
 {
     background-color: rgb(30, 30, 30);
-    padding: auto;
+    padding: 0 1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -469,7 +469,7 @@ select:hover
     display: none; /* Hide the default file input */
 }
 
-@media screen and (max-width: 950px)
+@media screen and (max-width: 1350px)
 {
     .sudokuWrapper
     {
