@@ -1,7 +1,9 @@
 a_little_tune_up.sud
+cool_puzzle.sud
 inventory_madness.sud
 i_made_a_sudoku.sud
 larvaluss_puzzle.sud
+mount_knottshurrs_puzzle.sud
 obscene_oddballs.sud
 sick_percussionists.sud
 the_first_sudoku.sud
