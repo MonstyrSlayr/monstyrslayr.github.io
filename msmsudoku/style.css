@@ -369,6 +369,11 @@ footer > p
     width: 40%;
 }
 
+.postValidator
+{
+    width: 100%;
+}
+
 .inputStuff
 {
     display: flex;
@@ -376,6 +381,7 @@ footer > p
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 100%;
 }
 
 .gone
