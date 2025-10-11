@@ -104,6 +104,7 @@ function renderSudokus(sudokus)
                         const dateSpan = document.createElement("span");
                         dateSpan.classList.add("date");
                         dateSpan.textContent = new Date(s.dateCreated).toDateString();
+                        dateSpan.style.color = textColor;
                         textSide.appendChild(br2);
                         textSide.appendChild(dateSpan);
                     }
