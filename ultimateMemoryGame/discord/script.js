@@ -262,7 +262,7 @@ async function main()
     document.body.appendChild(bigAssHeading);
 
     const smallAssFlavorText = document.createElement("h3");
-    smallAssFlavorText.textContent = "Join the discord server in the description to participate!";
+    smallAssFlavorText.textContent = "Join the Discord server in the description to participate!";
     document.body.appendChild(smallAssFlavorText);
 
     const topBarWrapper = document.createElement("div");
@@ -726,7 +726,7 @@ async function main()
         return false;
     }
 
-    const source = new EventSource("http://127.0.0.1:5000/api/stream");
+    const source = new EventSource("http://10.201.233.134:5000/api/stream");
     source.onmessage = function(event)
     {
         const data = JSON.parse(event.data);
