@@ -473,7 +473,7 @@ export async function encryptAndDownload(jsonObj, filename = "my_msm_sudoku.sud"
     link.click();
 }
 
-async function decryptFile(file)
+export async function decryptFile(file)
 {
     const key = await deriveKey(secretKey);
     const buffer = await file.arrayBuffer();

@@ -79,8 +79,7 @@ h4
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 90%;
-    min-width: 40vw;
+    width: 50vw;
     aspect-ratio: 1 / 1;
 }
 
@@ -92,6 +91,8 @@ h4
     border: white solid 4px;
     background-color: white; /* grid color */
     width: 100%;
+    margin: 0;
+    padding: 0;
     aspect-ratio: 1 / 1;
     border-radius: 2em;
     border-top-left-radius: 0;
@@ -115,7 +116,7 @@ h4
 .sudoku > div
 {
     background-color: rgb(30, 30, 30);
-    padding: 1em;
+    padding: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -446,6 +447,32 @@ select:hover
     font-size: 24px;
 }
 
+#dropZone
+{
+    border: 2px dashed #ccc;
+    padding: 5em;
+    text-align: center;
+    cursor: pointer;
+}
+
+#dropZone.dragover
+{
+    border-color: #007bff;
+}
+
+#fileInput
+{
+    display: none; /* Hide the default file input */
+}
+
+@media screen and (max-width: 950px)
+{
+    .sudokuWrapper
+    {
+        width: 90%;
+    }
+}
+
 @media screen and (max-width: 760px)
 {
     h4, .monsterCounter, .inverseCheckboxDiv, button > span
@@ -466,11 +493,6 @@ select:hover
     .conditionalDropdown
     {
         margin: 0;
-    }
-
-    .sudoku > div
-    {
-        padding: 0.3em;
     }
 }
 
