@@ -5,6 +5,8 @@ i_made_a_sudoku.sud
 larvaluss_puzzle.sud
 mount_knottshurrs_puzzle.sud
 obscene_oddballs.sud
+paironormal_activity.sud
 players_achievements.sud
 sick_percussionists.sud
+silly_sudoku_thing.sud
 the_first_sudoku.sud
