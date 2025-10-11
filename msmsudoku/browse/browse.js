@@ -78,7 +78,7 @@ function renderSudokus(sudokus)
         container.appendChild(div);
 
             const link = document.createElement("a");
-            link.href = `../play/${s.filename.replace(".json", "")}`;
+            link.href = `../play/${s.filename.replace(".sud", "")}`;
             div.appendChild(link);
 
                 const textSide = document.createElement("div");
