@@ -1,3 +1,4 @@
+ausome.sud
 a_little_tune_up.sud
 cool_puzzle.sud
 furnoss_fury.sud
