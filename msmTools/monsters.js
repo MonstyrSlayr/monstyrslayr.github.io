@@ -1,3 +1,5 @@
+// DO NOT MODIFY NAMES
+// IT WILL MESS WITH MSM SUDOKU
 const RARITY = Object.freeze
 ({
     COMMON: "Common",
@@ -269,6 +271,8 @@ export async function getMonsters()
 			monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_ad_copy.webp";
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_ad_copy.webp";
 		}
+		// DO NOT MODIFY ELEMENTSTRING
+		// IT WILL MESS WITH MSM SUDOKU
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "").replace("_maj", "").replace("_min", "")
 									.replace("_air", "").replace("_plant", "").replace("_earth", "").replace("_cold", "").replace("_water", "").replace("_firehaven", "").replace("_fireoasis", "").replace("_gold", "").replace("_ethereal", ""); // stupid
 		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "-Memory.wav").trim();

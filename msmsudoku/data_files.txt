@@ -1,5 +1,6 @@
 a_little_tune_up.sud
 cool_puzzle.sud
+furnoss_fury.sud
 inventory_madness.sud
 i_made_a_sudoku.sud
 larvaluss_puzzle.sud
