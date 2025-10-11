@@ -169,7 +169,7 @@ class RequiredByConditional extends Conditional // q for reQuired
                 }
             }
             return false; 
-        }, "This monster's egg is required by " + daMonster.name.toUpperCase() + ".", "q" + daMonster.name.replace(" ", ""), "Egg required by " + daMonster.name.toUpperCase() + "'s inventory", "Egg not required by " + daMonster.name.toUpperCase() + "'s inventory");
+        }, "This monster's egg is required by " + daMonster.name.toUpperCase() + ".", "q" + daMonster.name.replace(" ", ""), "Egg required by " + daMonster.name.toUpperCase() + "'S INVENTORY", "Egg not required by " + daMonster.name.toUpperCase() + "'S INVENTORY");
         this.daMonster = daMonster;
     }
 }
@@ -191,7 +191,7 @@ class BedsConditional extends Conditional // 🛏️ (sue me)
 
     constructor(beds)
     {
-        super(function (monster = Monster) { return monster.beds == beds; }, "This monster takes up " + beds + " beds in a standard castle.", "🛏️" + beds, "Uses " + beds + " beds", "Does not use " + beds + " beds")
+        super(function (monster = Monster) { return monster.beds == beds; }, "This monster takes up " + beds + " beds in a standard castle.", "🛏️" + beds, "Uses " + beds + " BEDS", "Does not use " + beds + " BEDS")
         this.beds = beds;
     }
 }
