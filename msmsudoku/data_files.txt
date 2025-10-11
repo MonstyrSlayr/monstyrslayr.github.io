@@ -1,3 +1,4 @@
 inventory_madness.sud
+larvaluss_puzzle.sud
 sick_percussionists.sud
 the_first_sudoku.sud
