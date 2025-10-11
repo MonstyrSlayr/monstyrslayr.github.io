@@ -412,7 +412,6 @@ select:hover
 .sudokuResult
 {
     background: white;
-    padding: 1em;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 1em;
     border-top-left-radius: 0;
@@ -431,8 +430,11 @@ select:hover
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    margin: 1em;
+    margin: 0;
+    padding: 2em;
     gap: 1em;
+    width: 100%;
+    height: 100%;
 }
 
 .linkList
