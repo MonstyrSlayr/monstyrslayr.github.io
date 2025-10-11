@@ -103,7 +103,7 @@ function renderSudokus(sudokus)
                         const br2 = document.createElement("br");
                         const dateSpan = document.createElement("span");
                         dateSpan.classList.add("date");
-                        dateSpan.textContent = s.dateCreated;
+                        dateSpan.textContent = new Date(s.dateCreated).toDateString();
                         textSide.appendChild(br2);
                         textSide.appendChild(dateSpan);
                     }
@@ -153,4 +153,5 @@ function applyFilters(sudokus)
 
     document.getElementById("search").addEventListener("input", () => applyFilters(sudokus));
     document.getElementById("sort").addEventListener("change", () => applyFilters(sudokus));
+    applyFilters(sudokus);
 })();
