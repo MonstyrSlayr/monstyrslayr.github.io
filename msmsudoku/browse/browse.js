@@ -150,6 +150,7 @@ function applyFilters(sudokus)
 {
     const sudokus = await loadSudokus();
     renderSudokus(sudokus);
+    document.getElementById("loading").classList.add("gone");
 
     document.getElementById("search").addEventListener("input", () => applyFilters(sudokus));
     document.getElementById("sort").addEventListener("change", () => applyFilters(sudokus));
