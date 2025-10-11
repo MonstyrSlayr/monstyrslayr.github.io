@@ -693,8 +693,8 @@ async function main()
                 showToast("Toggled Epic monster forms");
                 toggleString = "Epic ";
             break;
-            case "child":
-                showToast("Toggled Child Celestial forms");
+            case "child": case "young":
+                showToast("Toggled Young Celestial forms");
                 toggleString = "";
             break;
             case "adult":
@@ -747,7 +747,7 @@ async function main()
                 // instead of setting the monster, just change the monster's square, portraits, and memory sound
                 let targetMonsters;
 
-                if (trimmedVal == "child") // fuck off
+                if (trimmedVal == "child" || trimmedVal == "young") // fuck off
                 {
                     targetMonsters = monsters.filter((monster) => 
                             monster.name == monData.monster.name
