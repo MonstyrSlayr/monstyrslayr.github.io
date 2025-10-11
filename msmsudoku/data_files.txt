@@ -13,3 +13,4 @@ sick_percussionists.sud
 silly_sudoku_thing.sud
 silly_thing_hihi.sud
 the_first_sudoku.sud
+wink.sud
