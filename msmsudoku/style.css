@@ -6,6 +6,7 @@
 p
 {
     font-size: 24px;
+    text-align: center;
 }
 
 body
@@ -358,6 +359,11 @@ footer
     margin-top: 1em;
 }
 
+footer > p
+{
+    text-align: left;
+}
+
 .monsterImg
 {
     width: 40%;
@@ -444,11 +450,13 @@ select:hover
     align-items: center;
     justify-content: center;
     gap: 1em;
+    margin: 1em;
 }
 
 .linkList > a
 {
     font-size: 24px;
+    text-align: center;
 }
 
 #dropZone
