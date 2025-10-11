@@ -4,6 +4,7 @@ inventory_madness.sud
 i_made_a_sudoku.sud
 larvaluss_puzzle.sud
 mount_knottshurrs_puzzle.sud
+my_awesome_sudoku.sud
 obscene_oddballs.sud
 paironormal_activity.sud
 players_achievements.sud
