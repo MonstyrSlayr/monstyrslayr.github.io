@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFile } from "../script.js";
+import { classConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFile } from "../script.js";
 
 const labelRows =
 [
