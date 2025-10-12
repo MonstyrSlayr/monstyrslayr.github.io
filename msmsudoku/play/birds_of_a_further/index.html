@@ -1,0 +1,287 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <meta name="description" content="Play a My Singing Monsters Sudoku!">
+    <meta name="keywords" content="MSM, My Singing Monsters, Sudoku, My Singing Monsters Sudoku">
+    <meta name="author" content="MonstyrSlayr">
+
+    <meta property="og:url" content="https://monstyrslayr.github.io/msmsudoku/browse"/>
+    <meta property="og:title" content="MSM Sudoku"/>
+    <meta property="og:description" content="Play a My Singing Monsters Sudoku!"/>
+    <meta property="og:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/msmSudoku.png"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+
+    <meta property="twitter:url" content="https://monstyrslayr.github.io/msmsudoku/browse">
+    <meta property="twitter:title" content="MSM Sudoku">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:description" content="Play a My Singing Monsters Sudoku!"/>
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/MonstyrSlayr/monstyrslayr.github.io/main/img/msmSudoku.png"/>
+
+    <title>MSM Sudoku - PLAY</title>
+</head>
+<body>
+    <div class="flow">
+
+        <h1>MSM Sudoku - PLAY</h1>
+
+        <div class="textFields">
+            <h2 id="sudokuName">Loading your sudoku...</h2>
+            <h3 id="sudokuAuthor">Please wait while things load</h3>
+            <h3 id="sudokuFriendCode">Thank you for playing :)</h3>
+            <img id="sudokuImg" src="https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp">
+        </div>
+
+        <div class="sudokuWrapper">
+            <div class="sudoku">
+                <div id="squareNN"></div>
+                <div id="squareN0">
+                    <h4 id="clc0" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="squareN1">
+                    <h4 id="clc1" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="squareN2">
+                    <h4 id="clc2" class="conditionalLabel">Conditional Label</h4>
+                </div>
+
+                <div id="square0N">
+                    <h4 id="clr0" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="square00">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md00">
+                            <img class="monsterImg" id="monsterImg00">
+                            <input type="text" id="monster00" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete00"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square01">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md01">
+                            <img class="monsterImg" id="monsterImg01">
+                            <input type="text" id="monster01" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete01"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square02">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md02">
+                            <img class="monsterImg" id="monsterImg02">
+                            <input type="text" id="monster02" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete02"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="square1N">
+                    <h4 id="clr1" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="square10">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md10">
+                            <img class="monsterImg" id="monsterImg10">
+                            <input type="text" id="monster10" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square11">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md11">
+                            <img class="monsterImg" id="monsterImg11">
+                            <input type="text" id="monster11" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete11"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square12">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md12">
+                            <img class="monsterImg" id="monsterImg12">
+                            <input type="text" id="monster12" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete12"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="square2N">
+                    <h4 id="clr2" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="square20">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md20">
+                            <img class="monsterImg" id="monsterImg20">
+                            <input type="text" id="monster20" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square21">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md21">
+                            <img class="monsterImg" id="monsterImg21">
+                            <input type="text" id="monster21" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete21"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="square22">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="md22">
+                            <img class="monsterImg" id="monsterImg22">
+                            <input type="text" id="monster22" autocomplete="off">
+                            <div class="autocompleteList" id="autocomplete22"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="finalizer">
+            <p id="validateFlavor" class="gone">Make sure the solution is correct before submitting!</p>
+            <button id="validateButton">Submit!</button>
+        </div>
+
+        <p id="solutionFlavor" class="gone">Nice work! Here is the author's solution:</p>
+
+        <div class="sudokuWrapper gone" id="solutionSudoku">
+            <div class="sudoku">
+                <div id="ssquareNN"></div>
+                <div id="ssquareN0">
+                    <h4 id="sclc0" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="ssquareN1">
+                    <h4 id="sclc1" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="ssquareN2">
+                    <h4 id="sclc2" class="conditionalLabel">Conditional Label</h4>
+                </div>
+
+                <div id="ssquare0N">
+                    <h4 id="sclr0" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="ssquare00" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd00">
+                            <img class="monsterImg" id="smonsterImg00">
+                            <div class="monsterCounter" id="smonster00"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare01" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd01">
+                            <img class="monsterImg" id="smonsterImg01">
+                            <div class="monsterCounter" id="smonster01"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare02" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd02">
+                            <img class="monsterImg" id="smonsterImg02">
+                            <div class="monsterCounter" id="smonster02"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ssquare1N">
+                    <h4 id="sclr1" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="ssquare10" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd10">
+                            <img class="monsterImg" id="smonsterImg10">
+                            <div class="monsterCounter" id="smonster10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare11" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd11">
+                            <img class="monsterImg" id="smonsterImg11">
+                            <div class="monsterCounter" id="smonster11"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare12" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd12">
+                            <img class="monsterImg" id="smonsterImg12">
+                            <div class="monsterCounter" id="smonster12"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ssquare2N">
+                    <h4 id="sclr2" class="conditionalLabel">Conditional Label</h4>
+                </div>
+                <div id="ssquare20" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd20">
+                            <img class="monsterImg" id="smonsterImg20">
+                            <div class="monsterCounter" id="smonster20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare21" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd21">
+                            <img class="monsterImg" id="smonsterImg21">
+                            <div class="monsterCounter" id="smonster21"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ssquare22" class="nolid">
+                    <div class="postValidator">
+                        <div class="inputStuff" id="smd22">
+                            <img class="monsterImg" id="smonsterImg22">
+                            <div class="monsterCounter" id="smonster22"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="linkList">
+            <a href="../../featured">
+                Play the featured MSM Sudoku!
+            </a>
+            <a href="../../browse">
+                Browse some cool MSM Sudokus!
+            </a>
+            <a href="../../play">
+                Play a downloaded sudoku!
+            </a>
+            <a href="../../make">
+                Make your own MSM Sudoku!
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Play a cool sudoku!</p>
+        <p>Report any issues and feedback to <a href="https://discord.com/channels/@me/434840883637125121" target="_blank">@MonstyrSlayr on Discord</a></p>
+        <p><a href="https://monstyrslayr.github.io/msmProjects" target="_blank">Check out some of my other MSM related projects!</a></p>
+        <p>Portions of the materials used are trademarks and/or copyrighted works of Big Blue Bubble. All rights reserved
+            by Big Blue Bubble. This material is not official and is not endorsed by Big Blue Bubble.</p>
+    </footer>
+
+    <div id="tooltip">lil tooltip</div>
+
+    <script type="module" src="../../script.js"></script>
+    <script type="module" src="../template.js"></script>
+</body>
+</html>

@@ -1,7 +1,10 @@
 ausome.sud
 a_little_tune_up.sud
+birds_of_a_further.sud
+bountiful_botanists.sud
 cool_puzzle.sud
 furnoss_fury.sud
+furry_friends.sud
 inventory_madness.sud
 i_made_a_sudoku.sud
 larvaluss_puzzle.sud
