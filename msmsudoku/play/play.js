@@ -210,6 +210,17 @@ async function handleFiles(files)
         sudokuDiv.style.borderColor = json.metadata.color;
     }
 
+    for (let i = 0; i < sudokuGameSquares.length; i++)
+    {
+        const daInput = monsterInputs[i];
+        const daSquare = sudokuGameSquares[i];
+
+        daSquare.addEventListener("click", function()
+        {
+            daInput.focus();
+        });
+    }
+
     function validateMonsters()
     {
         let isValid = true;

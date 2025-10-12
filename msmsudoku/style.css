@@ -138,6 +138,11 @@ h4
     background-color: rgb(255, 167, 167);
 }
 
+.sudoku > div.invalid:hover, .sudoku > div.valid:hover
+{
+    cursor: pointer;
+}
+
 .sudoku > div.nolid
 {
     background-color: rgb(176, 176, 176);
