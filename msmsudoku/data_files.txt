@@ -10,6 +10,7 @@ inventory_madness.sud
 i_made_a_sudoku.sud
 know_your_monsters_likes.sud
 larvaluss_puzzle.sud
+living_under_a_rock.sud
 mount_knottshurrs_puzzle.sud
 mythereal_madness.sud
 my_awesome_sudoku.sud

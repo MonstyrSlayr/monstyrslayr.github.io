@@ -1,4 +1,4 @@
-import { classConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFromURL, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
+import { monsters, decryptFromURL, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
 
 function getLastFolder(url, num)
 {

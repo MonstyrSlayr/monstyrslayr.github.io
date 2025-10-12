@@ -1,4 +1,4 @@
-import { classConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFile, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
+import { monsters, decryptFile, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
 
 const labelRows =
 [
