@@ -5,6 +5,8 @@ const CLASS = getClasses();
 const islands = getIslands();
 const elementSigils = getElements();
 
+const allConditionals = [];
+
 class Conditional // different from the random monster generator one :)
 {
     condition = function() { return false };
@@ -12,6 +14,7 @@ class Conditional // different from the random monster generator one :)
     id = "";
     label = "";
     inverseLabel = "";
+    weight = 0;
 
     constructor (condition = Function, description = String, id = String, label = String, inverseLabel = String)
     {
@@ -20,6 +23,7 @@ class Conditional // different from the random monster generator one :)
         this.id = id;
         this.label = label;
         this.inverseLabel = inverseLabel;
+        allConditionals.push(this);
     }
 
     getMonsterCountMatchingCondition(monsterSet = Array)
@@ -31,6 +35,7 @@ class Conditional // different from the random monster generator one :)
 class RarityConditional extends Conditional // r
 {
     rarity;
+    weight = 0.05;
 
     constructor (rarity, description)
     {
@@ -43,6 +48,7 @@ class ClassConditional extends Conditional // c
 {
     mclasses = []; // can have multiple
     name = ""
+    weight = 0.075;
 
     constructor (mclasses = Array, name, description)
     {
@@ -60,6 +66,7 @@ class ClassConditional extends Conditional // c
 class IslandConditional extends Conditional // i
 {
     island;
+    weight = 0.09;
 
     constructor (island)
     {
@@ -71,6 +78,7 @@ class IslandConditional extends Conditional // i
 class ElementConditional extends Conditional // e
 {
     elementSigil;
+    weight = 0.1;
 
     constructor (elementSigil)
     {
@@ -82,6 +90,7 @@ class ElementConditional extends Conditional // e
 class ElementCountConditional extends Conditional // #
 {
     count;
+    weight = 0.05;
 
     constructor(count)
     {
@@ -93,6 +102,7 @@ class ElementCountConditional extends Conditional // #
 class LikeConditional extends Conditional // l
 {
     like;
+    weight = 0.6;
 
     constructor (like)
     {
@@ -114,6 +124,7 @@ class LikeConditional extends Conditional // l
 class LikedByConditional extends Conditional // b
 {
     daMonster;
+    weight = 0.6;
 
     constructor (daMonster)
     {
@@ -135,6 +146,7 @@ class LikedByConditional extends Conditional // b
 class EggConditional extends Conditional // g for eGg
 {
     egg;
+    weight = 0.75;
 
     constructor (egg)
     {
@@ -156,6 +168,7 @@ class EggConditional extends Conditional // g for eGg
 class RequiredByConditional extends Conditional // q for reQuired
 {
     daMonster;
+    weight = 0.75;
 
     constructor (daMonster)
     {
@@ -177,6 +190,7 @@ class RequiredByConditional extends Conditional // q for reQuired
 class SizeConditional extends Conditional // z
 {
     size;
+    weight = 0.06;
 
     constructor(size)
     {
@@ -188,6 +202,7 @@ class SizeConditional extends Conditional // z
 class BedsConditional extends Conditional // 🛏️ (sue me)
 {
     beds;
+    weight = 0.06;
 
     constructor(beds)
     {
@@ -199,6 +214,7 @@ class BedsConditional extends Conditional // 🛏️ (sue me)
 class LevelConditional extends Conditional // v for leVel
 {
     level;
+    weight = 0.08;
 
     constructor(level)
     {
@@ -210,6 +226,7 @@ class LevelConditional extends Conditional // v for leVel
 class TimeLimitConditional extends Conditional // t
 {
     timeLimit;
+    weight = 0.1;
 
     constructor(timeLimit)
     {
@@ -221,6 +238,7 @@ class TimeLimitConditional extends Conditional // t
 class FirstDiscoveredConditional extends Conditional // f
 {
     firstDiscovered;
+    weight = 1;
 
     constructor(firstDiscovered)
     {
@@ -228,6 +246,9 @@ class FirstDiscoveredConditional extends Conditional // f
         this.firstDiscovered = firstDiscovered;
     }
 }
+
+export const monsters = await getMonsters();
+export const defaultConditional = new Conditional(function (monster = Monster) {return true;}, "This monster is a MONSTER. This monster is a singing monster in My Singing Monsters.", "d", "Is a MONSTER", "Is not a MONSTER");
 
 export function countMonstersInConditionals(monsterGroup, conditionals, inverses)
 {
@@ -250,14 +271,48 @@ export function countMonstersInConditionals(monsterGroup, conditionals, inverses
     return num;
 }
 
-export const monsters = await getMonsters();
+export function gaugeSudokuDifficulty(allMonsters, rowConds, rowInverses, colConds, colInverses)
+{
+    const baseDifficulty = 1;
+    const maxDifficulty = 10;
+    const curve = (x) => 1 - Math.pow(1 - x, 2.5);
+    let totalHardness = 0;
+
+    let totalPairs = countMonstersInConditionals(allMonsters, [defaultConditional], [false]) * rowConds.length * colConds.length;
+    let validPairs = 0;
+
+    for (let r = 0; r < rowConds.length; r++)
+    {
+        for (let c = 0; c < colConds.length; c++)
+        {
+            const count = countMonstersInConditionals(
+                allMonsters,
+                [rowConds[r], colConds[c]],
+                [rowInverses[r], colInverses[c]]
+            );
+
+            // If ANY row–col pair is impossible → sudoku impossible
+            if (count === 0) return 0;
+
+            const hardness = (1 - rowConds[r].weight) * (1 - colConds[c].weight);
+            totalHardness += 1 - hardness;
+            validPairs += count;
+        }
+    }
+
+    const avgHardness = totalHardness / (rowConds.length * colConds.length);
+    const ratio = validPairs / totalPairs;
+
+    // Compute difficulty directly without double normalization
+    let difficulty = baseDifficulty + (maxDifficulty - baseDifficulty) * curve(avgHardness * (1 - ratio));
+
+    return parseFloat(difficulty.toFixed(2));
+}
 
 function getMonsterByName(name)
 {
     return monsters.find((monster) => name == monster.name);
 }
-
-export const defaultConditional = new Conditional(function (monster = Monster) {return true;}, "This monster is a MONSTER. This monster is a singing monster in My Singing Monsters.", "d", "Is a MONSTER", "Is not a MONSTER")
 
 export const rarityConditionals = [];
 rarityConditionals.push(new RarityConditional(RARITY.COMMON, "This monster is COMMON. Does not include Celestials or Paironormals. All Titansouls are COMMON."));
@@ -409,7 +464,19 @@ uniqueFirsts.values().forEach(first =>
 });
 firstConditionals.sort((a, b) => a.firstDiscovered.toLowerCase().localeCompare(b.firstDiscovered.toLowerCase()));
 
-const secretKey = "amongUsInRealLifeSusSus"; // change this!
+export function getConditionalById(id)
+{
+    for (const conditional of allConditionals)
+    {
+        if (conditional.id == id) // YESSSSS!!!!!
+        {
+            return conditional;
+        }
+    }
+    return defaultConditional;
+}
+
+const secretKey = "amongUsInRealLifeSusSus";
 
 // Utility: convert string <-> ArrayBuffer
 function strToBuf(str)
