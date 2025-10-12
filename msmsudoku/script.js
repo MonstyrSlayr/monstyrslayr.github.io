@@ -202,7 +202,7 @@ class LevelConditional extends Conditional // v for leVel
 
     constructor(level)
     {
-        super(function (monster = Monster) { return monster.levelAvailable == level; }, "This monster is available to buy or breed by LEVEL " + level + ".", "v" + level, "Available at LEVEL " + level, "Availability starts at a level other than LEVEL " + level)
+        super(function (monster = Monster) { return monster.levelAvailable == level; }, "This monster becomes available to buy or breed by LEVEL " + level + ".", "v" + level, "Available at LEVEL " + level, "Availability starts at a level other than LEVEL " + level)
         this.level = level;
     }
 }
