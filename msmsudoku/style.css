@@ -143,6 +143,11 @@ h4
     cursor: pointer;
 }
 
+.sudoku > div.invalid:has(> .postValidator.gone):hover, .sudoku > div.valid:has(> .postValidator.gone):hover
+{
+    cursor: auto;
+}
+
 .sudoku > div.nolid
 {
     background-color: rgb(176, 176, 176);
