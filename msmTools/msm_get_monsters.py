@@ -8,7 +8,7 @@ class BreakException(Exception):
 class SkipException(Exception):
     pass
 
-names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available = [], [], [], [], [], [], [], [], [], [], []
+names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year = [], [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
 resp = request.urlopen(url_starter + "/wiki/Monsters")
@@ -163,6 +163,12 @@ try:
                                         tiles.append(space_db.find("b").text.strip()[0])
                                     else:
                                         tiles.append("")
+                                    
+                                    released_db = monster_soup.find("div", attrs = {"data-source": "release date"})
+                                    if released_db:
+                                        release_year.append(released_db.find("div").text.strip().split()[0].split(sep="-")[0])
+                                    else:
+                                        release_year.append(0)
 
                                     # get likes on each island or polarity
                                     h2s = monster_soup.find_all("h2")
@@ -235,6 +241,7 @@ df = pd.DataFrame({"name": names,
                     "beds": beds,
                     "level_available": level_available,
                     "first_discovered": first_discovered,
+                    "release_year": release_year,
                     "inventory": inventory,
                     "time_limit": time_limit})
 

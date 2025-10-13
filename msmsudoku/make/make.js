@@ -531,6 +531,23 @@ for (const daDiv of document.getElementsByClassName("conditionalDropdown"))
                     {
                         firstsContent.appendChild(makeSelectableConditional(firstsConditional, firstsConditional.firstDiscovered.toUpperCase()));
                     }
+            
+            const yearDropdown = document.createElement("li");
+            daDropdownList.appendChild(yearDropdown);
+
+                const yearButton = document.createElement("button");
+                yearButton.textContent = "YEAR RELEASED ᐳ";
+                yearButton.classList.add("dropdownButton");
+                yearDropdown.appendChild(yearButton);
+
+                const yearContent = document.createElement("ul");
+                yearContent.classList.add("dropdownContent");
+                yearDropdown.appendChild(yearContent);
+
+                    for (const yearConditional of yearConditionals)
+                    {
+                        yearContent.appendChild(makeSelectableConditional(yearConditional, yearConditional.year));
+                    }
 }
 
 countMonstersAndValidate();

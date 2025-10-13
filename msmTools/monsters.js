@@ -504,6 +504,7 @@ export async function getMonsters()
 			monster.size = parseInt(monsterLine.size);
 			monster.beds = parseInt(monsterLine.beds);
 			monster.levelAvailable = parseInt(monsterLine.level_available);
+			monster.releaseYear = parseInt(monsterLine.release_year);
 			monster.firstDiscovered = monsterLine.first_discovered;
 			monster.timeLimit = monsterLine.time_limit;
 

@@ -247,6 +247,18 @@ class FirstDiscoveredConditional extends Conditional // f
     }
 }
 
+class ReleaseYearConditional extends Conditional // y
+{
+    year;
+    weight = 0.4;
+
+    constructor(year)
+    {
+        super(function (monster = Monster) { return monster.releaseYear == year; }, "This monster was released in " + year + ".", "y" + year, "Released in " + year, "Not released in " + year)
+        this.year = year;
+    }
+}
+
 export const monsters = await getMonsters();
 export const defaultConditional = new Conditional(function (monster = Monster) {return true;}, "This monster is a MONSTER. This monster is a singing monster in My Singing Monsters.", "d", "Is a MONSTER", "Is not a MONSTER");
 
@@ -374,6 +386,7 @@ const uniqueBeds = new Set();
 const uniqueLevels = new Set();
 const uniqueTimes = new Set();
 const uniqueFirsts = new Set();
+const uniqueYears = new Set();
 
 monsters.forEach(monster =>
 {
@@ -399,6 +412,7 @@ monsters.forEach(monster =>
     uniqueCounts.add(monster.elements.size);
     uniqueSizes.add(monster.size);
     uniqueBeds.add(monster.beds);
+    if (monster.releaseYear != 0) uniqueYears.add(monster.releaseYear);
     if (!isNaN(monster.levelAvailable)) uniqueLevels.add(monster.levelAvailable);
     if (monster.timeLimit != 0) uniqueTimes.add(monster.timeLimit);
     if (monster.firstDiscovered != "") uniqueFirsts.add(monster.firstDiscovered);
