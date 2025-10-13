@@ -413,10 +413,15 @@ monsters.forEach(monster =>
     uniqueCounts.add(monster.elements.size);
     uniqueSizes.add(monster.size);
     uniqueBeds.add(monster.beds);
-    if (monster.releaseYear != 0) uniqueYears.add(monster.releaseYear);
+    if (monster.releaseYear != 0 && !isNaN(monster.releaseYear)) uniqueYears.add(monster.releaseYear);
     if (!isNaN(monster.levelAvailable)) uniqueLevels.add(monster.levelAvailable);
     if (monster.timeLimit != 0) uniqueTimes.add(monster.timeLimit);
     if (monster.firstDiscovered != "") uniqueFirsts.add(monster.firstDiscovered);
+
+    // if (monster.releaseYear < 2000 || isNaN(monster.releaseYear))
+    // {
+    //     console.log(monster);
+    // }
 });
 
 uniqueCounts.values().forEach(count =>
