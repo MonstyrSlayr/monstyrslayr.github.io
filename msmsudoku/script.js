@@ -375,6 +375,7 @@ export const bedsConditionals = [];
 export const levelConditionals = [];
 export const timeConditionals = [];
 export const firstConditionals = [];
+export const yearConditionals = [];
 
 const uniqueCounts = new Set();
 const uniqueLikes = new Set();
@@ -477,6 +478,12 @@ uniqueFirsts.values().forEach(first =>
     firstConditionals.push(new FirstDiscoveredConditional(first));
 });
 firstConditionals.sort((a, b) => a.firstDiscovered.toLowerCase().localeCompare(b.firstDiscovered.toLowerCase()));
+
+uniqueYears.values().forEach(year =>
+{
+    yearConditionals.push(new ReleaseYearConditional(year));
+});
+yearConditionals.sort((a, b) => a.year - b.year);
 
 export function getConditionalById(id)
 {

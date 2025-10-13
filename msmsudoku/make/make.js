@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, encryptAndDownload, gaugeSudokuDifficulty } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, encryptAndDownload, gaugeSudokuDifficulty, yearConditionals } from "../script.js";
 
 const dropdownRows =
 [
