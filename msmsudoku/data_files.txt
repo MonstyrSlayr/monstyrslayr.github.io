@@ -5,6 +5,7 @@ bossy_bonanza.sud
 bountiful_botanists.sud
 cool_puzzle.sud
 deep_sea_divers.sud
+everyone_loves_a_squeed.sud
 filling_you_with_the_power_of_whale.sud
 furnoss_fury.sud
 furry_friends.sud
