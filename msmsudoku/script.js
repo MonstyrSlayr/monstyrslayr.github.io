@@ -250,7 +250,7 @@ class FirstDiscoveredConditional extends Conditional // f
 class ReleaseYearConditional extends Conditional // y
 {
     year;
-    weight = 0.4;
+    weight = 0.7;
 
     constructor(year)
     {
