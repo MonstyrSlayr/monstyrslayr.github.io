@@ -7,6 +7,7 @@ cool_puzzle.sud
 deep_sea_divers.sud
 furnoss_fury.sud
 furry_friends.sud
+hey_wait_a_minute.sud
 inventory_madness.sud
 i_made_a_sudoku.sud
 know_your_monsters_likes.sud
