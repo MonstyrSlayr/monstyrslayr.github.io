@@ -432,7 +432,7 @@ select:hover
 .sudokuList
 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
     gap: 1em;
     width: 90%;
     margin: auto;
@@ -444,6 +444,7 @@ select:hover
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 1em;
     border-top-left-radius: 0;
+    min-width: fit-content;
 }
 
 .sudokuResult:hover
