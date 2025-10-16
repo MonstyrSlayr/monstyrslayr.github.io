@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, encryptAndDownload } from "../script.js";
+import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, encryptAndDownload, gaugeSudokuDifficulty, yearConditionals } from "../script.js";
 
 const dropdownRows =
 [
@@ -66,6 +66,8 @@ const sudokuGameSquares =
     document.getElementById("square20"), document.getElementById("square21"), document.getElementById("square22"),
 ];
 
+const difficultyNumber = document.getElementById("difficultyNumber");
+
 function countMonstersAndValidate()
 {
     let isValid = true;
@@ -93,6 +95,11 @@ function countMonstersAndValidate()
             daSquare.classList.add("valid");
         }
     }
+
+    const difficulty = gaugeSudokuDifficulty(monsters, dropdownRows.map((drop) => drop.conditional), checkboxRows.map((check) => check.checked),
+                                                                    dropdownCols.map((drop) => drop.conditional), checkboxCols.map((check) => check.checked));
+    difficultyNumber.textContent = difficulty;
+
     return isValid;
 }
 
@@ -523,6 +530,23 @@ for (const daDiv of document.getElementsByClassName("conditionalDropdown"))
                     for (const firstsConditional of firstConditionals)
                     {
                         firstsContent.appendChild(makeSelectableConditional(firstsConditional, firstsConditional.firstDiscovered.toUpperCase()));
+                    }
+            
+            const yearDropdown = document.createElement("li");
+            daDropdownList.appendChild(yearDropdown);
+
+                const yearButton = document.createElement("button");
+                yearButton.textContent = "YEAR RELEASED ᐳ";
+                yearButton.classList.add("dropdownButton");
+                yearDropdown.appendChild(yearButton);
+
+                const yearContent = document.createElement("ul");
+                yearContent.classList.add("dropdownContent");
+                yearDropdown.appendChild(yearContent);
+
+                    for (const yearConditional of yearConditionals)
+                    {
+                        yearContent.appendChild(makeSelectableConditional(yearConditional, yearConditional.year));
                     }
 }
 

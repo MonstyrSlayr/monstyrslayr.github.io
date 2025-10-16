@@ -1,4 +1,4 @@
-import { decryptFromURL } from "../script.js";
+import { decryptFromURL, gaugeSudokuDifficulty, getConditionalById, monsters } from "../script.js";
 
 async function loadSudokus()
 {
@@ -18,6 +18,8 @@ async function loadSudokus()
                 dateCreated: json.metadata?.dateCreated ?? null,
                 color: json.metadata?.color ?? "#ffffff",
                 img: json.metadata?.img ?? "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_prize.webp",
+                rows: json.conditionalRows,
+                cols: json.conditionalCols,
                 filename
             });
         }
@@ -104,9 +106,24 @@ function renderSudokus(sudokus)
                         const dateSpan = document.createElement("span");
                         dateSpan.classList.add("date");
                         dateSpan.textContent = new Date(s.dateCreated).toDateString();
+                        dateSpan.style.color = textColor;
                         textSide.appendChild(br2);
                         textSide.appendChild(dateSpan);
                     }
+
+                    const br3 = document.createElement("br");
+                    textSide.appendChild(br3);
+
+                    const diffSpan = document.createElement("span");
+                    diffSpan.classList.add("difficulty");
+                    const daRows = s.rows.map((cond) => getConditionalById(cond.id));
+                    const daCols = s.cols.map((cond) => getConditionalById(cond.id));
+                    const daRInverse = s.rows.map((cond) => cond.inverse);
+                    const daCInverse = s.cols.map((cond) => cond.inverse);
+                    s.difficulty = gaugeSudokuDifficulty(monsters, daRows, daRInverse, daCols, daCInverse);
+                    diffSpan.textContent = `Difficulty: ${s.difficulty}`;
+                    diffSpan.style.color = textColor;
+                    textSide.appendChild(diffSpan);
                 
                 const imgSide = document.createElement("div");
                 link.appendChild(imgSide);

@@ -1,4 +1,4 @@
-import { classConditionals, countMonstersInConditionals, defaultConditional, rarityConditionals, monsters, islandConditionals, elementConditionals, likeConditionals, countConditionals, likedByConditionals, eggConditionals, reqConditionals, sizeConditionals, bedsConditionals, levelConditionals, timeConditionals, firstConditionals, decryptFromURL } from "../script.js";
+import { monsters, decryptFromURL, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
 
 function getLastFolder(url, num)
 {
@@ -106,12 +106,6 @@ function addTooltip(daElement, tipFunction)
     });
 }
 
-const allConditionals = [defaultConditional, ...rarityConditionals, ...classConditionals,
-                                ...islandConditionals, ...elementConditionals, ...countConditionals,
-                                    ...likeConditionals, ...likedByConditionals, ...eggConditionals,
-                                        ...reqConditionals, ...sizeConditionals, ...bedsConditionals,
-                                            ...levelConditionals, ...timeConditionals, ...firstConditionals]
-
 const sudokuName = document.getElementById("sudokuName");
 const sudokuAuthor = document.getElementById("sudokuAuthor");
 const sudokuFriendCode = document.getElementById("sudokuFriendCode");
@@ -128,16 +122,7 @@ for (let i = 0; i < json.conditionalRows.length; i++)
 {
     const condit = json.conditionalRows[i];
     const daLabel = labelRows[i];
-    let conditRef = defaultConditional;
-
-    for (const conditional of allConditionals)
-    {
-        if (conditional.id == condit.id) // YESSSSS!!!!!
-        {
-            conditRef = conditional;
-            break;
-        }
-    }
+    let conditRef = getConditionalById(condit.id);
 
     daLabel.conditional = conditRef;
     daLabel.isInverse = condit.inverse;
@@ -149,16 +134,7 @@ for (let i = 0; i < json.conditionalCols.length; i++)
 {
     const condit = json.conditionalCols[i];
     const daLabel = labelCols[i];
-    let conditRef = defaultConditional;
-
-    for (const conditional of allConditionals)
-    {
-        if (conditional.id == condit.id) // YESSSSS!!!!!
-        {
-            conditRef = conditional;
-            break;
-        }
-    }
+    let conditRef = getConditionalById(condit.id);
 
     daLabel.conditional = conditRef;
     daLabel.isInverse = condit.inverse;
@@ -166,10 +142,25 @@ for (let i = 0; i < json.conditionalCols.length; i++)
     addTooltip(daLabel, function() { return conditRef.description; });
 }
 
+const difficulty = gaugeSudokuDifficulty(monsters, labelRows.map((drop) => drop.conditional), labelRows.map((check) => check.isInverse),
+                                                                    labelCols.map((drop) => drop.conditional), labelCols.map((check) => check.isInverse));
+difficultyNumber.textContent = difficulty;
+
 for (const sudokuDiv of document.getElementsByClassName("sudoku"))
 {
     sudokuDiv.style.backgroundColor = json.metadata.color;
     sudokuDiv.style.borderColor = json.metadata.color;
+}
+
+for (let i = 0; i < sudokuGameSquares.length; i++)
+{
+    const daInput = monsterInputs[i];
+    const daSquare = sudokuGameSquares[i];
+
+    daSquare.addEventListener("click", function()
+    {
+        daInput.focus();
+    });
 }
 
 function validateMonsters()

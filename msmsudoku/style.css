@@ -37,6 +37,12 @@ h4
     overflow-wrap: anywhere;
 }
 
+label
+{
+    font-size: 16px;
+    margin: 0.5em;
+}
+
 .flow
 {
     display: flex;
@@ -136,6 +142,16 @@ h4
 .sudoku > div.invalid
 {
     background-color: rgb(255, 167, 167);
+}
+
+.sudoku > div.invalid:hover, .sudoku > div.valid:hover
+{
+    cursor: pointer;
+}
+
+.sudoku > div.invalid:has(> .postValidator.gone):hover, .sudoku > div.valid:has(> .postValidator.gone):hover
+{
+    cursor: auto;
 }
 
 .sudoku > div.nolid
@@ -416,7 +432,7 @@ select:hover
 .sudokuList
 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
     gap: 1em;
     width: 90%;
     margin: auto;
@@ -428,6 +444,7 @@ select:hover
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 1em;
     border-top-left-radius: 0;
+    min-width: fit-content;
 }
 
 .sudokuResult:hover

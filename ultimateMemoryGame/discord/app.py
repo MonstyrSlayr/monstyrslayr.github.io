@@ -9,6 +9,10 @@ CORS(app)
 
 message_queue = queue.Queue()
 
+@app.route("/")
+def hello_world():
+  return "Hello, cross-origin-world!"
+
 @app.route("/api/newmessage", methods=["POST"])
 def new_message():
     data = request.json
@@ -26,4 +30,4 @@ def stream():
     return Response(event_stream(), content_type="text/event-stream")
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, threaded=True)
+    app.run(host='0.0.0.0', debug=True, port=5000, threaded=True)
