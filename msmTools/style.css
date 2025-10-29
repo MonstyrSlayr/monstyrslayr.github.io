@@ -1,0 +1,53 @@
+*
+{
+    color: white;
+}
+
+body
+{
+    background-color: black;
+}
+
+h1
+{
+    color: white;
+    text-align: center;
+}
+
+h2
+{
+    color: white;
+    text-align: center;
+}
+
+#monstersDiv
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em;
+}
+
+.monsterDiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 0.5em;
+    margin: 0.5em;
+    padding: 1em;
+}
+
+.monsterDivSquare
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.monsterDivName
+{
+    margin: 0;
+    padding: 0;
+}
