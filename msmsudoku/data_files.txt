@@ -1,5 +1,6 @@
 ausome.sud
 a_little_tune_up.sud
+beeyoot_tree_trials.sud
 birds_of_a_further.sud
 bossy_bonanza.sud
 bountiful_botanists.sud
@@ -11,6 +12,7 @@ filling_you_with_the_power_of_whale.sud
 forest_of_illusion.sud
 furnoss_fury.sud
 furry_friends.sud
+greedy_statues.sud
 hey_wait_a_minute.sud
 inventory_madness.sud
 i_made_a_sudoku.sud
@@ -27,6 +29,7 @@ paironormal_activity.sud
 players_achievements.sud
 rarity_nexus.sud
 really_freaking_awesome_woah.sud
+release_me.sud
 revitalizing_vessels_via_sudoku.sud
 sick_percussionists.sud
 silly_sudoku_thing.sud

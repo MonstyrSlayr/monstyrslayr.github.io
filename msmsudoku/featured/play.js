@@ -1,6 +1,6 @@
 import { monsters, decryptFromURL, gaugeSudokuDifficulty, getConditionalById } from "../script.js";
 
-const featuredSudoku = "silly_thing_hihi";
+const featuredSudoku = "ausome";
 
 const labelRows =
 [
