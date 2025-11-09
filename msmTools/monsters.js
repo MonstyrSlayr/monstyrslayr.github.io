@@ -364,7 +364,7 @@ export async function getMonsters()
 		else if (monster.elementString.startsWith("s"))
 		{
 			monster.class = MCLASS.SEASONAL;
-			monster.identifier = parseInt(monster.elementString.replace("s", ""));
+			monster.identifier = parseInt(monster.elementString.replace("s", "")) - 1;
 			monster.elements.add(seasonalElementSigils[monster.identifier]);
 		}
 		else if (monster.elementString.startsWith("q"))
