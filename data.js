@@ -109,6 +109,14 @@ const msmSudoku = new Project(
     new Date("10/10/2025")
 );
 
+const msmGuessWho = new Project(
+    "MSM Guess Who",
+    "Guess the My Singing Monster based on the clues!",
+    "https://monstyrslayr.github.io/img/msmGuessWho.png",
+    "https://monstyrslayr.github.io/msmGuessWho/",
+    new Date("11/09/2025")
+);
+
 const blackCatSaga = new Project(
     "Black Cat Saga",
     "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
@@ -140,7 +148,7 @@ export const programmingProjects =
     bicolage, boxPush, magonet,
     lbaldle, lbalBadApple,
     tigerGoodbuy,
-    msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer, msmSudoku,
+    msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer, msmSudoku, msmGuessWho,
     artArchive
 ];
 
@@ -151,7 +159,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = msmSudoku;
+export const featuredProgrammingProject = msmGuessWho;
 
 export const skillset =
 [
