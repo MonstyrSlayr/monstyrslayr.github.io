@@ -815,7 +815,7 @@ async function main()
                 showToast("Toggled Epic monster forms");
                 toggleString = "Epic ";
             break;
-            case "child":
+            case "child": case "young":
                 showToast("Toggled Child Celestial forms");
                 toggleString = "";
             break;

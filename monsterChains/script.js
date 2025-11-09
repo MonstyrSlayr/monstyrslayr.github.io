@@ -150,7 +150,6 @@ let selectedA = null;
 let selectedB = null;
 
 let excludedIslands = new Set();
-const fuckYou = ["Shadow Islet", "Crystal Islet", "Poison Islet"];
 const islandConditionalDiv = document.getElementById("islandConditionalDiv");
 
 for (const island of islands)
@@ -173,7 +172,7 @@ for (const island of islands)
     checkbox.classList.add("checkbox");
     checkbox.name = island.codename;
     checkbox.type = "checkbox";
-    if (!fuckYou.includes(island.codename))
+    if (!island.unreleased)
     {
         checkbox.checked = true;
     }

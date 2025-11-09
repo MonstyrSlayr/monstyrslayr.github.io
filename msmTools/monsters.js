@@ -115,13 +115,15 @@ export class Island
 	codename;
 	symbol;
 	hasLikes;
+	unreleased;
 
-	constructor(name, codename, symbol, hasLikes = true)
+	constructor(name, codename, symbol, hasLikes = true, unreleased = false)
 	{
 		this.name = name;
 		this.codename = codename;
 		this.symbol = symbol;
 		this.hasLikes = hasLikes;
+		this.unreleased = unreleased;
 	}
 }
 
@@ -144,10 +146,10 @@ const islands =
 	new Island("Fire Oasis", "Oasis", "https://monstyrslayr.github.io/msmTools/img/island/Oasis.png"),
 
 	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
-	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
+	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png", true, true),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
-	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
-	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png"),
+	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png", true, true),
+	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png", true, true),
 
 	new Island("Mythical Island", "Mythical", "https://monstyrslayr.github.io/msmTools/img/island/Mythical.png"),
 
