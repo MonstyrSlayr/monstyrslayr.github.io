@@ -450,7 +450,52 @@ export async function getMonsters()
 			console.error("Monster codename not found: " + monster.id)
 		}
 
-		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name)
+		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name);
+
+		const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
+		monster.likes = new Set();
+		monster.positive = null;
+		monster.negative = null;
+
+		const wublinIsland = stringToIsland("Wublin");
+
+		if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
+		{
+			if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
+			if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
+		}
+		else
+		{
+			for (const likeString of likesStringArr)
+			{
+				const daSplit = likeString.split(":");
+
+				if (daSplit)
+				{
+					const daLike = daSplit[1];
+
+					if (daLike != "Unreleased")
+					{
+						const islandName = daSplit[0];
+
+						if (islandName == "All")
+						{
+							for (const island of monster.islands)
+							{
+								if (island.hasLikes)
+								{
+									monster.likes.add(new Like(daLike, island));
+								}
+							}
+						}
+						else
+						{
+							monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
+						}
+					}
+				}
+			}
+		}
 
 		if (monsterLine)
 		{
@@ -467,6 +512,8 @@ export async function getMonsters()
 						{
 							monster.islands = new Set();
 							monster.islands.add(stringToIsland(island.codename));
+
+							monster.likes = new Set([...monster.likes].filter(like => like.island == stringToIsland(island.codename)));
 
 							if (island.codename == "Haven" || island.codename == "Oasis")
 							{
@@ -571,51 +618,6 @@ export async function getMonsters()
 					if (daMonster != "Flex")
 					{
 						monster.inventory.add(new InventoryEgg(daMonster, count))
-					}
-				}
-			}
-			
-			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
-			monster.likes = new Set();
-			monster.positive = null;
-			monster.negative = null;
-
-			const wublinIsland = stringToIsland("Wublin");
-
-			if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
-			{
-				if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
-				if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
-			}
-			else
-			{
-				for (const likeString of likesStringArr)
-				{
-					const daSplit = likeString.split(":");
-
-					if (daSplit)
-					{
-						const daLike = daSplit[1];
-
-						if (daLike != "Unreleased")
-						{
-							const islandName = daSplit[0];
-
-							if (islandName == "All")
-							{
-								for (const island of monster.islands)
-								{
-									if (island.hasLikes)
-									{
-										monster.likes.add(new Like(daLike, island));
-									}
-								}
-							}
-							else
-							{
-								monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
-							}
-						}
 					}
 				}
 			}
