@@ -451,56 +451,56 @@ export async function getMonsters()
 		}
 
 		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name);
-
-		const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
-		monster.likes = new Set();
-		monster.positive = null;
-		monster.negative = null;
-
-		const wublinIsland = stringToIsland("Wublin");
-
-		if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
-		{
-			if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
-			if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
-		}
-		else
-		{
-			for (const likeString of likesStringArr)
-			{
-				const daSplit = likeString.split(":");
-
-				if (daSplit)
-				{
-					const daLike = daSplit[1];
-
-					if (daLike != "Unreleased")
-					{
-						const islandName = daSplit[0];
-
-						if (islandName == "All")
-						{
-							for (const island of monster.islands)
-							{
-								if (island.hasLikes)
-								{
-									monster.likes.add(new Like(daLike, island));
-								}
-							}
-						}
-						else
-						{
-							monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
-						}
-					}
-				}
-			}
-		}
-
+		
 		if (monsterLine)
 		{
 			monster.islands = islandStringsToSet(monsterLine.islands.split("&").slice(0, -1));
 
+			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
+			monster.likes = new Set();
+			monster.positive = null;
+			monster.negative = null;
+
+			const wublinIsland = stringToIsland("Wublin");
+
+			if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
+			{
+				if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
+				if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
+			}
+			else
+			{
+				for (const likeString of likesStringArr)
+				{
+					const daSplit = likeString.split(":");
+
+					if (daSplit)
+					{
+						const daLike = daSplit[1];
+
+						if (daLike != "Unreleased")
+						{
+							const islandName = daSplit[0];
+
+							if (islandName == "All")
+							{
+								for (const island of monster.islands)
+								{
+									if (island.hasLikes)
+									{
+										monster.likes.add(new Like(daLike, island));
+									}
+								}
+							}
+							else
+							{
+								monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
+							}
+						}
+					}
+				}
+			}
+			
 			// epic wubbox clause
 			if (monster.elementString.startsWith("f") && monster.rarity == RARITY.EPIC)
 			{
@@ -662,4 +662,4 @@ export function getIslands()
 }
 
 // const allMonsters = await getMonsters();
-// console.log(allMonsters.filter((monster) => isNaN(monster.levelAvailable)));
+// console.log(allMonsters.filter((monster) => monster.rarity == RARITY.EPIC && monster.class == MCLASS.SUPERNATURAL));
