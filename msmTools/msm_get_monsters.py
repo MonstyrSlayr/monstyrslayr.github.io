@@ -98,8 +98,8 @@ try:
 
                                     island_links = island_div.find_all("a")
 
-                                    for island_link in island_links[1::2]:
-                                        if not island_link.text.strip().startswith("Mirror"):
+                                    for island_link in island_links[1::]:
+                                        if not island_link.text.strip().startswith("Mirror") and len(island_link.find_all("img")) == 0:
                                             island_string += island_link.text.strip() + "&"
                                     
                                     islands_lists.append(island_string)
