@@ -278,7 +278,7 @@ export async function getMonsters()
 		// IT WILL MESS WITH MSM SUDOKU
 		monster.elementString = monster.id.replace("_rare", "").replace("_epic", "").replace("_adult", "").replace("_maj", "").replace("_min", "")
 									.replace("_air", "").replace("_plant", "").replace("_earth", "").replace("_cold", "").replace("_water", "").replace("_firehaven", "").replace("_fireoasis", "").replace("_gold", "").replace("_ethereal", ""); // stupid
-		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "-Memory.wav").trim();
+		monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "-Memory.ogg").trim();
 
 		// rarities
 		if (monster.id.endsWith("_rare")) monster.rarity = RARITY.RARE;
@@ -525,19 +525,19 @@ export async function getMonsters()
 
 							if (island.codename == "Haven" || island.codename == "Oasis")
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".wav";
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".ogg";
 							}
 							else if (island.codename == "Plant" || island.codename == "Gold")
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.wav";
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.ogg";
 							}
 							else if (island.codename == "Cold")
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.wav"; // why bbb why
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.ogg"; // why bbb why
 							}
 							else
 							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".wav";
+								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".ogg";
 							}
 
 							if (island.codename == "Gold")
@@ -555,7 +555,7 @@ export async function getMonsters()
 			// rare wubbox clause (thanks event)
 			if (monster.id.startsWith("f_rare"))
 			{
-				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.wav"; // WHY BBB WHY
+				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.ogg"; // WHY BBB WHY
 			}
 
 			monster.size = parseInt(monsterLine.size);
@@ -578,11 +578,16 @@ export async function getMonsters()
 
 				if (monster.identifier == 1)
 				{
-					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.wav";
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.ogg";
+
+					if (monster.rarity == RARITY.MINOR)
+					{
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01_MIN-Memory.ogg";
+					}
 				}
 				else
 				{
-					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + (monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN") + "-Memory.wav").trim();
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + (monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN") + "-Memory.ogg").trim();
 				}
 
 				if (monster.elements.size == 1)
