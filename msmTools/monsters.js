@@ -147,7 +147,7 @@ const islands =
 	new Island("Fire Oasis", "Oasis", "https://monstyrslayr.github.io/msmTools/img/island/Oasis.png"),
 
 	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
-	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png", true),
+	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
 	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png", true, true),
 	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png", true, true),
