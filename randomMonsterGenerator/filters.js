@@ -189,6 +189,7 @@ async function createFilters()
         new Conditional("Seasonals", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.SEASONAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_anniversary.avif" ),
         new Conditional("Shugafam", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.SHUGAFAM}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_legendary.avif" ),
         new Conditional("Werdos", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.WERDO}, "https://monstyrslayr.github.io/msmTools/img/square/relic.avif" ),
+        new Conditional("Unknown Legendary", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.LEGENDARY}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_legendary.avif" ),
         new Conditional("Dipsters", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.DIPSTER}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_dipster.avif" ),
         new Conditional("Celestials", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.CELESTIAL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_celestial.avif" ),
         new Conditional("Titansouls", classCheckboxDiv, function(monster = Monster) { return monster.class == CLASS.TITANSOUL}, "https://monstyrslayr.github.io/msmTools/img/square/monster_portrait_light.avif" ),

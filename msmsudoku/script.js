@@ -344,7 +344,7 @@ classConditionals.push(new ClassConditional([CLASS.DREAMYTHICAL], "DREAMYTHICAL"
 classConditionals.push(new ClassConditional([CLASS.SEASONAL], "SEASONAL", "This monster is SEASONAL. This monster has a Seasonal element."));
 classConditionals.push(new ClassConditional([CLASS.ETHEREAL], "ETHEREAL", "This monster is ETHEREAL. This monster has at leasT one Ethereal element."));
 classConditionals.push(new ClassConditional([CLASS.SUPERNATURAL], "SUPERNATURAL", "This monster is SUPERNATURAL. This monster has the Electricity element."));
-classConditionals.push(new ClassConditional([CLASS.SHUGAFAM, CLASS.WERDO], "LEGENDARY", "This monster is LEGENDARY. This monster has the Legendary element."));
+classConditionals.push(new ClassConditional([CLASS.SHUGAFAM, CLASS.WERDO, CLASS.LEGENDARY], "LEGENDARY", "This monster is LEGENDARY. This monster has the Legendary element."));
 classConditionals.push(new ClassConditional([CLASS.SHUGAFAM], "SHUGAFAM", "This monster is a SHUGAFAM member. This monster is part of the legendary SHUGAFAM."));
 classConditionals.push(new ClassConditional([CLASS.WERDO], "WERDO", "This monster is a WERDO. This monster is a loquacious and legendary WERDO."));
 classConditionals.push(new ClassConditional([CLASS.CELESTIAL], "CELESTIAL", "This monster is a CELESTIAL. This monster has the Celestial element."));

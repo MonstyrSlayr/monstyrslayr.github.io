@@ -388,7 +388,7 @@ async function main()
                 daBox = supernaturalBox;
                 break;
 
-            case MCLASS.WERDO: case MCLASS.SHUGAFAM:
+            case MCLASS.WERDO: case MCLASS.SHUGAFAM: case MCLASS.LEGENDARY:
                 daBox = legendaryBox;
                 break;
 

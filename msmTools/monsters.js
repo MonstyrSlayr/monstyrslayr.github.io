@@ -22,6 +22,7 @@ const MCLASS = Object.freeze
 	SUPERNATURAL: "Supernatural",
 	SHUGAFAM: "Shugafam",
 	WERDO: "Werdo",
+	LEGENDARY: "Unknown Legendary",
 	CELESTIAL: "Celestial",
 	DIPSTER: "Dipster",
 	TITANSOUL: "Titansoul",
@@ -146,7 +147,7 @@ const islands =
 	new Island("Fire Oasis", "Oasis", "https://monstyrslayr.github.io/msmTools/img/island/Oasis.png"),
 
 	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
-	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png", true, true),
+	new Island("Shadow Islet", "Shadow Islet", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png", true),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
 	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png", true, true),
 	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png", true, true),
@@ -291,8 +292,15 @@ export async function getMonsters()
 		monster.elements = new Set();
 		if (monster.elementString.startsWith("z"))
 		{
-			monster.class = MCLASS.SHUGAFAM;
 			monster.identifier = parseInt(monster.elementString.replace("z", ""));
+			if (monster.identifier <= 8)
+			{
+				monster.class = MCLASS.SHUGAFAM;
+			}
+			else
+			{
+				monster.class = MCLASS.LEGENDARY;
+			}
 			monster.elements.add(stringToElementSigil("Legendary"));
 		}
 		else if (monster.elementString.startsWith("x"))
@@ -306,7 +314,7 @@ export async function getMonsters()
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			if ([1, 5, 11].includes(monster.identifier))
+			if ([1, 5, 7, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
 			if ([2, 5, 8, 11].includes(monster.identifier))
@@ -315,7 +323,7 @@ export async function getMonsters()
 			if ([3, 8, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if ([4].includes(monster.identifier))
+			if ([4, 7].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
