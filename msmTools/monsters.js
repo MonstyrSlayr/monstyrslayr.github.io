@@ -204,6 +204,7 @@ export class Monster
 	islands;
 	likes;
 	bio;
+	egg = null;
 }
 
 class Like
@@ -267,12 +268,14 @@ export async function getMonsters()
 		monster.file = line.trim();
 		monster.square = ("https://monstyrslayr.github.io/msmTools/webp/square/" + line).trim();
 		monster.portrait = ("https://monstyrslayr.github.io/msmTools/webp/portrait/" + line).trim();
+		monster.egg = ("https://monstyrslayr.github.io/msmTools/webp/spore/" + line).replace("monster_portrait_square_", "spore_").trim();
 		monster.portraitBlack = monster.portrait.replace(".webp", "_black.webp");
 		monster.id = line.replace("monster_portrait_square_", "").replace(".webp", "").trim();
 		if (monster.id == "ad") // special quibble case (because of ad blockers lol)
 		{
 			monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_ad_copy.webp";
 			monster.portrait = "https://monstyrslayr.github.io/msmTools/webp/portrait/monster_portrait_square_ad_copy.webp";
+			monster.egg = "https://monstyrslayr.github.io/msmTools/webp/spore/spore_ad_copy.webp";
 		}
 		// DO NOT MODIFY ELEMENTSTRING
 		// IT WILL MESS WITH MSM SUDOKU
