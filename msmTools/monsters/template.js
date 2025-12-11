@@ -84,9 +84,9 @@ for (const daEgg of daMonster.inventory)
 {
     const showitDiv = document.createElement("div");
     showitDiv.classList.add("monsterShowitDiv");
-        const monsterEgg = document.createElement("img");
-        monsterEgg.src = monsters.find(monster => monster.name == daEgg.name).egg;
-        showitDiv.appendChild(showitDiv);
+        const carnalEgg = document.createElement("img");
+        carnalEgg.src = monsters.find(monster => monster.name == daEgg.name).egg;
+        showitDiv.appendChild(carnalEgg);
 
         const egg = document.createElement("p");
         egg.textContent = daEgg.name + " x" + daEgg.count;
