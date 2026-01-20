@@ -178,7 +178,7 @@ function islandNameToIsland(daStr)
 	return islands.find((island) => island.name == daStr);
 }
 
-function stringToIsland(daStr)
+export function stringToIsland(daStr)
 {
 	return islands.find((island) => island.codename == daStr);
 }

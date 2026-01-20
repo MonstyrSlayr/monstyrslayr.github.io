@@ -8,13 +8,7 @@ body
     background-color: black;
 }
 
-h1
-{
-    color: white;
-    text-align: center;
-}
-
-h2
+h1, h2, h3
 {
     color: white;
     text-align: center;
@@ -82,5 +76,23 @@ p
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+}
+
+.monsterPortraits
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: top;
+    gap: 1em;
+}
+
+.monsterPortraits > div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
     align-items: center;
 }

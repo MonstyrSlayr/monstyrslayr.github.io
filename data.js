@@ -95,7 +95,7 @@ const msmMemory = new Project(
 
 const msmChainer = new Project(
     "MSM Monster Chains",
-    "Make a monster chain that links two monsters through their islands!",
+    "Make a monster chain that links two monsters through their inhabited islands!",
     "https://monstyrslayr.github.io/img/monsterChainer.png",
     "https://monstyrslayr.github.io/monsterChains/",
     new Date("07/28/2025")
@@ -143,12 +143,31 @@ const artArchive = new Project(
     true
 );
 
+const deltaruneMotifs = new Project(
+    "Deltarune Motifs",
+    "A website documenting leitmotifs in the soundtracks of UNDERTALE and DELTARUNE.",
+    "https://monstyrslayr.github.io/img/deltaruneMotifs.png",
+    "https://monstyrslayr.github.io/deltarunemotifs",
+    new Date("12/20/2025"),
+    true
+)
+
+const bossFightBadApple = new Project(
+    "Bad Apple but it's Rhythm Doctor - Boss Fight",
+    "A recreation of the Bad Apple music video using the blinking eyes in the background of a Rhythm Doctor level.",
+    "https://monstyrslayr.github.io/img/rdBapple.png",
+    "https://youtu.be/cyWGuhD37eQ",
+    new Date("1/14/2026")
+)
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
     lbaldle, lbalBadApple,
     tigerGoodbuy,
     msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer, msmSudoku, msmGuessWho,
+    bossFightBadApple,
+    deltaruneMotifs,
     artArchive
 ];
 
@@ -159,7 +178,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = msmGuessWho;
+export const featuredProgrammingProject = deltaruneMotifs;
 
 export const skillset =
 [
