@@ -64,7 +64,7 @@ const ameliorateWiki = new Project(
     "For my YouTube fans to explore the extensive lore of my original characters.",
     "https://monstyrslayr.github.io/img/ameWiki.png",
     "https://monstyrslayr.github.io/wiki/",
-    new Date(),
+    new Date("09/20/25"),
     true
 );
 
@@ -139,8 +139,16 @@ const artArchive = new Project(
     "I'm trying a new way to share my general / uncategorized artwork.",
     "https://monstyrslayr.github.io/img/artSite.png",
     "https://monstyrslayr.github.io/art",
-    new Date(),
+    new Date("03/20/25"),
     true
+);
+
+const fullRadiation = new Project(
+    "Undertale 10th Anniversary - Toby Fox",
+    "A program recreating the speech-to-text setup Toby Fox used during the UNDERTALE 10th Anniversary livestream.",
+    "https://monstyrslayr.github.io/img/fullRadiation.png",
+    "https://github.com/MonstyrSlayr/Undertale-10th-Anniversary-Toby-Fox",
+    new Date("10/4/2025")
 );
 
 const deltaruneMotifs = new Project(
@@ -150,7 +158,7 @@ const deltaruneMotifs = new Project(
     "https://monstyrslayr.github.io/deltarunemotifs",
     new Date("12/20/2025"),
     true
-)
+);
 
 const bossFightBadApple = new Project(
     "Bad Apple but it's Rhythm Doctor - Boss Fight",
@@ -158,7 +166,7 @@ const bossFightBadApple = new Project(
     "https://monstyrslayr.github.io/img/rdBapple.png",
     "https://youtu.be/cyWGuhD37eQ",
     new Date("1/14/2026")
-)
+);
 
 export const programmingProjects =
 [
