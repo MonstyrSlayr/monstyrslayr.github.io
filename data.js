@@ -175,7 +175,7 @@ export const programmingProjects =
     tigerGoodbuy,
     msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer, msmSudoku, msmGuessWho,
     bossFightBadApple,
-    deltaruneMotifs,
+    fullRadiation, deltaruneMotifs,
     artArchive
 ];
 
