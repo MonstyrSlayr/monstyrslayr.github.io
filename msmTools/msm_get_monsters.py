@@ -11,6 +11,7 @@ class SkipException(Exception):
 names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year = [], [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
 resp = request.urlopen(url_starter + "/wiki/Monsters")
 data = resp.read()
 soup = BeautifulSoup(data, "html.parser")
