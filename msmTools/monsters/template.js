@@ -64,7 +64,8 @@ for (const daLike of daMonster.likes)
 }
 
 const monsterBio = document.getElementById("monsterBio");
-monsterBio.textContent = daMonster.bio;
+console.log(daMonster.bio);
+monsterBio.innerHTML = daMonster.bio.replaceAll("\n", "<br/>");
 
 const monsterPortrait = document.getElementById("monsterPortrait");
 monsterPortrait.src = daMonster.portrait;

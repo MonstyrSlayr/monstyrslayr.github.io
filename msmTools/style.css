@@ -20,7 +20,7 @@ p
     text-align: center;
 }
 
-a
+a, a:hover
 {
     color: white;
     text-decoration: underline;
@@ -93,6 +93,7 @@ a
     justify-content: space-around;
     align-items: top;
     gap: 1em;
+    margin: 2em;
 }
 
 .monsterPortraits > div
@@ -101,4 +102,9 @@ a
     flex-direction: column;
     justify-content: top;
     align-items: center;
+}
+
+.chart
+{
+    padding: 5em;
 }
