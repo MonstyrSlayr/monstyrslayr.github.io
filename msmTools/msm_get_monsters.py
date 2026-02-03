@@ -234,7 +234,9 @@ try:
                                     # get bio
                                     bio_table = monster_soup.find("table", class_ = "quote")
                                     bio_tds = bio_table.find_all("td")
-                                    bios.append(bio_tds[1].text.strip())
+                                    for br in bio_tds[1].find_all("br"):
+                                        br.replace_with("\n")
+                                    bios.append(bio_tds[1].get_text().strip())
                             
                                     if (monster_count == max_monsters):
                                         raise BreakException

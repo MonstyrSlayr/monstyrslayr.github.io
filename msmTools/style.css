@@ -20,6 +20,12 @@ p
     text-align: center;
 }
 
+a
+{
+    color: white;
+    text-decoration: underline;
+}
+
 #monstersDiv
 {
     display: flex;
