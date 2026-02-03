@@ -618,6 +618,8 @@ export async function getMonsters()
 						monster.firstDiscovered = firsties[1];
 					}
 				}
+
+				monster.egg = monster.egg.replace("_MAJ", "").replace("_MIN", "")
 			}
 
 			const inventoryStringArr = monsterLine.inventory.split("&").slice(0, -1);
