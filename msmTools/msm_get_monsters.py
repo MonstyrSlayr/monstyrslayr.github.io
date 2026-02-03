@@ -11,11 +11,20 @@ class SkipException(Exception):
 names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year = [], [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
-resp = request.urlopen(url_starter + "/wiki/Monsters")
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) "
+        "Gecko/20100101 Firefox/121.0"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+req = request.Request(url_starter + "/wiki/Monsters", headers=headers)
+resp = request.urlopen(req)
 data = resp.read()
 soup = BeautifulSoup(data, "html.parser")
 tables = soup.find_all("table")
+
+print("beginning parsage")
 
 max_monsters = -1 # for testing, set to -1 to process all monsters
 starting_monster = "" # for testing, set to blank for all monsters
@@ -80,7 +89,8 @@ try:
 
                                     while not do_parse_stuff:
                                         try:
-                                            monster_resp = request.urlopen(link)
+                                            monster_req = request.Request(link, headers=headers)
+                                            monster_resp = request.urlopen(monster_req)
                                             do_parse_stuff = True
                                         except:
                                             print("    >http error")

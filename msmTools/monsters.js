@@ -320,13 +320,13 @@ export async function getMonsters()
 			if ([1, 5, 7, 11].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
-			if ([2, 5, 8, 11].includes(monster.identifier))
+			if ([2, 5, 8, 11, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Hoax"));
 
-			if ([3, 8, 11].includes(monster.identifier))
+			if ([3, 8, 11, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if ([4, 7].includes(monster.identifier))
+			if ([4, 7, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
