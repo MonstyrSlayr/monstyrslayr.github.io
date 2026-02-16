@@ -2,9 +2,39 @@ import { getElements, getMonsters, getRarities, stringToIsland } from "../../mon
 
 const daOptions = {
     scales: {
+        x: {
+            ticks: {
+                callback: ((value, index, values) => {
+                    return "";
+                })
+            }
+        },
         y: {
             beginAtZero: true
         }
+    }
+}
+
+const xScaleImage = {
+    id: "xScaleImage",
+    afterDatasetDraw(chart, args, plugins) {
+        const { ctx, data, chartArea: {bottom}, scales: {x} } = chart;
+        const width = 40;
+        const padding = 4;
+
+        const imgCanvas = data.datasets[0].imgCanvas;
+        const imgCtx = imgCanvas.getContext("2d");
+        imgCanvas.width = ctx.canvas.width;
+        imgCanvas.height = width + padding * 2;
+
+        data.datasets[0].images.forEach((image, index) => {
+            const label = new Image();
+            label.src = image;
+            imgCtx.drawImage(label, (x.getPixelForValue(index) * 0.926) - (width / 2), padding, width, width)
+        });
+
+        ctx.save();
+        imgCtx.save();
     }
 }
 
@@ -24,22 +54,22 @@ class ElementCounter
     constructor(elementSigil)
     {
         this.elementSigil = elementSigil;
-        count = 0;
+        this.count = 0;
     }
 
     countElements(monsters)
     {
-        count = 0;
+        this.count = 0;
 
         for (const monster of monsters)
         {
-            if (monster.elements.has(elementSigil))
+            if (monster.elements.has(this.elementSigil))
             {
-                count++;
+                this.count++;
             }
         }
 
-        return count;
+        return this.count;
     }
 }
 
@@ -63,12 +93,15 @@ new Chart(document.getElementById("uniqueChart"), {
     data: {
         labels: uniqueElementCounters.map(el => el.elementSigil.name),
         datasets: [{
-            label: "Unique",
+            label: "Number of Monsters",
             data: uniqueElementCounters.map(el => el.count),
-            borderWidth: 1
+            borderWidth: 1,
+            imgCanvas: document.getElementById("uniqueChartImg"),
+            images: uniqueElementCounters.map(el => el.elementSigil.sigil)
         }]
     },
     options: daOptions,
+    plugins: [xScaleImage]
 });
 
 const currentMonsters = daMonsters

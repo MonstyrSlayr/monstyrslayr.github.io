@@ -345,8 +345,17 @@ export async function getMonsters()
 				case 1:
 					monster.elements.add(stringToElementSigil("Primordial Plant"));
 					break;
+				case 2:
+					monster.elements.add(stringToElementSigil("Primordial Cold"));
+					break;
 				case 3:
 					monster.elements.add(stringToElementSigil("Primordial Air"));
+					break;
+				case 4:
+					monster.elements.add(stringToElementSigil("Primordial Water"));
+					break;
+				case 5:
+					monster.elements.add(stringToElementSigil("Primordial Earth"));
 					break;
 			}
 		}

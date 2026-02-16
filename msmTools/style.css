@@ -108,3 +108,13 @@ a, a:hover
 {
     padding: 5em;
 }
+
+.topImg
+{
+    padding-bottom: 0;
+}
+
+.bottomImg
+{
+    padding-top: 0;
+}
