@@ -1,4 +1,4 @@
-from urllib import request
+from urllib import request, error
 from bs4 import BeautifulSoup
 import pandas as pd
 
@@ -18,8 +18,17 @@ headers = {
     ),
     "Accept-Language": "en-US,en;q=0.9",
 }
-req = request.Request(url_starter + "/wiki/Monsters", headers=headers)
-resp = request.urlopen(req)
+resp = None
+requested = False
+
+while not requested:
+    try:
+        req = request.Request(url_starter + "/wiki/Monsters", headers=headers)
+        resp = request.urlopen(req)
+        requested = True
+    except error.HTTPError as e:
+        print(">http error")
+
 data = resp.read()
 soup = BeautifulSoup(data, "html.parser")
 tables = soup.find_all("table")

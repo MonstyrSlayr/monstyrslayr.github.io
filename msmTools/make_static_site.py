@@ -23,10 +23,6 @@ def load_codenames(csv_path):
     return mapping
 
 def parse_monster_name(full_name):
-    """
-    Input: "Rare Dragon", "Epic Goblin", "Adult Slime", "Bat"
-    Output: (base_name, modifier or None)
-    """
     parts = full_name.split(" ", 1)
 
     if parts[0] in ("Rare", "Epic", "Adult") and len(parts) > 1:
@@ -35,17 +31,13 @@ def parse_monster_name(full_name):
         return full_name, None
 
 def build_monsters(monster_csv, codename_csv, base_dir, template_file):
-    # Load codenames
     codename_map = load_codenames(codename_csv)
 
-    # Read template
     with open(template_file, "r", encoding="utf-8") as f:
         template_content = f.read()
 
-    # Wipe + recreate directories
     clean_subdirectories(base_dir)
 
-    # Read monsters
     with open(monster_csv, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
@@ -53,7 +45,6 @@ def build_monsters(monster_csv, codename_csv, base_dir, template_file):
             raw_name = row["name"].strip()
             base_name, modifier = parse_monster_name(raw_name)
 
-            # Lookup codename
             codename = codename_map.get(base_name.lower())
             if not codename:
                 print(f"WARNING: No codename for base monster '{base_name}'")
@@ -61,7 +52,6 @@ def build_monsters(monster_csv, codename_csv, base_dir, template_file):
 
             folders_to_make = []
 
-            # Special rule: codename starts with "i"
             if codename.startswith("i"):
                 folders_to_make = [
                     f"{codename}_maj",
@@ -86,18 +76,15 @@ def build_monsters(monster_csv, codename_csv, base_dir, template_file):
                 else:
                     folders_to_make = [f"{codename}_{modifier.lower()}"]
 
-            # Create folder(s)
             for folder_name in folders_to_make:
                 folder_path = os.path.join(base_dir, folder_name)
                 os.makedirs(folder_path, exist_ok=True)
 
-                # Fill template
                 replaced = template_content
                 replaced = replaced.replace("{codename}", codename)
                 replaced = replaced.replace("{name}", base_name)
                 replaced = replaced.replace("{modifier}", modifier or "")
 
-                # Write index.html
                 with open(os.path.join(folder_path, "index.html"), "w", encoding="utf-8") as out:
                     out.write(replaced)
 

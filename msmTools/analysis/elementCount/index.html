@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Bio Length Analysis</title>
+</head>
+<body>
+    <h1><a href="../../">back</a></h1>
+    
+    <h1>Element Count Analysis</h1>
+
+    <p>Unique Monsters: Only Common monsters, Adult Celestials, and Major Paironormals</p>
+
+    <canvas id="uniqueChart" class="chart"></canvas>
+
+    <p>Current Monsters: All monsters currently in the game, including Minor Paironormals as their own monster</p>
+
+    <canvas id="currentChart" class="chart"></canvas>
+
+    <p>Projected Monsters:
+        Assumes there is no Hex element Natural monster.
+        Assumes every Ethereal and every Primordial monster gets Rare and Epic forms.
+        Assumes every Natural, every Wublin, every Fire, and every Magical monster gets an Epic form.
+        Assumes every Celestial gets an Elder form.
+        Assumes the Paironormal class has 15 Major monsters, and the Primordial class has 5 Common monsters.
+        Assumes Paironormal, Legendary, and Dipster monsters do not get any more forms.
+        Assumes that bbli$zard will not have an island similar to Shugabush Island.</p>
+
+    <canvas id="projectedChart" class="chart"></canvas>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
