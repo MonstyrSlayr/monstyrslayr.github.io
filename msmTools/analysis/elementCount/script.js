@@ -17,7 +17,8 @@ const daOptions = {
 
 const xScaleImage = {
     id: "xScaleImage",
-    afterDatasetDraw(chart, args, plugins) {
+    afterDatasetDraw(chart, args, plugins)
+    {
         const { ctx, data, chartArea: {bottom}, scales: {x} } = chart;
         const width = 40;
         const padding = 4;
@@ -27,7 +28,8 @@ const xScaleImage = {
         imgCanvas.width = ctx.canvas.width;
         imgCanvas.height = width + padding * 2;
 
-        data.datasets[0].images.forEach((image, index) => {
+        data.datasets[0].images.forEach((image, index) =>
+        {
             const label = new Image();
             label.src = image;
             imgCtx.drawImage(label, (x.getPixelForValue(index) * 0.926) - (width / 2), padding, width, width)
@@ -73,6 +75,11 @@ class ElementCounter
     }
 }
 
+function sleep(ms)
+{
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const uniqueMonsters = daMonsters.filter(monster => monster.rarity != RARITY.MINOR
                                                     && monster.rarity != RARITY.RARE
                                                     && monster.rarity != RARITY.EPIC
@@ -97,7 +104,8 @@ new Chart(document.getElementById("uniqueChart"), {
             data: uniqueElementCounters.map(el => el.count),
             borderWidth: 1,
             imgCanvas: document.getElementById("uniqueChartImg"),
-            images: uniqueElementCounters.map(el => el.elementSigil.sigil)
+            images: uniqueElementCounters.map(el => el.elementSigil.sigil),
+            backgroundColor: uniqueElementCounters.map(el => el.color),
         }]
     },
     options: daOptions,

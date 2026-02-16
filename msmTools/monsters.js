@@ -35,11 +35,13 @@ export class ElementSigil // dumb name bc "element" will get confusing with HTML
 {
 	name;
 	sigil;
+	color;
 
-	constructor(name, sigil)
+	constructor(name, sigil, color = "#ffffff")
 	{
 		this.name = name;
 		this.sigil = sigil;
+		this.color = color;
 	}
 }
 
@@ -70,8 +72,8 @@ const elementSigils =
 	new ElementSigil("Mythical", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Mythical.png"),
 	new ElementSigil("Dream", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Dream.png"),
 
-	new ElementSigil("Dipster", "https://monstyrslayr.github.io/msmTools/img/sigil/Dipster.png"),
-	new ElementSigil("Celestial", "https://monstyrslayr.github.io/msmTools/img/sigil/Celestial.png"),
+	new ElementSigil("Dipster", "https://monstyrslayr.github.io/msmTools/img/sigil/Dipster.png", "#f5b553"),
+	new ElementSigil("Celestial", "https://monstyrslayr.github.io/msmTools/img/sigil/Celestial.png", "#ffefdb"),
 	new ElementSigil("Titansoul", "https://monstyrslayr.github.io/msmTools/img/sigil/Titansoul.png"),
 
 	new ElementSigil("Primordial Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Plant.png"),
