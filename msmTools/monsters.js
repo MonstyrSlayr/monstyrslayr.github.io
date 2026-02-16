@@ -37,7 +37,7 @@ export class ElementSigil // dumb name bc "element" will get confusing with HTML
 	sigil;
 	color;
 
-	constructor(name, sigil, color = "#ffffff")
+	constructor(name, sigil, color = "#000000")
 	{
 		this.name = name;
 		this.sigil = sigil;
@@ -47,45 +47,45 @@ export class ElementSigil // dumb name bc "element" will get confusing with HTML
 
 const elementSigils =
 [
-	new ElementSigil("Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Air.png"),
-	new ElementSigil("Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Plant.png"),
-	new ElementSigil("Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Earth.png"),
-	new ElementSigil("Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Water.png"),
-	new ElementSigil("Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Cold.png"),
-	new ElementSigil("Fire", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Fire.png"),
+	new ElementSigil("Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Air.png", "#fff3d0"),
+	new ElementSigil("Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Plant.png", "#73b516"),
+	new ElementSigil("Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Earth.png", "#c5b197"),
+	new ElementSigil("Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Water.png", "#09f9f9"),
+	new ElementSigil("Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Cold.png", "#dcffff"),
+	new ElementSigil("Fire", "https://monstyrslayr.github.io/msmTools/img/sigil/Natural - Fire.png", "#f64300"),
 
-	new ElementSigil("Light", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Light.png"),
-	new ElementSigil("Psychic", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Psychic.png"),
-	new ElementSigil("Faerie", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Faerie.png"),
-	new ElementSigil("Bone", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Bone.png"),
+	new ElementSigil("Light", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Light.png", "#fffeea"),
+	new ElementSigil("Psychic", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Psychic.png", "#ff87ed"),
+	new ElementSigil("Faerie", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Faerie.png", "#9940ff"),
+	new ElementSigil("Bone", "https://monstyrslayr.github.io/msmTools/img/sigil/Magical - Bone.png", "#f6e2bc"),
 
-	new ElementSigil("Plasma", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Plasma.png"),
-	new ElementSigil("Shadow", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Shadow.png"),
-	new ElementSigil("Mech", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Mech.png"),
-	new ElementSigil("Crystal", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Crystal.png"),
-	new ElementSigil("Poison", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Poison.png"),
+	new ElementSigil("Plasma", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Plasma.png", "#a6b9ff"),
+	new ElementSigil("Shadow", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Shadow.png", "#828c7e"),
+	new ElementSigil("Mech", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Mech.png", "#bdbab9"),
+	new ElementSigil("Crystal", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Crystal.png", "#1ad9a4"),
+	new ElementSigil("Poison", "https://monstyrslayr.github.io/msmTools/img/sigil/Ethereal - Poison.png", "#d2d936"),
 
-	new ElementSigil("Electricity", "https://monstyrslayr.github.io/msmTools/img/sigil/Supernatural - Electricity.png"),
+	new ElementSigil("Electricity", "https://monstyrslayr.github.io/msmTools/img/sigil/Supernatural - Electricity.png", "#27b1eb"),
 
-	new ElementSigil("Legendary", "https://monstyrslayr.github.io/msmTools/img/sigil/Legendary.png"),
+	new ElementSigil("Legendary", "https://monstyrslayr.github.io/msmTools/img/sigil/Legendary.png", "#ffec33"),
 
-	new ElementSigil("Mythical", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Mythical.png"),
-	new ElementSigil("Dream", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Dream.png"),
+	new ElementSigil("Mythical", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Mythical.png", "#beffff"),
+	new ElementSigil("Dream", "https://monstyrslayr.github.io/msmTools/img/sigil/Mythical - Dream.png", "#553f73"),
 
 	new ElementSigil("Dipster", "https://monstyrslayr.github.io/msmTools/img/sigil/Dipster.png", "#f5b553"),
 	new ElementSigil("Celestial", "https://monstyrslayr.github.io/msmTools/img/sigil/Celestial.png", "#ffefdb"),
-	new ElementSigil("Titansoul", "https://monstyrslayr.github.io/msmTools/img/sigil/Titansoul.png"),
+	new ElementSigil("Titansoul", "https://monstyrslayr.github.io/msmTools/img/sigil/Titansoul.png", "#fbc6ff"),
 
-	new ElementSigil("Primordial Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Plant.png"),
-	new ElementSigil("Primordial Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Cold.png"),
-	new ElementSigil("Primordial Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Air.png"),
-	new ElementSigil("Primordial Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Water.png"),
-	new ElementSigil("Primordial Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Earth.png"),
+	new ElementSigil("Primordial Plant", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Plant.png", "#dfb674"),
+	new ElementSigil("Primordial Cold", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Cold.png", "#dfb674"),
+	new ElementSigil("Primordial Air", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Air.png", "#dfb674"),
+	new ElementSigil("Primordial Water", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Water.png", "#dfb674"),
+	new ElementSigil("Primordial Earth", "https://monstyrslayr.github.io/msmTools/img/sigil/Primordial - Earth.png", "#dfb674"),
 
-	new ElementSigil("Control", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png"),
-	new ElementSigil("Hoax", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png"),
-	new ElementSigil("Ruin", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png"),
-	new ElementSigil("Depths", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Depths.png"),
+	new ElementSigil("Control", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Control.png", "#df7634"),
+	new ElementSigil("Hoax", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Hoax.png", "#2df2eb"),
+	new ElementSigil("Ruin", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Ruin.png", "#dde3be"),
+	new ElementSigil("Depths", "https://monstyrslayr.github.io/msmTools/img/sigil/Paironormal - Depths.png", "#ff34fe"),
 ];
 
 const seasonalElementSigils =
@@ -107,7 +107,7 @@ const seasonalElementSigils =
 	new ElementSigil("Perplexplore", "https://monstyrslayr.github.io/msmTools/img/sigil/Seasonal (Aux.) - Perplexplore.png"),
 ];
 
-function stringToElementSigil(daStr)
+export function stringToElementSigil(daStr)
 {
 	return elementSigils.find((sigil) => sigil.name == daStr);
 }
