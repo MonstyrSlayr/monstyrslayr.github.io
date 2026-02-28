@@ -144,6 +144,7 @@ monster_portrait_square_bnr.webp
 monster_portrait_square_bnr_epic.webp
 monster_portrait_square_bnr_rare.webp
 monster_portrait_square_bnw.webp
+monster_portrait_square_bnw_epic.webp
 monster_portrait_square_bnw_rare.webp
 monster_portrait_square_bn_epic.webp
 monster_portrait_square_bn_rare.webp

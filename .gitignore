@@ -1,14 +1,3 @@
-
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_air.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_cold.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_air_black.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_cold_black.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_earth.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_earth_black.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_plant.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_plant_black.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_water.avif
-randomMonsterGenerator/img/monster_portrait_square_f_epic_gold_water_black.avif
 wiki/image_to_height.py
 wiki/heights.txt
 log.txt
@@ -16,5 +5,6 @@ msmincredibox/script.js
 msmTools/monsterDataRaw.csv
 msmTools/img/portrait
 msmTools/img/square
+msmTools/img/spore
 msmsudoku/make/index.html
 msmsudoku/make/make.js

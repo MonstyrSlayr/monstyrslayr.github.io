@@ -20,7 +20,7 @@ const xScaleImage = {
     afterDatasetDraw(chart, args, plugins)
     {
         const { ctx, data, chartArea: {bottom}, scales: {x} } = chart;
-        const width = 40;
+        const width = 30;
         const padding = 4;
 
         const imgCanvas = data.datasets[0].imgCanvas;
@@ -32,7 +32,7 @@ const xScaleImage = {
         {
             const label = new Image();
             label.src = image;
-            imgCtx.drawImage(label, (x.getPixelForValue(index) * 0.926) - (width / 2), padding, width, width)
+            imgCtx.drawImage(label, (x.getPixelForValue(index) * 0.896) - (width / 2), padding, width, width)
         });
 
         ctx.save();
