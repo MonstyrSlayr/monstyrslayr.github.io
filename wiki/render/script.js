@@ -125,7 +125,7 @@ monsterSelect.addEventListener("input", function()
 
 ameliorateElements.forEach(element =>
 {
-    scroll[element.name.toLowerCase()].addEventListener("input", function ()
+    scroll[element.name.toLowerCase()].addEventListener("input", function()
     {
         if (scroll[element.name.toLowerCase()].value > limit[element.name.toLowerCase()]) scroll[element.name.toLowerCase()].value = limit[element.name.toLowerCase()];
         updateRenderedMonster();

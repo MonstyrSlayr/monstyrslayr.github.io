@@ -168,6 +168,14 @@ const bossFightBadApple = new Project(
     new Date("1/14/2026")
 );
 
+const kairosProTierLists = new Project(
+    "KairosTime Pro Tier Lists Analysis",
+    "A website collating the information from KairosTime's Professional Tier Lists to analyze trends in the video game Brawl Stars.",
+    "https://monstyrslayr.github.io/img/kairosTime.jpg",
+    "https://monstyrslayr.github.io/kairosTimeProTierLists/",
+    new Date("3/17/2026")
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -176,6 +184,7 @@ export const programmingProjects =
     msmRMG, ameliorateWiki, msmIncredibox, msmMemory, msmChainer, msmSudoku, msmGuessWho,
     bossFightBadApple,
     fullRadiation, deltaruneMotifs,
+    kairosProTierLists,
     artArchive
 ];
 
@@ -186,7 +195,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = deltaruneMotifs;
+export const featuredProgrammingProject = kairosProTierLists;
 
 export const skillset =
 [
@@ -215,6 +224,7 @@ export const languages =
     "https://upload.wikimedia.org/wikipedia/commons/1/1f/Python_logo_01.svg",
     "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
     "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
     "https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png",
     "https://upload.wikimedia.org/wikipedia/commons/f/fb/GameMaker_Logo.png"
 ]

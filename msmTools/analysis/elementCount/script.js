@@ -76,11 +76,6 @@ class ElementCounter
     }
 }
 
-function sleep(ms)
-{
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const uniqueMonsters = daMonsters.filter(monster => monster.rarity != RARITY.MINOR
                                                     && monster.rarity != RARITY.RARE
                                                     && monster.rarity != RARITY.EPIC
