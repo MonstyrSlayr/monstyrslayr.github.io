@@ -319,16 +319,16 @@ export async function getMonsters()
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			if ([1, 5, 7, 11].includes(monster.identifier))
+			if ([1, 5, 7, 11, 12].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
-			if ([2, 5, 8, 11, 14].includes(monster.identifier))
+			if ([2, 5, 8, 11, 12, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Hoax"));
 
 			if ([3, 8, 11, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if ([4, 7, 14].includes(monster.identifier))
+			if ([4, 7, 12, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
@@ -520,6 +520,33 @@ export async function getMonsters()
 							}
 						}
 					}
+				}
+			}
+
+			// werdo clause
+			if (monster.elementString.startsWith("VOC"))
+			{
+				switch (monster.identifier)
+				{
+					case 1:
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_01-Memory.ogg";
+						break;
+						
+					case 2:
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_02-Memory.ogg";
+						break;
+						
+					case 3:
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/03-VOC_03-Memory.ogg";
+						break;
+						
+					case 4:
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/02-VOC_04-Memory.ogg";
+						break;
+						
+					case 5:
+						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/13-VOC_05-Memory.ogg";
+						break;
 				}
 			}
 			
