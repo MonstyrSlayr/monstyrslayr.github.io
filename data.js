@@ -176,6 +176,22 @@ const kairosProTierLists = new Project(
     new Date("3/17/2026")
 );
 
+const jugglingClubWebsite = new Project(
+    "RIT Juggling Club Landing Page",
+    "A website about RIT Juggling Club, hosted on Blogger",
+    "https://monstyrslayr.github.io/img/jugglingClub.png",
+    "https://ritjuggle.blogspot.com/2025/11/landing-page.html",
+    new Date("11/05/2025")
+);
+
+const juggleInWebsite = new Project(
+    "46th Annual Spring Juggle-In Information Page",
+    "A website containing information about RIT Juggling Club's 46th Annual Juggle-In, hosted on Blogger",
+    "https://monstyrslayr.github.io/img/juggleIn.png",
+    "https://ritjuggle.blogspot.com/2026/02/rit-46th-annual-spring-juggle-in.html",
+    new Date("4/12/2026")
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -185,7 +201,8 @@ export const programmingProjects =
     bossFightBadApple,
     fullRadiation, deltaruneMotifs,
     kairosProTierLists,
-    artArchive
+    artArchive,
+    jugglingClubWebsite, juggleInWebsite
 ];
 
 export const artProjects =
@@ -195,7 +212,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = kairosProTierLists;
+export const featuredProgrammingProject = juggleInWebsite;
 
 export const skillset =
 [
