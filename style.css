@@ -410,9 +410,9 @@ footer
 {
     position: absolute;
     display: none;
-    left: 35%;
+    left: calc(50% - 10em);
     top: 100%;
-    width: 30%;
+    width: 20em;
     height: 500px;
     overflow-y: auto;
     background-color: white;
