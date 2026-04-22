@@ -387,6 +387,73 @@ footer
     color: black;
 }
 
+.filtersDiv
+{
+    position: relative;
+}
+
+.filtersDiv > button
+{
+    font-size: 32px;
+    background: none;
+    border: 2px solid black;
+    padding: 0.25em 1em;
+    border-radius: 0.25em;
+}
+
+.filtersDiv > button:hover
+{
+    scale: 105%;
+}
+
+.filtersList
+{
+    position: absolute;
+    display: none;
+    left: 35%;
+    top: 100%;
+    width: 30%;
+    height: 500px;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 10;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    filter: drop-shadow(0px 0px 20px #00000020);
+}
+
+.filtersList .show
+{
+    display: block;
+}
+
+.filterHeader
+{
+    margin: 0;
+    padding: 0.5em 1em;
+}
+
+.filterSelector
+{
+    margin: 0;
+    padding: 0.5em;
+    padding-left: 3em;
+    padding-right: 1em;
+}
+
+.filterSelector:hover
+{
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.filterHeader > h2, .filterSelector > p
+{
+    font-size: 24px;
+    margin: 0;
+    text-align: left;
+}
+
 @media screen and (max-width: 1000px)
 {
     .paddingDiv > p
