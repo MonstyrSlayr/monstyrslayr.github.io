@@ -390,6 +390,7 @@ footer
 .filtersDiv
 {
     position: relative;
+    margin: 1em 1em;
 }
 
 .filtersDiv > button

@@ -96,16 +96,12 @@ document.body.appendChild(paddingDiv);
     desc.textContent = "Here are some programming projects I've worked on!";
     paddingDiv.appendChild(desc);
 
-    const filterHeading = document.createElement("h2");
-    filterHeading.textContent = "Filter";
-    paddingDiv.appendChild(filterHeading);
-
     const filtersDiv = document.createElement("div");
     filtersDiv.classList.add("filtersDiv");
     paddingDiv.appendChild(filtersDiv);
 
         const filtersButton = document.createElement("button");
-        filtersButton.textContent = "Filter by:";
+        filtersButton.textContent = "Filter by: ALL";
         filtersDiv.appendChild(filtersButton);
 
         filtersButton.addEventListener("click", () =>
@@ -157,7 +153,7 @@ document.body.appendChild(paddingDiv);
 
                 filterSelector.addEventListener("click", () =>
                 {
-                    repostProgrammingProjects(f);
+                    repostAndScreamAtMe(f);
                     filtersList.classList.remove("show");
                 });
 
@@ -167,6 +163,12 @@ document.body.appendChild(paddingDiv);
             }
         }
 
+function repostAndScreamAtMe(filter = null)
+{
+    filtersButton.textContent = "Filter By: " + (filter == null ? "ALL" : filter.name.toUpperCase());
+    repostProgrammingProjects(filter);
+}
+
 programmingProjects.sort((a, b) => b.date - a.date); // chronological desc
 
 const wrappersWrapper = document.createElement("div");
@@ -174,4 +176,4 @@ document.body.appendChild(wrappersWrapper);
 
 scrollQuartets();
 
-repostProgrammingProjects();
+repostAndScreamAtMe();
