@@ -472,6 +472,11 @@ export async function getMonsters()
 			console.error("Monster codename not found: " + monster.id)
 		}
 
+		// epic gnarl clause
+		if (monster.rarity == RARITY.EPIC && monster.elementString == "bcden")
+		{
+			monster.name = "Epic Gnarl";
+		}
 		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name);
 		
 		if (monsterLine)
