@@ -542,6 +542,7 @@ monster_portrait_square_v_epic.webp
 monster_portrait_square_v_rare.webp
 monster_portrait_square_w.webp
 monster_portrait_square_wy.webp
+monster_portrait_square_wy_epic.webp
 monster_portrait_square_wy_rare.webp
 monster_portrait_square_w_rare.webp
 monster_portrait_square_x15.webp
@@ -559,3 +560,4 @@ monster_portrait_square_z06.webp
 monster_portrait_square_z07.webp
 monster_portrait_square_z08.webp
 monster_portrait_square_z09.webp
+monster_portrait_square_z11.webp
