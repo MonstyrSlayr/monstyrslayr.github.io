@@ -20,20 +20,24 @@ PORTRAIT_FOLDER_IN = "C:/Program Files (x86)/Steam/steamapps/common/My Singing M
 SQUARE_FOLDER_IN = "C:/Program Files (x86)/Steam/steamapps/common/My Singing Monsters/data/gfx/breeding"
 SPORE_FOLDER_IN = "C:/Program Files (x86)/Steam/steamapps/common/My Singing Monsters/data/gfx"
 MEMORY_FOLDER_IN = "C:/Program Files (x86)/Steam/steamapps/common/My Singing Monsters/data/audio/music"
+SKY_FOLDER_IN = "C:/Program Files (x86)/Steam/steamapps/common/My Singing Monsters/data/gfx"
 
 PORTRAIT_FOLDER_IN_2 = os.path.join(LOCALLOW, "Big Blue Bubble Inc/My Singing Monsters/1/downloads/gfx/book")
 SQUARE_FOLDER_IN_2 = os.path.join(LOCALLOW, "Big Blue Bubble Inc/My Singing Monsters/1/downloads/gfx/breeding")
 SPORE_FOLDER_IN_2 = os.path.join(LOCALLOW, "Big Blue Bubble Inc/My Singing Monsters/1/downloads/gfx")
 MEMORY_FOLDER_IN_2 = os.path.join(LOCALLOW, "Big Blue Bubble Inc/My Singing Monsters/1/downloads/audio/music")
+SKY_FOLDER_IN_2 = os.path.join(LOCALLOW, "Big Blue Bubble Inc/My Singing Monsters/1/downloads/gfx")
 
 PORTRAIT_FOLDER_OUT = "./msmTools/img/portrait"
 SQUARE_FOLDER_OUT = "./msmTools/img/square"
 SPORE_FOLDER_OUT = "./msmTools/img/spore"
 MEMORY_FOLDER_OUT = "./msmTools/audio/memory"
+SKY_FOLDER_OUT = "./msmTools/img/background"
 
 PORTRAIT_FOLDER_WEBP = "./msmTools/webp/portrait"
 SQUARE_FOLDER_WEBP = "./msmTools/webp/square"
 SPORE_FOLDER_WEBP = "./msmTools/webp/spore"
+SKY_FOLDER_WEBP = "./msmTools/webp/background"
 
 def clear_and_remake_directory(dir):
     if os.path.exists(dir):
@@ -54,6 +58,12 @@ def copy_to_directory(input_folder, output_folder, substring = ""):
                     # quibble clause
                     if filename.lower().endswith("ad.avif"):
                         dest_filename = filename.replace(".avif", "_copy.avif")
+
+                        shutil.copy2(source_file_path, os.path.join(output_folder, dest_filename))
+                    
+                    # epic wubbox gold clause
+                    if filename.lower().endswith("f_epic_gold_plant.avif"):
+                        dest_filename = filename.replace("f_epic_gold_plant.avif", "f_epic_gold.avif")
 
                         shutil.copy2(source_file_path, os.path.join(output_folder, dest_filename))
                     
@@ -101,20 +111,24 @@ clear_and_remake_directory(PORTRAIT_FOLDER_OUT)
 clear_and_remake_directory(SQUARE_FOLDER_OUT)
 clear_and_remake_directory(SPORE_FOLDER_OUT)
 clear_and_remake_directory(MEMORY_FOLDER_OUT)
+clear_and_remake_directory(SKY_FOLDER_OUT)
 
 copy_to_directory(PORTRAIT_FOLDER_IN, PORTRAIT_FOLDER_OUT)
 copy_to_directory(SQUARE_FOLDER_IN, SQUARE_FOLDER_OUT)
 copy_to_directory(SPORE_FOLDER_IN, SPORE_FOLDER_OUT, "spore")
 copy_to_directory(MEMORY_FOLDER_IN, MEMORY_FOLDER_OUT, "Memory")
+copy_to_directory(SKY_FOLDER_IN, SKY_FOLDER_OUT, "sky")
 
 copy_to_directory(PORTRAIT_FOLDER_IN_2, PORTRAIT_FOLDER_OUT)
 copy_to_directory(SQUARE_FOLDER_IN_2, SQUARE_FOLDER_OUT)
 copy_to_directory(SPORE_FOLDER_IN_2, SPORE_FOLDER_OUT, "spore")
 copy_to_directory(MEMORY_FOLDER_IN_2, MEMORY_FOLDER_OUT, "Memory")
+copy_to_directory(SKY_FOLDER_IN_2, SKY_FOLDER_OUT, "sky")
 
 convert_avif_to_webp(PORTRAIT_FOLDER_OUT, PORTRAIT_FOLDER_WEBP)
 convert_avif_to_webp(SQUARE_FOLDER_OUT, SQUARE_FOLDER_WEBP)
 convert_avif_to_webp(SPORE_FOLDER_OUT, SPORE_FOLDER_WEBP)
+convert_avif_to_webp(SKY_FOLDER_OUT, SKY_FOLDER_WEBP)
 
 # write list of portrait filenames to txt file to be grabbed by web
 list_files(PORTRAIT_FOLDER_WEBP, "./msmTools/monsterImgs.txt")
