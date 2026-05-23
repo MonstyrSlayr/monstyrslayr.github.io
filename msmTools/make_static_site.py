@@ -66,6 +66,7 @@ def build_monsters(monster_csv, codename_csv, base_dir, template_file):
                     f"{codename}_epic_air",
                     f"{codename}_epic_water",
                     f"{codename}_epic_earth",
+                    f"{codename}_epic_gold",
                     f"{codename}_epic_firehaven",
                     f"{codename}_epic_fireoasis",
                     f"{codename}_epic_ethereal"
