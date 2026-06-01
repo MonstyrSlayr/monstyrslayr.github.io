@@ -151,7 +151,7 @@ const islands =
 	new Island("Plasma Islet", "Plasma", "https://monstyrslayr.github.io/msmTools/img/island/Plasma.png"),
 	new Island("Mech Islet", "Mech", "https://monstyrslayr.github.io/msmTools/img/island/Mech.png"),
 	new Island("Shadow Islet", "Shadow", "https://monstyrslayr.github.io/msmTools/img/island/Shadow.png"),
-	new Island("Crystal Islet", "Crystal Islet", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png", true, true),
+	new Island("Crystal Islet", "Crystal", "https://monstyrslayr.github.io/msmTools/img/island/Crystal.png"),
 	new Island("Poison Islet", "Poison Islet", "https://monstyrslayr.github.io/msmTools/img/island/Poison.png", true, true),
 
 	new Island("Mythical Island", "Mythical", "https://monstyrslayr.github.io/msmTools/img/island/Mythical.png"),
@@ -235,15 +235,15 @@ class InventoryEgg
 
 export async function getMonsters()
 {
-	let monsters = [];
+	const monsters = [];
 
 	const dataCsv = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
 	if (!dataCsv.ok)
 	{
 		throw new Error('Network response was not ok');
 	}
-	let dataCsvText = await dataCsv.text();
-	let dataResults = await Papa.parse(dataCsvText, { header: true });
+	const dataCsvText = await dataCsv.text();
+	const dataResults = await Papa.parse(dataCsvText, { header: true });
 
 	const codenameCsv = await fetch("https://monstyrslayr.github.io/msmTools/codenames.csv");
 	if (!codenameCsv.ok)
