@@ -189,6 +189,16 @@ const msmGuessWho = new Project(
     [html, css, javascript, msm]
 );
 
+const msmCutTheRoster = new Project(
+    "MSM: Cut The Roster!",
+    "Remove half of the monsters from My Singing Monsters with Demi, a Monster Handler in training!",
+    HOME + "img/MSMCTR.png",
+    "https://monstyrslayr.github.io/msmCutTheRoster/",
+    new Date("05/31/2026"),
+    false,
+    [html, css, javascript, msm]
+);
+
 const blackCatSaga = new Project(
     "Black Cat Saga",
     "Black Cat Island is the first animated island I have ever created, and thus, it holds a special place in my heart. Most of the monsters are based on cats.",
@@ -299,7 +309,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = juggleInWebsite;
+export const featuredProgrammingProject = msmCutTheRoster;
 
 export const skillset =
 [
