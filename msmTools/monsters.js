@@ -127,6 +127,8 @@ export class Island
 		this.symbol = symbol;
 		this.hasLikes = hasLikes;
 		this.unreleased = unreleased;
+
+		new Image().src = symbol;
 	}
 }
 
