@@ -407,7 +407,7 @@ footer
     scale: 105%;
 }
 
-.filtersList
+#filtersList
 {
     position: absolute;
     display: none;
@@ -423,7 +423,7 @@ footer
     filter: drop-shadow(0px 0px 20px #00000020);
 }
 
-.filtersList .show
+#filtersList .show
 {
     display: block;
 }

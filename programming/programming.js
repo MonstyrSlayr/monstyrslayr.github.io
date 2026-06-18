@@ -1,34 +1,12 @@
 import { createNavbar, programmingProjects, createFooter, createProjectDiv, createRandomTransitionIn, createRandomTransitionOut, createImageQuartet, scrollQuartets, featuredProgrammingProject, filters, FILTERTYPE } from "../data.js";
 
-const header = document.createElement("header");
-document.body.appendChild(header);
-
-const h1 = document.createElement("h1");
-h1.classList.add("bigMan");
-h1.textContent = "My Résumé and Portfolio";
-header.appendChild(h1);
+const header = document.getElementsByTagName("header")[0];
 
 const navbar = createNavbar();
-header.appendChild(navbar);
+document.getElementById("navbar").replaceWith(navbar);
 
-const showcaseSpace = document.createElement("div");
-showcaseSpace.classList.add("showcaseSpace");
-header.appendChild(showcaseSpace);
-
-    const featuredHeading = document.createElement("h1");
-    featuredHeading.textContent = "Featured Project";
-    showcaseSpace.appendChild(featuredHeading);
-
-    const featuredProjectDiv = createProjectDiv(featuredProgrammingProject);
-    featuredProjectDiv.classList.add("featured");
-    showcaseSpace.appendChild(featuredProjectDiv);
-
-const imageQuartet = createImageQuartet();
-header.appendChild(imageQuartet);
-
-const diaTransitionDiv = document.createElement("div");
-diaTransitionDiv.classList.add("diaTransitionDivIn");
-header.appendChild(diaTransitionDiv);
+const featuredProjectDiv = createProjectDiv(featuredProgrammingProject);
+document.getElementById("featured").replaceWith(featuredProjectDiv);
 
 function repostProgrammingProjects(filter = null)
 {
@@ -88,80 +66,63 @@ function repostProgrammingProjects(filter = null)
     }
 }
 
-const paddingDiv = document.createElement("div");
-paddingDiv.classList.add("paddingDiv");
-document.body.appendChild(paddingDiv);
+const filtersButton = document.getElementById("filtersButton");
+const filtersList = document.getElementById("filtersList");
 
-    const desc = document.createElement("p");
-    desc.textContent = "Here are some programming projects I've worked on!";
-    paddingDiv.appendChild(desc);
+filtersButton.addEventListener("click", () =>
+{
+    filtersList.classList.toggle("show");
+});
 
-    const filtersDiv = document.createElement("div");
-    filtersDiv.classList.add("filtersDiv");
-    paddingDiv.appendChild(filtersDiv);
+window.addEventListener("click", (e) =>
+{
+    if (filtersButton.contains(e.target)) return;
+    filtersList.classList.remove("show");
+});
 
-        const filtersButton = document.createElement("button");
-        filtersButton.textContent = "Filter by: ALL";
-        filtersDiv.appendChild(filtersButton);
+// ALL
+const filterSelectorAll = document.createElement("div");
+filterSelectorAll.classList.add("filterSelector");
+filtersList.appendChild(filterSelectorAll);
 
-        filtersButton.addEventListener("click", () =>
+filterSelectorAll.addEventListener("click", () =>
+{
+    repostProgrammingProjects();
+    filtersList.classList.remove("show");
+});
+
+    const filterAllP = document.createElement("p");
+    filterAllP.textContent = "All";
+    filterSelectorAll.appendChild(filterAllP);
+
+for (const h of Object.values(FILTERTYPE))
+{
+    const filterHeader = document.createElement("div");
+    filterHeader.classList.add("filterHeader");
+    filtersList.appendChild(filterHeader);
+
+        const filterH = document.createElement("h2");
+        filterH.textContent = h;
+        filterHeader.appendChild(filterH);
+    
+    // for every filter of this type that is in at least one project
+    for (const f of filters.filter(fi => fi.type == h && programmingProjects.some(p => p.filters.includes(fi))))
+    {
+        const filterSelector = document.createElement("div");
+        filterSelector.classList.add("filterSelector");
+        filtersList.appendChild(filterSelector);
+
+        filterSelector.addEventListener("click", () =>
         {
-            filtersList.classList.toggle("show");
-        });
-
-        window.addEventListener("click", (e) =>
-        {
-            if (filtersButton.contains(e.target)) return;
+            repostAndScreamAtMe(f);
             filtersList.classList.remove("show");
         });
 
-        const filtersList = document.createElement("div");
-        filtersList.classList.add("filtersList");
-        filtersDiv.appendChild(filtersList);
-
-        // ALL
-        const filterSelectorAll = document.createElement("div");
-        filterSelectorAll.classList.add("filterSelector");
-        filtersList.appendChild(filterSelectorAll);
-
-        filterSelectorAll.addEventListener("click", () =>
-        {
-            repostProgrammingProjects();
-            filtersList.classList.remove("show");
-        });
-
-            const filterAllP = document.createElement("p");
-            filterAllP.textContent = "All";
-            filterSelectorAll.appendChild(filterAllP);
-
-        for (const h of Object.values(FILTERTYPE))
-        {
-            const filterHeader = document.createElement("div");
-            filterHeader.classList.add("filterHeader");
-            filtersList.appendChild(filterHeader);
-
-                const filterH = document.createElement("h2");
-                filterH.textContent = h;
-                filterHeader.appendChild(filterH);
-            
-            // for every filter of this type that is in at least one project
-            for (const f of filters.filter(fi => fi.type == h && programmingProjects.some(p => p.filters.includes(fi))))
-            {
-                const filterSelector = document.createElement("div");
-                filterSelector.classList.add("filterSelector");
-                filtersList.appendChild(filterSelector);
-
-                filterSelector.addEventListener("click", () =>
-                {
-                    repostAndScreamAtMe(f);
-                    filtersList.classList.remove("show");
-                });
-
-                    const filterP = document.createElement("p");
-                    filterP.textContent = f.name;
-                    filterSelector.appendChild(filterP);
-            }
-        }
+            const filterP = document.createElement("p");
+            filterP.textContent = f.name;
+            filterSelector.appendChild(filterP);
+    }
+}
 
 function repostAndScreamAtMe(filter = null)
 {
@@ -173,6 +134,12 @@ programmingProjects.sort((a, b) => b.date - a.date); // chronological desc
 
 const wrappersWrapper = document.createElement("div");
 document.body.appendChild(wrappersWrapper);
+
+for (const tempQuartet of [...document.getElementsByClassName("tempImageQuartet")])
+{
+    const imageQuartet = createImageQuartet();
+    tempQuartet.replaceWith(imageQuartet);
+}
 
 scrollQuartets();
 
