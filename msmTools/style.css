@@ -119,3 +119,20 @@ a, a:hover
 {
     padding-top: 0;
 }
+
+.islandLikesWrapper
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 2px solid white;
+    border-radius: 0.5em;
+    margin: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.islandLikesWrapper > .monsterShowitDiv:first-child
+{
+    border-right: 2px solid white;
+}

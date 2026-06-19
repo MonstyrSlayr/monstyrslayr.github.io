@@ -271,6 +271,8 @@ export async function getDecorations()
 		deco.x_size = parseInt(decoLine.x_size);
 		deco.y_size = parseInt(decoLine.y_size);
 
+		new Image().src = deco.image;
+
 		decorations.push(deco);
 	}
 

@@ -40,39 +40,69 @@ for (const daElement of daMonster.elements)
 
 const monsterIslands = document.getElementById("monsterIslands");
 monsterIslands.innerHTML = "";
-for (const daIsland of daMonster.islands)
-{
-    const islandImg = document.createElement("img");
-    islandImg.src = daIsland.symbol;
-    monsterIslands.appendChild(islandImg);
-}
 
 const monsterLikes = document.getElementById("monsterLikes");
 monsterLikes.innerHTML = "";
-for (const daLike of daMonster.likes)
-{
-    const showitDiv = document.createElement("div");
-    showitDiv.classList.add("monsterShowitDiv");
-    monsterLikes.appendChild(showitDiv);
-        const decoImg = document.createElement("img");
-        if (daLike.isDecoration)
-        {
-            // decoImg.src = daLike.island.symbol;
-            decoImg.src = daLike.obj.image;
-        }
-        else
-        {
-            decoImg.src = daLike.obj.portrait;
-        }
-        showitDiv.appendChild(decoImg);
 
-        const likeName = document.createElement("p");
-        likeName.textContent = daLike.name;
-        showitDiv.appendChild(likeName);
+for (const daIsland of daMonster.islands)
+{
+    const islandShowitDiv = document.createElement("div");
+    islandShowitDiv.classList.add("monsterShowitDiv");
+    monsterIslands.appendChild(islandShowitDiv);
+
+        const islandImg = document.createElement("img");
+        islandImg.src = daIsland.symbol;
+        islandShowitDiv.appendChild(islandImg);
+
+        const islandName = document.createElement("p");
+        islandName.textContent = daIsland.name;
+        islandShowitDiv.appendChild(islandName);
+
+    const daLikes = [...daMonster.likes].filter(like => like.island == daIsland);
+
+    if (daLikes.length > 0)
+    {
+        const islandLikesWrapper = document.createElement("div");
+        islandLikesWrapper.classList.add("islandLikesWrapper");
+        monsterLikes.appendChild(islandLikesWrapper);
+
+            const islandShowitDiv = document.createElement("div");
+            islandShowitDiv.classList.add("monsterShowitDiv");
+            islandLikesWrapper.appendChild(islandShowitDiv);
+
+                const islandImg = document.createElement("img");
+                islandImg.src = daIsland.symbol;
+                islandShowitDiv.appendChild(islandImg);
+
+                const islandName = document.createElement("p");
+                islandName.textContent = daIsland.name;
+                islandShowitDiv.appendChild(islandName);
+            
+            for (const daLike of daLikes)
+            {
+                const showitDiv = document.createElement("div");
+                showitDiv.classList.add("monsterShowitDiv");
+                islandLikesWrapper.appendChild(showitDiv);
+                
+                    const decoImg = document.createElement("img");
+                    if (daLike.isDecoration)
+                    {
+                        decoImg.src = daLike.obj.image;
+                    }
+                    else
+                    {
+                        decoImg.src = daLike.obj.portrait;
+                    }
+                    showitDiv.appendChild(decoImg);
+
+                    const likeName = document.createElement("p");
+                    likeName.textContent = daLike.name;
+                    showitDiv.appendChild(likeName);
+            }
+    }
 }
 
 const monsterBio = document.getElementById("monsterBio");
-console.log(daMonster.bio);
 monsterBio.innerHTML = daMonster.bio.replaceAll("\n", "<br/>");
 
 const monsterPortrait = document.getElementById("monsterPortrait");
