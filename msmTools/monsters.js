@@ -5,7 +5,7 @@ const RARITY = Object.freeze
     COMMON: "Common",
     RARE: "Rare",
     EPIC: "Epic",
-    CHILD: "Child", // celestials only
+    YOUNG: "Young", // celestials only
     ADULT: "Adult", // celestials only
 	MAJOR: "Major", // paironormal only
 	MINOR: "Minor" // paironormal only
