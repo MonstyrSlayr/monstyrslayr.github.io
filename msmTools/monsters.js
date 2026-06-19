@@ -424,7 +424,7 @@ export async function getMonsters()
 		else if (monster.elementString.startsWith("t"))
 		{
 			monster.class = MCLASS.CELESTIAL;
-			if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.CHILD;
+			if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.YOUNG;
 			monster.identifier = parseInt(monster.elementString.replace("t", ""));
 			monster.elements.add(stringToElementSigil("Celestial"));
 		}
@@ -512,7 +512,7 @@ export async function getMonsters()
 
 		if (codenameLine)
 		{
-			monster.name = ((monster.rarity == RARITY.COMMON || monster.rarity == RARITY.CHILD) ? "" : monster.rarity + " ") + codenameLine.monster;
+			monster.name = ((monster.rarity == RARITY.COMMON || monster.rarity == RARITY.YOUNG) ? "" : monster.rarity + " ") + codenameLine.monster;
 		}
 		else // complain
 		{
