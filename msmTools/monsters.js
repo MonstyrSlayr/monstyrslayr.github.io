@@ -211,15 +211,28 @@ export class Monster
 	egg = null;
 }
 
+class Decoration
+{
+	name;
+	x_size;
+	y_size;
+	image;
+	description;
+}
+
 class Like
 {
 	name;
 	island;
+	isDecoration;
+	obj;
 
 	constructor(name, island)
 	{
 		this.name = name;
 		this.island = island;
+		this.isDecoration = true;
+		this.obj = null;
 	}
 }
 
@@ -235,6 +248,35 @@ class InventoryEgg
 	}
 }
 
+export async function getDecorations()
+{
+	const decorations = [];
+
+	// then do decos????
+	const decoCsv = await fetch("https://monstyrslayr.github.io/msmTools/decorationData.csv");
+	if (!decoCsv.ok)
+	{
+		throw new Error("Network response was not ok");
+	}
+	const decoCsvText = await decoCsv.text();
+	const decoResults = await Papa.parse(decoCsvText, { header: true });
+
+	for (const decoLine of decoResults.data)
+	{
+		const deco = new Decoration();
+
+		deco.name = decoLine.name;
+		deco.image = "https://monstyrslayr.github.io/msmTools/img/decorations/" + decoLine.image;
+		deco.description = decoLine.description;
+		deco.x_size = parseInt(decoLine.x_size);
+		deco.y_size = parseInt(decoLine.y_size);
+
+		decorations.push(deco);
+	}
+
+	return decorations;
+}
+
 export async function getMonsters()
 {
 	const monsters = [];
@@ -242,7 +284,7 @@ export async function getMonsters()
 	const dataCsv = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
 	if (!dataCsv.ok)
 	{
-		throw new Error('Network response was not ok');
+		throw new Error("Network response was not ok");
 	}
 	const dataCsvText = await dataCsv.text();
 	const dataResults = await Papa.parse(dataCsvText, { header: true });
@@ -250,18 +292,17 @@ export async function getMonsters()
 	const codenameCsv = await fetch("https://monstyrslayr.github.io/msmTools/codenames.csv");
 	if (!codenameCsv.ok)
 	{
-		throw new Error('Network response was not ok');
+		throw new Error("Network response was not ok");
 	}
-	let codenameCsvText = await codenameCsv.text();
-	let codenameResults = await Papa.parse(codenameCsvText, { header: true });
+	const codenameCsvText = await codenameCsv.text();
+	const codenameResults = await Papa.parse(codenameCsvText, { header: true });
 
 	const response = await fetch("https://monstyrslayr.github.io/msmTools/monsterImgs.txt");
 	if (!response.ok)
 	{
-		throw new Error('Network response was not ok');
+		throw new Error("Network response was not ok");
 	}
 	const text = await response.text();
-
 	const lines = text.split('\n');
 
 	for (const line of lines)
@@ -435,6 +476,8 @@ export async function getMonsters()
 
 		monsters.push(monster);
 	}
+
+	const decorations = await getDecorations();
 
 	monsters.forEach((monster) =>
 	{
@@ -700,6 +743,32 @@ export async function getMonsters()
 		new Image().src = monster.portraitBlack;
 
 		// not audio, not enough resources
+	});
+
+	// likes
+	// can't go in the first loop because that's where they get their name
+	monsters.forEach((monster) => {
+		monster.likes.forEach((like) =>
+		{
+			like.obj = monsters.find(mon => mon.name == like.name);
+
+			if (like.obj == null || like.obj == undefined) // is deco
+			{
+				like.obj = decorations.find(deco => deco.name == like.name);
+
+				if (like.obj == null || like.obj == undefined)
+				{
+					// complain
+					console.error("deco like not found: " + like.name + " for monster " + monster.name)
+				}
+				
+				like.isDecoration = true;
+			}
+			else // is monster
+			{
+				like.isDecoration = false;
+			}
+		});
 	});
 
 	return monsters;

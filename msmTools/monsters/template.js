@@ -53,14 +53,22 @@ for (const daLike of daMonster.likes)
 {
     const showitDiv = document.createElement("div");
     showitDiv.classList.add("monsterShowitDiv");
-        const islandImg = document.createElement("img");
-        islandImg.src = daLike.island.symbol;
-        showitDiv.appendChild(islandImg);
+    monsterLikes.appendChild(showitDiv);
+        const decoImg = document.createElement("img");
+        if (daLike.isDecoration)
+        {
+            // decoImg.src = daLike.island.symbol;
+            decoImg.src = daLike.obj.image;
+        }
+        else
+        {
+            decoImg.src = daLike.obj.portrait;
+        }
+        showitDiv.appendChild(decoImg);
 
         const likeName = document.createElement("p");
         likeName.textContent = daLike.name;
         showitDiv.appendChild(likeName);
-    monsterLikes.appendChild(showitDiv);
 }
 
 const monsterBio = document.getElementById("monsterBio");
