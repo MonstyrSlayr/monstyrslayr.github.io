@@ -164,7 +164,7 @@ try:
                                     
                                     level_db = monster_soup.find("td", attrs = {"data-source": "available"})
                                     if level_db:
-                                        level_available.append(level_db.find("b").text.strip().split()[-1])
+                                        level_available.append(level_db.find("b").text.strip().replace("Available at Level ", ""))
                                     else:
                                         level_available.append("")
                                     
