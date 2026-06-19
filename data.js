@@ -333,6 +333,8 @@ export const skillset =
     "DevOps Cycle",
     "Scrum",
     "Agile Methodologies",
+    "Waterfall",
+    "Software Development Life Cycle",
     "Risk Management",
 
     // youtube
