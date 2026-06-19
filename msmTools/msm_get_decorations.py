@@ -106,11 +106,11 @@ try:
                                         is_trophy = True
                                     img_data = requests.get(card_img["src"]).content
 
-                                    img_name = "./msmTools/img/decorations/" + a_tag["href"].strip().replace("/wiki/", "") + ".png"
+                                    img_name = "./msmTools/img/decorations/" + a_tag["href"].strip().replace("/wiki/", "").replace("%27", "") + ".png"
                                     os.makedirs(os.path.dirname(img_name), exist_ok=True)
                                     with open(img_name, 'wb') as handler:
                                         handler.write(img_data)
-                                    images.append(a_tag["href"].strip().replace("/wiki/", "") + ".png")
+                                    images.append(a_tag["href"].strip().replace("/wiki/", "").replace("%27", "") + ".png" + ".png")
 
                                     level_db = deco_soup.find("div", attrs = {"data-source": "available"})
                                     if level_db:

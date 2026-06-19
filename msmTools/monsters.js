@@ -263,6 +263,8 @@ export async function getDecorations()
 
 	for (const decoLine of decoResults.data)
 	{
+		if (!decoLine.name) continue;
+		
 		const deco = new Decoration();
 
 		deco.name = decoLine.name;
