@@ -314,19 +314,30 @@ export const featuredProgrammingProject = msmCutTheRoster;
 export const skillset =
 [
     // programming
-    "Web development",
-    "Game development",
-    "Project management",
-    "Database management",
-    "DevOps cycle",
-    "Repository management",
+    "Web Development",
+    "Game Development",
+    "Project Management",
+    "Database Management",
+    "Repository Management",
     "Git",
     "GitHub",
     "GitLab",
-    
+    "Docker",
+    "Embedded Software",
+    "Full Stack Development",
+
+    "Windows Development",
+    "Linux Development",
+
+    // process
+    "DevOps Cycle",
+    "Scrum",
+    "Agile Methodologies",
+    "Risk Management",
+
     // youtube
-    "Community moderation",
-    "Content creation"
+    "Community Moderation",
+    "Content Creation"
 ]
 
 export const languages =

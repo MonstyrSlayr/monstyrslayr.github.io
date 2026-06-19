@@ -27,6 +27,7 @@ for (const edu of education)
 }
 
 const skillsDiv = document.getElementById("skillset");
+skillset.sort((a, b) => Math.random() - Math.random());
 for (const skill of skillset)
 {
     const skillText = document.createElement("p");
