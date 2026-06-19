@@ -110,7 +110,7 @@ try:
                                     os.makedirs(os.path.dirname(img_name), exist_ok=True)
                                     with open(img_name, 'wb') as handler:
                                         handler.write(img_data)
-                                    images.append(a_tag["href"].strip().replace("/wiki/", "").replace("%27", "") + ".png" + ".png")
+                                    images.append(a_tag["href"].strip().replace("/wiki/", "").replace("%27", "") + ".png")
 
                                     level_db = deco_soup.find("div", attrs = {"data-source": "available"})
                                     if level_db:
