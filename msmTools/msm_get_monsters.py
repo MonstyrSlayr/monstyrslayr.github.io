@@ -35,7 +35,7 @@ tables = soup.find_all("table")
 
 print("beginning parsage")
 
-max_monsters = 31 * 3 # for testing, set to -1 to process all monsters
+max_monsters = -1 # for testing, set to -1 to process all monsters
 starting_monster = "" # for testing, set to blank for all monsters
 has_started = False
 monster_count = 0
