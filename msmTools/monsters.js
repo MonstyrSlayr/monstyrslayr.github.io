@@ -595,7 +595,7 @@ export async function getMonsters()
 			const breedingStringArr = monsterLine["breeding_combos"].split("&").slice(0, -1);
 			for (const breedingString of breedingStringArr)
 			{
-				const daSplit = likeString.split(":");
+				const daSplit = breedingString.split(":");
 
 				if (daSplit)
 				{
