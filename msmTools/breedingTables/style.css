@@ -1,0 +1,78 @@
+#breedingTable
+{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.breedingTableRow
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+}
+
+.breedingTableSquare
+{
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.breedingTableSquare:has(img)
+{
+    border-bottom: solid white 2px;
+    border-right: solid white 2px;
+}
+
+.uniqueElements
+{
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.breedingTableSquare > img
+{
+    aspect-ratio: 1 / 1;
+    margin: auto;
+    position: absolute;
+    width: 80%;
+    object-fit: cover;
+    width: var(--image-size);
+
+    left: calc(var(--start) + var(--offset) * var(--i));
+    top: calc(var(--start) + var(--offset) * var(--i));
+}
+
+.breedingDoubleSquare
+{
+    aspect-ratio: 1 / 1;
+    margin: auto;
+    position: absolute;
+    width: 80%;
+    object-fit: cover;
+    width: var(--image-size);
+
+    left: calc(var(--start) + var(--offset) * var(--i));
+    top: calc(var(--start) + var(--offset) * var(--i));
+
+    overflow: hidden;
+}
+
+.breedingDoubleSquare > img
+{
+    aspect-ratio: 1 / 1;
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    object-fit: cover;
+    width: var(--image-size-2);
+
+    left: calc(var(--start-2) + var(--offset-2) * var(--j-2));
+    top: calc(var(--start-2) + var(--offset-2) * var(--i-2));
+}
+
+.trivial
+{
+    opacity: 0.33;
+}

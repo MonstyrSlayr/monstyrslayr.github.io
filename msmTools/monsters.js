@@ -209,6 +209,7 @@ export class Monster
 	likes;
 	bio;
 	egg = null;
+	breedingCombos;
 }
 
 class Decoration
@@ -233,6 +234,19 @@ class Like
 		this.island = island;
 		this.isDecoration = true;
 		this.obj = null;
+	}
+}
+
+class BreedingCombo
+{
+	monsterStrings;
+	island;
+
+	constructor(monsterStrings, island)
+	{
+		this.monsterStrings = monsterStrings;
+		this.island = island;
+		this.monsters = [];
 	}
 }
 
@@ -534,6 +548,7 @@ export async function getMonsters()
 
 			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
 			monster.likes = new Set();
+			monster.breedingCombos = new Set()
 			monster.positive = null;
 			monster.negative = null;
 
@@ -573,6 +588,31 @@ export async function getMonsters()
 								monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
 							}
 						}
+					}
+				}
+			}
+
+			const breedingStringArr = monsterLine["breeding_combos"].split("&").slice(0, -1);
+			for (const breedingString of breedingStringArr)
+			{
+				const daSplit = likeString.split(":");
+
+				if (daSplit)
+				{
+					const daMonsters = daSplit[1].split("*");
+					const islandName = daSplit[0];
+
+					if (islandName == "All")
+					{
+						for (const island of monster.islands)
+						{
+							// who cares
+							monster.breedingCombos.add(new BreedingCombo(daMonsters, island));
+						}
+					}
+					else
+					{
+						monster.breedingCombos.add(new BreedingCombo(daMonsters, islandNameToIsland(islandName)));
 					}
 				}
 			}
@@ -749,7 +789,7 @@ export async function getMonsters()
 		// not audio, not enough resources
 	});
 
-	// likes
+	// likes and breeding
 	// can't go in the first loop because that's where they get their name
 	monsters.forEach((monster) => {
 		monster.likes.forEach((like) =>
@@ -772,6 +812,14 @@ export async function getMonsters()
 			{
 				like.isDecoration = false;
 			}
+		});
+
+		monster.breedingCombos.forEach((breedingCombo) =>
+		{
+			breedingCombo.monsterStrings.forEach((daString) =>
+			{
+				breedingCombo.monsters.push(monsters.find(mon => mon.name == daString));
+			});
 		});
 	});
 

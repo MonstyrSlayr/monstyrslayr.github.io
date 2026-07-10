@@ -8,7 +8,7 @@ class BreakException(Exception):
 class SkipException(Exception):
     pass
 
-names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year = [], [], [], [], [], [], [], [], [], [], [], []
+names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year, breeding_combos = [], [], [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
 headers = {
@@ -35,7 +35,7 @@ tables = soup.find_all("table")
 
 print("beginning parsage")
 
-max_monsters = -1 # for testing, set to -1 to process all monsters
+max_monsters = 31 * 3 # for testing, set to -1 to process all monsters
 starting_monster = "" # for testing, set to blank for all monsters
 has_started = False
 monster_count = 0
@@ -246,6 +246,22 @@ try:
                                     for br in bio_tds[1].find_all("br"):
                                         br.replace_with("\n")
                                     bios.append(bio_tds[1].get_text().strip())
+
+                                    # get breeding combos
+                                    breeding_table = monster_soup.find("table", class_ = "breedingcombo")
+                                    breeding_combo_string = ""
+                                    if breeding_table:
+                                        breeding_trs = breeding_table.find_all("tr")
+
+                                        if len(breeding_trs) == 1:
+                                            breeding_tds = breeding_trs[0].find_all("td")
+
+                                            breeding_monster_0 = breeding_tds[0].find_all("a")[1].get_text().strip()
+                                            breeding_monster_1 = breeding_tds[2].find_all("a")[1].get_text().strip()
+
+                                            breeding_combo_string = "All:" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                    
+                                    breeding_combos.append(breeding_combo_string)
                             
                                     if (monster_count == max_monsters):
                                         raise BreakException
@@ -265,6 +281,7 @@ df = pd.DataFrame({"name": names,
                     "first_discovered": first_discovered,
                     "release_year": release_year,
                     "inventory": inventory,
-                    "time_limit": time_limit})
+                    "time_limit": time_limit,
+                    "breeding_combos": breeding_combos})
 
 df.to_csv("./msmTools/monsterData.csv")
