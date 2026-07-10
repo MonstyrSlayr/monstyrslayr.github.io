@@ -12,7 +12,8 @@ function sortDaMons(a, b)
     }
 }
 
-const plantIslandNaturals = monsters.filter((mon) => mon.class == MCLASS.NATURAL && mon.islands.has(stringToIsland("Plant"))).sort(sortDaMons);
+const daIsland = stringToIsland("Plant");
+const plantIslandNaturals = monsters.filter((mon) => mon.class == MCLASS.NATURAL && mon.islands.has(daIsland)).sort(sortDaMons);
 
 const rowMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.RARE).reverse();
 const colMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.COMMON);
@@ -88,17 +89,31 @@ for (let y = 0; y < rowMonsters.length; y++)
                 meySquare.appendChild(daColSquare);
             }
 
-            const shareElements = !rowMon.elements.isDisjointFrom(colMon.elements);
+            // const shareElements = !rowMon.elements.isDisjointFrom(colMon.elements);
 
-            if (!shareElements)
+            // if (!shareElements)
+            // {
+            //     meySquare.classList.add("uniqueElements");
+
+            //     const mergedElements = new Set([...rowMon.elements, ...colMon.elements]);
+            //     const bredMon0 = colMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
+            //     const bredMon1 = rowMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
+            //     const daSquare = makeDoubleSquareImage(bredMon0, bredMon1);
+            //     meySquare.appendChild(daSquare);
+            // }
+
+            for (const mon of monsters)
             {
-                meySquare.classList.add("uniqueElements");
+                const breedingCombo = [...mon.breedingCombos].find((combo) => combo.island == daIsland);
 
-                const mergedElements = new Set([...rowMon.elements, ...colMon.elements]);
-                const bredMon0 = colMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
-                const bredMon1 = rowMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
-                const daSquare = makeDoubleSquareImage(bredMon0, bredMon1);
-                meySquare.appendChild(daSquare);
+                if (breedingCombo != null)
+                {
+                    if (areSetsEqual(new Set([rowMon, colMon]), breedingCombo.monsters))
+                    {
+                        const daSquare = makeSquareImage(mon);
+                        meySquare.appendChild(daSquare);
+                    }
+                }
             }
         }
     }

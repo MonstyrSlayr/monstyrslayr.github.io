@@ -246,7 +246,7 @@ class BreedingCombo
 	{
 		this.monsterStrings = monsterStrings;
 		this.island = island;
-		this.monsters = [];
+		this.monsters = new Set();
 	}
 }
 
@@ -818,7 +818,7 @@ export async function getMonsters()
 		{
 			breedingCombo.monsterStrings.forEach((daString) =>
 			{
-				breedingCombo.monsters.push(monsters.find(mon => mon.name == daString));
+				breedingCombo.monsters.add(monsters.find(mon => mon.name == daString));
 			});
 		});
 	});

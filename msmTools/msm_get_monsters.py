@@ -253,13 +253,22 @@ try:
                                     if breeding_table:
                                         breeding_trs = breeding_table.find_all("tr")
 
-                                        if len(breeding_trs) == 1:
-                                            breeding_tds = breeding_trs[0].find_all("td")
+                                        for beeding_tr in breeding_trs:
+                                            breeding_tds = beeding_tr.find_all("td")
 
-                                            breeding_monster_0 = breeding_tds[0].find_all("a")[1].get_text().strip()
-                                            breeding_monster_1 = breeding_tds[2].find_all("a")[1].get_text().strip()
+                                            if len(breeding_tds) == 3:
+                                                if len(breeding_tds[0].find_all("a")) > 1 and len(breeding_tds[2].find_all("a")) > 1:
+                                                    breeding_monster_0 = breeding_tds[0].find_all("a")[1].get_text().strip()
+                                                    breeding_monster_1 = breeding_tds[2].find_all("a")[1].get_text().strip()
+                                                    
+                                                    breeding_combo_string += "All:" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                            elif len(breeding_tds) == 4:
+                                                if len(breeding_tds[1].find_all("a")) > 1 and len(breeding_tds[3].find_all("a")) > 1:
+                                                    island_name = breeding_tds[0].find_all("a")[1].get_text().strip()
+                                                    breeding_monster_0 = breeding_tds[1].find_all("a")[1].get_text().strip()
+                                                    breeding_monster_1 = breeding_tds[3].find_all("a")[1].get_text().strip()
 
-                                            breeding_combo_string = "All:" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                                    breeding_combo_string += island_name + ":" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
                                     
                                     breeding_combos.append(breeding_combo_string)
                             
