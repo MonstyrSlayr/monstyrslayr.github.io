@@ -268,7 +268,11 @@ try:
                                                     breeding_monster_0 = breeding_tds[1].find_all("a")[1].get_text().strip()
                                                     breeding_monster_1 = breeding_tds[3].find_all("a")[1].get_text().strip()
 
-                                                    breeding_combo_string += island_name + ":" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                                    if island_name == "Fire Islands":
+                                                        breeding_combo_string += "Fire Haven:" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                                        breeding_combo_string += "Fire Oasis:" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
+                                                    else:
+                                                        breeding_combo_string += island_name + ":" + breeding_monster_0 + "*" + breeding_monster_1 + "&"
                                     
                                     breeding_combos.append(breeding_combo_string)
                             

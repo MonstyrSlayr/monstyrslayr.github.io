@@ -31,6 +31,54 @@
     background-color: rgba(0, 255, 0, 0.5);
 }
 
+.rare
+{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.seasonal
+{
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.legendary
+{
+    background-color: rgba(0, 0, 255, 0.5);
+}
+
+.ethereal
+{
+    background-color: rgba(255, 0, 255, 0.5);
+}
+
+.mythical
+{
+    background-color: rgba(0, 255, 255, 0.5);
+}
+
+.epic
+{
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+.seasonal.legendary
+{
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 0, 0, 0.5),
+        rgba(0, 0, 255, 0.5)
+    );
+}
+
+.seasonal.mythical
+{
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 0, 0, 0.5),
+        rgba(0, 255, 255, 0.5)
+    );
+}
+
 .breedingTableSquare > img
 {
     aspect-ratio: 1 / 1;

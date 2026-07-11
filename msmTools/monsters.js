@@ -548,7 +548,7 @@ export async function getMonsters()
 
 			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
 			monster.likes = new Set();
-			monster.breedingCombos = new Set()
+			monster.breedingCombos = new Set();
 			monster.positive = null;
 			monster.negative = null;
 
