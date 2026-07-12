@@ -39,6 +39,27 @@ function makeDoubleSquareImage(monster0, monster1)
     return daDiv;
 }
 
+function makeHeaderBasedOnIsland(daIsland)
+{
+    const daHeader = document.createElement("div");
+    daHeader.classList.add("tableHeader");
+
+        const daHeading = document.createElement("h1");
+        daHeading.textContent = daIsland.name + " Breeding Table";
+        daHeader.appendChild(daHeading);
+
+        const daIcon = document.createElement("img");
+        daIcon.src = daIsland.symbol;
+        daIcon.alt = "...";
+        daHeader.appendChild(daIcon);
+
+        const daCredit = document.createElement("h3");
+        daCredit.textContent = "made by MonstyrSlayr";
+        daHeader.appendChild(daCredit);
+    
+    return daHeader;
+}
+
 export async function makeNaturalTable(daIsland, daElements = new Set())
 {
     const monsters = await getMonsters();
@@ -176,6 +197,98 @@ export async function makeNaturalTable(daIsland, daElements = new Set())
     }
 
     standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
+}
+
+export async function makePaironormalTable()
+{
+    const monsters = await getMonsters();
+    const RARITY = getRarities();
+    const MCLASS = getClasses();
+
+    const daIsland = stringToIsland("Paironormal");
+    const daElements = new Set([stringToElementSigil("Control"),
+                                    stringToElementSigil("Hoax"),
+                                    stringToElementSigil("Ruin"),
+                                    stringToElementSigil("Depths")]);
+
+    const invIntersec = new Set(getElements()).symmetricDifference(daElements);
+
+    const plantIslandNaturals = monsters.filter((mon) => ![...mon.elements].some(ele => invIntersec.has(ele)) && mon.class != MCLASS.SEASONAL && mon.islands.has(daIsland)).sort(sortDaMons);
+
+    const rowMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.MINOR).reverse();
+    const colMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.MAJOR);
+
+    const coolMonsters = monsters.filter((mon) => mon.class == MCLASS.PAIRONORMAL)
+                                .reverse();
+
+    const breedingTable = document.getElementById("breedingTable");
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meyRow = document.createElement("div");
+        meyRow.classList.add("breedingTableRow");
+        meyRow.style.gridTemplateColumns = `repeat(${rowMonsters.length}, 1fr)`;
+        breedingTable.appendChild(meyRow);
+
+        for (let x = 0; x < colMonsters.length; x++)
+        {
+            const meySquare = document.createElement("div");
+            meySquare.classList.add("breedingTableSquare");
+            meyRow.appendChild(meySquare);
+            
+            if (x + y > colMonsters.length - 2)
+            {
+                // fun breeding stuff
+                const colMon = colMonsters[x];
+                const rowMon = colMonsters.find((mon) => rowMonsters[y].elementString == mon.elementString);
+
+                if (rowMon == colMon)
+                {
+                    const rareRowMon = rowMonsters.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+                    const daSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+                    meySquare.appendChild(daSquare);
+
+                    continue;
+                }
+                else
+                {
+                    const rareRowMon = rowMonsters.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+                    const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+                    daRowSquare.classList.add("trivial");
+                    meySquare.appendChild(daRowSquare);
+
+                    const rareColMon = rowMonsters.find((mon) => areSetsEqual(colMon.elements, mon.elements));
+                    const daColSquare = makeDoubleSquareImage(colMon, rareColMon);
+                    daColSquare.classList.add("trivial");
+                    meySquare.appendChild(daColSquare);
+                }
+
+                const shareElements = !rowMon.elements.isDisjointFrom(colMon.elements);
+
+                if (!shareElements)
+                {
+                    const mergedElements = new Set([...rowMon.elements, ...colMon.elements]);
+                    const bredMon0 = colMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
+                    if (bredMon0)
+                    {
+                        meySquare.classList.add("uniqueElements");
+
+                        const bredMon1 = rowMonsters.find((mon) => areSetsEqual(mon.elements, mergedElements));
+                        const daSquare = makeDoubleSquareImage(bredMon0, bredMon1);
+                        meySquare.appendChild(daSquare);
+                    }
+                }
+            }
+        }
+    }
+
+    standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
 }
 
 export async function makeEtherealIslandTable()
@@ -281,6 +394,304 @@ export async function makeEtherealIslandTable()
     }
 
     standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
+}
+
+export async function makeSeasonalShantyTable()
+{
+    const monsters = await getMonsters();
+    const RARITY = getRarities();
+    const MCLASS = getClasses();
+
+    const daIsland = stringToIsland("Seasonal");
+
+    const plantIslandNaturals = monsters.filter((mon) => mon.islands.has(daIsland)).sort(sortDaMons);
+
+    const rowMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.RARE).reverse();
+    const colMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.COMMON);
+
+    const coolMonsters = monsters.filter((mon) => mon.class == MCLASS.SEASONAL && mon.rarity != RARITY.RARE)
+                                .reverse();
+
+    const breedingTable = document.getElementById("breedingTable");
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meyRow = document.createElement("div");
+        meyRow.classList.add("breedingTableRow");
+        meyRow.style.gridTemplateColumns = `repeat(${rowMonsters.length}, 1fr)`;
+        breedingTable.appendChild(meyRow);
+
+        for (let x = 0; x < colMonsters.length; x++)
+        {
+            const meySquare = document.createElement("div");
+            meySquare.classList.add("breedingTableSquare");
+            meyRow.appendChild(meySquare);
+            
+            if (x + y > colMonsters.length - 2)
+            {
+                const colMon = colMonsters[x];
+                const rowMon = colMonsters.find((mon) => rowMonsters[y].elementString == mon.elementString);
+
+                if (rowMon == colMon)
+                {
+                    const rareRowMon = rowMonsters.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+                    const daSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+                    meySquare.appendChild(daSquare);
+
+                    continue;
+                }
+                else
+                {
+                    const rareRowMon = rowMonsters.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+                    const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+                    daRowSquare.classList.add("trivial");
+                    meySquare.appendChild(daRowSquare);
+
+                    const rareColMon = rowMonsters.find((mon) => areSetsEqual(colMon.elements, mon.elements));
+                    const daColSquare = makeDoubleSquareImage(colMon, rareColMon);
+                    daColSquare.classList.add("trivial");
+                    meySquare.appendChild(daColSquare);
+                }
+
+                const breedMonsters = coolMonsters.filter((mon) => [...mon.breedingCombos].some((combo) => combo.island == daIsland && combo.monsters.has(rowMon) && combo.monsters.has(colMon)));
+                
+                for (const mon of breedMonsters)
+                {
+                    if (mon.rarity == RARITY.EPIC)
+                    {
+                        meySquare.classList.add("epic");
+                    }
+                    else
+                    {
+                        meySquare.classList.add("uniqueElements");
+                    }
+
+                    const rareMon = monsters.find((m) => m.elementString == mon.elementString && (m.rarity == RARITY.RARE || m.rarity == RARITY.MINOR));
+                    if ((mon.rarity == RARITY.COMMON || mon.rarity == RARITY.MAJOR) && rareMon != null)
+                    {
+                        const daSquare = makeDoubleSquareImage(mon, rareMon);
+                        meySquare.appendChild(daSquare);
+                    }
+                    else
+                    {
+                        const daSquare = makeSquareImage(mon);
+                        meySquare.appendChild(daSquare);
+                    }
+                }
+            }
+        }
+    }
+
+    standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
+}
+
+export async function makeShugabushIslandTable()
+{
+    const monsters = await getMonsters();
+    const RARITY = getRarities();
+    const MCLASS = getClasses();
+
+    const daIsland = stringToIsland("Shugabush");
+
+    const plantIslandNaturals = monsters.filter((mon) => mon.islands.has(daIsland) && mon.class == MCLASS.NATURAL).sort(sortDaMons);
+
+    const rowMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.COMMON);
+    const colMonster = monsters.find((mon) => mon.class == MCLASS.SHUGAFAM && mon.islands.has(stringToIsland("Plant")));
+
+    const coolMonsters = monsters.filter((mon) => mon.islands.has(daIsland) && mon.rarity != RARITY.RARE)
+                                .reverse();
+
+    const breedingTable = document.getElementById("breedingTable");
+
+    const meyRow = document.createElement("div");
+    meyRow.classList.add("breedingTableRow");
+    meyRow.style.gridTemplateColumns = `repeat(${rowMonsters.length + 1}, 1fr)`;
+    breedingTable.appendChild(meyRow);
+
+    const nullSquare = document.createElement("div");
+    nullSquare.classList.add("breedingTableSquare");
+    meyRow.appendChild(nullSquare);
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meySquare = document.createElement("div");
+        meySquare.classList.add("breedingTableSquare");
+        meyRow.appendChild(meySquare);
+
+        const rowMon = rowMonsters[y];
+        const rareRowMon = plantIslandNaturals.find((mon) => areSetsEqual(rowMon.elements, mon.elements) && mon.rarity == RARITY.RARE);
+        const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+        meySquare.appendChild(daRowSquare);
+    }
+
+    const meyRowReal = document.createElement("div");
+    meyRowReal.classList.add("breedingTableRow");
+    meyRowReal.style.gridTemplateColumns = `repeat(${rowMonsters.length + 1}, 1fr)`;
+    breedingTable.appendChild(meyRowReal);
+
+    const shugaSquare = document.createElement("div");
+    shugaSquare.classList.add("breedingTableSquare");
+    meyRowReal.appendChild(shugaSquare);
+
+        const shugaSquarma = makeSquareImage(colMonster);
+        shugaSquare.appendChild(shugaSquarma);
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meySquare = document.createElement("div");
+        meySquare.classList.add("breedingTableSquare");
+        meyRowReal.appendChild(meySquare);
+
+        const rowMon = rowMonsters[y];
+
+        const rareRowMon = plantIslandNaturals.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+        const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+        daRowSquare.classList.add("trivial");
+        meySquare.appendChild(daRowSquare);
+
+        const daColSquare = makeSquareImage(colMonster);
+        daColSquare.classList.add("trivial");
+        meySquare.appendChild(daColSquare);
+
+        const breedMonsters = coolMonsters.filter((mon) => [...mon.breedingCombos].some((combo) => combo.island == daIsland && combo.monsters.has(rowMon) && combo.monsters.has(colMonster)));
+        
+        for (const mon of breedMonsters)
+        {
+            if (mon.class == MCLASS.SEASONAL)
+            {
+                meySquare.classList.add("seasonal");
+            }
+            else if (mon.rarity == RARITY.EPIC)
+            {
+                meySquare.classList.add("epic");
+            }
+
+            const rareMon = monsters.find((m) => m.elementString == mon.elementString && (m.rarity == RARITY.RARE || m.rarity == RARITY.MINOR));
+            if ((mon.rarity == RARITY.COMMON || mon.rarity == RARITY.MAJOR) && rareMon != null)
+            {
+                const daSquare = makeDoubleSquareImage(mon, rareMon);
+                meySquare.appendChild(daSquare);
+            }
+            else
+            {
+                const daSquare = makeSquareImage(mon);
+                meySquare.appendChild(daSquare);
+            }
+        }
+    }
+
+    standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
+}
+
+export async function makeMythicalIslandTable()
+{
+    const monsters = await getMonsters();
+    const RARITY = getRarities();
+    const MCLASS = getClasses();
+
+    const daIsland = stringToIsland("Mythical");
+
+    const plantIslandNaturals = monsters.filter((mon) => mon.islands.has(daIsland) && mon.class == MCLASS.MYTHICAL).sort(sortDaMons);
+
+    const rowMonsters = plantIslandNaturals.filter((mon) => mon.rarity == RARITY.COMMON);
+    const colMonster = monsters.find((mon) => mon.class == MCLASS.DREAMYTHICAL && mon.elements.size == 1);
+
+    const coolMonsters = monsters.filter((mon) => mon.islands.has(daIsland) && mon.rarity != RARITY.RARE)
+                                .reverse();
+
+    const breedingTable = document.getElementById("breedingTable");
+
+    const meyRow = document.createElement("div");
+    meyRow.classList.add("breedingTableRow");
+    meyRow.style.gridTemplateColumns = `repeat(${rowMonsters.length + 1}, 1fr)`;
+    breedingTable.appendChild(meyRow);
+
+    const nullSquare = document.createElement("div");
+    nullSquare.classList.add("breedingTableSquare");
+    meyRow.appendChild(nullSquare);
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meySquare = document.createElement("div");
+        meySquare.classList.add("breedingTableSquare");
+        meyRow.appendChild(meySquare);
+
+        const rowMon = rowMonsters[y];
+        const rareRowMon = plantIslandNaturals.find((mon) => mon.elementString == rowMon.elementString && mon.rarity == RARITY.RARE);
+        const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+        meySquare.appendChild(daRowSquare);
+    }
+
+    const meyRowReal = document.createElement("div");
+    meyRowReal.classList.add("breedingTableRow");
+    meyRowReal.style.gridTemplateColumns = `repeat(${rowMonsters.length + 1}, 1fr)`;
+    breedingTable.appendChild(meyRowReal);
+
+    const shugaSquare = document.createElement("div");
+    shugaSquare.classList.add("breedingTableSquare");
+    meyRowReal.appendChild(shugaSquare);
+
+        const rareShuga = monsters.find((mon) => mon.elementString == colMonster.elementString && mon.rarity == RARITY.RARE);
+        const shugaSquarma = makeDoubleSquareImage(colMonster, rareShuga);
+        shugaSquare.appendChild(shugaSquarma);
+
+    for (let y = 0; y < rowMonsters.length; y++)
+    {
+        const meySquare = document.createElement("div");
+        meySquare.classList.add("breedingTableSquare");
+        meyRowReal.appendChild(meySquare);
+
+        const rowMon = rowMonsters[y];
+
+        const rareRowMon = plantIslandNaturals.find((mon) => areSetsEqual(rowMon.elements, mon.elements));
+        const daRowSquare = makeDoubleSquareImage(rowMon, rareRowMon);
+        daRowSquare.classList.add("trivial");
+        meySquare.appendChild(daRowSquare);
+
+        const daColSquare = makeDoubleSquareImage(colMonster, rareShuga);
+        daColSquare.classList.add("trivial");
+        meySquare.appendChild(daColSquare);
+
+        const breedMonsters = coolMonsters.filter((mon) => [...mon.breedingCombos].some((combo) => combo.island == daIsland && combo.monsters.has(rowMon) && combo.monsters.has(colMonster)));
+        
+        for (const mon of breedMonsters)
+        {
+            if (mon.class == MCLASS.SEASONAL)
+            {
+                meySquare.classList.add("seasonal");
+            }
+            else if (mon.rarity == RARITY.EPIC)
+            {
+                meySquare.classList.add("epic");
+            }
+
+            const rareMon = monsters.find((m) => m.elementString == mon.elementString && (m.rarity == RARITY.RARE || m.rarity == RARITY.MINOR));
+            if ((mon.rarity == RARITY.COMMON || mon.rarity == RARITY.MAJOR) && rareMon != null)
+            {
+                const daSquare = makeDoubleSquareImage(mon, rareMon);
+                meySquare.appendChild(daSquare);
+            }
+            else
+            {
+                const daSquare = makeSquareImage(mon);
+                meySquare.appendChild(daSquare);
+            }
+        }
+    }
+
+    standardizeTable();
+
+    const daHeader = makeHeaderBasedOnIsland(daIsland);
+    breedingTable.appendChild(daHeader);
 }
 
 function standardizeTable()
