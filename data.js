@@ -241,7 +241,7 @@ const fullRadiation = new Project(
 
 const deltaruneMotifs = new Project(
     "Deltarune Motifs",
-    "A website documenting leitmotifs in the soundtracks of UNDERTALE and DELTARUNE.",
+    "A website documenting leitmotifs in the soundtracks of UNDERTALE and DELTARUNE. My motif guides have a combined total of over 700,000 views on YouTube.",
     HOME + "img/deltaruneMotifs.png",
     "https://monstyrslayr.github.io/deltarunemotifs",
     new Date("12/20/2025"),
@@ -289,6 +289,16 @@ const juggleInWebsite = new Project(
     [html, css, javascript, juggling]
 );
 
+const krisPronounsAreBadApple = new Project(
+    "Kris's Pronouns are Bad/Apple",
+    "Making Kris's pronoun references on the Deltarune Wiki play the Bad Apple music video.",
+    HOME + "img/krisPronounsAreBadApple.png",
+    "https://youtu.be/NjdIOGG_KZs",
+    new Date("07/23/2026"),
+    false,
+    [html, css, javascript, deltarune, github, youtube, badapple]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -309,7 +319,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = msmCutTheRoster;
+export const featuredProgrammingProject = krisPronounsAreBadApple;
 
 export const skillset =
 [
