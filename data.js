@@ -309,7 +309,8 @@ export const programmingProjects =
     fullRadiation, deltaruneMotifs,
     kairosProTierLists,
     artArchive,
-    jugglingClubWebsite, juggleInWebsite
+    jugglingClubWebsite, juggleInWebsite,
+    krisPronounsAreBadApple
 ];
 
 export const artProjects =
