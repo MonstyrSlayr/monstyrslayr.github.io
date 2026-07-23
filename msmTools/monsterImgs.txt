@@ -181,6 +181,7 @@ monster_portrait_square_ceny_rare.webp
 monster_portrait_square_cen_epic.webp
 monster_portrait_square_cen_rare.webp
 monster_portrait_square_cey.webp
+monster_portrait_square_cey_epic.webp
 monster_portrait_square_cey_rare.webp
 monster_portrait_square_ce_epic.webp
 monster_portrait_square_ce_rare.webp
@@ -293,6 +294,8 @@ monster_portrait_square_i07_maj.webp
 monster_portrait_square_i07_min.webp
 monster_portrait_square_i08_maj.webp
 monster_portrait_square_i08_min.webp
+monster_portrait_square_i09_maj.webp
+monster_portrait_square_i09_min.webp
 monster_portrait_square_i11_maj.webp
 monster_portrait_square_i11_min.webp
 monster_portrait_square_i12_maj.webp
@@ -383,6 +386,7 @@ monster_portrait_square_p12.webp
 monster_portrait_square_p12_epic.webp
 monster_portrait_square_p12_rare.webp
 monster_portrait_square_p13.webp
+monster_portrait_square_p13_epic.webp
 monster_portrait_square_p13_rare.webp
 monster_portrait_square_p14.webp
 monster_portrait_square_p14_epic.webp
