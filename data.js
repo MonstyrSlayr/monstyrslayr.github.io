@@ -299,6 +299,16 @@ const krisPronounsAreBadApple = new Project(
     [html, css, javascript, deltarune, github, youtube, badapple]
 );
 
+const snafApple = new Project(
+    "Coaxed into a Snaf Apple",
+    "Recreating the Bad Apple music video using 1,000 posts from the subreddit r/coaxedintoasnafu",
+    HOME + "img/snafApple.png",
+    "https://youtu.be/A3jC-4428_U",
+    new Date("08/01/2026"),
+    false,
+    [html, css, javascript, github, youtube, badapple]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -310,7 +320,7 @@ export const programmingProjects =
     kairosProTierLists,
     artArchive,
     jugglingClubWebsite, juggleInWebsite,
-    krisPronounsAreBadApple
+    krisPronounsAreBadApple, snafApple
 ];
 
 export const artProjects =
@@ -320,7 +330,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = krisPronounsAreBadApple;
+export const featuredProgrammingProject = snafApple;
 
 export const skillset =
 [
