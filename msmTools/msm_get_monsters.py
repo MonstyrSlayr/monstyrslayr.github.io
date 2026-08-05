@@ -170,11 +170,15 @@ try:
                                     
                                     beds_db = monster_soup.find("td", attrs = {"data-source": "beds required"})
                                     if beds_db:
-                                        da_beds = beds_db.find("b").text.strip().split()[0]
-                                        if da_beds == "N/A" or da_beds == "Zero":
-                                            beds.append(0)
+                                        gruh = beds_db.find("b")
+                                        if gruh:
+                                            da_beds = gruh.text.strip().split()[0]
+                                            if da_beds == "N/A" or da_beds == "Zero":
+                                                beds.append(0)
+                                            else:
+                                                beds.append(da_beds)
                                         else:
-                                            beds.append(da_beds)
+                                            beds.append("")
                                     else:
                                         beds.append("")
                                     

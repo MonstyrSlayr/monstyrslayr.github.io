@@ -8,7 +8,7 @@ function getLastFolder(url, num)
     return parts[parts.length - num];
 }
 
-const monsters = await getMonsters();
+const monsters = await getMonsters(true);
 const daMonster = monsters.find(monster => monster.id == getLastFolder(window.location.href, 1));
 
 const monsterName = document.getElementById("monsterName");

@@ -1,6 +1,6 @@
 import { getMonsters } from "../monsters.js"
 
-const monsters = await getMonsters();
+const monsters = await getMonsters(true);
 
 const monstersDiv = document.getElementById("monstersDiv");
 

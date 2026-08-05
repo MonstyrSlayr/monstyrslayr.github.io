@@ -8,7 +8,11 @@ const RARITY = Object.freeze
     YOUNG: "Young", // celestials only
     ADULT: "Adult", // celestials only
 	MAJOR: "Major", // paironormal only
-	MINOR: "Minor" // paironormal only
+	MINOR: "Minor", // paironormal only
+	TONAL: "Tonal", // dipster only
+	ELEMENTAL: "Elemental", // dipster only
+	ROYAL: "Royal", // dipster only
+	ASTRAL: "Astral" // dipster only
 });
 
 const MCLASS = Object.freeze
@@ -299,7 +303,9 @@ export async function getMonsters()
 {
 	const monsters = [];
 
-	const dataCsv = await fetch("https://monstyrslayr.github.io/msmTools/monsterData.csv");
+	const isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+
+	const dataCsv = await fetch(isLocal ? "http://127.0.0.1:5500/msmTools/monsterData.csv" : "https://monstyrslayr.github.io/msmTools/monsterData.csv");
 	if (!dataCsv.ok)
 	{
 		throw new Error("Network response was not ok");
@@ -307,7 +313,7 @@ export async function getMonsters()
 	const dataCsvText = await dataCsv.text();
 	const dataResults = await Papa.parse(dataCsvText, { header: true });
 
-	const codenameCsv = await fetch("https://monstyrslayr.github.io/msmTools/codenames.csv");
+	const codenameCsv = await fetch(isLocal ? "http://127.0.0.1:5500/msmTools/codenames.csv" : "https://monstyrslayr.github.io/msmTools/codenames.csv");
 	if (!codenameCsv.ok)
 	{
 		throw new Error("Network response was not ok");
@@ -315,7 +321,7 @@ export async function getMonsters()
 	const codenameCsvText = await codenameCsv.text();
 	const codenameResults = await Papa.parse(codenameCsvText, { header: true });
 
-	const response = await fetch("https://monstyrslayr.github.io/msmTools/monsterImgs.txt");
+	const response = await fetch(isLocal ? "http://127.0.0.1:5500/msmTools/monsterImgs.txt" : "https://monstyrslayr.github.io/msmTools/monsterImgs.txt");
 	if (!response.ok)
 	{
 		throw new Error("Network response was not ok");
@@ -455,6 +461,13 @@ export async function getMonsters()
 			monster.class = MCLASS.DIPSTER;
 			monster.identifier = parseInt(monster.elementString.replace("q", ""));
 			monster.elements.add(stringToElementSigil("Dipster"));
+
+			if (monster.identifier >= 22) monster.rarity = RARITY.ASTRAL;
+			else if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.TONAL;
+			else if (monster.rarity == RARITY.RARE) monster.rarity = RARITY.ELEMENTAL;
+			else if (monster.rarity == RARITY.EPIC) monster.rarity = RARITY.ROYAL;
+
+			console.log(monster.id);
 		}
 		else if (monster.elementString.startsWith("p"))
 		{
@@ -524,11 +537,19 @@ export async function getMonsters()
 		}
 
 		let codenameLine = codenameResults.data.find((line) =>
-			monster.elementString == line.codename)
+			monster.id == line.codename);
+
+		if (!codenameLine)
+		{
+			codenameLine = codenameResults.data.find((line) =>
+				monster.elementString == line.codename);
+		}
 
 		if (codenameLine)
 		{
-			monster.name = ((monster.rarity == RARITY.COMMON || monster.rarity == RARITY.YOUNG) ? "" : monster.rarity + " ") + codenameLine.monster;
+			monster.name = ((monster.rarity == RARITY.COMMON
+							|| monster.rarity == RARITY.YOUNG
+							|| monster.class == MCLASS.DIPSTER) ? "" : monster.rarity + " ") + codenameLine.monster;
 		}
 		else // complain
 		{
@@ -791,7 +812,10 @@ export async function getMonsters()
 
 	// likes and breeding
 	// can't go in the first loop because that's where they get their name
-	monsters.forEach((monster) => {
+	monsters.forEach((monster) =>
+	{
+		if (monster.likes == undefined) return;
+
 		monster.likes.forEach((like) =>
 		{
 			like.obj = monsters.find(mon => mon.name == like.name);
