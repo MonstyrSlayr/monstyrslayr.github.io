@@ -464,8 +464,6 @@ export async function getMonsters(isLocal = false)
 			else if (monster.rarity == RARITY.COMMON) monster.rarity = RARITY.TONAL;
 			else if (monster.rarity == RARITY.RARE) monster.rarity = RARITY.ELEMENTAL;
 			else if (monster.rarity == RARITY.EPIC) monster.rarity = RARITY.ROYAL;
-
-			console.log(monster.id);
 		}
 		else if (monster.elementString.startsWith("p"))
 		{
