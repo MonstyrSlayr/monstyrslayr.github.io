@@ -299,11 +299,9 @@ export async function getDecorations()
 	return decorations;
 }
 
-export async function getMonsters()
+export async function getMonsters(isLocal = false)
 {
 	const monsters = [];
-
-	const isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
 
 	const dataCsv = await fetch(isLocal ? "http://127.0.0.1:5500/msmTools/monsterData.csv" : "https://monstyrslayr.github.io/msmTools/monsterData.csv");
 	if (!dataCsv.ok)
