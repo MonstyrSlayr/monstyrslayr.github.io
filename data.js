@@ -309,6 +309,16 @@ const snafApple = new Project(
     [html, css, javascript, github, youtube, badapple]
 );
 
+const dipsweeper = new Project(
+    "Dipsweeper",
+    "A web based clone of Dipster Digs, the My Singing Monsters minigame",
+    HOME + "img/dipsweeper.png",
+    "https://monstyrslayr.github.io/dipsweeper/",
+    new Date("08/05/2026"),
+    false,
+    [html, css, javascript, msm]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -320,7 +330,7 @@ export const programmingProjects =
     kairosProTierLists,
     artArchive,
     jugglingClubWebsite, juggleInWebsite,
-    krisPronounsAreBadApple, snafApple
+    krisPronounsAreBadApple, snafApple, dipsweeper
 ];
 
 export const artProjects =
