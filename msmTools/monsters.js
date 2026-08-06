@@ -196,8 +196,44 @@ function islandStringsToSet(daArr)
 	let daSet = new Set();
 	for (const daStr of daArr)
 	{
-		daStr.replace(" Islet", "")
+		daStr.replace(" Islet", "");
 		daSet.add(stringToIsland(daStr));
+	}
+	return daSet;
+}
+
+export class Act // tion lawsuit
+{
+	name;
+	poster;
+
+	constructor(name, poster)
+	{
+		this.name = name;
+		this.poster = poster;
+		new Image().src = poster;
+	}
+}
+
+const acts = 
+[
+	new Act("Pomily Family Band", "https://monstyrslayr.github.io/msmTools/img/act/Pomily_Family_Band_Poster.webp"),
+	new Act("BlitherPhish", "https://monstyrslayr.github.io/msmTools/img/act/BlitherPhish_Poster.webp"),
+	new Act("Waveform", "https://monstyrslayr.github.io/msmTools/img/act/Waveform_Poster.webp"),
+	new Act("LVX LVMENZ", "https://monstyrslayr.github.io/msmTools/img/act/LVX_LVMENZ_Poster.webp"),
+];
+
+function actNameToIsland(daStr)
+{
+	return acts.find((act) => act.name == daStr);
+}
+
+function actNamesToSet(daArr)
+{
+	let daSet = new Set();
+	for (const daStr of daArr)
+	{
+		daSet.add(actNameToIsland(daStr));
 	}
 	return daSet;
 }
@@ -210,6 +246,7 @@ export class Monster
 	identifier;
 	elements;
 	islands;
+	acts;
 	likes;
 	bio;
 	egg = null;
@@ -608,6 +645,8 @@ export async function getMonsters(isLocal = false)
 					}
 				}
 			}
+
+			monster.acts = actNamesToSet(monsterLine.acts.split("&").slice(0, -1));
 
 			const breedingStringArr = monsterLine["breeding_combos"].split("&").slice(0, -1);
 			for (const breedingString of breedingStringArr)

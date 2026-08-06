@@ -41,6 +41,9 @@ for (const daElement of daMonster.elements)
 const monsterIslands = document.getElementById("monsterIslands");
 monsterIslands.innerHTML = "";
 
+const monsterActs = document.getElementById("monsterActs");
+monsterActs.innerHTML = "";
+
 const monsterLikes = document.getElementById("monsterLikes");
 monsterLikes.innerHTML = "";
 
@@ -100,6 +103,21 @@ for (const daIsland of daMonster.islands)
                     showitDiv.appendChild(likeName);
             }
     }
+}
+
+for (const daAct of daMonster.acts)
+{
+    const islandShowitDiv = document.createElement("div");
+    islandShowitDiv.classList.add("monsterShowitDiv");
+    monsterActs.appendChild(islandShowitDiv);
+
+        const islandImg = document.createElement("img");
+        islandImg.src = daAct.poster;
+        islandShowitDiv.appendChild(islandImg);
+
+        const islandName = document.createElement("p");
+        islandName.textContent = daAct.name;
+        islandShowitDiv.appendChild(islandName);
 }
 
 const monsterBio = document.getElementById("monsterBio");

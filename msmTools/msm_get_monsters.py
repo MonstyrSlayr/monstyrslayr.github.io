@@ -8,7 +8,7 @@ class BreakException(Exception):
 class SkipException(Exception):
     pass
 
-names, links, islands_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year, breeding_combos = [], [], [], [], [], [], [], [], [], [], [], [], []
+names, links, islands_lists, acts_lists, likes_lists, bios, first_discovered, tiles, inventory, beds, time_limit, level_available, release_year, breeding_combos = [], [], [], [], [], [], [], [], [], [], [], [], [], []
 
 url_starter = "https://mysingingmonsters.fandom.com"
 headers = {
@@ -107,11 +107,13 @@ try:
                                     monster_data = monster_resp.read()
                                     monster_soup = BeautifulSoup(monster_data, "html.parser")
 
-                                    # get islands
+                                    # get islands and acts
                                     island_string = ""
+                                    act_string = ""
 
                                     island_div = monster_soup.find("div", attrs = {"data-source": "island(s)"})
                                     if not island_div: raise SkipException
+                                    act_div = monster_soup.find("div", attrs = {"data-source": "act(s)"})
 
                                     names.append(monster_name)
                                     links.append(link)
@@ -123,6 +125,16 @@ try:
                                             island_string += island_link.text.strip() + "&"
                                     
                                     islands_lists.append(island_string)
+
+                                    if act_div:
+                                        act_links = act_div.find_all("a")
+
+                                        for act_link in act_links:
+                                            act_string += act_link.text.strip() + "&"
+                                        
+                                        acts_lists.append(act_string)
+                                    else:
+                                        acts_lists.append("")
 
                                     # get inventory and time limit
                                     inventory_div = monster_soup.find("div", attrs = {"data-source": "wublin inventory"})
@@ -290,6 +302,7 @@ except BreakException:
 df = pd.DataFrame({"name": names,
                     "link": links,
                     "islands": islands_lists,
+                    "acts": acts_lists,
                     "likes/polarity": likes_lists,
                     "bio": bios,
                     "size": tiles,
