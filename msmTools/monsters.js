@@ -905,5 +905,10 @@ export function getIslands()
 	return islands;
 }
 
+export function getActs()
+{
+	return acts;
+}
+
 // const allMonsters = await getMonsters();
 // console.log(allMonsters.filter((monster) => monster.rarity == RARITY.EPIC && monster.class == MCLASS.SUPERNATURAL));
