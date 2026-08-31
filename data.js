@@ -44,6 +44,7 @@ const badapple = new Filter(FILTERTYPE.DOMAIN, "Bad Apple");
 
 const youtube = new Filter(FILTERTYPE.WEBSITE, "YouTube");
 const github = new Filter(FILTERTYPE.WEBSITE, "GitHub");
+const extension = new Filter(FILTERTYPE.WEBSITE, "Extension");
 
 class Project
 {
@@ -296,7 +297,7 @@ const krisPronounsAreBadApple = new Project(
     "https://youtu.be/NjdIOGG_KZs",
     new Date("07/23/2026"),
     false,
-    [html, css, javascript, deltarune, github, youtube, badapple]
+    [html, css, javascript, deltarune, github, youtube, badapple, extension]
 );
 
 const snafApple = new Project(
@@ -319,6 +320,16 @@ const dipsweeper = new Project(
     [html, css, javascript, msm]
 );
 
+const myCoursesColorOrganization = new Project(
+    "MyCourses Color Organization",
+    "An extension for RIT students that allows them to color code their courses on MyCourses.",
+    HOME + "img/MCCO.png",
+    "https://github.com/MonstyrSlayr/myCoursesColorOrganization",
+    new Date("12/09/2024"),
+    false,
+    [rit, html, css, javascript, github, extension]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -330,7 +341,8 @@ export const programmingProjects =
     kairosProTierLists,
     artArchive,
     jugglingClubWebsite, juggleInWebsite,
-    krisPronounsAreBadApple, snafApple, dipsweeper
+    krisPronounsAreBadApple, snafApple, dipsweeper,
+    myCoursesColorOrganization
 ];
 
 export const artProjects =
