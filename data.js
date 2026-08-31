@@ -325,7 +325,7 @@ const myCoursesColorOrganization = new Project(
     "An extension for RIT students that allows them to color code their courses on MyCourses.",
     HOME + "img/MCCO.png",
     "https://github.com/MonstyrSlayr/myCoursesColorOrganization",
-    new Date("12/09/2024"),
+    new Date("08/30/2026"),
     false,
     [rit, html, css, javascript, github, extension]
 );
