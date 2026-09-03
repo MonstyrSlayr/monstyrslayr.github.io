@@ -26,6 +26,7 @@ const MCLASS = Object.freeze
 	SUPERNATURAL: "Supernatural",
 	SHUGAFAM: "Shugafam",
 	WERDO: "Werdo",
+	BBSQUAD: "bb$quad",
 	LEGENDARY: "Unknown Legendary",
 	CELESTIAL: "Celestial",
 	DIPSTER: "Dipster",
@@ -145,6 +146,8 @@ const islands =
 	new Island("Earth Island", "Earth", "https://monstyrslayr.github.io/msmTools/img/island/Earth.png"),
 
 	new Island("Shugabush Island", "Shugabush", "https://monstyrslayr.github.io/msmTools/img/island/Shugabush.png"),
+	new Island("bbli$zard Island", "bbli$zard", "https://monstyrslayr.github.io/msmTools/img/island/bbli$zard.png"),
+
 	new Island("The Colossingum", "Colossingum", "https://monstyrslayr.github.io/msmTools/img/island/Colossingum.png", false),
 	new Island("Gold Island", "Gold", "https://monstyrslayr.github.io/msmTools/img/island/Gold.png", false),
 
@@ -404,6 +407,10 @@ export async function getMonsters(isLocal = false)
 			{
 				monster.class = MCLASS.SHUGAFAM;
 			}
+			else if (monster.identifier == 9 || monster.identifier >= 23)
+			{
+				monster.class = MCLASS.BBSQUAD;
+			}
 			else
 			{
 				monster.class = MCLASS.LEGENDARY;
@@ -421,16 +428,16 @@ export async function getMonsters(isLocal = false)
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			if ([1, 5, 6, 7, 11, 12].includes(monster.identifier))
+			if ([1, 5, 6, 7, 11, 12, 13].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
 			if ([2, 5, 8, 9, 11, 12, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Hoax"));
 
-			if ([3, 6, 8, 11, 14].includes(monster.identifier))
+			if ([3, 6, 8, 11, 13, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if ([4, 7, 9, 12, 14].includes(monster.identifier))
+			if ([4, 7, 9, 12, 13, 14].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
