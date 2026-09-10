@@ -550,6 +550,8 @@ export async function getMonsters(isLocal = false)
 
 	const decorations = await getDecorations();
 
+	const removalQueue = [];
+
 	monsters.forEach((monster) =>
 	{
 		if (monster.class == MCLASS.ETHEREAL
@@ -603,246 +605,246 @@ export async function getMonsters(isLocal = false)
 		}
 		let monsterLine = dataResults.data.find((line) => monster.name.replace("Major ", "").replace("Minor ", "") == line.name);
 		
-		if (monsterLine)
+		if (!monsterLine) // complain and continue
 		{
-			monster.islands = islandStringsToSet(monsterLine.islands.split("&").slice(0, -1));
+			console.error("Monster line not found: " + monster.id);
+			removalQueue.push(monster);
+			return;
+		}
 
-			const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
-			monster.likes = new Set();
-			monster.breedingCombos = new Set();
-			monster.positive = null;
-			monster.negative = null;
+		monster.islands = islandStringsToSet(monsterLine.islands.split("&").slice(0, -1));
 
-			const wublinIsland = stringToIsland("Wublin");
+		const likesStringArr = monsterLine["likes/polarity"].split("&").slice(0, -1);
+		monster.likes = new Set();
+		monster.breedingCombos = new Set();
+		monster.positive = null;
+		monster.negative = null;
 
-			if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
+		const wublinIsland = stringToIsland("Wublin");
+
+		if (monster.islands.size == 1 && monster.islands.has(wublinIsland))
+		{
+			if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
+			if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
+		}
+		else
+		{
+			for (const likeString of likesStringArr)
 			{
-				if (likesStringArr[1] != "Unreleased") monster.positive = new Like(likesStringArr[1], wublinIsland);
-				if (likesStringArr[0] != "Unreleased") monster.negative = new Like(likesStringArr[0], wublinIsland);
-			}
-			else
-			{
-				for (const likeString of likesStringArr)
-				{
-					const daSplit = likeString.split(":");
-
-					if (daSplit)
-					{
-						const daLike = daSplit[1];
-
-						if (daLike != "Unreleased")
-						{
-							const islandName = daSplit[0];
-
-							if (islandName == "All")
-							{
-								for (const island of monster.islands)
-								{
-									if (island.hasLikes)
-									{
-										monster.likes.add(new Like(daLike, island));
-									}
-								}
-							}
-							else
-							{
-								monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
-							}
-						}
-					}
-				}
-			}
-
-			monster.acts = actNamesToSet(monsterLine.acts.split("&").slice(0, -1));
-
-			const breedingStringArr = monsterLine["breeding_combos"].split("&").slice(0, -1);
-			for (const breedingString of breedingStringArr)
-			{
-				const daSplit = breedingString.split(":");
+				const daSplit = likeString.split(":");
 
 				if (daSplit)
 				{
-					const daMonsters = daSplit[1].split("*");
-					const islandName = daSplit[0];
+					const daLike = daSplit[1];
 
-					if (islandName == "All")
+					if (daLike != "Unreleased")
 					{
-						for (const island of monster.islands)
+						const islandName = daSplit[0];
+
+						if (islandName == "All")
 						{
-							// who cares
-							monster.breedingCombos.add(new BreedingCombo(daMonsters, island));
+							for (const island of monster.islands)
+							{
+								if (island.hasLikes)
+								{
+									monster.likes.add(new Like(daLike, island));
+								}
+							}
 						}
-					}
-					else
-					{
-						monster.breedingCombos.add(new BreedingCombo(daMonsters, islandNameToIsland(islandName)));
-					}
-				}
-			}
-
-			// werdo clause
-			if (monster.elementString.startsWith("VOC"))
-			{
-				switch (monster.identifier)
-				{
-					case 1:
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_01-Memory.ogg";
-						break;
-						
-					case 2:
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_02-Memory.ogg";
-						break;
-						
-					case 3:
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/03-VOC_03-Memory.ogg";
-						break;
-						
-					case 4:
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/02-VOC_04-Memory.ogg";
-						break;
-						
-					case 5:
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/13-VOC_05-Memory.ogg";
-						break;
-				}
-			}
-			
-			// epic wubbox clause
-			if (monster.elementString.startsWith("f") && monster.rarity == RARITY.EPIC)
-			{
-				for (let island of monster.islands)
-				{
-					if (island != undefined)
-					{
-						if (island.codename.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
+						else
 						{
-							monster.islands = new Set();
-							monster.islands.add(stringToIsland(island.codename));
-
-							monster.likes = new Set([...monster.likes].filter(like => like.island == stringToIsland(island.codename)));
-
-							if (island.codename == "Haven" || island.codename == "Oasis")
-							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".ogg";
-							}
-							else if (island.codename == "Plant" || island.codename == "Gold")
-							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.ogg";
-							}
-							else if (island.codename == "Cold")
-							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.ogg"; // why bbb why
-							}
-							else
-							{
-								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".ogg";
-							}
-
-							if (island.codename == "Gold")
-							{
-								monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_f_epic_gold_plant.webp";
-							}
-
-							monster.name = monster.name + " (" + island.codename + ")";
-							monster.egg = "https://monstyrslayr.github.io/msmTools/webp/spore/spore_F_EPIC_" + monster.identifier.replace("epic_", "").toLowerCase() + ".webp";
-							break;
+							monster.likes.add(new Like(daLike, islandNameToIsland(islandName)));
 						}
 					}
 				}
 			}
+		}
 
-			// rare wubbox clause (thanks event)
-			if (monster.id.startsWith("f_rare"))
+		monster.acts = actNamesToSet(monsterLine.acts.split("&").slice(0, -1));
+
+		const breedingStringArr = monsterLine["breeding_combos"].split("&").slice(0, -1);
+		for (const breedingString of breedingStringArr)
+		{
+			const daSplit = breedingString.split(":");
+
+			if (daSplit)
 			{
-				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.ogg"; // WHY BBB WHY
-			}
+				const daMonsters = daSplit[1].split("*");
+				const islandName = daSplit[0];
 
-			monster.size = parseInt(monsterLine.size);
-			monster.beds = parseInt(monsterLine.beds);
-			monster.levelAvailable = parseInt(monsterLine.level_available);
-			monster.releaseYear = parseInt(monsterLine.release_year);
-			monster.firstDiscovered = monsterLine.first_discovered;
-			monster.timeLimit = monsterLine.time_limit;
-
-			// kayna clause
-			if (monster.id == "n" && monster.rarity == RARITY.COMMON)
-			{
-				monster.levelAvailable = 9;
-			}
-			
-			// paironormal clause
-			if (monster.elementString.startsWith("i"))
-			{
-				monster.rarity = monster.id.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
-
-				if (monster.identifier == 1)
+				if (islandName == "All")
 				{
-					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.ogg";
-
-					if (monster.rarity == RARITY.MINOR)
+					for (const island of monster.islands)
 					{
-						monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01_MIN-Memory.ogg";
+						// who cares
+						monster.breedingCombos.add(new BreedingCombo(daMonsters, island));
 					}
 				}
 				else
 				{
-					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + (monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN") + "-Memory.ogg").trim();
-				}
-
-				if (monster.elements.size == 1)
-				{
-					if (monster.rarity == RARITY.MAJOR)
-					{
-						monster.levelAvailable = 9;
-					}
-					else
-					{
-						monster.levelAvailable = 30;
-					}
-				}
-
-				if (monsterLine.first_discovered.includes("Major:"))
-				{
-					const firsties = monsterLine.first_discovered.split("&Minor: ");
-					if (monster.rarity == RARITY.MAJOR)
-					{
-						monster.firstDiscovered = firsties[0].replace("Major: ", "");
-					}
-					else
-					{
-						monster.firstDiscovered = firsties[1];
-					}
-				}
-
-				monster.egg = monster.egg.replace("_MAJ", "").replace("_MIN", "")
-			}
-
-			const inventoryStringArr = monsterLine.inventory.split("&").slice(0, -1);
-			monster.inventory = new Set();
-
-			for (const invString of inventoryStringArr)
-			{
-				const daSplit = invString.split(":");
-
-				if (daSplit)
-				{
-					const daMonster = daSplit[0];
-					const count = daSplit[1];
-
-					if (daMonster != "Flex")
-					{
-						monster.inventory.add(new InventoryEgg(daMonster, count))
-					}
+					monster.breedingCombos.add(new BreedingCombo(daMonsters, islandNameToIsland(islandName)));
 				}
 			}
-		
-			monster.bio = monsterLine.bio;
-			monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 		}
-		else // complain
+
+		// werdo clause
+		if (monster.elementString.startsWith("VOC"))
 		{
-			console.error("Monster line not found: " + monster.id)
+			switch (monster.identifier)
+			{
+				case 1:
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_01-Memory.ogg";
+					break;
+					
+				case 2:
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/01-VOC_02-Memory.ogg";
+					break;
+					
+				case 3:
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/03-VOC_03-Memory.ogg";
+					break;
+					
+				case 4:
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/02-VOC_04-Memory.ogg";
+					break;
+					
+				case 5:
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/13-VOC_05-Memory.ogg";
+					break;
+			}
 		}
+		
+		// epic wubbox clause
+		if (monster.elementString.startsWith("f") && monster.rarity == RARITY.EPIC)
+		{
+			for (let island of monster.islands)
+			{
+				if (island != undefined)
+				{
+					if (island.codename.toLowerCase() == monster.identifier.replace("epic_", "").replace("fire", "").toLowerCase())
+					{
+						monster.islands = new Set();
+						monster.islands.add(stringToIsland(island.codename));
+
+						monster.likes = new Set([...monster.likes].filter(like => like.island == stringToIsland(island.codename)));
+
+						if (island.codename == "Haven" || island.codename == "Oasis")
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".ogg";
+						}
+						else if (island.codename == "Plant" || island.codename == "Gold")
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.ogg";
+						}
+						else if (island.codename == "Cold")
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.ogg"; // why bbb why
+						}
+						else
+						{
+							monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".ogg";
+						}
+
+						if (island.codename == "Gold")
+						{
+							monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_f_epic_gold_plant.webp";
+						}
+
+						monster.name = monster.name + " (" + island.codename + ")";
+						monster.egg = "https://monstyrslayr.github.io/msmTools/webp/spore/spore_F_EPIC_" + monster.identifier.replace("epic_", "").toLowerCase() + ".webp";
+						break;
+					}
+				}
+			}
+		}
+
+		// rare wubbox clause (thanks event)
+		if (monster.id.startsWith("f_rare"))
+		{
+			monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.ogg"; // WHY BBB WHY
+		}
+
+		monster.size = parseInt(monsterLine.size);
+		monster.beds = parseInt(monsterLine.beds);
+		monster.levelAvailable = parseInt(monsterLine.level_available);
+		monster.releaseYear = parseInt(monsterLine.release_year);
+		monster.firstDiscovered = monsterLine.first_discovered;
+		monster.timeLimit = monsterLine.time_limit;
+
+		// kayna clause
+		if (monster.id == "n" && monster.rarity == RARITY.COMMON)
+		{
+			monster.levelAvailable = 9;
+		}
+		
+		// paironormal clause
+		if (monster.elementString.startsWith("i"))
+		{
+			monster.rarity = monster.id.endsWith("min") ? RARITY.MINOR : RARITY.MAJOR;
+
+			if (monster.identifier == 1)
+			{
+				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01-Memory.ogg";
+
+				if (monster.rarity == RARITY.MINOR)
+				{
+					monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/I01_MIN-Memory.ogg";
+				}
+			}
+			else
+			{
+				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/" + (monster.elementString.toUpperCase() + "_" + (monster.rarity == RARITY.MAJOR ? "MAJ" : "MIN") + "-Memory.ogg").trim();
+			}
+
+			if (monster.elements.size == 1)
+			{
+				if (monster.rarity == RARITY.MAJOR)
+				{
+					monster.levelAvailable = 9;
+				}
+				else
+				{
+					monster.levelAvailable = 30;
+				}
+			}
+
+			if (monsterLine.first_discovered.includes("Major:"))
+			{
+				const firsties = monsterLine.first_discovered.split("&Minor: ");
+				if (monster.rarity == RARITY.MAJOR)
+				{
+					monster.firstDiscovered = firsties[0].replace("Major: ", "");
+				}
+				else
+				{
+					monster.firstDiscovered = firsties[1];
+				}
+			}
+
+			monster.egg = monster.egg.replace("_MAJ", "").replace("_MIN", "")
+		}
+
+		const inventoryStringArr = monsterLine.inventory.split("&").slice(0, -1);
+		monster.inventory = new Set();
+
+		for (const invString of inventoryStringArr)
+		{
+			const daSplit = invString.split(":");
+
+			if (daSplit)
+			{
+				const daMonster = daSplit[0];
+				const count = daSplit[1];
+
+				if (daMonster != "Flex")
+				{
+					monster.inventory.add(new InventoryEgg(daMonster, count))
+				}
+			}
+		}
+	
+		monster.bio = monsterLine.bio;
+		monster.link = monsterLine.link.replace("mysingingmonsters.fandom.com/", "breezewiki.com/mysingingmonsters/");
 
 		// preloading
 		new Image().src = monster.square;
@@ -852,15 +854,17 @@ export async function getMonsters(isLocal = false)
 		// not audio, not enough resources
 	});
 
+	const existingMonsters = monsters.filter(mon => !removalQueue.includes(mon));
+
 	// likes and breeding
 	// can't go in the first loop because that's where they get their name
-	monsters.forEach((monster) =>
+	existingMonsters.forEach((monster) =>
 	{
 		if (monster.likes == undefined) return;
 
 		monster.likes.forEach((like) =>
 		{
-			like.obj = monsters.find(mon => mon.name == like.name);
+			like.obj = existingMonsters.find(mon => mon.name == like.name);
 
 			if (like.obj == null || like.obj == undefined) // is deco
 			{
@@ -884,12 +888,12 @@ export async function getMonsters(isLocal = false)
 		{
 			breedingCombo.monsterStrings.forEach((daString) =>
 			{
-				breedingCombo.monsters.add(monsters.find(mon => mon.name == daString));
+				breedingCombo.monsters.add(existingMonsters.find(mon => mon.name == daString));
 			});
 		});
 	});
 
-	return monsters;
+	return existingMonsters;
 }
 
 export function getRarities()
