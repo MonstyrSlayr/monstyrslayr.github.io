@@ -428,16 +428,16 @@ export async function getMonsters(isLocal = false)
 			monster.class = MCLASS.PAIRONORMAL;
 			monster.identifier = parseInt(monster.elementString.replace("i", ""));
 
-			if ([1, 5, 6, 7, 11, 12, 13].includes(monster.identifier))
+			if ([1, 5, 6, 7, 11, 12, 13, 15].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Control"));
 
-			if ([2, 5, 8, 9, 11, 12, 14].includes(monster.identifier))
+			if ([2, 5, 8, 9, 11, 12, 14, 15].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Hoax"));
 
-			if ([3, 6, 8, 11, 13, 14].includes(monster.identifier))
+			if ([3, 6, 8, 10, 11, 13, 14, 15].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Ruin"));
 
-			if ([4, 7, 9, 12, 13, 14].includes(monster.identifier))
+			if ([4, 7, 9, 10, 12, 13, 14, 15].includes(monster.identifier))
 				monster.elements.add(stringToElementSigil("Depths"));
 		}
 		else if (monster.elementString.startsWith("VOC"))
