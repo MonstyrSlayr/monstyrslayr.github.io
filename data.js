@@ -270,8 +270,8 @@ const kairosProTierLists = new Project(
     [html, css, javascript, brawlstars]
 );
 
-const jugglingClubWebsite = new Project(
-    "RIT Juggling Club Landing Page",
+const jugglingClubWebsite2526 = new Project(
+    "RIT Juggling Club Landing Page 2025-2026",
     "A website about RIT Juggling Club, hosted on Blogger",
     HOME + "img/jugglingClub.png",
     "https://ritjuggle.blogspot.com/2025/11/landing-page.html",
@@ -280,7 +280,7 @@ const jugglingClubWebsite = new Project(
     [html, css, javascript, juggling]
 );
 
-const juggleInWebsite = new Project(
+const juggleInWebsite26 = new Project(
     "46th Annual Spring Juggle-In Information Page",
     "A website containing information about RIT Juggling Club's 46th Annual Juggle-In, hosted on Blogger",
     HOME + "img/juggleIn.png",
@@ -330,6 +330,16 @@ const myCoursesColorOrganization = new Project(
     [rit, html, css, javascript, github, extension]
 );
 
+const jugglingClubWebsite2627 = new Project(
+    "RIT Juggling Club Landing Page 2026-2027",
+    "A website about RIT Juggling Club, hosted on Blogger",
+    HOME + "img/jugglingClub.png",
+    "https://ritjuggle.blogspot.com/2026/09/rit-juggling-club-2026-2027.html",
+    new Date("09/18/2026"),
+    false,
+    [html, css, javascript, juggling]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -340,7 +350,7 @@ export const programmingProjects =
     fullRadiation, deltaruneMotifs,
     kairosProTierLists,
     artArchive,
-    jugglingClubWebsite, juggleInWebsite,
+    jugglingClubWebsite2526, juggleInWebsite26, jugglingClubWebsite2627,
     krisPronounsAreBadApple, snafApple, dipsweeper,
     myCoursesColorOrganization
 ];
@@ -352,7 +362,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = snafApple;
+export const featuredProgrammingProject = jugglingClubWebsite2627;
 
 export const skillset =
 [
