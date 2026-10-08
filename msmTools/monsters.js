@@ -224,6 +224,7 @@ const acts =
 	new Act("BlitherPhish", "https://monstyrslayr.github.io/msmTools/img/act/BlitherPhish_Poster.webp"),
 	new Act("Waveform", "https://monstyrslayr.github.io/msmTools/img/act/Waveform_Poster.webp"),
 	new Act("LVX LVMENZ", "https://monstyrslayr.github.io/msmTools/img/act/LVX_LVMENZ_Poster.webp"),
+	new Act("Rapture in Ruins", "https://monstyrslayr.github.io/msmTools/img/act/Rapture_in_Ruins_Poster.webp"),
 ];
 
 function actNameToIsland(daStr)

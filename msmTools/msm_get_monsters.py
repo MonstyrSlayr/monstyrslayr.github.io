@@ -13,10 +13,10 @@ names, links, islands_lists, acts_lists, likes_lists, bios, first_discovered, ti
 url_starter = "https://mysingingmonsters.fandom.com"
 headers = {
     "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) "
-        "Gecko/20100101 Firefox/121.0"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) "
+        "Gecko/20100101 Firefox/157.0"
     ),
-    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Language": "en-US,en;q=0.9"
 }
 resp = None
 requested = False
