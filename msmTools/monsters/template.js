@@ -14,6 +14,19 @@ const daMonster = monsters.find(monster => monster.id == getLastFolder(window.lo
 const monsterName = document.getElementById("monsterName");
 monsterName.textContent = daMonster.name;
 
+function normalizeAndTrim(str)
+{
+    return str
+        .normalize("NFD")                  // decompose accented characters
+        .replace(/[\u0300-\u036f]/g, "")   // remove diacritical marks
+        .replace("$", "s")        // replace $ with s
+        .replace(/[^a-z0-9]/gi, "")        // remove non alphanumeric characters
+        .toLowerCase();                    // take a wild guess
+}
+
+const normalName = document.getElementById("normalName");
+normalName.textContent = normalizeAndTrim(daMonster.name);
+
 const monsterId = document.getElementById("monsterId");
 monsterId.textContent = daMonster.id;
 

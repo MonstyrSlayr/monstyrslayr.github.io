@@ -44,6 +44,7 @@ const badapple = new Filter(FILTERTYPE.DOMAIN, "Bad Apple");
 
 const youtube = new Filter(FILTERTYPE.WEBSITE, "YouTube");
 const github = new Filter(FILTERTYPE.WEBSITE, "GitHub");
+const extension = new Filter(FILTERTYPE.WEBSITE, "Extension");
 
 class Project
 {
@@ -269,8 +270,8 @@ const kairosProTierLists = new Project(
     [html, css, javascript, brawlstars]
 );
 
-const jugglingClubWebsite = new Project(
-    "RIT Juggling Club Landing Page",
+const jugglingClubWebsite2526 = new Project(
+    "RIT Juggling Club Landing Page 2025-2026",
     "A website about RIT Juggling Club, hosted on Blogger",
     HOME + "img/jugglingClub.png",
     "https://ritjuggle.blogspot.com/2025/11/landing-page.html",
@@ -279,7 +280,7 @@ const jugglingClubWebsite = new Project(
     [html, css, javascript, juggling]
 );
 
-const juggleInWebsite = new Project(
+const juggleInWebsite26 = new Project(
     "46th Annual Spring Juggle-In Information Page",
     "A website containing information about RIT Juggling Club's 46th Annual Juggle-In, hosted on Blogger",
     HOME + "img/juggleIn.png",
@@ -296,7 +297,7 @@ const krisPronounsAreBadApple = new Project(
     "https://youtu.be/NjdIOGG_KZs",
     new Date("07/23/2026"),
     false,
-    [html, css, javascript, deltarune, github, youtube, badapple]
+    [html, css, javascript, deltarune, github, youtube, badapple, extension]
 );
 
 const snafApple = new Project(
@@ -319,6 +320,26 @@ const dipsweeper = new Project(
     [html, css, javascript, msm]
 );
 
+const myCoursesColorOrganization = new Project(
+    "MyCourses Color Organization",
+    "An extension for RIT students that allows them to color code their courses on MyCourses.",
+    HOME + "img/MCCO.png",
+    "https://github.com/MonstyrSlayr/myCoursesColorOrganization",
+    new Date("08/30/2026"),
+    false,
+    [rit, html, css, javascript, github, extension]
+);
+
+const jugglingClubWebsite2627 = new Project(
+    "RIT Juggling Club Landing Page 2026-2027",
+    "A website about RIT Juggling Club, hosted on Blogger",
+    HOME + "img/jugglingClub.png",
+    "https://ritjuggle.blogspot.com/2026/09/rit-juggling-club-2026-2027.html",
+    new Date("09/18/2026"),
+    false,
+    [html, css, javascript, juggling]
+);
+
 export const programmingProjects =
 [
     bicolage, boxPush, magonet,
@@ -329,8 +350,9 @@ export const programmingProjects =
     fullRadiation, deltaruneMotifs,
     kairosProTierLists,
     artArchive,
-    jugglingClubWebsite, juggleInWebsite,
-    krisPronounsAreBadApple, snafApple, dipsweeper
+    jugglingClubWebsite2526, juggleInWebsite26, jugglingClubWebsite2627,
+    krisPronounsAreBadApple, snafApple, dipsweeper,
+    myCoursesColorOrganization
 ];
 
 export const artProjects =
@@ -340,7 +362,7 @@ export const artProjects =
     artArchive
 ];
 
-export const featuredProgrammingProject = snafApple;
+export const featuredProgrammingProject = jugglingClubWebsite2627;
 
 export const skillset =
 [

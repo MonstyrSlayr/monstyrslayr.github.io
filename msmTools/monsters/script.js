@@ -1,4 +1,4 @@
-import { getMonsters } from "../monsters.js"
+import { getMonsters } from "../monsters.js";
 
 const monsters = await getMonsters(true);
 
