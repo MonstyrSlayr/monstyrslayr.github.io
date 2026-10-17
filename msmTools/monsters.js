@@ -673,6 +673,13 @@ export async function getMonsters(isLocal = false)
 				}
 			}
 
+			monster.size = parseInt(monsterLine.size);
+			monster.beds = parseInt(monsterLine.beds);
+			monster.levelAvailable = parseInt(monsterLine.level_available);
+			monster.releaseYear = parseInt(monsterLine.release_year);
+			monster.firstDiscovered = monsterLine.first_discovered;
+			monster.timeLimit = monsterLine.time_limit;
+
 			// werdo clause
 			if (monster.elementString.startsWith("VOC"))
 			{
@@ -714,6 +721,40 @@ export async function getMonsters(isLocal = false)
 
 							monster.likes = new Set([...monster.likes].filter(like => like.island == stringToIsland(island.codename)));
 
+							switch (island.codename)
+							{
+								case "Plant":
+									monster.releaseYear = 2021;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.ogg";
+									break;
+								
+								case "Cold":
+									monster.releaseYear = 2021;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F-Memory_EPIC_Cold.ogg"; // why bbb why
+									break;
+
+								case "Air": case "Water": case "Earth":
+									monster.releaseYear = 2022;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".ogg";
+									break;
+								
+								case "Gold":
+									monster.releaseYear = 2023;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory.ogg";
+									monster.square = "https://monstyrslayr.github.io/msmTools/webp/square/monster_portrait_square_f_epic_gold_plant.webp";
+									break;
+
+								case "Haven": case "Oasis":
+									monster.releaseYear = 2024;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".ogg";
+									break;
+								
+								case "Ethereal":
+									monster.releaseYear = 2025;
+									monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_" + island.codename + ".ogg";
+									break;
+							}
+
 							if (island.codename == "Haven" || island.codename == "Oasis")
 							{
 								monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/F_EPIC-Memory_Fire" + island.codename + ".ogg";
@@ -749,13 +790,6 @@ export async function getMonsters(isLocal = false)
 			{
 				monster.memory = "https://monstyrslayr.github.io/msmTools/audio/memory/O-Memory.ogg"; // WHY BBB WHY
 			}
-
-			monster.size = parseInt(monsterLine.size);
-			monster.beds = parseInt(monsterLine.beds);
-			monster.levelAvailable = parseInt(monsterLine.level_available);
-			monster.releaseYear = parseInt(monsterLine.release_year);
-			monster.firstDiscovered = monsterLine.first_discovered;
-			monster.timeLimit = monsterLine.time_limit;
 
 			// kayna clause
 			if (monster.id == "n" && monster.rarity == RARITY.COMMON)
@@ -807,7 +841,13 @@ export async function getMonsters(isLocal = false)
 					}
 				}
 
-				monster.egg = monster.egg.replace("_MAJ", "").replace("_MIN", "")
+				monster.egg = monster.egg.replace("_MAJ", "").replace("_MIN", "");
+			}
+
+			// minor the inflatterer clause
+			if (monster.id == "i09_min")
+			{
+				monster.acts = new Set();
 			}
 
 			const inventoryStringArr = monsterLine.inventory.split("&").slice(0, -1);
@@ -834,7 +874,7 @@ export async function getMonsters(isLocal = false)
 		}
 		else // complain
 		{
-			console.error("Monster line not found: " + monster.id)
+			console.error("Monster line not found: " + monster.id);
 		}
 
 		// preloading
