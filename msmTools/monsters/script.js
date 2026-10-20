@@ -28,6 +28,6 @@ for (const monster of monsters)
 
             const daMonsterName = document.createElement("h3");
             daMonsterName.classList.add("monsterDivName");
-            daMonsterName.textContent = monster.name;
+            daMonsterName.textContent = monster.name + " (" + monster.id + ")";
             daMonsterRight.appendChild(daMonsterName);
 }
