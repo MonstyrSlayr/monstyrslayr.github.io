@@ -220,6 +220,16 @@ const ameliorateSaga = new Project(
     [youtube]
 );
 
+const eMinor175Bpm = new Project(
+    "e minor 175 bpm",
+    "I gave myself the challenge of animating a 9 monster island over the course of two weeks.",
+    HOME + "img/eMinor175Bpm.webp",
+    "https://youtu.be/_I13kDQjU38",
+    new Date("06/17/2026"),
+    false,
+    [youtube]
+);
+
 const artArchive = new Project(
     "General Art Archive",
     "I'm trying a new way to share my general / uncategorized artwork.",
@@ -359,7 +369,8 @@ export const artProjects =
 [
     blackCatSaga,
     ameliorateSaga,
-    artArchive
+    artArchive,
+    eMinor175Bpm
 ];
 
 export const featuredProgrammingProject = jugglingClubWebsite2627;
